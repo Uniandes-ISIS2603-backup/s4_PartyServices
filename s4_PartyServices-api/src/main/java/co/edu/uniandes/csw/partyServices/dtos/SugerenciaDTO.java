@@ -5,7 +5,7 @@
  */
 package co.edu.uniandes.csw.partyServices.dtos;
 
-import co.edu.uniandes.csw.partyServices.entities.SugerenciaEntity;
+//import co.edu.uniandes.csw.partyServices.entities.SugerenciaEntity;
 import java.io.Serializable;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -49,12 +49,12 @@ public class SugerenciaDTO implements Serializable{
      *
      * @param sugerenciaEntity: Es la entidad que se va a convertir a DTO
      */
-    public SugerenciaDTO(SugerenciaEntity sugerenciaEntity) {
+    /*public SugerenciaDTO(SugerenciaEntity sugerenciaEntity) {
         if (sugerenciaEntity != null) {
             this.id = sugerenciaEntity.getId();
             this.comentario = sugerenciaEntity.getComentario();
         }
-    }
+    }*/
     
     /**
      * Devuelve el ID de la sugerencia.
@@ -97,12 +97,12 @@ public class SugerenciaDTO implements Serializable{
      *
      * @return Un Entity con los valores del DTO
      */
-    public SugerenciaEntity toEntity() {
+    /*public SugerenciaEntity toEntity() {
         SugerenciaEntity sugerenciaEntity = new SugerenciaEntity();
         sugerenciaEntity.setId(this.id);
         sugerenciaEntity.setComentario(this.comentario);
         return sugerenciaEntity;
-    }
+    }*/
     
     @Override
     public String toString() {

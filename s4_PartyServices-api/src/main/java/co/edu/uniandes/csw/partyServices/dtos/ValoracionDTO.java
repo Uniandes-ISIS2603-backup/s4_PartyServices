@@ -5,7 +5,7 @@
  */
 package co.edu.uniandes.csw.partyServices.dtos;
 
-import co.edu.uniandes.csw.partyServices.entities.ValoracionEntity;
+//import co.edu.uniandes.csw.partyServices.entities.ValoracionEntity;
 import java.io.Serializable;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -52,13 +52,13 @@ public class ValoracionDTO implements Serializable{
      *
      * @param valoracionEntity: Es la entidad que se va a convertir a DTO
      */
-    public ValoracionDTO(ValoracionEntity valoracionEntity) {
+    /*public ValoracionDTO(ValoracionEntity valoracionEntity) {
         if (valoracionEntity != null) {
             this.id = valoracionEntity.getId();
             this.puntaje = valoracionEntity.getPuntaje();
             this.comentario = valoracionEntity.getComentario();
         }
-    }
+    }*/
     
     /**
      * Devuelve el ID de la valoracion.
@@ -119,13 +119,13 @@ public class ValoracionDTO implements Serializable{
      *
      * @return Un Entity con los valores del DTO
      */
-    public ValoracionEntity toEntity() {
+   /* public ValoracionEntity toEntity() {
         ValoracionEntity valoracionEntity = new ValoracionEntity();
         valoracionEntity.setId(this.id);
         valoracionEntity.setPuntaje(this.puntaje);
         valoracionEntity.setComentario(this.comentario);
         return valoracionEntity;
-    }
+    }*/
     
     @Override
     public String toString() {
