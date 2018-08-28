@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.partyServices.resources;
 
 import co.edu.uniandes.csw.partyServices.dtos.AgendaDTO;
+import javax.ws.rs.GET;
 
 /**
  *

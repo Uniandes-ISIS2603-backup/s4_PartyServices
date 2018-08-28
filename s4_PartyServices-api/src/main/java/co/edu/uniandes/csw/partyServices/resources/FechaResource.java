@@ -5,6 +5,9 @@
  */
 package co.edu.uniandes.csw.partyServices.resources;
 
+import co.edu.uniandes.csw.partyServices.dtos.FechaDTO;
+import javax.ws.rs.GET;
+
 /**
  *
  * @author estudiante
