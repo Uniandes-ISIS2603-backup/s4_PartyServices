@@ -28,13 +28,13 @@ public class FechaDTO implements Serializable{
     {
         return jornada;
     }
-    public void setDia(String pDia)
+    public void setDia(String dia)
     {
-        this.dia=pDia;
+        this.dia=dia;
     }
-    public void setJornada(String pJornada)
+    public void setJornada(String jornada)
     {
-        this.jornada=pJornada;
+        this.jornada=jornada;
     }
     @Override
     public String toString() 

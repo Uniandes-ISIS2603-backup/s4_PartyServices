@@ -29,13 +29,13 @@ public class AgendaDTO implements Serializable{
     {
         return fechaPenitencia;
     }
-    public void setFechasNoDisponibles(String pFechasNoDisponibles)
+    public void setFechasNoDisponibles(String fechasNoDisponibles)
     {
-        this.fechasNoDisponibles=pFechasNoDisponibles;
+        this.fechasNoDisponibles=fechasNoDisponibles;
     }
-    public void setFechaPenitencia(String pFechaPenitencia)
+    public void setFechaPenitencia(String fechaPenitencia)
     {
-        this.fechaPenitencia=pFechaPenitencia;
+        this.fechaPenitencia=fechaPenitencia;
     }
     @Override
     public String toString() 
