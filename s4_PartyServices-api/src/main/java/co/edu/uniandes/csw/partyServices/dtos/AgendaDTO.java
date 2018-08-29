@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.partyServices.dtos;
 
+import java.io.Serializable;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -12,25 +13,25 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *
  * @author n.hernandezs
  */
-public class AgendaDTO {
-    private String diasNoHabiles;
+public class AgendaDTO implements Serializable{
+    private String fechasNoDisponibles;
     private String fechaPenitencia;
     
     public AgendaDTO()
     {
         
     }
-    public String getDiasNoHabiles()
+    public String getFechasNoDisponibles()
     {
-        return diasNoHabiles;
+        return fechasNoDisponibles;
     }
     public String getFechaPenitencia()
     {
         return fechaPenitencia;
     }
-    public void setDiasNoHabiles(String pDiasNoHabliles)
+    public void setFechasNoDisponibles(String pFechasNoDisponibles)
     {
-        this.diasNoHabiles=pDiasNoHabliles;
+        this.fechasNoDisponibles=pFechasNoDisponibles;
     }
     public void setFechaPenitencia(String pFechaPenitencia)
     {
