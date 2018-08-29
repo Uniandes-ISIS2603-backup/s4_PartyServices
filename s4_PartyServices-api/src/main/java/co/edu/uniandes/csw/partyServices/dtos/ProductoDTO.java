@@ -71,10 +71,7 @@ public class ProductoDTO implements Serializable
         this.cantidad = pCantidad ;
     }
     
-    
-    
    
-    
     
       @Override
     public String toString() {
