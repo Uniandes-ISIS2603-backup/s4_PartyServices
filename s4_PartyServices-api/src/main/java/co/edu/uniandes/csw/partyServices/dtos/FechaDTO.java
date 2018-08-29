@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.partyServices.dtos;
 
+import java.io.Serializable;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -12,18 +13,28 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *
  * @author n.hernandezs
  */
-public class FechaDTO {
+public class FechaDTO implements Serializable{
     private String dia;
+    private String jornada;
     public FechaDTO()
     {
         
     }
-    public String getDia(){
+    public String getDia()
+    {
         return dia;
     }
-    public void setDia(String pDia)
+    public String getJornada()
     {
-        this.dia=pDia;
+        return jornada;
+    }
+    public void setDia(String dia)
+    {
+        this.dia=dia;
+    }
+    public void setJornada(String jornada)
+    {
+        this.jornada=jornada;
     }
     @Override
     public String toString() 
