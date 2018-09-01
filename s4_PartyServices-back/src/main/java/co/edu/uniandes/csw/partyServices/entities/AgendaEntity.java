@@ -40,11 +40,11 @@ public class AgendaEntity implements Serializable {
      * Formato: L-M-D:JORNDADA
      */
     private String fechasNoDisponibles;
-    
     @OneToMany(
             mappedBy="agenda",
             fetch= FetchType.LAZY
     )
+    
     Collection<FechaEntity> fechasOcupadas;
     
     public Long getId() 
@@ -62,22 +62,25 @@ public class AgendaEntity implements Serializable {
         return fechaPenitencia;
     }
     
-    public String getFechasNoDisponibles(){
-        return fechasNoDisponibles;
-    }
-    
     public void setFechaPenitencia(String fechaPenitencia)
     {
         this.fechaPenitencia=fechaPenitencia;
     }
+    
+    public String getFechasNoDisponibles(){
+        return fechasNoDisponibles;
+    }
+    
     public void setFechasNoDisponibles(String fechasNoDisponibles)
     {
         this.fechasNoDisponibles=fechasNoDisponibles;
     }
+    
     public Collection<FechaEntity> getFechasOcupadas()
     {
         return fechasOcupadas;
     }
+    
     public void setFechasOcupadas(Collection<FechaEntity> fechasOcupadas)
     {
         this.fechasOcupadas=fechasOcupadas;
