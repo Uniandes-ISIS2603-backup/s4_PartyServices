@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.partyServices.entities;
 
 import java.io.Serializable;
 import java.util.Collection;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -42,6 +43,7 @@ public class AgendaEntity implements Serializable {
     private String fechasNoDisponibles;
     @OneToMany(
             mappedBy="agenda",
+            cascade = CascadeType.ALL,
             fetch= FetchType.LAZY
     )
     
