@@ -64,8 +64,8 @@ public class SugerenciaResource {
      */
     @PUT
     @Path("{sugerenciasId: \\d+}")
-    public SugerenciaDTO modificarSugerencia(@PathParam("sugerenciasId") Long sugerenciasId, SugerenciaDTO nuevaSugerencia){
-        return nuevaSugerencia;
+    public SugerenciaDTO modificarSugerencia(@PathParam("sugerenciasId") Long sugerenciasId, SugerenciaDTO sugerencia){
+        return sugerencia;
     }
     
     /**
