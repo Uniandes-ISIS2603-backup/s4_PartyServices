@@ -5,7 +5,7 @@
  */
 package co.edu.uniandes.csw.partyServices.resources;
 
-import co.edu.uniandes.csw.partyServices.dtos.ProductoDTO;
+import co.edu.uniandes.csw.partyServices.dtos.EventoDTO;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -15,7 +15,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-@Path ("producto")
+@Path ("evento")
 @Produces ("application/json")
 @Consumes ("application/json")
 @RequestScoped
@@ -23,33 +23,36 @@ import javax.ws.rs.Produces;
  *
  * @author estudiante
  */
-public class ProductoResource 
-{
+public class EventoResource {
     
-     @GET
-     @Path("{producto: [a-zA-Z][a-zA-Z]*}")
-    public ProductoDTO consultarProducto(@PathParam("producto")String producto)
-    {
-        return new ProductoDTO();
+    /*
+    Método vacío para pruebas en postman
+    */
+    @GET
+    @Path("{evento: [a-zA-Z][a-zA-Z]*}")
+    public EventoDTO consultarEvento(@PathParam("evento")String evento ){
+        return new EventoDTO();
     }
-    @POST
-    public ProductoDTO crearProducto(ProductoDTO pProducto)
+      @POST
+    public EventoDTO crearEvento( EventoDTO pEvento)
     {
-        return pProducto ;
+        return pEvento ;
     }
     
       @DELETE
-      @Path("{producto: [a-zA-Z][a-zA-Z]*}")
-    public void borrarProducto(@PathParam("producto")String producto)
+      @Path("{evento: [a-zA-Z][a-zA-Z]*}")
+    public void borrarEvento(@PathParam("evento")String evento)
     {
         
     }
     
     @PUT
-    @Path("{producto: [a-zA-Z][a-zA-Z]*}")
-    public ProductoDTO actualizarProducto(@PathParam("producto")String producto, ProductoDTO pProducto)
+     @Path("{evento: [a-zA-Z][a-zA-Z]*}")
+    public EventoDTO actualizarEvento(@PathParam("evento")String evento ,EventoDTO pEvento)
     {
-        return pProducto ;
+        return pEvento ;
     }
+    
+    
     
 }
