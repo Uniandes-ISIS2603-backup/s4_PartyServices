@@ -8,7 +8,10 @@ package co.edu.uniandes.csw.partyServices.entities;
 import java.util.Collection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 /**
@@ -18,9 +21,28 @@ import javax.persistence.OneToMany;
 @Entity
 public class FechaEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    
     private Long id;
     
+    @ManyToOne()
     private AgendaEntity agenda;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public AgendaEntity getAgenda() {
+        return agenda;
+    }
+
+    public void setAgenda(AgendaEntity agenda) {
+        this.agenda = agenda;
+    }
     
     private String dia;
     
@@ -52,5 +74,10 @@ public class FechaEntity {
     {
         return eventos;
     }
+    public void setEventos(Collection<EventoEntity> eventos)
+    {
+        this.eventos=eventos;
+    }
+    
     
 }

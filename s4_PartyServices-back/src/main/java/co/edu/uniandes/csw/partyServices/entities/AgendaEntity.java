@@ -28,7 +28,7 @@ public class AgendaEntity implements Serializable {
      * DD:MM:AAAA
      */
     private String fechaPenitencia;
-    
+
     /**
      * L-lunes
      * M-martes
@@ -45,7 +45,17 @@ public class AgendaEntity implements Serializable {
             mappedBy="agenda",
             fetch= FetchType.LAZY
     )
-    Collection<FechaEntity> fechasOcpadas;
+    Collection<FechaEntity> fechasOcupadas;
+    
+    public Long getId() 
+    {
+        return id;
+    }
+
+    public void setId(Long id) 
+    {
+        this.id = id;
+    }
     
     public String getFechaPenitencia()
     {
@@ -66,7 +76,11 @@ public class AgendaEntity implements Serializable {
     }
     public Collection<FechaEntity> getFechasOcupadas()
     {
-        return fechasOcpadas;
+        return fechasOcupadas;
+    }
+    public void setFechasOcupadas(Collection<FechaEntity> fechasOcupadas)
+    {
+        this.fechasOcupadas=fechasOcupadas;
     }
     
 }
