@@ -27,6 +27,17 @@ public class FechaEntity {
     
     @ManyToOne()
     private AgendaEntity agenda;
+    
+    private String dia;
+    
+    private String jornada;
+    
+    @OneToMany(
+            mappedBy="fecha",
+            fetch= FetchType.LAZY
+    )
+    Collection<EventoEntity> eventos;
+  
 
     public Long getId() {
         return id;
@@ -43,17 +54,7 @@ public class FechaEntity {
     public void setAgenda(AgendaEntity agenda) {
         this.agenda = agenda;
     }
-    
-    private String dia;
-    
-    private String jornada;
-    
-    @OneToMany(
-            mappedBy="fecha",
-            fetch= FetchType.LAZY
-    )
-    Collection<EventoEntity> eventos;
-    
+      
     public String getDia()
     {
         return dia;
