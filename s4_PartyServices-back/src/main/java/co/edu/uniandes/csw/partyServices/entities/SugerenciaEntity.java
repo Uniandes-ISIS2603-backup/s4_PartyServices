@@ -6,15 +6,28 @@
 package co.edu.uniandes.csw.partyServices.entities;
 
 import java.io.Serializable;
+import javax.persistence.Entity;
 
 /**
  *
  * @author Jesús Orlando Cárcamo Posada
  */
+@Entity
 public class SugerenciaEntity extends BaseEntity implements Serializable {
 
+    
     private String comentario;
+    
+    /*@javax.persistence.ManyToOne
+    private ClienteEntity cliente;*/
+    
+    /*@javax.persistence.ManyToOne
+    private TematicaEntity tematica;*/
 
+    public SugerenciaEntity(){
+        
+    }
+    
     /**
      * Devuelve el comentario de la sugerencia.
      *
