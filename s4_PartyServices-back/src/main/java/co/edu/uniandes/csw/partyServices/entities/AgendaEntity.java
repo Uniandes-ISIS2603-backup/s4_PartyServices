@@ -14,13 +14,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
  * @author estudiante
  */
 @Entity
-public class AgendaEntity implements Serializable {
+public class AgendaEntity extends BaseEntity implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -41,9 +42,11 @@ public class AgendaEntity implements Serializable {
      * Formato: L-M-D:JORNDADA
      */
     private String fechasNoDisponibles;
+    @PodamExclude
     @OneToMany(
             mappedBy="agenda",
             cascade = CascadeType.ALL,
+            //Terminan en many son lazy. Eger terminan en One
             fetch= FetchType.LAZY
     )
     
