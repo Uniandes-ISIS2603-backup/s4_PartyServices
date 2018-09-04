@@ -10,19 +10,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.ManyToOne;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
  * @author estudiante
  */
 @Entity
-public class ProductoEntity implements Serializable
+public class ProductoEntity extends BaseEntity implements Serializable
 {
     private final static long serialVersionUID = 1L ;
-    
-    @javax.persistence.Id 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id ;
+   
     
     private String nombre ;
     
@@ -30,21 +28,17 @@ public class ProductoEntity implements Serializable
     
     private String dueño ;
     
+    @ManyToOne
+    private ProveedorEntity proveedor ;
+    
     private int costo ;
     
     private int cantidad  ;
 
+    @PodamExclude
     @ManyToOne()
     EventoEntity evento ;
     
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getNombre() {
         return nombre;
     }
