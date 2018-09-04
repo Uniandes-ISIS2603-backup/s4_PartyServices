@@ -122,7 +122,7 @@ public class NotificacionPersistenceTest {
      *
      */
     @Test
-    public void createEditorialTest() {
+    public void createNotificacionTest() {
         PodamFactory factory = new PodamFactoryImpl();
         NotificacionEntity newEntity = factory.manufacturePojo(NotificacionEntity.class);
         NotificacionEntity result = notificacionPersistence.create(newEntity);
@@ -140,7 +140,7 @@ public class NotificacionPersistenceTest {
      *
      */
     @Test
-    public void deleteEditorialTest() {
+    public void deleteNotificacionTest() {
         NotificacionEntity entity = data.get(0);
         notificacionPersistence.delete(entity.getId());
         NotificacionEntity deleted = em.find(NotificacionEntity.class, entity.getId());
@@ -153,7 +153,7 @@ public class NotificacionPersistenceTest {
      *
      */
     @Test
-    public void FindEditorialByNameTest() {
+    public void FindNotificacionByNameTest() {
         NotificacionEntity entity = data.get(0);
         NotificacionEntity newEntity = notificacionPersistence.findByName(entity.getId());
         Assert.assertNotNull(newEntity);

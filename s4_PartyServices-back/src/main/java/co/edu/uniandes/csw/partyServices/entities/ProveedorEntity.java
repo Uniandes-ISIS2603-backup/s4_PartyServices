@@ -27,6 +27,8 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
     AgendaEntity agenda;
     private String nombre;
     private String contrasenia;
+    @ManyToOne
+    public ServicioEntity servicio;
     @OneToMany(mappedBy="proveedor",
             fetch= FetchType.LAZY)
     Collection<ProductoEntity> catalogoProductos;
@@ -35,6 +37,8 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
     public String getNombre() {
         return nombre;
     }
+   
+    
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
