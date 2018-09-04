@@ -11,6 +11,7 @@ import org.glassfish.internal.deployment.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -113,6 +114,11 @@ public class AgendaPersistenceTest {
     @Test
     public void crearAgendaTest(){
         PodamFactory factory = new PodamFactoryImpl();
+        AgendaEntity agendaEntity = factory.manufacturePojo(AgendaEntity.class);
+        AgendaEntity resultado = agendaPersistence.create(agendaEntity);
+        Assert.assertNotNull( resultado);
+        AgendaEntity agendaEntityEncontrada= em.find(AgendaEntity.class,resultado.getId());
+        Assert.assertEquals(agendaEntity.getProveedor(), agendaEntityEncontrada.getProveedor());
     }
 
 }
