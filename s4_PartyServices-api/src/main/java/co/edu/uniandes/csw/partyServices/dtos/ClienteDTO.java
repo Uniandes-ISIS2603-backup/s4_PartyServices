@@ -36,8 +36,7 @@ public class ClienteDTO implements Serializable{
     
     private Long id;
     private String usuario;
-
-    
+    private String contrasenia;
     /**
      * Constructor por defecto
      */
@@ -66,6 +65,16 @@ public class ClienteDTO implements Serializable{
         return id;
     }
     
+    public String getContrasenia()
+{
+    return contrasenia ;
+}
+    
+    public void setContrasenia(String pContra)
+{
+    this.contrasenia = pContra;
+}
+    
     /**
      * Modifica el ID del cliente.
      *
@@ -89,7 +98,7 @@ public class ClienteDTO implements Serializable{
      *
      * @param user nick
      */
-    public void setComentario(String user) {
+    public void setUsuario(String user) {
         this.usuario = user;
     }
     
