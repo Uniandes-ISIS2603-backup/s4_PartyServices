@@ -123,7 +123,7 @@ public class ProveedorPersistenceTest {
      *
      */
     @Test
-    public void createEditorialTest() {
+    public void createProveedorTest() {
         PodamFactory factory = new PodamFactoryImpl();
         ProveedorEntity newEntity = factory.manufacturePojo(ProveedorEntity.class);
         ProveedorEntity result = proveedorPersistence.create(newEntity);
@@ -141,7 +141,7 @@ public class ProveedorPersistenceTest {
      *
      */
     @Test
-    public void deleteEditorialTest() {
+    public void deleteProveedorTest() {
         ProveedorEntity entity = data.get(0);
         proveedorPersistence.delete(entity.getId());
         ProveedorEntity deleted = em.find(ProveedorEntity.class, entity.getId());
@@ -154,7 +154,7 @@ public class ProveedorPersistenceTest {
      *
      */
     @Test
-    public void FindEditorialByNameTest() {
+    public void FindProveedorByNameTest() {
         ProveedorEntity entity = data.get(0);
         ProveedorEntity newEntity = proveedorPersistence.findByName(entity.getNombre());
         Assert.assertNotNull(newEntity);
