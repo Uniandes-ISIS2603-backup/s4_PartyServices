@@ -18,22 +18,12 @@ import javax.persistence.OneToMany;
  * @author estudiante
  */
 @Entity
-public class NotificacionEntity implements Serializable{
+public class NotificacionEntity extends BaseEntity implements Serializable{
     private final static long serialVersionUID = 1L ;
     
-    @javax.persistence.Id 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id ;
+
     private String tipoDeAviso;
     private String mensaje;
-    
-        public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getTipoDeAviso(){
         return tipoDeAviso;
