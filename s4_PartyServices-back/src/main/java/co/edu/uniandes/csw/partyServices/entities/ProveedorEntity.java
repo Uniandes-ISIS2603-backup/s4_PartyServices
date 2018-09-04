@@ -19,28 +19,18 @@ import javax.persistence.OneToMany;
  * @author estudiante
  */
 @Entity
-public class ProveedorEntity implements Serializable{
+public class ProveedorEntity extends BaseEntity implements Serializable{
     private final static long serialVersionUID = 1L ;
-    
-    @javax.persistence.Id 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id ;
-    @OneToOne(
-    mappedBy="proveedor"
-    )
+   
+    @OneToOne(mappedBy="proveedor",
+            fetch= FetchType.EAGER)
     AgendaEntity agenda;
     private String nombre;
     private String contrasenia;
-    @OneToMany
+    @OneToMany(mappedBy="proveedor",
+            fetch= FetchType.LAZY)
     Collection<ProductoEntity> catalogoProductos;
-    
-        public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
+   
 
     public String getNombre() {
         return nombre;
