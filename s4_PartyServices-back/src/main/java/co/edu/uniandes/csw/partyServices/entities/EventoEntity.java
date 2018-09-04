@@ -12,16 +12,18 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import uk.co.jemos.podam.common.PodamExclude;
+
 
 /**
  *
  * @author estudiante
  */
 @Entity
-public class EventoEntity implements Serializable
+public class EventoEntity  extends BaseEntity implements Serializable
 {
-    @Id
-    private long Id ;
+   
+    private String nombre ;
     
     private String estado ;
     
@@ -31,20 +33,21 @@ public class EventoEntity implements Serializable
     private long latitud ;
     
     private long longitud ;
-    
+    @PodamExclude
     @OneToMany(
     mappedBy = "evento" ,
     fetch = FetchType.LAZY
     )
     Collection<ProductoEntity> productos ;
 
-    public long getId() {
-        return Id;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setId(long Id) {
-        this.Id = Id;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
+    
     
     public String getEstado() {
         return estado;

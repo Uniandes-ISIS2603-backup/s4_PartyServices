@@ -9,6 +9,6 @@ package co.edu.uniandes.csw.partyServices.dtos;
  *
  * @author estudiante
  */
-public class notificacionDTO {
+public class NotificacionDTO {
     
 }
