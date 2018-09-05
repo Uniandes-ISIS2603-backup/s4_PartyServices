@@ -1,5 +1,6 @@
 
 import co.edu.uniandes.csw.partyServices.entities.AgendaEntity;
+import co.edu.uniandes.csw.partyServices.entities.ProveedorEntity;
 import co.edu.uniandes.csw.partyServices.persistence.AgendaPersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -90,7 +91,7 @@ public class AgendaPersistenceTest {
      *
      */
     private void clearData() {
-        em.createQuery("delete from EditorialEntity").executeUpdate();
+        em.createQuery("delete from AgendaEntity").executeUpdate();
     }
 
     /**
@@ -120,5 +121,22 @@ public class AgendaPersistenceTest {
         AgendaEntity agendaEntityEncontrada= em.find(AgendaEntity.class,resultado.getId());
         Assert.assertEquals(agendaEntity.getProveedor(), agendaEntityEncontrada.getProveedor());
     }
+    
+    @Test
+    public void deleteAgendaTest() {
+        AgendaEntity entidad = data.get(0);
+        agendaPersistence.delete(entidad.getId());
+        AgendaEntity deleted = em.find(AgendaEntity.class, entidad.getId());
+        Assert.assertNull(deleted);
+    }
 
+    @Test
+    public void findAgendaByProveedorTest() {
+        AgendaEntity entity = data.get(0);
+        ProveedorEntity proveedor =new ProveedorEntity();
+        
+        AgendaEntity newEntity = agendaPersistence.findByProveedor(proveedor); 
+        Assert.assertNotNull(newEntity);
+        Assert.assertEquals(entity.getId(), newEntity.getId());
+    }
 }

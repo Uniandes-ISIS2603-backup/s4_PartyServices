@@ -101,7 +101,7 @@ public class FechaPersistence {
      * @return null si no existe ninguna fecha con el dia del argumento.
      * Si existe alguna devuelve la primera.
      */
-    public FechaEntity findByName(String dia) {
+    public FechaEntity findByDia(String dia) {
         LOGGER.log(Level.INFO, "Consultando fecha por dia ", dia);
         // Se crea un query para buscar fechas con el dia que recibe el método como argumento. 
         TypedQuery query = em.createQuery("Select e From FechaEntity e where e.dia = :dia", FechaEntity.class);

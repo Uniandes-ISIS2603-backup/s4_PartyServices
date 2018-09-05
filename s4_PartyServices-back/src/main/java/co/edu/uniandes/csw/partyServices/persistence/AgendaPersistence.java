@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.partyServices.persistence;
 
 import co.edu.uniandes.csw.partyServices.entities.AgendaEntity;
+import co.edu.uniandes.csw.partyServices.entities.ProveedorEntity;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -64,6 +65,33 @@ public class AgendaPersistence {
         return em.find(AgendaEntity.class, agendaId);
     }
 
+    /**
+     * Busca agenda por su id
+     *
+     * @param proveedor: el proveedor de la agenda.
+     * @return una agenda.
+     */
+    public AgendaEntity findByProveedor(ProveedorEntity proveedor) 
+    {
+        LOGGER.log(Level.INFO, "Consultando agenda por proveedor ", proveedor.getNombre());
+        // Se crea un query para buscar editoriales con el nombre que recibe el método como argumento. ":name" es un placeholder que debe ser remplazado
+        TypedQuery query = em.createQuery("Select e From AgendaEntity e where e.proveedor = :proveedor", AgendaEntity.class);
+        // Se remplaza el placeholder ":name" con el valor del argumento 
+        query = query.setParameter("proveedor", proveedor);
+        // Se invoca el query se obtiene la lista resultado
+        List<AgendaEntity> sameName = query.getResultList();
+        AgendaEntity result;
+        if (sameName == null) {
+            result = null;
+        } else if (sameName.isEmpty()) {
+            result = null;
+        } else {
+            result = sameName.get(0);
+        }
+        LOGGER.log(Level.INFO, "Saliendo de consultar agenda por proveedor ", proveedor.getNombre());
+        return result;
+    }
+    
     /**
      * Actualiza una agenda.
      *
