@@ -99,12 +99,21 @@ public class PagoDTO implements Serializable{
     /**
      * Modifica el tipo del pago.
      *
-     * @param pago1 pago
+     * @param pagoTipo pago
      */
-    public void setTipo(String pago1) {
-        this.tipo = pago1;
+
+    public void setTipo(String pagoTipo) {
+        this.tipo = pagoTipo;
+
     }
     
+    public String getUsuario() {
+        return usuario;
+    }
+    
+    public void setUsuario(String pUsuario) {
+        this.usuario = pUsuario;
+    }
     /**
      * Convertir DTO a Entity
      *

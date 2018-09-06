@@ -106,3 +106,4 @@ public class ClienteEntity  extends BaseEntity implements Serializable
         this.sugerencias = pSugerencias;
     }
 }
+
