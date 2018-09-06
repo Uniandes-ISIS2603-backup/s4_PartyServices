@@ -22,7 +22,7 @@ import javax.persistence.TypedQuery;
 @Stateless
 public class AgendaPersistence {
     private static final Logger LOGGER = Logger.getLogger(AgendaPersistence.class.getName());
-    @PersistenceContext(unitName = "LosMasmelosPU")
+    @PersistenceContext(unitName =  "LosMasmelosPU")
     protected EntityManager em;
     
      /**
