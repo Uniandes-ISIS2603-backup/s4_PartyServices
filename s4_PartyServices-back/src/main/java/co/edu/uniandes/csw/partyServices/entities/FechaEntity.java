@@ -5,9 +5,7 @@
  */
 package co.edu.uniandes.csw.partyServices.entities;
 
-import java.io.Serializable;
 import java.util.Collection;
-import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -15,23 +13,22 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  *
  * @author estudiante
  */
 @Entity
-public class FechaEntity extends BaseEntity implements Serializable {
+public class FechaEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     
-    
+    private Long id;
     
     @ManyToOne()
     private AgendaEntity agenda;
     
-    @Temporal(TemporalType.DATE)
-    private Date dia;
+    private String dia;
     
     private String jornada;
     
@@ -41,6 +38,15 @@ public class FechaEntity extends BaseEntity implements Serializable {
     )
     Collection<EventoEntity> eventos;
   
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public AgendaEntity getAgenda() {
         return agenda;
     }
@@ -49,7 +55,7 @@ public class FechaEntity extends BaseEntity implements Serializable {
         this.agenda = agenda;
     }
       
-    public Date getDia()
+    public String getDia()
     {
         return dia;
     }
@@ -57,7 +63,7 @@ public class FechaEntity extends BaseEntity implements Serializable {
     {
         return jornada;
     }
-    public void setDia(Date dia)
+    public void setDia(String dia)
     {
         this.dia=dia;
     }
