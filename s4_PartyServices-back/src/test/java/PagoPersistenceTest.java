@@ -92,7 +92,7 @@ public class PagoPersistenceTest
     
     
     @Test 
-    public void createEventoTest()
+    public void createPagoTest()
     {
          PodamFactory factory = new PodamFactoryImpl();
        PagoEntity newEntity = factory.manufacturePojo(PagoEntity.class);
@@ -107,7 +107,7 @@ public class PagoPersistenceTest
     
     
     @Test
-    public void deleteEventoTest()
+    public void deletePagoTest()
     {
         PagoEntity entity = data.get(0);
         pagoPersistence.delete(entity.getId());
@@ -118,7 +118,7 @@ public class PagoPersistenceTest
     }
     
      @Test
-    public void FindEventoByNameTest() {
+    public void FindPagoByNameTest() {
         PagoEntity entity = data.get(0);
         PagoEntity newEntity = pagoPersistence.findByName(entity.getUsuario());
         Assert.assertNotNull(newEntity);

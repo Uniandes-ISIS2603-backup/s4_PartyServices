@@ -92,7 +92,7 @@ public class ClientePersistenceTest
     
     
     @Test 
-    public void createEventoTest()
+    public void createClienteTest()
     {
          PodamFactory factory = new PodamFactoryImpl();
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
@@ -107,7 +107,7 @@ public class ClientePersistenceTest
     
     
     @Test
-    public void deleteEventoTest()
+    public void deleteClienteTest()
     {
         ClienteEntity entity = data.get(0);
         clientePersistence.delete(entity.getId());
@@ -118,7 +118,7 @@ public class ClientePersistenceTest
     }
     
      @Test
-    public void FindEventoByNameTest() {
+    public void FindClienteByNameTest() {
         ClienteEntity entity = data.get(0);
         ClienteEntity newEntity = clientePersistence.findByName(entity.getUsuario());
         Assert.assertNotNull(newEntity);

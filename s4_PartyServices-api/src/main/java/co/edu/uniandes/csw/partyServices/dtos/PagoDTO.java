@@ -107,13 +107,7 @@ public class PagoDTO implements Serializable{
 
     }
     
-    public String getUsuario() {
-        return usuario;
-    }
-    
-    public void setUsuario(String pUsuario) {
-        this.usuario = pUsuario;
-    }
+  
     /**
      * Convertir DTO a Entity
      *
