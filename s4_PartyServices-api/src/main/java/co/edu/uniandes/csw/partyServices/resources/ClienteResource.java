@@ -42,7 +42,7 @@ public class ClienteResource {
     
     @PUT
     @Path("{clienteId: \\d+}")
-    public ClienteDTO modificarCleinte(@PathParam("clienteId") Long clienteId, ClienteDTO pago){
+    public ClienteDTO modificarCliente(@PathParam("clienteId") Long clienteId, ClienteDTO pago){
         return pago;
     }
     
