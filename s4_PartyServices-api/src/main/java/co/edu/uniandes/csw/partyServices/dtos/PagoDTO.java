@@ -68,6 +68,16 @@ public class PagoDTO implements Serializable{
         return id;
     }
     
+    
+     public String getUsuario() {
+        return usuario;
+    }
+     public void setUsuario(String pUsuario) {
+        this.usuario = pUsuario;
+        
+    }
+    
+    
     /**
      * Modifica el ID del pago.
      *
@@ -91,8 +101,10 @@ public class PagoDTO implements Serializable{
      *
      * @param pagoTipo pago
      */
+
     public void setTipo(String pagoTipo) {
         this.tipo = pagoTipo;
+
     }
     
     public String getUsuario() {

@@ -6,7 +6,6 @@
 package co.edu.uniandes.csw.partyServices.dtos;
 
 import java.io.Serializable;
-import java.util.Date;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -15,13 +14,13 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author n.hernandezs
  */
 public class FechaDTO implements Serializable{
-    private Date dia;
+    private String dia;
     private String jornada;
     public FechaDTO()
     {
         
     }
-    public Date getDia()
+    public String getDia()
     {
         return dia;
     }
@@ -29,7 +28,7 @@ public class FechaDTO implements Serializable{
     {
         return jornada;
     }
-    public void setDia(Date dia)
+    public void setDia(String dia)
     {
         this.dia=dia;
     }
