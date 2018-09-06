@@ -14,50 +14,40 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
  * @author estudiante
  */
 @Entity
-public class AgendaEntity implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class AgendaEntity extends BaseEntity implements Serializable{
+   
     
     /**
      * DD:MM:AAAA
      */
     private String fechaPenitencia;
 
-    /**
-     * L-lunes
-     * M-martes
-     * I-miercoles
-     * J-jueves
-     * V-viernes
-     * S-sabado
-     * D-domingo
-     * Formato: L-M-D:JORNDADA
-     */
+    
     private String fechasNoDisponibles;
+    @PodamExclude
     @OneToMany(
             mappedBy="agenda",
             cascade = CascadeType.ALL,
+            //Terminan en many son lazy. Eger terminan en One
             fetch= FetchType.LAZY
     )
-    
     Collection<FechaEntity> fechasOcupadas;
     
-    public Long getId() 
-    {
-        return id;
-    }
-
-    public void setId(Long id) 
-    {
-        this.id = id;
-    }
+    @OneToOne(
+            mappedBy="agenda",
+            fetch = FetchType.EAGER
+    )
+    private ProveedorEntity proveedor;
+             
+    
     
     public String getFechaPenitencia()
     {
@@ -86,6 +76,16 @@ public class AgendaEntity implements Serializable {
     public void setFechasOcupadas(Collection<FechaEntity> fechasOcupadas)
     {
         this.fechasOcupadas=fechasOcupadas;
+    }
+    
+    public ProveedorEntity getProveedor()
+    {
+        return proveedor;
+    }
+    
+    public void setProveeedor(ProveedorEntity proveedor)
+    {
+        this.proveedor=proveedor;
     }
     
 }
