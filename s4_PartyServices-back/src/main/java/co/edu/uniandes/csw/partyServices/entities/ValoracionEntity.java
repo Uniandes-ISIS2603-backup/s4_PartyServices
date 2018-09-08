@@ -22,8 +22,8 @@ public class ValoracionEntity extends BaseEntity implements Serializable{
     /*@javax.persistence.ManyToOne
     private ClienteEntity cliente;*/
     
-    @javax.persistence.ManyToOne
-    private ProveedorEntity proveedor;
+    /*@javax.persistence.ManyToOne
+    private ProveedorEntity proveedor;*/
     
     public ValoracionEntity()
     {

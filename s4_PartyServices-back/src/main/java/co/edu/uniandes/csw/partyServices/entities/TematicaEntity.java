@@ -29,9 +29,12 @@ public class TematicaEntity extends BaseEntity implements Serializable {
     @OneToMany(mappedBy = "tematica",fetch=FetchType.LAZY)
     private List<ServicioEntity> servicios = new ArrayList<ServicioEntity>();
     
-    //@PodamExclude
-    //@OneToMany (mappedBy = "tematica",fetch=FetchType.LAZY)
-    //private List<SugerenciaEntity> sugerencias = new ArrayList<ServicioEntity>();
+    @PodamExclude
+    @OneToMany(mappedBy = "tematica",fetch=FetchType.LAZY)
+    private List<SugerenciaEntity> sugerencias = new ArrayList<SugerenciaEntity>();
+    
+    
+    
     /**
      * Devuelve el nombre de la tematica.
      *
@@ -64,25 +67,17 @@ public class TematicaEntity extends BaseEntity implements Serializable {
      *
      * @param sugerencias Los nuevos sugerencias.
      */
-    //public void setSugerencias(List<SugerenciaEntity> sugerencias) {
-      //  this.sugerencias = sugerencias;
-    //}
+    public void setSugerencias(List<SugerenciaEntity> sugerencias) {
+        this.sugerencias = sugerencias;
+    }
     /**
      * Devuelve los sugerencias de la editorial.
      *
      * @return Lista de entidades de Sugerencia.
      */
-    //public List<SugerenciaEntity> getSugerencia() {
-      //  return sugerencias;
-    //}
+    public List<SugerenciaEntity> getSugerencia() {
+        return sugerencias;
+    }
 
-    /**
-     * Modifica los sugerencias de la editorial.
-     *
-     * @param sugerencias Los nuevos sugerencias.
-     */
-    //public void setSugerencias(List<SugerenciaEntity> sugerencias) {
-      //  this.sugerencias = sugerencias;
-    //}
 }
 
