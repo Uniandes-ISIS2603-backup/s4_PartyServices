@@ -86,11 +86,11 @@ public class FechaPersistence {
      * @param fechaId: id correspondiente a la fecha a borrar.
      */
     public void delete(Long fechaId) {
-        LOGGER.log(Level.INFO, "Borrando agenda con id = {0}", fechaId);
+        LOGGER.log(Level.INFO, "Borrando fecha con id = {0}", fechaId);
         // busca la agenda
         FechaEntity entity = em.find(FechaEntity.class, fechaId);
         em.remove(entity);
-        LOGGER.log(Level.INFO, "Saliendo de borrar la agenda con id = {0}", fechaId);
+        LOGGER.log(Level.INFO, "Saliendo de fecha la agenda con id = {0}", fechaId);
     }
     
     
