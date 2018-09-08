@@ -6,28 +6,21 @@
 package co.edu.uniandes.csw.partyServices.entities;
 
 import java.io.Serializable;
-import javax.persistence.Entity;
-import java.io.Serializable;
 import java.util.Collection;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import uk.co.jemos.podam.common.PodamExclude;
+
 
 /**
  *
- * @author Elias Negrete
+ * @author estudiante
  */
 @Entity
-public class ClienteEntity extends BaseEntity implements Serializable {
-
-    
-    
+public class ClienteEntity  extends BaseEntity implements Serializable
+{
+   
     private String usuario;
     private String contrasenia;
    
@@ -84,8 +77,33 @@ public class ClienteEntity extends BaseEntity implements Serializable {
     public Collection<EventoEntity> getEventos() {
         return eventos;
     }
+    public Collection<SugerenciaEntity> getSugerencias() {
+        return sugerencias;
+    }
+    public Collection<PagoEntity> getPagos() {
+        return pagos;
+    }
+    public Collection<NotificacionEntity> getNotificaciones() {
+        return notificaciones;
+    }
+    public Collection<ValoracionEntity> getValoraciones() {
+        return valoraciones;
+    }
 
-    public void setProductos(Collection<EventoEntity> evento) {
-        this.eventos= evento;
+    public void setEventos(Collection<EventoEntity> pEventos) {
+        this.eventos = pEventos;
+    }
+    public void setPagos(Collection<PagoEntity> pPagos) {
+        this.pagos = pPagos;
+    }
+    public void setNotificaciones(Collection<NotificacionEntity> pNotificaciones) {
+        this.notificaciones = pNotificaciones;
+    }
+    public void setValoraciones(Collection<ValoracionEntity> pValoraciones) {
+        this.valoraciones = pValoraciones;
+    }
+    public void setSugerencias(Collection<SugerenciaEntity> pSugerencias) {
+        this.sugerencias = pSugerencias;
     }
 }
+
