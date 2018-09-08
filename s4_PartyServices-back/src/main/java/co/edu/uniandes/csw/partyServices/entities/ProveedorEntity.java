@@ -22,13 +22,16 @@ import javax.persistence.OneToMany;
 public class ProveedorEntity extends BaseEntity implements Serializable{
     private final static long serialVersionUID = 1L ;
    
-    @OneToOne(mappedBy="proveedor",
-            fetch= FetchType.EAGER)
-    AgendaEntity agenda;
+   @OneToOne
+    private AgendaEntity agenda;
+    
     private String nombre;
+    
     private String contrasenia;
+    
     @ManyToOne
     public ServicioEntity servicio;
+    
     @OneToMany(mappedBy="proveedor",
             fetch= FetchType.LAZY)
     Collection<ProductoEntity> catalogoProductos;
@@ -49,11 +52,13 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
         this.nombre = nombre;
     }
 
+    
+    
     public String getContrasenia() {
         return contrasenia;
     }
 
-    public void setContrasenia(String contasenia) {
+    public void setContrasenia(String contrasenia) {
         this.contrasenia = contrasenia;
     }
      public Collection<ProductoEntity> getProductos()

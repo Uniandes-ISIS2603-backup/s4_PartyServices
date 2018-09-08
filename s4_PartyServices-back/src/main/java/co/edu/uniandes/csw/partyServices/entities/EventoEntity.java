@@ -28,7 +28,7 @@ public class EventoEntity  extends BaseEntity implements Serializable
     
     @ManyToOne()
     private FechaEntity fecha ;
-    @ManyToOne
+    @ManyToOne()
     private ClienteEntity cliente ;
  
     private long latitud ;
@@ -70,6 +70,25 @@ public class EventoEntity  extends BaseEntity implements Serializable
         this.fecha = fecha;
     }
 
+    public ClienteEntity getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(ClienteEntity cliente) {
+        this.cliente = cliente;
+    }
+
+    public Collection<NotificacionEntity> getNotificaciones() {
+        return notificaciones;
+    }
+
+    public void setNotificaciones(Collection<NotificacionEntity> notificaciones) {
+        this.notificaciones = notificaciones;
+    }
+
+    
+    
+    
     public Collection<ProductoEntity> getProductos() {
         return productos;
     }
