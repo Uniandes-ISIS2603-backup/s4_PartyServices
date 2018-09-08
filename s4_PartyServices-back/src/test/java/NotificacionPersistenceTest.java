@@ -95,7 +95,7 @@ public class NotificacionPersistenceTest {
      *
      */
     private void clearData() {
-        em.createQuery("delete from ProveedorEntity").executeUpdate();
+        em.createQuery("delete from NotificacionEntity").executeUpdate();
     }
 
     /**

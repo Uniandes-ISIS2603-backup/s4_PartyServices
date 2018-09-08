@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.partyServices.entities;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -27,7 +28,7 @@ public class FechaEntity extends BaseEntity implements Serializable {
     
     
     
-    @ManyToOne()
+    @ManyToOne(cascade = CascadeType.ALL)
     private AgendaEntity agenda;
     
     @Temporal(TemporalType.DATE)
