@@ -60,7 +60,7 @@ public class AgendaPersistence {
      */
     public AgendaEntity find(Long agendaId) 
     {
-        LOGGER.log(Level.INFO, "Consultando editorial con id={0}", agendaId);
+        LOGGER.log(Level.INFO, "Consultando agenda con id={0}", agendaId);
      
         return em.find(AgendaEntity.class, agendaId);
     }
