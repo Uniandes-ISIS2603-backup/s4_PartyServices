@@ -85,12 +85,12 @@ public class PagoPersistence {
 
        }
     
-    public PagoEntity findByName(String name) 
+    public PagoEntity findByUsuario(String pUsuario) 
     {
-        LOGGER.log(Level.INFO, "Se consulta por el nombre ", name);
-        TypedQuery query = em.createQuery("Select e From PagoEntity e where e.name = :name", PagoEntity.class);
+        LOGGER.log(Level.INFO, "Se consulta por el nombre ", pUsuario);
+        TypedQuery query = em.createQuery("Select e From PagoEntity e where e.usuario = :usuario", PagoEntity.class);
 
-        query = query.setParameter("name", name);
+        query = query.setParameter("usuario", pUsuario);
         
         List<PagoEntity> sameName = query.getResultList();
         PagoEntity result;
@@ -101,7 +101,7 @@ public class PagoPersistence {
         } else {
             result = sameName.get(0);
         }
-        LOGGER.log(Level.INFO, "Se han consultado todos los pagos por el nombre ", name);
+        LOGGER.log(Level.INFO, "Se han consultado todos los pagos por el nombre ", pUsuario);
         return result;
         
         

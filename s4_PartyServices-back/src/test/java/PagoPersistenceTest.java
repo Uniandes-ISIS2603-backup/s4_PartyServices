@@ -74,7 +74,7 @@ public class PagoPersistenceTest
 
    
     private void clearData() {
-        em.createQuery("delete from EventoEntity").executeUpdate();
+        em.createQuery("delete from PagoEntity").executeUpdate();
     }
 
     
@@ -119,9 +119,9 @@ public class PagoPersistenceTest
     
      @Test
     public void FindPagoByNameTest() {
-        PagoEntity entity = data.get(0); 
-        PagoEntity newEntity = pagoPersistence.findByName(entity.getUsuario());
-        Assert.assertNotNull(newEntity); 
+        PagoEntity entity = data.get(0);
+        PagoEntity newEntity = pagoPersistence.findByUsuario(entity.getUsuario());
+        Assert.assertNotNull(newEntity);
         Assert.assertEquals(entity.getUsuario(), newEntity.getUsuario());
     }
     
