@@ -119,7 +119,7 @@ public class PagoPersistenceTest
     
      @Test
     public void FindPagoByNameTest() {
-        PagoEntity entity = data.get(0);
+        PagoEntity entity = data.get(0); 
         PagoEntity newEntity = pagoPersistence.findByName(entity.getUsuario());
         Assert.assertNotNull(newEntity); 
         Assert.assertEquals(entity.getUsuario(), newEntity.getUsuario());
