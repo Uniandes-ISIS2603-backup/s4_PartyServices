@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import uk.co.jemos.podam.common.PodamExclude;
@@ -29,6 +28,8 @@ public class EventoEntity  extends BaseEntity implements Serializable
     
     @ManyToOne()
     private FechaEntity fecha ;
+    @ManyToOne
+    private ClienteEntity cliente ;
  
     private long latitud ;
     
@@ -39,6 +40,10 @@ public class EventoEntity  extends BaseEntity implements Serializable
     fetch = FetchType.LAZY
     )
     Collection<ProductoEntity> productos ;
+    @OneToMany(
+    mappedBy = "evento",
+    fetch = FetchType.LAZY)
+    Collection<NotificacionEntity> notificaciones ;
 
     public String getNombre() {
         return nombre;
