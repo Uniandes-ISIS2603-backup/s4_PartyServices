@@ -112,12 +112,12 @@ public class ProveedorPersistence {
      * @return null si no existe ningún editorial con el nombre del argumento.
      * Si existe alguno devuelve el primero.
      */
-    public ProveedorEntity findByName(String name) {
-        LOGGER.log(Level.INFO, "Consultando proveedor por nombre ", name);
+    public ProveedorEntity findByName(String nombre) {
+        LOGGER.log(Level.INFO, "Consultando proveedor por nombre ", nombre);
         // Se crea un query para buscar editoriales con el nombre que recibe el método como argumento. ":name" es un placeholder que debe ser remplazado
-        TypedQuery query = em.createQuery("Select e From ProveedorEntity e where e.name = :name", ProveedorEntity.class);
+        TypedQuery query = em.createQuery("Select e From ProveedorEntity e where e.nombre = :nombre", ProveedorEntity.class);
         // Se remplaza el placeholder ":name" con el valor del argumento 
-        query = query.setParameter("name", name);
+        query = query.setParameter("name", nombre);
         // Se invoca el query se obtiene la lista resultado
         List<ProveedorEntity> sameName = query.getResultList();
         ProveedorEntity result;
@@ -128,7 +128,7 @@ public class ProveedorPersistence {
         } else {
             result = sameName.get(0);
         }
-        LOGGER.log(Level.INFO, "Saliendo de consultar proveedor por nombre ", name);
+        LOGGER.log(Level.INFO, "Saliendo de consultar proveedor por nombre ", nombre);
         return result;
     }
 }

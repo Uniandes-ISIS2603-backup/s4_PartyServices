@@ -61,6 +61,17 @@ public class ProductoEntity extends BaseEntity implements Serializable
         this.dueño = dueño;
     }
 
+    public ProveedorEntity getProveedor() {
+        return proveedor;
+    }
+
+    public void setProveedor(ProveedorEntity proveedor) {
+        this.proveedor = proveedor;
+    }
+
+    
+    
+    
     public int getCosto() {
         return costo;
     }

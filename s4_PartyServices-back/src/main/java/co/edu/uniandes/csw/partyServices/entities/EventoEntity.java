@@ -34,12 +34,15 @@ public class EventoEntity  extends BaseEntity implements Serializable
     private long latitud ;
     
     private long longitud ;
+    
     @PodamExclude
+    
     @OneToMany(
     mappedBy = "evento" ,
     fetch = FetchType.LAZY
     )
     Collection<ProductoEntity> productos ;
+    
     @OneToMany(
     mappedBy = "evento",
     fetch = FetchType.LAZY)

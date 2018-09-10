@@ -41,6 +41,12 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
             fetch = FetchType.LAZY
     )
     Collection<NotificacionEntity> notificaciones;
+    
+    @OneToMany(
+            mappedBy = "proveedor",
+            fetch = FetchType.LAZY
+    )
+    Collection<ValoracionEntity> valoraciones;
 
     public String getNombre() {
         return nombre;
@@ -101,6 +107,15 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
     public void setNotificaciones(Collection<NotificacionEntity> notificaciones) {
         this.notificaciones = notificaciones;
     }
+
+    public Collection<ValoracionEntity> getValoraciones() {
+        return valoraciones;
+    }
+
+    public void setValoraciones(Collection<ValoracionEntity> valoraciones) {
+        this.valoraciones = valoraciones;
+    }
+    
     
     
 }
