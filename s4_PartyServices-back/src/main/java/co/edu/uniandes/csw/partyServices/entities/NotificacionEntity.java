@@ -26,15 +26,17 @@ public class NotificacionEntity extends BaseEntity implements Serializable {
 
     @ManyToOne
     private ClienteEntity cliente;
+    
     @ManyToOne
     private EventoEntity evento ;
+    
     @ManyToOne
     private ProveedorEntity proveedor ;
 
     private String tipoDeAviso;
     private String mensaje;
 
-    public ClienteEntity getCliente() {
+    /*public ClienteEntity getCliente() {
         return cliente;
     }
 
@@ -56,7 +58,7 @@ public class NotificacionEntity extends BaseEntity implements Serializable {
 
     public void setProveedor(ProveedorEntity proveedor) {
         this.proveedor = proveedor;
-    }
+    }*/
 
     
     

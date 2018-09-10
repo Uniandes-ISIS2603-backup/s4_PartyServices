@@ -22,7 +22,7 @@ import javax.persistence.OneToMany;
 public class ProveedorEntity extends BaseEntity implements Serializable{
     private final static long serialVersionUID = 1L ;
    
-   @OneToOne
+    @OneToOne
     private AgendaEntity agenda;
     
     private String nombre;
@@ -42,6 +42,12 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
     )
     Collection<NotificacionEntity> notificaciones;
 
+    @OneToMany(
+            mappedBy = "proveedor",
+            fetch = FetchType.LAZY
+    )
+    Collection<ValoracionEntity> valoraciones;
+    
     public String getNombre() {
         return nombre;
     }
@@ -61,24 +67,24 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
     public void setContrasenia(String contrasenia) {
         this.contrasenia = contrasenia;
     }
-     public Collection<ProductoEntity> getProductos()
+     /*public Collection<ProductoEntity> getProductos()
     {
         return catalogoProductos;
     }
     public void setProductos(Collection<ProductoEntity> catalogoProductos)
     {
         this.catalogoProductos=catalogoProductos;
-    }
+    }*/
 
-    public AgendaEntity getAgenda() {
+    /*public AgendaEntity getAgenda() {
         return agenda;
     }
 
     public void setAgenda(AgendaEntity agenda) {
         this.agenda = agenda;
-    }
+    }*/
 
-    public ServicioEntity getServicio() {
+    /*public ServicioEntity getServicio() {
         return servicio;
     }
 
@@ -100,7 +106,7 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
 
     public void setNotificaciones(Collection<NotificacionEntity> notificaciones) {
         this.notificaciones = notificaciones;
-    }
+    }*/
     
     
 }

@@ -26,8 +26,9 @@ public class EventoEntity  extends BaseEntity implements Serializable
     
     private String estado ;
     
-    @ManyToOne()
+    @ManyToOne
     private FechaEntity fecha ;
+    
     @ManyToOne()
     private ClienteEntity cliente ;
  
@@ -40,6 +41,7 @@ public class EventoEntity  extends BaseEntity implements Serializable
     fetch = FetchType.LAZY
     )
     Collection<ProductoEntity> productos ;
+    
     @OneToMany(
     mappedBy = "evento",
     fetch = FetchType.LAZY)
@@ -62,15 +64,15 @@ public class EventoEntity  extends BaseEntity implements Serializable
         this.estado = estado;
     }
 
-    public FechaEntity getFecha() {
+    /*public FechaEntity getFecha() {
         return fecha;
     }
 
     public void setFecha(FechaEntity fecha) {
         this.fecha = fecha;
-    }
+    }*/
 
-    public ClienteEntity getCliente() {
+    /*public ClienteEntity getCliente() {
         return cliente;
     }
 
@@ -95,7 +97,7 @@ public class EventoEntity  extends BaseEntity implements Serializable
 
     public void setProductos(Collection<ProductoEntity> productos) {
         this.productos = productos;
-    }
+    }*/
 
     public long getLatitud() {
         return latitud;

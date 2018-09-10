@@ -119,7 +119,7 @@ public class AgendaPersistenceTest {
         AgendaEntity resultado = agendaPersistence.create(agendaEntity);
         Assert.assertNotNull( resultado);
         AgendaEntity agendaEntityEncontrada= em.find(AgendaEntity.class,resultado.getId());
-        Assert.assertEquals(agendaEntity.getProveedor(), agendaEntityEncontrada.getProveedor());
+        Assert.assertEquals(agendaEntity.getFechaPenitencia(), agendaEntityEncontrada.getFechaPenitencia());
     }
     
     @Test
@@ -130,7 +130,7 @@ public class AgendaPersistenceTest {
         Assert.assertNull(deleted);
     }
 
-    @Test
+    /*@Test
     public void findAgendaByProveedorTest() {
         AgendaEntity entity = data.get(0);
         ProveedorEntity proveedor =new ProveedorEntity();
@@ -138,5 +138,5 @@ public class AgendaPersistenceTest {
         AgendaEntity newEntity = agendaPersistence.findByProveedor(proveedor); 
         Assert.assertNotNull(newEntity);
         Assert.assertEquals(entity.getId(), newEntity.getId());
-    }
+    }*/
 }

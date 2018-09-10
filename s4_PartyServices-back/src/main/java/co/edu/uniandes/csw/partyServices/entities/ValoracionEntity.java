@@ -30,7 +30,7 @@ public class ValoracionEntity extends BaseEntity implements Serializable{
         
     }
 
-    public ClienteEntity getCliente() {
+    /*public ClienteEntity getCliente() {
         return cliente;
     }
 
@@ -44,7 +44,7 @@ public class ValoracionEntity extends BaseEntity implements Serializable{
 
     public void setProveedor(ProveedorEntity proveedor) {
         this.proveedor = proveedor;
-    }
+    }*/
     
     
     

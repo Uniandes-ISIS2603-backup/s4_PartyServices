@@ -77,13 +77,13 @@ public class ProductoEntity extends BaseEntity implements Serializable
         this.cantidad = cantidad;
     }
 
-    public EventoEntity getEvento() {
+    /*public EventoEntity getEvento() {
         return evento;
     }
 
     public void setEvento(EventoEntity evento) {
         this.evento = evento;
-    }
+    }*/
     
     
     
