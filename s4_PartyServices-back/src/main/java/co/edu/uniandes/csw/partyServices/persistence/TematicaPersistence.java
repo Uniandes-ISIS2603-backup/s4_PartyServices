@@ -98,4 +98,31 @@ public class TematicaPersistence {
         em.remove(entity);
         LOGGER.log(Level.INFO, "Saliendo de borrar la tematica con id = {0}", tematicasId);
     }
+    
+    /**
+     * Busca si hay alguna tematica con el nombre que se envía de argumento
+     *
+     * @param name: Nombre de la tematica que se está buscando
+     * @return null si no existe ninguna tematica con el nombre del argumento.
+     * Si existe alguna devuelve la primera.
+     */
+    public TematicaEntity findByName(String name) {
+        LOGGER.log(Level.INFO, "Consultando tematica por nombre ", name);
+        // Se crea un query para buscar tematicaes con el nombre que recibe el método como argumento. ":name" es un placeholder que debe ser remplazado
+        TypedQuery query = em.createQuery("Select e From TematicaEntity e where e.name = :name", TematicaEntity.class);
+        // Se remplaza el placeholder ":name" con el valor del argumento 
+        query = query.setParameter("name", name);
+        // Se invoca el query se obtiene la lista resultado
+        List<TematicaEntity> sameName = query.getResultList();
+        TematicaEntity result;
+        if (sameName == null) {
+            result = null;
+        } else if (sameName.isEmpty()) {
+            result = null;
+        } else {
+            result = sameName.get(0);
+        }
+        LOGGER.log(Level.INFO, "Saliendo de consultar tematica por nombre ", name);
+        return result;
+    }
 }
