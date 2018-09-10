@@ -26,8 +26,9 @@ public class EventoEntity  extends BaseEntity implements Serializable
     
     private String estado ;
     
-    @ManyToOne()
+    @ManyToOne
     private FechaEntity fecha ;
+    
     @ManyToOne()
     private ClienteEntity cliente ;
  
@@ -40,6 +41,7 @@ public class EventoEntity  extends BaseEntity implements Serializable
     fetch = FetchType.LAZY
     )
     Collection<ProductoEntity> productos ;
+    
     @OneToMany(
     mappedBy = "evento",
     fetch = FetchType.LAZY)

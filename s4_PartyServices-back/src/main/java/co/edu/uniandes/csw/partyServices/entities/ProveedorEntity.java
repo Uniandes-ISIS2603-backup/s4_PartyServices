@@ -22,7 +22,7 @@ import javax.persistence.OneToMany;
 public class ProveedorEntity extends BaseEntity implements Serializable{
     private final static long serialVersionUID = 1L ;
    
-   @OneToOne
+    @OneToOne
     private AgendaEntity agenda;
     
     private String nombre;
@@ -42,6 +42,12 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
     )
     Collection<NotificacionEntity> notificaciones;
 
+    @OneToMany(
+            mappedBy = "proveedor",
+            fetch = FetchType.LAZY
+    )
+    Collection<ValoracionEntity> valoraciones;
+    
     public String getNombre() {
         return nombre;
     }
