@@ -112,7 +112,7 @@ public class NotificacionPersistence {
      * @return null si no existe ninguna notificación con el nombre del argumento.
      * Si existe alguna devuelve la primera.
      */
-    public NotificacionEntity findByName(Long name) {
+    /*public NotificacionEntity findByName(Long name) {
         LOGGER.log(Level.INFO, "Consultando notificación por nombre ", name);
         // Se crea un query para buscar notificaciones con el nombre que recibe el método como argumento. ":name" es un placeholder que debe ser remplazado
         TypedQuery query = em.createQuery("Select e From NotificaciónEntity e where e.name = :name", NotificacionEntity.class);
@@ -130,5 +130,5 @@ public class NotificacionPersistence {
         }
         LOGGER.log(Level.INFO, "Saliendo de consultar notificación por nombre ", name);
         return result;
-    }
+    }*/
 }

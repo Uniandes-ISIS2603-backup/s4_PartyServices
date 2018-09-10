@@ -42,13 +42,13 @@ public class FechaEntity extends BaseEntity implements Serializable {
     )
     Collection<EventoEntity> eventos;
   
-    public AgendaEntity getAgenda() {
+    /*public AgendaEntity getAgenda() {
         return agenda;
     }
 
     public void setAgenda(AgendaEntity agenda) {
         this.agenda = agenda;
-    }
+    }*/
       
     public Date getDia()
     {
@@ -66,14 +66,14 @@ public class FechaEntity extends BaseEntity implements Serializable {
     {
         this.jornada=jornada;
     }
-    public Collection<EventoEntity> getEventos()
+    /*public Collection<EventoEntity> getEventos()
     {
         return eventos;
     }
     public void setEventos(Collection<EventoEntity> eventos)
     {
         this.eventos=eventos;
-    }
+    }*/
     
     
 }
