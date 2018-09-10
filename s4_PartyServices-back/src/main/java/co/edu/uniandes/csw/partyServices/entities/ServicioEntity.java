@@ -50,13 +50,13 @@ public class ServicioEntity extends BaseEntity implements Serializable {
         this.tipo = tipo;
     }
 
-    public List<ProveedorEntity> getProveedores() {
+    /*public List<ProveedorEntity> getProveedores() {
         return proveedores;
     }
 
     public void setProveedores(List<ProveedorEntity> proveedores) {
         this.proveedores = proveedores;
-    }
+    }*/
     
     
 }

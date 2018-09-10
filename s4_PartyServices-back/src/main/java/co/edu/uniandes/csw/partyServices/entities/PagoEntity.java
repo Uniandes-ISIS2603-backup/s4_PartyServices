@@ -29,13 +29,13 @@ public class PagoEntity extends BaseEntity implements Serializable{
     {
         
     }
-     public ClienteEntity getCliente() {
+     /*public ClienteEntity getCliente() {
         return cliente;
     }
 
     public void setCliente(ClienteEntity pCliente) {
         this.cliente = pCliente;
-    }
+    }*/
     
     
     public String getUsuario(){

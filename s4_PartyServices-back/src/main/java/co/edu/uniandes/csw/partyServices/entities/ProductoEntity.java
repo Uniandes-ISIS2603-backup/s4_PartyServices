@@ -7,8 +7,6 @@ package co.edu.uniandes.csw.partyServices.entities;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.ManyToOne;
 import uk.co.jemos.podam.common.PodamExclude;
 
@@ -79,13 +77,13 @@ public class ProductoEntity extends BaseEntity implements Serializable
         this.cantidad = cantidad;
     }
 
-    public EventoEntity getEvento() {
+    /*public EventoEntity getEvento() {
         return evento;
     }
 
     public void setEvento(EventoEntity evento) {
         this.evento = evento;
-    }
+    }*/
     
     
     

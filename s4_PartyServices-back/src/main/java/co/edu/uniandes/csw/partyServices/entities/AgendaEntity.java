@@ -10,9 +10,6 @@ import java.util.Collection;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import uk.co.jemos.podam.common.PodamExclude;
@@ -35,7 +32,8 @@ public class AgendaEntity extends BaseEntity implements Serializable{
     @PodamExclude
     @OneToMany(
             mappedBy="agenda",
-            cascade = CascadeType.ALL,
+            cascade = CascadeType.ALL, 
+            orphanRemoval =true ,
             //Terminan en many son lazy. Eger terminan en One
             fetch= FetchType.LAZY
     )
@@ -59,7 +57,8 @@ public class AgendaEntity extends BaseEntity implements Serializable{
         this.fechaPenitencia=fechaPenitencia;
     }
     
-    public String getFechasNoDisponibles(){
+    public String getFechasNoDisponibles()
+    {
         return fechasNoDisponibles;
     }
     
@@ -68,7 +67,7 @@ public class AgendaEntity extends BaseEntity implements Serializable{
         this.fechasNoDisponibles=fechasNoDisponibles;
     }
     
-    public Collection<FechaEntity> getFechasOcupadas()
+    /*public Collection<FechaEntity> getFechasOcupadas()
     {
         return fechasOcupadas;
     }
@@ -76,9 +75,9 @@ public class AgendaEntity extends BaseEntity implements Serializable{
     public void setFechasOcupadas(Collection<FechaEntity> fechasOcupadas)
     {
         this.fechasOcupadas=fechasOcupadas;
-    }
+    }*/
     
-    public ProveedorEntity getProveedor()
+    /*public ProveedorEntity getProveedor()
     {
         return proveedor;
     }
@@ -86,6 +85,6 @@ public class AgendaEntity extends BaseEntity implements Serializable{
     public void setProveeedor(ProveedorEntity proveedor)
     {
         this.proveedor=proveedor;
-    }
+    }*/
     
 }

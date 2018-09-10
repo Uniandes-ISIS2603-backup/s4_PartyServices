@@ -60,7 +60,7 @@ public class AgendaPersistence {
      */
     public AgendaEntity find(Long agendaId) 
     {
-        LOGGER.log(Level.INFO, "Consultando editorial con id={0}", agendaId);
+        LOGGER.log(Level.INFO, "Consultando agenda con id={0}", agendaId);
      
         return em.find(AgendaEntity.class, agendaId);
     }
@@ -71,7 +71,7 @@ public class AgendaPersistence {
      * @param proveedor: el proveedor de la agenda.
      * @return una agenda.
      */
-    public AgendaEntity findByProveedor(ProveedorEntity proveedor) 
+    /*public AgendaEntity findByProveedor(ProveedorEntity proveedor) 
     {
         LOGGER.log(Level.INFO, "Consultando agenda por proveedor ", proveedor.getNombre());
         // Se crea un query para buscar editoriales con el nombre que recibe el método como argumento. ":name" es un placeholder que debe ser remplazado
@@ -90,7 +90,7 @@ public class AgendaPersistence {
         }
         LOGGER.log(Level.INFO, "Saliendo de consultar agenda por proveedor ", proveedor.getNombre());
         return result;
-    }
+    }*/
     
     /**
      * Actualiza una agenda.

@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.partyServices.entities;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -27,7 +28,7 @@ public class FechaEntity extends BaseEntity implements Serializable {
     
     
     
-    @ManyToOne()
+    @ManyToOne(cascade = CascadeType.ALL)
     private AgendaEntity agenda;
     
     @Temporal(TemporalType.DATE)
@@ -41,13 +42,13 @@ public class FechaEntity extends BaseEntity implements Serializable {
     )
     Collection<EventoEntity> eventos;
   
-    public AgendaEntity getAgenda() {
+    /*public AgendaEntity getAgenda() {
         return agenda;
     }
 
     public void setAgenda(AgendaEntity agenda) {
         this.agenda = agenda;
-    }
+    }*/
       
     public Date getDia()
     {
@@ -65,14 +66,14 @@ public class FechaEntity extends BaseEntity implements Serializable {
     {
         this.jornada=jornada;
     }
-    public Collection<EventoEntity> getEventos()
+    /*public Collection<EventoEntity> getEventos()
     {
         return eventos;
     }
     public void setEventos(Collection<EventoEntity> eventos)
     {
         this.eventos=eventos;
-    }
+    }*/
     
     
 }

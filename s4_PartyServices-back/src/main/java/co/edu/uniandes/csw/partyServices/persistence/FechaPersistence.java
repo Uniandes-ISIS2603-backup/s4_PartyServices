@@ -47,7 +47,7 @@ public class FechaPersistence {
     {
         LOGGER.log(Level.INFO, "Consultando todas las fechas");
         // Se crea un query para buscar todas las fechas en la base de datos.
-        TypedQuery query = em.createQuery("select u from AgendaEntity u", FechaEntity.class);
+        TypedQuery query = em.createQuery("select u from FechaEntity u", FechaEntity.class);
         return query.getResultList();
     }
     
@@ -86,11 +86,11 @@ public class FechaPersistence {
      * @param fechaId: id correspondiente a la fecha a borrar.
      */
     public void delete(Long fechaId) {
-        LOGGER.log(Level.INFO, "Borrando agenda con id = {0}", fechaId);
+        LOGGER.log(Level.INFO, "Borrando fecha con id = {0}", fechaId);
         // busca la agenda
         FechaEntity entity = em.find(FechaEntity.class, fechaId);
         em.remove(entity);
-        LOGGER.log(Level.INFO, "Saliendo de borrar la agenda con id = {0}", fechaId);
+        LOGGER.log(Level.INFO, "Saliendo de fecha la agenda con id = {0}", fechaId);
     }
     
     

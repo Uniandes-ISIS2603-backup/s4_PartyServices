@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import uk.co.jemos.podam.common.PodamExclude;
@@ -27,8 +26,11 @@ public class EventoEntity  extends BaseEntity implements Serializable
     
     private String estado ;
     
-    @ManyToOne()
+    @ManyToOne
     private FechaEntity fecha ;
+    
+    @ManyToOne()
+    private ClienteEntity cliente ;
  
     private long latitud ;
     
@@ -39,6 +41,11 @@ public class EventoEntity  extends BaseEntity implements Serializable
     fetch = FetchType.LAZY
     )
     Collection<ProductoEntity> productos ;
+    
+    @OneToMany(
+    mappedBy = "evento",
+    fetch = FetchType.LAZY)
+    Collection<NotificacionEntity> notificaciones ;
 
     public String getNombre() {
         return nombre;
@@ -57,21 +64,40 @@ public class EventoEntity  extends BaseEntity implements Serializable
         this.estado = estado;
     }
 
-    public FechaEntity getFecha() {
+    /*public FechaEntity getFecha() {
         return fecha;
     }
 
     public void setFecha(FechaEntity fecha) {
         this.fecha = fecha;
+    }*/
+
+    /*public ClienteEntity getCliente() {
+        return cliente;
     }
 
+    public void setCliente(ClienteEntity cliente) {
+        this.cliente = cliente;
+    }
+
+    public Collection<NotificacionEntity> getNotificaciones() {
+        return notificaciones;
+    }
+
+    public void setNotificaciones(Collection<NotificacionEntity> notificaciones) {
+        this.notificaciones = notificaciones;
+    }
+
+    
+    
+    
     public Collection<ProductoEntity> getProductos() {
         return productos;
     }
 
     public void setProductos(Collection<ProductoEntity> productos) {
         this.productos = productos;
-    }
+    }*/
 
     public long getLatitud() {
         return latitud;
