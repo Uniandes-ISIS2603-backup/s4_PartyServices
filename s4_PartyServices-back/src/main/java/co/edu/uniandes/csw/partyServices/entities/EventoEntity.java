@@ -26,8 +26,11 @@ public class EventoEntity  extends BaseEntity implements Serializable
     
     private String estado ;
     
-    @ManyToOne()
+    @PodamExclude
+    @ManyToOne
     private FechaEntity fecha ;
+    
+    @PodamExclude
     @ManyToOne()
     private ClienteEntity cliente ;
  
@@ -35,14 +38,14 @@ public class EventoEntity  extends BaseEntity implements Serializable
     
     private long longitud ;
     
-    @PodamExclude
-    
+    @PodamExclude    
     @OneToMany(
     mappedBy = "evento" ,
     fetch = FetchType.LAZY
     )
     Collection<ProductoEntity> productos ;
     
+    @PodamExclude
     @OneToMany(
     mappedBy = "evento",
     fetch = FetchType.LAZY)

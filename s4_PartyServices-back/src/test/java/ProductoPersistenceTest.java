@@ -128,7 +128,7 @@ public class ProductoPersistenceTest {
         PodamFactory factory = new PodamFactoryImpl();
         ProductoEntity newEntity = factory.manufacturePojo(ProductoEntity.class);
 
-        newEntity.setNombre(entity.getNombre());
+        newEntity.setId(entity.getId());
 
         productoPersistence.update(newEntity);
 

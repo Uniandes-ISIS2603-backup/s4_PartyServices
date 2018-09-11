@@ -26,8 +26,10 @@ public class NotificacionEntity extends BaseEntity implements Serializable {
 
     @ManyToOne
     private ClienteEntity cliente;
+    
     @ManyToOne
     private EventoEntity evento ;
+    
     @ManyToOne
     private ProveedorEntity proveedor ;
 

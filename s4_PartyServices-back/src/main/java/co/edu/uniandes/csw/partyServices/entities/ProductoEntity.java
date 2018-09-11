@@ -26,6 +26,7 @@ public class ProductoEntity extends BaseEntity implements Serializable
     
     private String dueño ;
     
+    @PodamExclude
     @ManyToOne
     private ProveedorEntity proveedor ;
     

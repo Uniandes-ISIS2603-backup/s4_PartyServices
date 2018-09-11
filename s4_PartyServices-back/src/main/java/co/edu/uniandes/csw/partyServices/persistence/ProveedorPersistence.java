@@ -117,7 +117,8 @@ public class ProveedorPersistence {
         // Se crea un query para buscar editoriales con el nombre que recibe el método como argumento. ":name" es un placeholder que debe ser remplazado
         TypedQuery query = em.createQuery("Select e From ProveedorEntity e where e.nombre = :nombre", ProveedorEntity.class);
         // Se remplaza el placeholder ":name" con el valor del argumento 
-        query = query.setParameter("name", nombre);
+
+        query = query.setParameter("nombre", nombre);
         // Se invoca el query se obtiene la lista resultado
         List<ProveedorEntity> sameName = query.getResultList();
         ProveedorEntity result;
