@@ -85,7 +85,7 @@ public class EventoPersistence {
        }
     /**
      *
-     * @param name
+     * @param nombre
      * @return
      */
     public EventoEntity findByName(String nombre) 
@@ -110,13 +110,6 @@ public class EventoPersistence {
         
     }
 	
-    
-    
-        
-    
-    
-    
-    
     
     
     

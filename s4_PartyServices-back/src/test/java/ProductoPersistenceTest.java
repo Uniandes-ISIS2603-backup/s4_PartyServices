@@ -1,7 +1,5 @@
 
-import co.edu.uniandes.csw.partyServices.entities.EventoEntity;
 import co.edu.uniandes.csw.partyServices.entities.ProductoEntity;
-import co.edu.uniandes.csw.partyServices.persistence.EventoPersistence;
 import co.edu.uniandes.csw.partyServices.persistence.ProductoPersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,28 +23,25 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author estudiante
  */
 @RunWith(Arquillian.class)
-public class ProductoPersistenceTest 
-{
-    
-    
+public class ProductoPersistenceTest {
+
     @Inject
-    private ProductoPersistence productoPersistence ;
-        
+    private ProductoPersistence productoPersistence;
+
     @PersistenceContext
-    private EntityManager em ;
-    
+    private EntityManager em;
+
     @Inject
-    UserTransaction utx ;
-       
-    private List<ProductoEntity> data = new ArrayList<ProductoEntity>() ;
-    
-     @Deployment
+    UserTransaction utx;
+
+    private List<ProductoEntity> data = new ArrayList<ProductoEntity>();
+
+    @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
                 .addPackage(ProductoEntity.class.getPackage())
@@ -54,8 +49,8 @@ public class ProductoPersistenceTest
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
-    
-       @Before
+
+    @Before
     public void configTest() {
         try {
             utx.begin();
@@ -73,12 +68,10 @@ public class ProductoPersistenceTest
         }
     }
 
-   
     private void clearData() {
         em.createQuery("delete from ProductoEntity").executeUpdate();
     }
 
-    
     private void insertData() {
         PodamFactory factory = new PodamFactoryImpl();
         for (int i = 0; i < 3; i++) {
@@ -90,10 +83,10 @@ public class ProductoPersistenceTest
             data.add(entity);
         }
     }
-    @Test 
-    public void createProductoTest()
-    {
-         PodamFactory factory = new PodamFactoryImpl();
+
+    @Test
+    public void createProductoTest() {
+        PodamFactory factory = new PodamFactoryImpl();
         ProductoEntity newEntity = factory.manufacturePojo(ProductoEntity.class);
         ProductoEntity result = productoPersistence.create(newEntity);
 
@@ -103,53 +96,53 @@ public class ProductoPersistenceTest
 
         Assert.assertEquals(newEntity.getNombre(), entity.getNombre());
     }
-    
-    
+
     @Test
-    public void deleteProductoTest()
-    {
+    public void deleteProductoTest() {
         ProductoEntity entity = data.get(0);
         productoPersistence.delete(entity.getId());
-        EventoEntity deleted = em.find(EventoEntity.class, entity.getId());
+        ProductoEntity deleted = em.find(ProductoEntity.class, entity.getId());
         Assert.assertNull(deleted);
-     
-        
+
+    }
+
+    @Test
+    public void FindProductoByNameTest() {
+        ProductoEntity entity = data.get(0);
+
+        ProductoEntity newEntity = productoPersistence.findByName(entity.getNombre());
+
+        Assert.assertNotNull(newEntity);
+
+        Assert.assertEquals(entity.getNombre(), newEntity.getNombre());
+
+        newEntity = productoPersistence.findByName(null);
+        Assert.assertNull(newEntity);
+
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+    @Test
+    public void updateProductoTest() {
+        ProductoEntity entity = data.get(0);
+        PodamFactory factory = new PodamFactoryImpl();
+        ProductoEntity newEntity = factory.manufacturePojo(ProductoEntity.class);
+
+        newEntity.setId(entity.getId());
+
+        productoPersistence.update(newEntity);
+
+        ProductoEntity resp = em.find(ProductoEntity.class, entity.getId());
+
+        Assert.assertEquals(newEntity.getNombre(), resp.getNombre());
+        Assert.assertEquals(newEntity.getTipoServicio(), resp.getTipoServicio());
+        Assert.assertEquals(newEntity.getDueño(), resp.getDueño());
+        Assert.assertEquals(newEntity.getProveedor(), resp.getProveedor());
+        Assert.assertEquals(newEntity.getCosto(), resp.getCosto());
+        Assert.assertEquals(newEntity.getCantidad(), resp.getCantidad());
+        Assert.assertEquals(newEntity.getEvento(), resp.getEvento());
+       
+
+    }
+
 }
