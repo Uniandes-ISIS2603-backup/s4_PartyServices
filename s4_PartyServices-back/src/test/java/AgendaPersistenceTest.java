@@ -130,13 +130,24 @@ public class AgendaPersistenceTest {
         Assert.assertNull(deleted);
     }
 
-    /*@Test
+    @Test
     public void findAgendaByProveedorTest() {
-        AgendaEntity entity = data.get(0);
+        PodamFactory factory = new PodamFactoryImpl();
+        AgendaEntity entity = factory.manufacturePojo(AgendaEntity.class);
         ProveedorEntity proveedor =new ProveedorEntity();
+        proveedor.setNombre("Glucolisis");
+        AgendaEntity entityFallida = agendaPersistence.findByProveedor(proveedor); 
+        Assert.assertNull(entityFallida);
+//        entity.setProveeedor(proveedor);
+//        agendaPersistence.create(entity);
+//        AgendaEntity entityEncuentra = agendaPersistence.findByProveedor(proveedor); 
+//        
+//        Assert.assertEquals(entity.getId(), entityEncuentra.getId());
+       
+       
+       
         
-        AgendaEntity newEntity = agendaPersistence.findByProveedor(proveedor); 
-        Assert.assertNotNull(newEntity);
-        Assert.assertEquals(entity.getId(), newEntity.getId());
-    }*/
+        
+       
+    }
 }

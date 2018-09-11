@@ -26,6 +26,7 @@ public class ProductoEntity extends BaseEntity implements Serializable
     
     private String dueño ;
     
+    @PodamExclude
     @ManyToOne
     private ProveedorEntity proveedor ;
     
@@ -61,6 +62,17 @@ public class ProductoEntity extends BaseEntity implements Serializable
         this.dueño = dueño;
     }
 
+    public ProveedorEntity getProveedor() {
+        return proveedor;
+    }
+
+    public void setProveedor(ProveedorEntity proveedor) {
+        this.proveedor = proveedor;
+    }
+
+    
+    
+    
     public int getCosto() {
         return costo;
     }
