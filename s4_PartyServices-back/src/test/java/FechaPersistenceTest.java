@@ -5,6 +5,7 @@ import co.edu.uniandes.csw.partyServices.entities.ProveedorEntity;
 import co.edu.uniandes.csw.partyServices.persistence.AgendaPersistence;
 import co.edu.uniandes.csw.partyServices.persistence.FechaPersistence;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -132,13 +133,12 @@ public class FechaPersistenceTest {
         Assert.assertNull(deleted);
     }
 
-    /*@Test
+    @Test
     public void findFechaByDiaTest() {
-        FechaEntity entity = data.get(0);
-        String dia ="";
-        
-        FechaEntity newEntity = fechaPersistence.findByDia(dia); 
-        Assert.assertNotNull(newEntity);
-        Assert.assertEquals(entity.getId(), newEntity.getId());
-    }*/
+        Date dia =new Date();
+        FechaEntity fechaEntity = fechaPersistence.findByDia(dia); 
+        Assert.assertNotNull(fechaEntity);
+         Assert.assertEquals(fechaEntity.getDia().getDay()+" "+fechaEntity.getDia().getMonth()+" "+fechaEntity.getDia().getYear(), 
+            dia.getDay()+" "+dia.getMonth()+" "+dia.getYear());
+    }
 }
