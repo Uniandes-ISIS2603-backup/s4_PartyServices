@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.partyServices.entities;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,7 +26,7 @@ public class AgendaEntity extends BaseEntity implements Serializable{
     /**
      * DD:MM:AAAA
      */
-    private String fechaPenitencia;
+    private Date fechaPenitencia;
 
     
     private String fechasNoDisponibles;
@@ -48,12 +49,12 @@ public class AgendaEntity extends BaseEntity implements Serializable{
              
     
     
-    public String getFechaPenitencia()
+    public Date getFechaPenitencia()
     {
         return fechaPenitencia;
     }
     
-    public void setFechaPenitencia(String fechaPenitencia)
+    public void setFechaPenitencia(Date fechaPenitencia)
     {
         this.fechaPenitencia=fechaPenitencia;
     }
