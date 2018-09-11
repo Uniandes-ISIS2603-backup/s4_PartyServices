@@ -97,4 +97,31 @@ public class ServicioPersistence {
         em.remove(entity);
         LOGGER.log(Level.INFO, "Saliendo de borrar el servicio con id = {0}", serviciosId);
     }
+    
+    /**
+     * Busca si hay algun servicio con el nombre que se envía de argumento
+     *
+     * @param tipo: Nombre del servicio que se está buscando
+     * @return null si no existe ningun servicio con el nombre del argumento.
+     * Si existe alguno devuelve el primero.
+     */
+    public ServicioEntity findByTipo(String tipo) {
+        LOGGER.log(Level.INFO, "Consultando servicio por nombre ", tipo);
+        // Se crea un query para buscar servicios con el nombre que recibe el método como argumento. ":tipo" es un placeholder que debe ser remplazado
+        TypedQuery query = em.createQuery("Select e From ServicioEntity e where e.tipo = :tipo", ServicioEntity.class);
+        // Se remplaza el placeholder ":tipo" con el valor del argumento 
+        query = query.setParameter("tipo", tipo);
+        // Se invoca el query se obtiene la lista resultado
+        List<ServicioEntity> sameTipo = query.getResultList();
+        ServicioEntity result;
+        if (sameTipo == null) {
+            result = null;
+        } else if (sameTipo.isEmpty()) {
+            result = null;
+        } else {
+            result = sameTipo.get(0);
+        }
+        LOGGER.log(Level.INFO, "Saliendo de consultar servicio por nombre ", tipo);
+        return result;
+    }
 }

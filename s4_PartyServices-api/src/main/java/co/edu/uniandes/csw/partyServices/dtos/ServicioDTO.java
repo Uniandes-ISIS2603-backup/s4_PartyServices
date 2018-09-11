@@ -5,54 +5,79 @@
  */
 package co.edu.uniandes.csw.partyServices.dtos;
 
+/**
+Al serializarse como JSON esta clase implementa el siguiente modelo: <br>
+ * <pre>
+ *   {
+ *      "id": number,
+ *      "tipo": string
+ *   }
+ * </pre> Por ejemplo un servicio se representa asi:<br>
+ *
+ * <pre>
+ *
+ *   {
+ *      "id": 1,
+ *      "tipo": "Infantil"
+ *   }
+ *
+ * </pre>
+
+/**
+ *
+ * @author Tomas Vargas 
+ */
+
+import co.edu.uniandes.csw.partyServices.entities.ServicioEntity;
 import java.io.Serializable;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  *
- * @author estudiante
+ * @author Tomas Vargas
  */
 public class ServicioDTO implements Serializable
 {
     
-  private String tematica ;
-  private String tipo ;
-  private String [] proveedores;
+  private Long id;
+  private String tipo;
 
 
 public ServicioDTO(){
     
 }
 
-public String getTematica ()
-{
-    return tematica ;
-}
-public String getTipo()
-{
-    return tipo ;
-}
-public String[] getProveedores()
-{
-    return proveedores ;
-}
+/**
+     * Conviertir Entity a DTO (Crea un nuevo DTO con los valores que recibe en
+     * la entidad que viene de argumento.
+     *
+     * @param servicioEntity: Es la entidad que se va a convertir a DTO
+     */
+     
+    public ServicioDTO(ServicioEntity servicioEntity) {
+        if (servicioEntity != null) {
+            this.id = servicioEntity.getId();
+            this.tipo = servicioEntity.getTipo();
+        }
+    }
 
 
+    public Long getId() {
+        return id;
+    }
 
-public void setTematica(String pTematica)
-{
-    this.tematica = pTematica;
-}
-public void setTipo(String pTipo)
-{
-    this.tipo = pTipo;
-}
-public void setProveedores(String[] pProveedores)
-{
-    this.proveedores = pProveedores ;
-}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
 
 
 

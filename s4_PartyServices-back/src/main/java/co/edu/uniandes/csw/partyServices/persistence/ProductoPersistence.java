@@ -89,5 +89,25 @@ public class ProductoPersistence
         
        }
     
-    
+    public ProductoEntity findByName(String nombre) 
+    {
+        LOGGER.log(Level.INFO, "Consultando producto por nombre ", nombre);
+        TypedQuery query = em.createQuery("Select e From ProductoEntity e where e.nombre = :nombre", ProductoEntity.class);
+
+        query = query.setParameter("nombre", nombre);
+        
+        List<ProductoEntity> sameName = query.getResultList();
+        ProductoEntity result;
+        if (sameName == null) {
+            result = null;
+        } else if (sameName.isEmpty()) {
+            result = null;
+        } else {
+            result = sameName.get(0);
+        }
+        LOGGER.log(Level.INFO, "Saliendo de consultar producto por nombre ", nombre);
+        return result;
+        
+        
+    }
 }

@@ -22,18 +22,32 @@ import javax.persistence.OneToMany;
 public class ProveedorEntity extends BaseEntity implements Serializable{
     private final static long serialVersionUID = 1L ;
    
-    @OneToOne(mappedBy="proveedor",
-            fetch= FetchType.EAGER)
-    AgendaEntity agenda;
+    @OneToOne
+    private AgendaEntity agenda;
+    
     private String nombre;
+    
     private String contrasenia;
+    
     @ManyToOne
     public ServicioEntity servicio;
+    
     @OneToMany(mappedBy="proveedor",
             fetch= FetchType.LAZY)
     Collection<ProductoEntity> catalogoProductos;
    
-
+    @OneToMany(
+            mappedBy = "proveedor",
+            fetch = FetchType.LAZY
+    )
+    Collection<NotificacionEntity> notificaciones;
+  
+    @OneToMany(
+            mappedBy = "proveedor",
+            fetch = FetchType.LAZY
+    )
+    Collection<ValoracionEntity> valoraciones;
+    
     public String getNombre() {
         return nombre;
     }
@@ -44,11 +58,13 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
         this.nombre = nombre;
     }
 
-        public String getContrasenia() {
+    
+    
+    public String getContrasenia() {
         return contrasenia;
     }
 
-    public void setContrasenia(String contasenia) {
+    public void setContrasenia(String contrasenia) {
         this.contrasenia = contrasenia;
     }
      public Collection<ProductoEntity> getProductos()
@@ -59,6 +75,49 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
     {
         this.catalogoProductos=catalogoProductos;
     }
+
+    public AgendaEntity getAgenda() {
+        return agenda;
+    }
+
+    public void setAgenda(AgendaEntity agenda) {
+        this.agenda = agenda;
+    }
+
+    public ServicioEntity getServicio() {
+        return servicio;
+    }
+
+    public void setServicio(ServicioEntity servicio) {
+        this.servicio = servicio;
+    }
+
+    public Collection<ProductoEntity> getCatalogoProductos() {
+        return catalogoProductos;
+    }
+
+    public void setCatalogoProductos(Collection<ProductoEntity> catalogoProductos) {
+        this.catalogoProductos = catalogoProductos;
+    }
+
+    public Collection<NotificacionEntity> getNotificaciones() {
+        return notificaciones;
+    }
+
+    public void setNotificaciones(Collection<NotificacionEntity> notificaciones) {
+        this.notificaciones = notificaciones;
+    }
+
+    public Collection<ValoracionEntity> getValoraciones() {
+        return valoraciones;
+    }
+
+    public void setValoraciones(Collection<ValoracionEntity> valoraciones) {
+        this.valoraciones = valoraciones;
+    }
+    
+    
+    
 }
     
     

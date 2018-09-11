@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.partyServices.entities;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -17,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -26,8 +28,8 @@ import javax.persistence.TemporalType;
 public class FechaEntity extends BaseEntity implements Serializable {
     
     
-    
-    @ManyToOne()
+    @PodamExclude
+    @ManyToOne(cascade = CascadeType.ALL)
     private AgendaEntity agenda;
     
     @Temporal(TemporalType.DATE)
@@ -35,6 +37,7 @@ public class FechaEntity extends BaseEntity implements Serializable {
     
     private String jornada;
     
+    @PodamExclude
     @OneToMany(
             mappedBy="fecha",
             fetch= FetchType.LAZY

@@ -85,15 +85,15 @@ public class EventoPersistence {
        }
     /**
      *
-     * @param name
+     * @param nombre
      * @return
      */
-    public EventoEntity findByName(String name) 
+    public EventoEntity findByName(String nombre) 
     {
-        LOGGER.log(Level.INFO, "Consultando evento por nombre ", name);
-        TypedQuery query = em.createQuery("Select e From EventoEntity e where e.name = :name", EventoEntity.class);
+        LOGGER.log(Level.INFO, "Consultando evento por nombre ", nombre);
+        TypedQuery query = em.createQuery("Select e From EventoEntity e where e.nombre = :nombre", EventoEntity.class);
 
-        query = query.setParameter("name", name);
+        query = query.setParameter("nombre", nombre);
         
         List<EventoEntity> sameName = query.getResultList();
         EventoEntity result;
@@ -104,19 +104,12 @@ public class EventoPersistence {
         } else {
             result = sameName.get(0);
         }
-        LOGGER.log(Level.INFO, "Saliendo de consultar evento por nombre ", name);
+        LOGGER.log(Level.INFO, "Saliendo de consultar evento por nombre ", nombre);
         return result;
         
         
     }
 	
-    
-    
-        
-    
-    
-    
-    
     
     
     

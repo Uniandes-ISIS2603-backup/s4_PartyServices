@@ -7,8 +7,6 @@ package co.edu.uniandes.csw.partyServices.entities;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.ManyToOne;
 import uk.co.jemos.podam.common.PodamExclude;
 
@@ -28,6 +26,7 @@ public class ProductoEntity extends BaseEntity implements Serializable
     
     private String dueño ;
     
+    @PodamExclude
     @ManyToOne
     private ProveedorEntity proveedor ;
     
@@ -63,6 +62,17 @@ public class ProductoEntity extends BaseEntity implements Serializable
         this.dueño = dueño;
     }
 
+    public ProveedorEntity getProveedor() {
+        return proveedor;
+    }
+
+    public void setProveedor(ProveedorEntity proveedor) {
+        this.proveedor = proveedor;
+    }
+
+    
+    
+    
     public int getCosto() {
         return costo;
     }
