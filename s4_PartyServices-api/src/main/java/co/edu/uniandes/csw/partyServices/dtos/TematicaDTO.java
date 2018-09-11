@@ -29,6 +29,7 @@ Al serializarse como JSON esta clase implementa el siguiente modelo: <br>
  */
 
 
+import co.edu.uniandes.csw.partyServices.entities.TematicaEntity;
 import java.io.Serializable;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -37,10 +38,10 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *
  * @author Tomas Vargas
  */
-public class TematicaDTO {
+public class TematicaDTO implements Serializable{
     
      private Long id;
-    private String nombre;
+    private String name;
     
     /**
      * Constructor por defecto.
@@ -49,21 +50,19 @@ public class TematicaDTO {
     }
 
      /**
-      * 
-      * SE DEBE IMPLEMENTAR CUANDO SE TENGAN LAS ENTIDADES
-      * 
      * Conviertir Entity a DTO (Crea un nuevo DTO con los valores que recibe en
      * la entidad que viene de argumento.
      *
-     * @param editorialEntity: Es la entidad que se va a convertir a DTO
+     * @param tematicaEntity: Es la entidad que se va a convertir a DTO
+     */
      
-    public EditorialDTO(EditorialEntity editorialEntity) {
-        if (editorialEntity != null) {
-            this.id = editorialEntity.getId();
-            this.name = editorialEntity.getName();
+    public TematicaDTO(TematicaEntity tematicaEntity) {
+        if (tematicaEntity != null) {
+            this.id = tematicaEntity.getId();
+            this.name = tematicaEntity.getName();
         }
     }
-    */
+    
     
     /**
      * Devuelve el id del evento
@@ -85,33 +84,32 @@ public class TematicaDTO {
      * Retorna el nombre actual del evento
      * @return estado del evento
      */
-    public String getNombre() {
-        return nombre;
+    public String getName() {
+        return name;
     }
     
     /**
      * Modifica el nombre del evento
      * @param estado 
      */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setName(String name) {
+        this.name = name;
     }
     
     /**
      * 
-     * SE DEBE IMPLEMENTAR CUANDO SE TENGAN LOS ENTITY
-     * 
      * Convertir DTO a Entity
      *
      * @return Un Entity con los valores del DTO
+     */
      
-    public EditorialEntity toEntity() {
-        EditorialEntity editorialEntity = new EditorialEntity();
-        editorialEntity.setId(this.id);
-        editorialEntity.setName(this.name);
-        return editorialEntity;
+    public TematicaEntity toEntity() {
+        TematicaEntity tematicaEntity = new TematicaEntity();
+        tematicaEntity.setId(this.id);
+        tematicaEntity.setName(this.name);
+        return tematicaEntity;
     }
-    */
+    
     
     @Override
     public String toString() {

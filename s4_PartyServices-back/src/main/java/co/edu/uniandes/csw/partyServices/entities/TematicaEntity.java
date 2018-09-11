@@ -54,28 +54,33 @@ public class TematicaEntity extends BaseEntity implements Serializable {
     }
     
     /**
-     * Devuelve los servicios de la editorial.
+     * Devuelve los servicios de la tematica.
      *
      * @return Lista de entidades de Servicio.
      */
-    public List<ServicioEntity> getServicio() {
+
+    public List<ServicioEntity> getServicios()
+    {
         return servicios;
     }
 
     /**
-     * Modifica los sugerencias de la editorial.
+     * Modifica los sugerencias de la tematica.
      *
      * @param sugerencias Los nuevos sugerencias.
      */
     public void setSugerencias(List<SugerenciaEntity> sugerencias) {
         this.sugerencias = sugerencias;
     }
+
     /**
-     * Devuelve los sugerencias de la editorial.
+     * Devuelve los sugerencias de la tematica.
      *
      * @return Lista de entidades de Sugerencia.
      */
-    public List<SugerenciaEntity> getSugerencia() {
+    public List<SugerenciaEntity> getSugerencias() 
+{
+
         return sugerencias;
     }
 
