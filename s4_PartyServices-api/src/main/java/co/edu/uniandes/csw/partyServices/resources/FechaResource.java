@@ -6,7 +6,9 @@
 package co.edu.uniandes.csw.partyServices.resources;
 
 import co.edu.uniandes.csw.partyServices.dtos.FechaDTO;
+import co.edu.uniandes.csw.partyServices.ejb.FechaLogic;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -25,6 +27,10 @@ import javax.ws.rs.Produces;
 @Consumes("application/json")
 @RequestScoped
 public class FechaResource {
+    
+    @Inject
+    private FechaLogic fechaLogic;
+    
     @GET
     @Path("{dia: \\d+}")
     public FechaDTO getFecha(@PathParam("dia") int dia)
