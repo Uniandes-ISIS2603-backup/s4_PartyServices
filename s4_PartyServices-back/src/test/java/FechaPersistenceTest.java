@@ -120,7 +120,8 @@ public class FechaPersistenceTest {
         FechaEntity resultado = fechaPersistence.create(fechaEntity);
         Assert.assertNotNull( resultado);
         FechaEntity fechaEntityEncontrada= em.find(FechaEntity.class,resultado.getId());
-        Assert.assertEquals(fechaEntity.getDia(), fechaEntityEncontrada.getDia());
+        Assert.assertEquals(fechaEntity.getDia().getDay()+" "+fechaEntity.getDia().getMonth()+" "+fechaEntity.getDia().getYear(), 
+            fechaEntityEncontrada.getDia().getDay()+" "+fechaEntityEncontrada.getDia().getMonth()+" "+fechaEntity.getDia().getYear());
     }
     
     @Test
