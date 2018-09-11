@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.partyServices.persistence;
 
 import co.edu.uniandes.csw.partyServices.entities.FechaEntity;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -101,7 +102,7 @@ public class FechaPersistence {
      * @return null si no existe ninguna fecha con el dia del argumento.
      * Si existe alguna devuelve la primera.
      */
-    public FechaEntity findByDia(String dia) {
+    public FechaEntity findByDia(Date dia) {
         LOGGER.log(Level.INFO, "Consultando fecha por dia ", dia);
         // Se crea un query para buscar fechas con el dia que recibe el método como argumento. 
         TypedQuery query = em.createQuery("Select e From FechaEntity e where e.dia = :dia", FechaEntity.class);

@@ -39,6 +39,7 @@ public class AgendaEntity extends BaseEntity implements Serializable{
     )
     Collection<FechaEntity> fechasOcupadas;
     
+    @PodamExclude
     @OneToOne(
             mappedBy="agenda",
             fetch = FetchType.EAGER
