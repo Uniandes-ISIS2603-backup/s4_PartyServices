@@ -58,7 +58,9 @@ public class TematicaEntity extends BaseEntity implements Serializable {
      *
      * @return Lista de entidades de Servicio.
      */
-    public List<ServicioEntity> getServicios() {
+
+    public List<ServicioEntity> getServicios()
+    {
         return servicios;
     }
 
@@ -70,13 +72,15 @@ public class TematicaEntity extends BaseEntity implements Serializable {
     public void setSugerencias(List<SugerenciaEntity> sugerencias) {
         this.sugerencias = sugerencias;
     }
-    
+
     /**
      * Devuelve los sugerencias de la tematica.
      *
      * @return Lista de entidades de Sugerencia.
      */
-    public List<SugerenciaEntity> getSugerencias() {
+    public List<SugerenciaEntity> getSugerencias() 
+{
+
         return sugerencias;
     }
 

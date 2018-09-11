@@ -36,7 +36,7 @@ public class NotificacionEntity extends BaseEntity implements Serializable {
     private String tipoDeAviso;
     private String mensaje;
 
-    /*public ClienteEntity getCliente() {
+    public ClienteEntity getCliente() {
         return cliente;
     }
 
@@ -58,7 +58,7 @@ public class NotificacionEntity extends BaseEntity implements Serializable {
 
     public void setProveedor(ProveedorEntity proveedor) {
         this.proveedor = proveedor;
-    }*/
+    }
 
     
     

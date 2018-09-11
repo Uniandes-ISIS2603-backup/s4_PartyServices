@@ -78,7 +78,7 @@ public class ClienteEntity  extends BaseEntity implements Serializable
         this.usuario = user;
     }
    
-    /*public Collection<EventoEntity> getEventos() {
+    public Collection<EventoEntity> getEventos() {
         return eventos;
     }
     public Collection<SugerenciaEntity> getSugerencias() {
@@ -108,6 +108,6 @@ public class ClienteEntity  extends BaseEntity implements Serializable
     }
     public void setSugerencias(Collection<SugerenciaEntity> pSugerencias) {
         this.sugerencias = pSugerencias;
-    }*/
+    }
 }
 

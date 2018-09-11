@@ -65,5 +65,6 @@ public class ServicioEntity extends BaseEntity implements Serializable {
     public void setTematica(TematicaEntity tematica) {
         this.tematica = tematica;
     }
+
     
 }

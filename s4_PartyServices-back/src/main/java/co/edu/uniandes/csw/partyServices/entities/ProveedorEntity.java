@@ -67,24 +67,24 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
     public void setContrasenia(String contrasenia) {
         this.contrasenia = contrasenia;
     }
-     /*public Collection<ProductoEntity> getProductos()
+     public Collection<ProductoEntity> getProductos()
     {
         return catalogoProductos;
     }
     public void setProductos(Collection<ProductoEntity> catalogoProductos)
     {
         this.catalogoProductos=catalogoProductos;
-    }*/
+    }
 
-    /*public AgendaEntity getAgenda() {
+    public AgendaEntity getAgenda() {
         return agenda;
     }
 
     public void setAgenda(AgendaEntity agenda) {
         this.agenda = agenda;
-    }*/
+    }
 
-    /*public ServicioEntity getServicio() {
+    public ServicioEntity getServicio() {
         return servicio;
     }
 
@@ -106,7 +106,7 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
 
     public void setNotificaciones(Collection<NotificacionEntity> notificaciones) {
         this.notificaciones = notificaciones;
-    }*/
+    }
     
     
 }

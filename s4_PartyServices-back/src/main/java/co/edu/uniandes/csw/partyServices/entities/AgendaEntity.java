@@ -67,7 +67,7 @@ public class AgendaEntity extends BaseEntity implements Serializable{
         this.fechasNoDisponibles=fechasNoDisponibles;
     }
     
-    /*public Collection<FechaEntity> getFechasOcupadas()
+    public Collection<FechaEntity> getFechasOcupadas()
     {
         return fechasOcupadas;
     }
@@ -75,9 +75,9 @@ public class AgendaEntity extends BaseEntity implements Serializable{
     public void setFechasOcupadas(Collection<FechaEntity> fechasOcupadas)
     {
         this.fechasOcupadas=fechasOcupadas;
-    }*/
+    }
     
-    /*public ProveedorEntity getProveedor()
+    public ProveedorEntity getProveedor()
     {
         return proveedor;
     }
@@ -85,6 +85,6 @@ public class AgendaEntity extends BaseEntity implements Serializable{
     public void setProveeedor(ProveedorEntity proveedor)
     {
         this.proveedor=proveedor;
-    }*/
+    }
     
 }
