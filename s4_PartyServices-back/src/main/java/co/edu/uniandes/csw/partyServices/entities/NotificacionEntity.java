@@ -9,11 +9,8 @@ import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.OneToMany;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -24,12 +21,15 @@ public class NotificacionEntity extends BaseEntity implements Serializable {
 
     private final static long serialVersionUID = 1L;
 
+    @PodamExclude
     @ManyToOne
     private ClienteEntity cliente;
     
+    @PodamExclude
     @ManyToOne
     private EventoEntity evento ;
     
+    @PodamExclude
     @ManyToOne
     private ProveedorEntity proveedor ;
 
