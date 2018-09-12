@@ -6,10 +6,19 @@
 package co.edu.uniandes.csw.partyServices.ejb;
 
 import co.edu.uniandes.csw.partyServices.entities.AgendaEntity;
+import co.edu.uniandes.csw.partyServices.entities.FechaEntity;
+import co.edu.uniandes.csw.partyServices.entities.FechaEntity.Jornada;
+import co.edu.uniandes.csw.partyServices.entities.ProveedorEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.partyServices.persistence.AgendaPersistence;
+import co.edu.uniandes.csw.partyServices.persistence.ProveedorPersistence;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import javax.inject.Inject;
 
 /**
@@ -20,6 +29,9 @@ public class AgendaLogic {
     
     @Inject
     private AgendaPersistence agendaPersistence;
+    
+    @Inject 
+    private ProveedorPersistence proveedorPersistence;
     
     public AgendaEntity createAgenda(long proveedorId, AgendaEntity agendaEnitity) throws BusinessLogicException
     {
@@ -43,7 +55,27 @@ public class AgendaLogic {
             if(agendaEnitity.getFechaPenitencia().compareTo(d)>0)
                 throw new BusinessLogicException("La fecha de penitencia no puede ser mayor a un mes desde hoy");
         }
-               
-        return null;
+        
+        //Verificacion regla del negocio del cumplimiento del formato para fehcas en que no labora el proveedor
+        String fechasNoValidas=agendaEnitity.getFechasNoDisponibles();
+        validarFormatoFechaPenitencia(fechasNoValidas);
+
+       
+        
+        
+        ProveedorEntity proveedor= proveedorPersistence.find(proveedorId);
+        agendaEnitity.setProveeedor(proveedor);
+        return agendaPersistence.create(agendaEnitity);
     }
+    
+    public void validarFormatoFechaPenitencia(String fechasNoValidas) throws BusinessLogicException
+    {
+        JsonParser parser = new JsonParser();
+        for (AgendaEntity.DiaSemana value : AgendaEntity.DiaSemana.values()) {
+            JsonObject jsonFechasNoValidas= (JsonObject) parser.parse(fechasNoValidas);
+            String jornada= jsonFechasNoValidas.get(value.darValor()).getAsString();
+            if(FechaEntity.Jornada.desdeValor(jornada)==null)
+                throw new BusinessLogicException("No cumple con las jornadas posibles");          
+        }
+    }   
 }

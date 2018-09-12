@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.partyServices.entities;
 
+import static co.edu.uniandes.csw.partyServices.entities.FechaEntity.Jornada.values;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
@@ -22,6 +23,39 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 public class AgendaEntity extends BaseEntity implements Serializable{
    
+    
+    public enum DiaSemana{
+        LUNES("LUNES"),
+        MARTES("MARTES"),
+        MIERCOLES("MIERCOLES"),
+        JUEVES("JUEVES"),
+        VIERNES("VIERNES"),
+        SABADO("SABADO"),
+        DOMINGO("DOMINGO");
+        
+        private final String valor;
+        
+        private DiaSemana(String valor){
+            this.valor=valor;
+        }
+        
+        public static DiaSemana desdeValor(String valor){
+            for (DiaSemana diaSemana :  values()) {
+                if(diaSemana.darValor().equals(valor)){
+                    return diaSemana;
+                }
+            }
+            return null;
+        }
+        
+        public String darValor(){
+            return valor;
+        }
+        
+    }
+    
+    
+    
     
     /**
      * DD:MM:AAAA

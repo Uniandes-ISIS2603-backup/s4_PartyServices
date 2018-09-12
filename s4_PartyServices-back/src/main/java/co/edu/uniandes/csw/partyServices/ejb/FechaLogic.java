@@ -33,22 +33,7 @@ public class FechaLogic {
     public FechaEntity createFecha(long agendaId, FechaEntity fechaEnitity) throws BusinessLogicException
     {
         //Verificacion regla de negocio de las jornadas
-        switch(fechaEnitity.getJornada()){
-            case FechaEntity.JORNADA_MANANA:
-                break;
-            case FechaEntity.JORNADA_MANANA_NOCHE:
-                break;
-            case FechaEntity.JORNADA_MANANA_TARDE:
-                break;
-            case FechaEntity.JORNADA_TARDE:
-                break;
-            case FechaEntity.JORNADA_TARDE_NOCHE:
-                break;
-            case FechaEntity.JORNADA_NOCHE:
-                break;
-            case FechaEntity.JORNADA_COMPLETA:
-                break;
-            default:
+        if(FechaEntity.Jornada.desdeValor(fechaEnitity.getJornada())==null){
                 throw new BusinessLogicException("No cumple con las jornadas posibles");          
         }
             
