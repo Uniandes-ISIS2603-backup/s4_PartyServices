@@ -102,7 +102,7 @@ public class ClientePersistenceTest
 
         ClienteEntity entity = em.find(ClienteEntity.class, result.getId());
 
-        Assert.assertEquals(newEntity.getUsuario(), entity.getUsuario());
+        Assert.assertEquals(newEntity.getLogin(), entity.getLogin());
     }
     
     
@@ -120,9 +120,9 @@ public class ClientePersistenceTest
      @Test
     public void FindClienteByNameTest() {
         ClienteEntity entity = data.get(0);
-        ClienteEntity newEntity = clientePersistence.findByName(entity.getUsuario());
+        ClienteEntity newEntity = clientePersistence.findByName(entity.getLogin());
         Assert.assertNotNull(newEntity);
-        Assert.assertEquals(entity.getUsuario(), newEntity.getUsuario());
+        Assert.assertEquals(entity.getLogin(), newEntity.getLogin());
     }
     
     

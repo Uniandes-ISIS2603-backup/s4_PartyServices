@@ -88,9 +88,9 @@ public class ClientePersistence {
     public ClienteEntity findByName(String name) 
     {
         LOGGER.log(Level.INFO, "Se consulta por el nombre ", name);
-        TypedQuery query = em.createQuery("Select e From ClienteEntity e where e.usuario = :usuario", ClienteEntity.class);
+        TypedQuery query = em.createQuery("Select e From ClienteEntity e where e.login = :login", ClienteEntity.class);
 
-        query = query.setParameter("usuario", name);
+        query = query.setParameter("login", name);
         
         List<ClienteEntity> sameName = query.getResultList();
         ClienteEntity result;

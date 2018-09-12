@@ -9,11 +9,10 @@ import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.OneToMany;
+import uk.co.jemos.podam.common.PodamExclude;
 /**
  *
  * @author estudiante
@@ -21,7 +20,8 @@ import javax.persistence.OneToMany;
 @Entity
 public class ProveedorEntity extends BaseEntity implements Serializable{
     private final static long serialVersionUID = 1L ;
-   
+    
+    @PodamExclude
     @OneToOne
     private AgendaEntity agenda;
     
@@ -29,19 +29,23 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
     
     private String contrasenia;
     
+    @PodamExclude
     @ManyToOne
     public ServicioEntity servicio;
     
+    @PodamExclude
     @OneToMany(mappedBy="proveedor",
             fetch= FetchType.LAZY)
     Collection<ProductoEntity> catalogoProductos;
    
+    @PodamExclude
     @OneToMany(
             mappedBy = "proveedor",
             fetch = FetchType.LAZY
     )
     Collection<NotificacionEntity> notificaciones;
   
+    @PodamExclude
     @OneToMany(
             mappedBy = "proveedor",
             fetch = FetchType.LAZY
