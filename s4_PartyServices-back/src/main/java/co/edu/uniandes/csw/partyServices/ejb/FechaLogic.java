@@ -7,15 +7,22 @@ package co.edu.uniandes.csw.partyServices.ejb;
 
 import co.edu.uniandes.csw.partyServices.entities.AgendaEntity;
 import co.edu.uniandes.csw.partyServices.entities.FechaEntity;
+import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.partyServices.persistence.AgendaPersistence;
 import co.edu.uniandes.csw.partyServices.persistence.FechaPersistence;
+import java.util.Date;
+import java.util.logging.Logger;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 /**
  *
  * @author estudiante
  */
+@Stateless
 public class FechaLogic {
+    
+    private static final Logger LOGGER =Logger.getLogger(FechaLogic.class.getName());
     
     @Inject
     private FechaPersistence fechaPersistence;
@@ -23,10 +30,41 @@ public class FechaLogic {
     @Inject
     private AgendaPersistence agendaPersistence;
     
-    public FechaEntity createFecha(long agendaId, FechaEntity fechaEnitity)
+    public FechaEntity createFecha(long agendaId, FechaEntity fechaEnitity) throws BusinessLogicException
     {
         //Verificacion regla de negocio de las jornadas
+        switch(fechaEnitity.getJornada()){
+            case FechaEntity.JORNADA_MANANA:
+                break;
+            case FechaEntity.JORNADA_MANANA_NOCHE:
+                break;
+            case FechaEntity.JORNADA_MANANA_TARDE:
+                break;
+            case FechaEntity.JORNADA_TARDE:
+                break;
+            case FechaEntity.JORNADA_TARDE_NOCHE:
+                break;
+            case FechaEntity.JORNADA_NOCHE:
+                break;
+            case FechaEntity.JORNADA_COMPLETA:
+                break;
+            default:
+                throw new BusinessLogicException("No cumple con las jornadas posibles");          
+        }
+            
+        //Verificacion regla de negocio deben existir eventos
+        if(fechaEnitity.getEventos()==null)
+            throw new BusinessLogicException("Debe tener eventos la fecha");
+        if(fechaEnitity.getEventos().size()<=0)
+            throw new BusinessLogicException("Debe tener eventos la fecha");
         
+        //Verificacion regla de negocio no se pueden crear fechas del pasado
+        Date dia= new Date();
+        dia.setHours(0);
+        dia.setMinutes(0);
+        dia.setSeconds(0);
+        if(dia.compareTo(fechaEnitity.getDia())>=0)
+            throw new BusinessLogicException("El dia de la fecha no puede ser menor o igual al dia actual");
         
         AgendaEntity agenda = agendaPersistence.find(agendaId);
         fechaEnitity.setAgenda(agenda);

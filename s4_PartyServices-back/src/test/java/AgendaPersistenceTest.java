@@ -2,6 +2,7 @@
 import co.edu.uniandes.csw.partyServices.entities.AgendaEntity;
 import co.edu.uniandes.csw.partyServices.entities.ProveedorEntity;
 import co.edu.uniandes.csw.partyServices.persistence.AgendaPersistence;
+import co.edu.uniandes.csw.partyServices.persistence.ProveedorPersistence;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -132,22 +133,6 @@ public class AgendaPersistenceTest {
         Assert.assertNull(deleted);
     }
 
-    @Test
-    public void findAgendaByProveedorTest() 
-    {
-        PodamFactory factory = new PodamFactoryImpl();
-        AgendaEntity entity = factory.manufacturePojo(AgendaEntity.class);
-        ProveedorEntity proveedor =new ProveedorEntity();
-        proveedor.setNombre("Glucolisis");
-        AgendaEntity entityFallida = agendaPersistence.findByProveedor(proveedor); 
-        Assert.assertNull(entityFallida);
-//        entity.setProveeedor(proveedor);
-//        agendaPersistence.create(entity);
-//        AgendaEntity entityEncuentra = agendaPersistence.findByProveedor(proveedor); 
-//        
-//        Assert.assertEquals(entity.getId(), entityEncuentra.getId());
- 
-    }
     @Test
     public void updateAgendaTest() 
     {

@@ -27,6 +27,13 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 public class FechaEntity extends BaseEntity implements Serializable {
     
+    public static final String JORNADA_MANANA="Manana";
+    public static final String JORNADA_TARDE="Tarde";
+    public static final String JORNADA_NOCHE="Noche";
+    public static final String JORNADA_COMPLETA="Completa";
+    public static final String JORNADA_MANANA_TARDE="Manana_tarde";
+    public static final String JORNADA_TARDE_NOCHE="Tarde_noche";
+    public static final String JORNADA_MANANA_NOCHE="Manana_noche";
     
     @PodamExclude
     @ManyToOne(cascade = CascadeType.ALL)

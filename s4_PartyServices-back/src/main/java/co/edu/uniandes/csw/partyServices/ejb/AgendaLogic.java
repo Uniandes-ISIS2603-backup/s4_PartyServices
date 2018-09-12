@@ -25,6 +25,11 @@ public class AgendaLogic {
     {
         
         
+        //Verificacion que no existan agendas con proveedores iguales
+        AgendaEntity agendaExistente = agendaPersistence.findByProveedor(proveedorId);
+        if(agendaExistente!=null)
+            throw new BusinessLogicException("Ya existe una agenda para el proveedor seleccionado");
+        
         //Verificacion regla de negocio respecto al rango posible de la fecha de penitencia
         if(agendaEnitity.getFechaPenitencia()!=null)
         {
