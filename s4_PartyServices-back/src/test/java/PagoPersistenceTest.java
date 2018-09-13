@@ -94,7 +94,7 @@ public class PagoPersistenceTest
     @Test 
     public void createPagoTest()
     {
-         PodamFactory factory = new PodamFactoryImpl();
+       PodamFactory factory = new PodamFactoryImpl();
        PagoEntity newEntity = factory.manufacturePojo(PagoEntity.class);
         PagoEntity result = pagoPersistence.create(newEntity);
 
