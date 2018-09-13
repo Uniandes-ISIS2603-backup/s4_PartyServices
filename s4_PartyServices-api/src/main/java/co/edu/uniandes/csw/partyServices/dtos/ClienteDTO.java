@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.partyServices.dtos;
 
 //import co.edu.uniandes.csw.partyServices.entities.SugerenciaEntity;
+import co.edu.uniandes.csw.partyServices.entities.ClienteEntity;
 import java.io.Serializable;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -17,8 +18,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * <pre>
  *   {
  *      "id": number,
- *  
- *      "usuario": string
+ *      "login": "dark"
  *   }
  * </pre> Por ejemplo un pago se representa asi:<br>
  *
@@ -26,7 +26,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *
  *   {
  *      "id": 1,
- *      "usuario": "dark"
+ *      "login": "dark"
  *   }
  *
  * </pre>
@@ -37,6 +37,16 @@ public class ClienteDTO implements Serializable{
     private Long id;
     private String login;
     private String contrasenia;
+    private String correo;
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
     /**
      * Constructor por defecto
      */
@@ -44,16 +54,16 @@ public class ClienteDTO implements Serializable{
     }
     /**
      * Conviertir Entity a DTO (Crea un nuevo DTO con los valores que recibe en
-     * la entidad que viene de argumento.
+     * la entidad que viene de argumento).
      *
      * @param clienteEntity: Es la entidad que se va a convertir a DTO
      */
-    /*public ClienteDTO(ClienteEntity clienteEntity) {
+    public ClienteDTO(ClienteEntity clienteEntity) {
         if (clienteEntity != null) {
             this.id = clienteEntity.getId();
-            this.tipo = clienteEntity.getUsuario();
+            this.login = clienteEntity.getLogin();
         }
-    }*/
+    }
     
     
     /**
@@ -107,12 +117,14 @@ public class ClienteDTO implements Serializable{
      *
      * @return Un Entity con los valores del DTO
      */
-    /*public ClienteEntity toEntity() {
-        PagoEntity clienteEntity = new ClienteEntity();
-        PagoEntity.setId(this.id);
-        PagoEntity.setTipo(this.usuario);
+    public ClienteEntity toEntity() {
+        ClienteEntity clienteEntity = new ClienteEntity();
+        clienteEntity.setId(this.id);
+        clienteEntity.setLogin(this.login);
+        clienteEntity.setCorreo(this.correo);
+
         return clienteEntity;
-    }*/
+    }
     
     @Override
     public String toString() {
