@@ -8,6 +8,7 @@ package logic;
 import co.edu.uniandes.csw.partyServices.ejb.FechaLogic;
 import co.edu.uniandes.csw.partyServices.entities.EventoEntity;
 import co.edu.uniandes.csw.partyServices.entities.FechaEntity;
+import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.partyServices.persistence.FechaPersistence;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -126,8 +127,8 @@ public class FechaLogicTest {
             eventos.add(evento);
             fechaValida.setEventos(eventos);
             fechaLogic.createFecha(3456789, fechaValida);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (BusinessLogicException e) {
+            
             Assert.fail("Deberia crear la fecha"+e.getMessage());
         }
     }
