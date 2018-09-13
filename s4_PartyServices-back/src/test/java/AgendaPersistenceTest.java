@@ -2,7 +2,9 @@
 import co.edu.uniandes.csw.partyServices.entities.AgendaEntity;
 import co.edu.uniandes.csw.partyServices.entities.ProveedorEntity;
 import co.edu.uniandes.csw.partyServices.persistence.AgendaPersistence;
+import co.edu.uniandes.csw.partyServices.persistence.ProveedorPersistence;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -123,7 +125,8 @@ public class AgendaPersistenceTest {
     }
     
     @Test
-    public void deleteAgendaTest() {
+    public void deleteAgendaTest() 
+    {
         AgendaEntity entidad = data.get(0);
         agendaPersistence.delete(entidad.getId());
         AgendaEntity deleted = em.find(AgendaEntity.class, entidad.getId());
@@ -131,23 +134,16 @@ public class AgendaPersistenceTest {
     }
 
     @Test
-    public void findAgendaByProveedorTest() {
+    public void updateAgendaTest() 
+    {
         PodamFactory factory = new PodamFactoryImpl();
         AgendaEntity entity = factory.manufacturePojo(AgendaEntity.class);
-        ProveedorEntity proveedor =new ProveedorEntity();
-        proveedor.setNombre("Glucolisis");
-        AgendaEntity entityFallida = agendaPersistence.findByProveedor(proveedor); 
-        Assert.assertNull(entityFallida);
-//        entity.setProveeedor(proveedor);
-//        agendaPersistence.create(entity);
-//        AgendaEntity entityEncuentra = agendaPersistence.findByProveedor(proveedor); 
-//        
-//        Assert.assertEquals(entity.getId(), entityEncuentra.getId());
-       
-       
-       
-        
-        
-       
+        agendaPersistence.create(entity);
+        Date dia = new Date();
+        entity.setFechaPenitencia(dia);
+        agendaPersistence.update(entity);
+        AgendaEntity agendaActualizada=agendaPersistence.find(entity.getId());
+        Assert.assertEquals(agendaActualizada.getFechaPenitencia().getDay()+" "+agendaActualizada.getFechaPenitencia().getMonth()+" "+agendaActualizada.getFechaPenitencia().getYear(), 
+            dia.getDay()+" "+dia.getMonth()+" "+dia.getYear());
     }
 }

@@ -46,7 +46,7 @@ public class FechaPersistence {
      */
     public List<FechaEntity> findAll() 
     {
-        LOGGER.log(Level.INFO, "Consultando todas las fechas");
+        LOGGER.log(Level.INFO, "Consultando todas las  fechas");
         // Se crea un query para buscar todas las fechas en la base de datos.
         TypedQuery query = em.createQuery("select u from FechaEntity u", FechaEntity.class);
         return query.getResultList();
