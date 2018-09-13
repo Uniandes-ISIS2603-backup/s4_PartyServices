@@ -10,6 +10,8 @@ import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.partyServices.persistence.ProductoPersistence;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -48,10 +50,11 @@ public class ProductoLogic {
         if (productoEntity.getNombre().length() < 3 || productoEntity.getNombre().length() > 35) {
             throw new BusinessLogicException("El nombre del producto debe de tener entre 3 y 35 caracteres");
         }
-        if (!productoEntity.getNombre().matches("[a-zA-Z0-9]")) {
-            throw new BusinessLogicException("El nombre no puede contener caracteres especiales");
+       if (validateNombreCaracteres(productoEntity.getNombre())) 
+       {
+            throw new BusinessLogicException("El nombre del producto contiene caracteres especiales");
         }
-        if (productoEntity.getDueño() == null || productoEntity.getProveedor() == null) {
+       if (productoEntity.getDueño() == null || productoEntity.getProveedor() == null) {
             throw new BusinessLogicException("El producto debe tener un proveedor asociado");
         }
         if (productoEntity.getCosto() < 0 || productoEntity.getCosto() >= 2147483647) {
@@ -107,4 +110,13 @@ public class ProductoLogic {
         return newEntity;
     }
 
+    private boolean validateNombreCaracteres(String nombre) 
+    {
+        Pattern pat = Pattern.compile("[a-zA-Z]");
+        Matcher mat = pat.matcher(nombre);
+        return (mat.matches());
+    }
+    
+    
+    
 }

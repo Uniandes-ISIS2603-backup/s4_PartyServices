@@ -10,6 +10,8 @@ import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.partyServices.persistence.EventoPersistence;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -59,7 +61,7 @@ public class EventoLogic {
             throw new BusinessLogicException("El nombre del evento debe de tener entre 3 y 25 caracteres");
         }
         
-        if (!eventoEntity.getNombre().matches("[a-zA-Z0-9]")) 
+        if (validateNombreCaracteres(eventoEntity.getNombre())) 
         {
             throw new BusinessLogicException("El nombre no puede contener caracteres especiales");
         }
@@ -116,7 +118,7 @@ public class EventoLogic {
 
     }
 
-    public EventoEntity updateProducto(String pNombre, EventoEntity pEventoEntity) throws BusinessLogicException 
+    public EventoEntity updateEvento(String pNombre, EventoEntity pEventoEntity) throws BusinessLogicException 
     {
         LOGGER.log(Level.INFO, "Comienza proceso de actualizacion del evento");
 
@@ -139,4 +141,12 @@ public class EventoLogic {
         return (pLatitud != null && pLatitud >= -4.223596 && pLatitud <= 12.514801);
     }
 
+     private boolean validateNombreCaracteres(String nombre) 
+    {
+        Pattern pat = Pattern.compile("[a-zA-Z]");
+        Matcher mat = pat.matcher(nombre);
+        return (mat.matches());
+    }
+    
+    
 }

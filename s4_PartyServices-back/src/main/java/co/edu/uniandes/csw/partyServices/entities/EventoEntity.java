@@ -22,6 +22,7 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 public class EventoEntity  extends BaseEntity implements Serializable
 {
+
    
     public enum Estado{
         EN_PLANEACION("En planeacion"),

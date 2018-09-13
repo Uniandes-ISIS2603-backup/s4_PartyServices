@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.partyServices.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
@@ -17,29 +18,28 @@ import uk.co.jemos.podam.common.PodamExclude;
  * @author estudiante
  */
 @Entity
-public class ProductoEntity extends BaseEntity implements Serializable
-{
-    private final static long serialVersionUID = 1L ;
-   
-    
-    private String nombre ;
-    
-    private String tipoServicio ;
-    
-    private String dueño ;
-    
+public class ProductoEntity extends BaseEntity implements Serializable {
+
+    private final static long serialVersionUID = 1L;
+
+    private String nombre;
+
+    private String tipoServicio;
+
+    private String dueño;
+
     @PodamExclude
     @ManyToOne
-    private ProveedorEntity proveedor ;
-    
-    private int costo ;
-    
-    private int cantidad  ;
+    private ProveedorEntity proveedor;
+
+    private int costo;
+
+    private int cantidad;
 
     @PodamExclude
     @ManyToMany()
-    Collection<EventoEntity> eventos ;
-    
+    Collection<EventoEntity> eventos = new ArrayList<EventoEntity>();
+
     public String getNombre() {
         return nombre;
     }
@@ -72,9 +72,6 @@ public class ProductoEntity extends BaseEntity implements Serializable
         this.proveedor = proveedor;
     }
 
-    
-    
-    
     public int getCosto() {
         return costo;
     }
@@ -99,5 +96,9 @@ public class ProductoEntity extends BaseEntity implements Serializable
         this.eventos = eventos;
     }
 
-    
+    public void setEvento(EventoEntity evento) 
+    {
+        eventos.add(evento) ;
+    }
+
 }
