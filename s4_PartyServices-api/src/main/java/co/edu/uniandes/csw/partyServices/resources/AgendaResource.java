@@ -6,7 +6,9 @@
 package co.edu.uniandes.csw.partyServices.resources;
 
 import co.edu.uniandes.csw.partyServices.dtos.AgendaDTO;
+import co.edu.uniandes.csw.partyServices.ejb.AgendaLogic;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -25,6 +27,9 @@ import javax.ws.rs.Produces;
 @Consumes("application/json")
 @RequestScoped
 public class AgendaResource {
+    
+    @Inject
+    private AgendaLogic agendaLogic;
     
     @GET 
     @Path("{proveedor: [a-zA-Z][a-zA-Z]*}")

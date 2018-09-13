@@ -1,4 +1,4 @@
-package co.edu.uniandes.csw.partyServices.test.persistence;
+
 
 /*
  * To change this license header, choose License Headers in Project Properties.
