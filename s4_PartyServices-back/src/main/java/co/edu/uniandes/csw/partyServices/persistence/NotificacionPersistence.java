@@ -40,7 +40,7 @@ public class NotificacionPersistence {
     }
     
     /**
-     * Devuelve todos los proveedores de la base de datos.
+     * Devuelve todos las notificaciones de la base de datos.
      *
      * @return una lista con todas las notificaciones que encuentre en la base de
      * datos, "select u from NotificaciónEntity u" es como un "select * from
@@ -55,10 +55,10 @@ public class NotificacionPersistence {
     }
     
 	    /**
-     * Busca si hay algun proveedor con el id que se envía de argumento
+     * Busca si hay alguna notificacion con el id que se envía de argumento
      *
      * @param notifID: id correspondiente a la notificación buscada.
-     * @return un proveedor.
+     * @return una notificacion.
      */
     public NotificacionEntity find(Long notifID) {
         LOGGER.log(Level.INFO, "Consultando notificación con id={0}", notifID);
@@ -70,7 +70,7 @@ public class NotificacionPersistence {
     }
 
 	 /**
-     * Actualiza un proveedor.
+     * Actualiza una notificacion.
      *
      * @param notificacionEntity: la notificación que viene con los nuevos cambios.
      * Por ejemplo el nombre pudo cambiar. En ese caso, se haria uso del método
