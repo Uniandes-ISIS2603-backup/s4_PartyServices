@@ -6,7 +6,9 @@
 package co.edu.uniandes.csw.partyServices.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
@@ -36,11 +38,13 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
     @PodamExclude
     @OneToMany(mappedBy="proveedor",
             fetch= FetchType.LAZY)
-    Collection<ProductoEntity> catalogoProductos;
+    Collection<ProductoEntity> catalogoProductos = new ArrayList <ProductoEntity>();
    
     @PodamExclude
     @OneToMany(
             mappedBy = "proveedor",
+            cascade = CascadeType.ALL,
+            orphanRemoval =true,
             fetch = FetchType.LAZY
     )
     Collection<NotificacionEntity> notificaciones;
@@ -70,10 +74,6 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
 
     public void setContrasenia(String contrasenia) {
         this.contrasenia = contrasenia;
-    }
-     public Collection<ProductoEntity> getProductos()
-    {
-        return catalogoProductos;
     }
     public void setProductos(Collection<ProductoEntity> catalogoProductos)
     {
