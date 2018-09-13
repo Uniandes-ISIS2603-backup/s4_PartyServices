@@ -9,7 +9,7 @@ import co.edu.uniandes.csw.partyServices.entities.NotificacionEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.partyServices.persistence.NotificacionPersistence;
 import co.edu.uniandes.csw.partyServices.persistence.ProveedorPersistence;
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
+import java.util.logging.Logger;
 import java.util.List;
 import java.util.logging.Level;
 import javax.ejb.Stateless;
@@ -20,7 +20,8 @@ import javax.inject.Inject;
  * @author estudiante
  */
 @Stateless
-public class NotificacionLogic {
+public class NotificacionLogic 
+{ private static final Logger LOGGER = Logger.getLogger(NotificacionLogic.class.getName());
 @Inject
 private NotificacionPersistence persistence;
 public NotificacionEntity createNotificacion (NotificacionEntity entity) throws BusinessLogicException{

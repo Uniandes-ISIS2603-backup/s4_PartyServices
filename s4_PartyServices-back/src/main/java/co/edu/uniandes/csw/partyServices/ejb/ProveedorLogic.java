@@ -8,15 +8,11 @@ package co.edu.uniandes.csw.partyServices.ejb;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import co.edu.uniandes.csw.partyServices.entities.ProveedorEntity;
-import co.edu.uniandes.csw.partyServices.entities.AgendaEntity;
-import co.edu.uniandes.csw.partyServices.entities.NotificacionEntity;
-import co.edu.uniandes.csw.partyServices.entities.ValoracionEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.partyServices.persistence.ProveedorPersistence;
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
-import java.util.List;
 import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,7 +21,10 @@ import java.util.regex.Pattern;
  * @author estudiante
  */
 @Stateless
-public class ProveedorLogic {
+public class ProveedorLogic 
+{
+    private static final Logger LOGGER = Logger.getLogger(ProveedorLogic.class.getName());
+    
 @Inject
 private ProveedorPersistence persistence;
 public ProveedorEntity createProveedor (ProveedorEntity entity) throws BusinessLogicException{
