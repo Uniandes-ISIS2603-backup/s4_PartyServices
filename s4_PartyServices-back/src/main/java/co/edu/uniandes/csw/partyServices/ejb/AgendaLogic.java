@@ -47,19 +47,19 @@ public class AgendaLogic {
         {
             if(agendaEnitity.getFechaPenitencia().compareTo(new Date())<0)
                 throw new BusinessLogicException("La fecha de penitencia no puede ser menor al dia actual");
-            Date d = new Date();
+            Date dia = new Date();
             Calendar cal=Calendar.getInstance();
-            cal.setTime(d);
+            cal.setTime(dia);
             cal.add(Calendar.MONTH, 1);
-            d=cal.getTime();
-            if(agendaEnitity.getFechaPenitencia().compareTo(d)>0)
+            dia=cal.getTime();
+            if(agendaEnitity.getFechaPenitencia().compareTo(dia)>0)
                 throw new BusinessLogicException("La fecha de penitencia no puede ser mayor a un mes desde hoy");
         }
         
         //Verificacion regla del negocio del cumplimiento del formato para fehcas en que no labora el proveedor
         String fechasNoValidas=agendaEnitity.getFechasNoDisponibles();
         try {
-            validarFormatoFechasNoLaborales(fechasNoValidas);
+            validarFormatoFechasNoLaborables(fechasNoValidas);
         } catch (Exception e) {
             throw new BusinessLogicException("No corresponde el formato de fechas en que no labora. "+e.getMessage());
         }

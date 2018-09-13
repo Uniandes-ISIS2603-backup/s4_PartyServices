@@ -11,6 +11,8 @@ import co.edu.uniandes.csw.partyServices.entities.FechaEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.partyServices.persistence.AgendaPersistence;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -105,6 +107,122 @@ public class AgendaLogicTest
             data.add(entity);
         }
     }
+    
+    @Test
+    public void crearAgendaTest()
+    {
+        //Agenda valida
+        try {    
+            AgendaEntity agendaValida=factory.manufacturePojo(AgendaEntity.class);
+            Date dia = new Date();
+            Calendar cal=Calendar.getInstance();
+            cal.setTime(dia);
+            cal.add(Calendar.DATE, 15);
+            dia=cal.getTime();
+            agendaValida.setFechaPenitencia(dia);
+            
+            String fechasNoLaborales=
+                "{"
+                + "\""+AgendaEntity.DiaSemana.LUNES.darValor()+"\":\""+FechaEntity.Jornada.JORNADA_COMPLETA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.MARTES.darValor()+"\":\""+FechaEntity.Jornada.NINGUNA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.MIERCOLES.darValor()+"\":\""+FechaEntity.Jornada.JORNADA_COMPLETA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.JUEVES.darValor()+"\":\""+FechaEntity.Jornada.NINGUNA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.VIERNES.darValor()+"\":\""+FechaEntity.Jornada.JORNADA_COMPLETA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.SABADO.darValor()+"\":\""+FechaEntity.Jornada.JORNADA_MANANA_NOCHE.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.DOMINGO.darValor()+"\":\""+FechaEntity.Jornada.JORNADA_TARDE.darValor()+"\""
+                +"}";
+            
+            agendaValida.setFechasNoDisponibles(fechasNoLaborales);
+            
+            agendaLogic.createAgenda(345678, agendaValida);
+        } catch (BusinessLogicException ex) {
+            Assert.fail("Deberia crear la agenda");
+        }
+        
+        try {
+            //Agenda invalida debido a fecha penitencia mayor al mes
+            AgendaEntity agendaValida=factory.manufacturePojo(AgendaEntity.class);
+            Date dia = new Date();
+            Calendar cal=Calendar.getInstance();
+            cal.setTime(dia);
+            cal.add(Calendar.MONTH, 15);
+            dia=cal.getTime();
+            agendaValida.setFechaPenitencia(dia);
+            
+            String fechasNoLaborales=
+                "{"
+                + "\""+AgendaEntity.DiaSemana.LUNES.darValor()+"\":\""+FechaEntity.Jornada.JORNADA_COMPLETA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.MARTES.darValor()+"\":\""+FechaEntity.Jornada.NINGUNA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.MIERCOLES.darValor()+"\":\""+FechaEntity.Jornada.JORNADA_COMPLETA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.JUEVES.darValor()+"\":\""+FechaEntity.Jornada.NINGUNA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.VIERNES.darValor()+"\":\""+FechaEntity.Jornada.JORNADA_COMPLETA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.SABADO.darValor()+"\":\""+FechaEntity.Jornada.JORNADA_MANANA_NOCHE.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.DOMINGO.darValor()+"\":\""+FechaEntity.Jornada.JORNADA_TARDE.darValor()+"\""
+                +"}";
+            
+            agendaValida.setFechasNoDisponibles(fechasNoLaborales);
+            
+            agendaLogic.createAgenda(345678, agendaValida);
+                Assert.fail("no deberia crear la agenda");
+        
+        } catch (BusinessLogicException ex) {
+        
+        }
+        
+        
+        
+        try {
+            //Agenda invalida debido al formato de fechas laborales
+            AgendaEntity agendaValida=factory.manufacturePojo(AgendaEntity.class);
+            Date dia = new Date();
+            Calendar cal=Calendar.getInstance();
+            cal.setTime(dia);
+            cal.add(Calendar.MONTH, 15);
+            dia=cal.getTime();
+            agendaValida.setFechaPenitencia(dia);
+            
+            String fechasNoLaborales=
+                "{"
+                + "\""+AgendaEntity.DiaSemana.LUNES.darValor()+"\":[\""+FechaEntity.Jornada.JORNADA_COMPLETA.darValor()+"\","+"\""+FechaEntity.Jornada.JORNADA_COMPLETA.darValor()+"\"]"
+                + "\""+AgendaEntity.DiaSemana.MARTES.darValor()+"\":\""+FechaEntity.Jornada.NINGUNA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.MIERCOLES.darValor()+"\":\""+FechaEntity.Jornada.JORNADA_COMPLETA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.JUEVES.darValor()+"\":\""+FechaEntity.Jornada.NINGUNA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.VIERNES.darValor()+"\":\""+FechaEntity.Jornada.JORNADA_COMPLETA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.SABADO.darValor()+"\":\""+FechaEntity.Jornada.JORNADA_MANANA_NOCHE.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.DOMINGO.darValor()+"\":\""+FechaEntity.Jornada.JORNADA_TARDE.darValor()+"\""
+                +"}";
+            agendaValida.setFechasNoDisponibles(fechasNoLaborales);
+            
+            agendaLogic.createAgenda(345678, agendaValida);
+                Assert.fail("no deberia crear la agenda");
+        
+        } catch (BusinessLogicException ex) {
+        
+        }
+        
+    }
+    @Test
+    public void obtenerAgendaTest()
+    {
+        
+    }
+    @Test
+    public void eliminarAgendaTest()
+    {
+        
+    }
+    @Test
+    public void actualizarAgendaTest()
+    {
+        
+    }
+    
+    
+    
+    
+    
+    
+    
     
     @Test
     public void validarFormatoFechaPenitenciaTest(){
