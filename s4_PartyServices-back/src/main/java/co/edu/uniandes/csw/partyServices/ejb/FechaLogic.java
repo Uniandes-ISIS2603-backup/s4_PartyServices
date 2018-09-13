@@ -33,7 +33,10 @@ public class FechaLogic {
     public FechaEntity createFecha(long agendaId, FechaEntity fechaEnitity) throws BusinessLogicException
     {
         //Verificacion regla de negocio de las jornadas
-        if(FechaEntity.Jornada.desdeValor(fechaEnitity.getJornada())==null){
+        if(FechaEntity.Jornada.desdeValor(fechaEnitity.getJornada()) == null){
+                throw new BusinessLogicException("No cumple con las jornadas posibles");          
+        }
+        if(FechaEntity.Jornada.desdeValor(fechaEnitity.getJornada()).darValor().equals(FechaEntity.Jornada.NINGUNA)){
                 throw new BusinessLogicException("No cumple con las jornadas posibles");          
         }
             

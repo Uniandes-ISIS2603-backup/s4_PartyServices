@@ -34,7 +34,9 @@ public class FechaEntity extends BaseEntity implements Serializable {
         JORNADA_COMPLETA("Completa"),
         JORNADA_MANANA_TARDE("Manana_tarde"),
         JORNADA_TARDE_NOCHE("Tarde_noche"),
-        JORNADA_MANANA_NOCHE("Manana_noche");
+        JORNADA_MANANA_NOCHE("Manana_noche"),
+        NINGUNA("Ninguna");
+        
         
         private final String valor;
         

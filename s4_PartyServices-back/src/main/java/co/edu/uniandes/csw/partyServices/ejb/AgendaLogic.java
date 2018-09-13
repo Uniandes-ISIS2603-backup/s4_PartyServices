@@ -58,8 +58,12 @@ public class AgendaLogic {
         
         //Verificacion regla del negocio del cumplimiento del formato para fehcas en que no labora el proveedor
         String fechasNoValidas=agendaEnitity.getFechasNoDisponibles();
-        validarFormatoFechaPenitencia(fechasNoValidas);
-
+        try {
+            validarFormatoFechasNoLaborales(fechasNoValidas);
+        } catch (Exception e) {
+            throw new BusinessLogicException("No corresponde el formato de fechas en que no labora. "+e.getMessage());
+        }
+        
        
         
         
@@ -68,14 +72,20 @@ public class AgendaLogic {
         return agendaPersistence.create(agendaEnitity);
     }
     
-    public void validarFormatoFechaPenitencia(String fechasNoValidas) throws BusinessLogicException
+    public void validarFormatoFechasNoLaborables(String fechasNoValidas) throws Exception
     {
         JsonParser parser = new JsonParser();
+        JsonObject jsonFechasNoValidas= (JsonObject) parser.parse(fechasNoValidas);
         for (AgendaEntity.DiaSemana value : AgendaEntity.DiaSemana.values()) {
-            JsonObject jsonFechasNoValidas= (JsonObject) parser.parse(fechasNoValidas);
-            String jornada= jsonFechasNoValidas.get(value.darValor()).getAsString();
-            if(FechaEntity.Jornada.desdeValor(jornada)==null)
-                throw new BusinessLogicException("No cumple con las jornadas posibles");          
+            if(jsonFechasNoValidas.get(value.darValor())!=null)
+            {
+                String jornada= jsonFechasNoValidas.get(value.darValor()).getAsString();
+                if(FechaEntity.Jornada.desdeValor(jornada)==null)
+                    throw new BusinessLogicException("No cumple con las jornadas posibles");          
+        
+            }
+            else
+                throw new BusinessLogicException("No ingresa todos los dias de la semana, en caso de no laborar un dia poner valor de jornada como "+FechaEntity.Jornada.NINGUNA);
         }
     }   
 }
