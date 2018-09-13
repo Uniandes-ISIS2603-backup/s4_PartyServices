@@ -6,7 +6,9 @@
 package co.edu.uniandes.csw.partyServices.entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import uk.co.jemos.podam.common.PodamExclude;
 
@@ -35,8 +37,8 @@ public class ProductoEntity extends BaseEntity implements Serializable
     private int cantidad  ;
 
     @PodamExclude
-    @ManyToOne()
-    EventoEntity evento ;
+    @ManyToMany()
+    Collection<EventoEntity> eventos ;
     
     public String getNombre() {
         return nombre;
@@ -89,17 +91,13 @@ public class ProductoEntity extends BaseEntity implements Serializable
         this.cantidad = cantidad;
     }
 
-    public EventoEntity getEvento() {
-        return evento;
+    public Collection<EventoEntity> getEventos() {
+        return eventos;
     }
 
-    public void setEvento(EventoEntity evento) {
-        this.evento = evento;
+    public void setEventos(Collection<EventoEntity> eventos) {
+        this.eventos = eventos;
     }
-    
-    
-    
-    
-    
+
     
 }
