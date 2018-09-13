@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.partyServices.entities;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -17,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -25,9 +27,40 @@ import javax.persistence.TemporalType;
 @Entity
 public class FechaEntity extends BaseEntity implements Serializable {
     
+    public enum Jornada{
+        JORNADA_MANANA("Manana"),
+        JORNADA_TARDE("Tarde"),
+        JORNADA_NOCHE("Noche"),
+        JORNADA_COMPLETA("Completa"),
+        JORNADA_MANANA_TARDE("Manana_tarde"),
+        JORNADA_TARDE_NOCHE("Tarde_noche"),
+        JORNADA_MANANA_NOCHE("Manana_noche"),
+        NINGUNA("Ninguna");
+        
+        
+        private final String valor;
+        
+        private Jornada(String valor){
+            this.valor=valor;
+        }
+        
+        public static Jornada desdeValor(String valor){
+            for (Jornada jornada :  values()) {
+                if(jornada.darValor().equals(valor)){
+                    return jornada;
+                }
+            }
+            return null;
+        }
+        
+        public String darValor(){
+            return valor;
+        }
+        
+    }
     
-    
-    @ManyToOne()
+    @PodamExclude
+    @ManyToOne(cascade = CascadeType.ALL)
     private AgendaEntity agenda;
     
     @Temporal(TemporalType.DATE)
@@ -35,6 +68,7 @@ public class FechaEntity extends BaseEntity implements Serializable {
     
     private String jornada;
     
+    @PodamExclude
     @OneToMany(
             mappedBy="fecha",
             fetch= FetchType.LAZY

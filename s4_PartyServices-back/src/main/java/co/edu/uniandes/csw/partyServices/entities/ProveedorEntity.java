@@ -6,14 +6,15 @@
 package co.edu.uniandes.csw.partyServices.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.OneToMany;
+import uk.co.jemos.podam.common.PodamExclude;
 /**
  *
  * @author estudiante
@@ -21,19 +22,40 @@ import javax.persistence.OneToMany;
 @Entity
 public class ProveedorEntity extends BaseEntity implements Serializable{
     private final static long serialVersionUID = 1L ;
-   
-    @OneToOne(mappedBy="proveedor",
-            fetch= FetchType.EAGER)
-    AgendaEntity agenda;
+    
+    @PodamExclude
+    @OneToOne
+    private AgendaEntity agenda;
+    
     private String nombre;
+    
     private String contrasenia;
+    
+    @PodamExclude
     @ManyToOne
     public ServicioEntity servicio;
+    
+    @PodamExclude
     @OneToMany(mappedBy="proveedor",
             fetch= FetchType.LAZY)
-    Collection<ProductoEntity> catalogoProductos;
+    Collection<ProductoEntity> catalogoProductos = new ArrayList <ProductoEntity>();
    
-
+    @PodamExclude
+    @OneToMany(
+            mappedBy = "proveedor",
+            cascade = CascadeType.ALL,
+            orphanRemoval =true,
+            fetch = FetchType.LAZY
+    )
+    Collection<NotificacionEntity> notificaciones;
+  
+    @PodamExclude
+    @OneToMany(
+            mappedBy = "proveedor",
+            fetch = FetchType.LAZY
+    )
+    Collection<ValoracionEntity> valoraciones;
+    
     public String getNombre() {
         return nombre;
     }
@@ -44,21 +66,62 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
         this.nombre = nombre;
     }
 
-        public String getContrasenia() {
+    
+    
+    public String getContrasenia() {
         return contrasenia;
     }
 
-    public void setContrasenia(String contasenia) {
+    public void setContrasenia(String contrasenia) {
         this.contrasenia = contrasenia;
-    }
-     public Collection<ProductoEntity> getProductos()
-    {
-        return catalogoProductos;
     }
     public void setProductos(Collection<ProductoEntity> catalogoProductos)
     {
         this.catalogoProductos=catalogoProductos;
     }
+
+    public AgendaEntity getAgenda() {
+        return agenda;
+    }
+
+    public void setAgenda(AgendaEntity agenda) {
+        this.agenda = agenda;
+    }
+
+    public ServicioEntity getServicio() {
+        return servicio;
+    }
+
+    public void setServicio(ServicioEntity servicio) {
+        this.servicio = servicio;
+    }
+
+    public Collection<ProductoEntity> getCatalogoProductos() {
+        return catalogoProductos;
+    }
+
+    public void setCatalogoProductos(Collection<ProductoEntity> catalogoProductos) {
+        this.catalogoProductos = catalogoProductos;
+    }
+
+    public Collection<NotificacionEntity> getNotificaciones() {
+        return notificaciones;
+    }
+
+    public void setNotificaciones(Collection<NotificacionEntity> notificaciones) {
+        this.notificaciones = notificaciones;
+    }
+
+    public Collection<ValoracionEntity> getValoraciones() {
+        return valoraciones;
+    }
+
+    public void setValoraciones(Collection<ValoracionEntity> valoraciones) {
+        this.valoraciones = valoraciones;
+    }
+    
+    
+    
 }
     
     

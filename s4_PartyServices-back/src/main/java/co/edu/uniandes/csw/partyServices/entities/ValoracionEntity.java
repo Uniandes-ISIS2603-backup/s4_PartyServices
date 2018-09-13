@@ -7,6 +7,8 @@ package co.edu.uniandes.csw.partyServices.entities;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -19,17 +21,35 @@ public class ValoracionEntity extends BaseEntity implements Serializable{
     
     private String comentario;
     
-    /*@javax.persistence.ManyToOne
-    private ClienteEntity cliente;*/
+    @PodamExclude
+    @ManyToOne
+    private ClienteEntity cliente;
     
-    @javax.persistence.ManyToOne
+    @PodamExclude
+    @ManyToOne
     private ProveedorEntity proveedor;
     
     public ValoracionEntity()
     {
         
     }
-    
+
+    public ClienteEntity getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(ClienteEntity cliente) {
+        this.cliente = cliente;
+    }
+
+    public ProveedorEntity getProveedor() {
+        return proveedor;
+    }
+
+    public void setProveedor(ProveedorEntity proveedor) {
+        this.proveedor = proveedor;
+    }
+  
     /**
      * Devuelve el puntaje de la valoracion.
      * 

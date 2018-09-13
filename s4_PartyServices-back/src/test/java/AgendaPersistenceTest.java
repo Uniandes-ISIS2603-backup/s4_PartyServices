@@ -2,7 +2,9 @@
 import co.edu.uniandes.csw.partyServices.entities.AgendaEntity;
 import co.edu.uniandes.csw.partyServices.entities.ProveedorEntity;
 import co.edu.uniandes.csw.partyServices.persistence.AgendaPersistence;
+import co.edu.uniandes.csw.partyServices.persistence.ProveedorPersistence;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -119,11 +121,12 @@ public class AgendaPersistenceTest {
         AgendaEntity resultado = agendaPersistence.create(agendaEntity);
         Assert.assertNotNull( resultado);
         AgendaEntity agendaEntityEncontrada= em.find(AgendaEntity.class,resultado.getId());
-        Assert.assertEquals(agendaEntity.getProveedor(), agendaEntityEncontrada.getProveedor());
+        Assert.assertEquals(agendaEntity.getFechaPenitencia(), agendaEntityEncontrada.getFechaPenitencia());
     }
     
     @Test
-    public void deleteAgendaTest() {
+    public void deleteAgendaTest() 
+    {
         AgendaEntity entidad = data.get(0);
         agendaPersistence.delete(entidad.getId());
         AgendaEntity deleted = em.find(AgendaEntity.class, entidad.getId());
@@ -131,12 +134,16 @@ public class AgendaPersistenceTest {
     }
 
     @Test
-    public void findAgendaByProveedorTest() {
-        AgendaEntity entity = data.get(0);
-        ProveedorEntity proveedor =new ProveedorEntity();
-        
-        AgendaEntity newEntity = agendaPersistence.findByProveedor(proveedor); 
-        Assert.assertNotNull(newEntity);
-        Assert.assertEquals(entity.getId(), newEntity.getId());
+    public void updateAgendaTest() 
+    {
+        PodamFactory factory = new PodamFactoryImpl();
+        AgendaEntity entity = factory.manufacturePojo(AgendaEntity.class);
+        agendaPersistence.create(entity);
+        Date dia = new Date();
+        entity.setFechaPenitencia(dia);
+        agendaPersistence.update(entity);
+        AgendaEntity agendaActualizada=agendaPersistence.find(entity.getId());
+        Assert.assertEquals(agendaActualizada.getFechaPenitencia().getDay()+" "+agendaActualizada.getFechaPenitencia().getMonth()+" "+agendaActualizada.getFechaPenitencia().getYear(), 
+            dia.getDay()+" "+dia.getMonth()+" "+dia.getYear());
     }
 }

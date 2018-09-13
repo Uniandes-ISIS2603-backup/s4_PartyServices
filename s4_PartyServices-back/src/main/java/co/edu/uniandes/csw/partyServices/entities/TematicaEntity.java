@@ -29,9 +29,12 @@ public class TematicaEntity extends BaseEntity implements Serializable {
     @OneToMany(mappedBy = "tematica",fetch=FetchType.LAZY)
     private List<ServicioEntity> servicios = new ArrayList<ServicioEntity>();
     
-    //@PodamExclude
-    //@OneToMany (mappedBy = "tematica",fetch=FetchType.LAZY)
-    //private List<SugerenciaEntity> sugerencias = new ArrayList<ServicioEntity>();
+    @PodamExclude
+    @OneToMany(mappedBy = "tematica",fetch=FetchType.LAZY)
+    private List<SugerenciaEntity> sugerencias = new ArrayList<SugerenciaEntity>();
+    
+    
+    
     /**
      * Devuelve el nombre de la tematica.
      *
@@ -51,38 +54,35 @@ public class TematicaEntity extends BaseEntity implements Serializable {
     }
     
     /**
-     * Devuelve los servicios de la editorial.
+     * Devuelve los servicios de la tematica.
      *
      * @return Lista de entidades de Servicio.
      */
-    public List<ServicioEntity> getServicio() {
+
+    public List<ServicioEntity> getServicios()
+    {
         return servicios;
     }
 
     /**
-     * Modifica los sugerencias de la editorial.
+     * Modifica los sugerencias de la tematica.
      *
      * @param sugerencias Los nuevos sugerencias.
      */
-    //public void setSugerencias(List<SugerenciaEntity> sugerencias) {
-      //  this.sugerencias = sugerencias;
-    //}
+    public void setSugerencias(List<SugerenciaEntity> sugerencias) {
+        this.sugerencias = sugerencias;
+    }
+
     /**
-     * Devuelve los sugerencias de la editorial.
+     * Devuelve los sugerencias de la tematica.
      *
      * @return Lista de entidades de Sugerencia.
      */
-    //public List<SugerenciaEntity> getSugerencia() {
-      //  return sugerencias;
-    //}
+    public List<SugerenciaEntity> getSugerencias() 
+{
 
-    /**
-     * Modifica los sugerencias de la editorial.
-     *
-     * @param sugerencias Los nuevos sugerencias.
-     */
-    //public void setSugerencias(List<SugerenciaEntity> sugerencias) {
-      //  this.sugerencias = sugerencias;
-    //}
+        return sugerencias;
+    }
+
 }
 

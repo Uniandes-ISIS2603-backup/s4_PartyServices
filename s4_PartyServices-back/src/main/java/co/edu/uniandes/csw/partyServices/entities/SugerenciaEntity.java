@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.partyServices.entities;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -18,11 +19,11 @@ public class SugerenciaEntity extends BaseEntity implements Serializable {
     
     private String comentario;
     
-    /*@javax.persistence.ManyToOne
-    private ClienteEntity cliente;*/
+    @ManyToOne
+    private ClienteEntity cliente;
     
-    /*@javax.persistence.ManyToOne
-    private TematicaEntity tematica;*/
+    @ManyToOne
+    private TematicaEntity tematica;
 
     public SugerenciaEntity(){
         

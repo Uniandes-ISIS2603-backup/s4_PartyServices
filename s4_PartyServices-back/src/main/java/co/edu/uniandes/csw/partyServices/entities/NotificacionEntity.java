@@ -4,28 +4,67 @@
  * and open the template in the editor.
  */
 package co.edu.uniandes.csw.partyServices.entities;
+
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.OneToMany;
+import uk.co.jemos.podam.common.PodamExclude;
+
 /**
  *
  * @author estudiante
  */
 @Entity
-public class NotificacionEntity extends BaseEntity implements Serializable{
-    private final static long serialVersionUID = 1L ;
+public class NotificacionEntity extends BaseEntity implements Serializable {
+
+    private final static long serialVersionUID = 1L;
+
+    @PodamExclude
+    @ManyToOne
+    private ClienteEntity cliente;
     
+    @PodamExclude
+    @ManyToOne
+    private EventoEntity evento ;
+    
+    @PodamExclude
+    @ManyToOne
+    private ProveedorEntity proveedor ;
 
     private String tipoDeAviso;
     private String mensaje;
 
-    public String getTipoDeAviso(){
+    public ClienteEntity getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(ClienteEntity cliente) {
+        this.cliente = cliente;
+    }
+
+    public EventoEntity getEvento() {
+        return evento;
+    }
+
+    public void setEvento(EventoEntity evento) {
+        this.evento = evento;
+    }
+
+    public ProveedorEntity getProveedor() {
+        return proveedor;
+    }
+
+    public void setProveedor(ProveedorEntity proveedor) {
+        this.proveedor = proveedor;
+    }
+
+    
+    
+    
+    
+    public String getTipoDeAviso() {
         return tipoDeAviso;
     }
 
@@ -33,13 +72,12 @@ public class NotificacionEntity extends BaseEntity implements Serializable{
         this.tipoDeAviso = tipoDeAviso;
     }
 
-        public String getMensaje() {
+    public String getMensaje() {
         return mensaje;
     }
-        
-        public void setMensaje(String mensaje) {
+
+    public void setMensaje(String mensaje) {
         this.mensaje = mensaje;
     }
-        
 
 }

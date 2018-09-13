@@ -15,6 +15,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import java.util.logging.Logger;
 
 /**
  *Clase que implementa el recurso "Sugerencias"
@@ -26,10 +27,17 @@ import javax.ws.rs.Produces;
 @RequestScoped
 public class SugerenciaResource {
     
+    private static final Logger LOGGER = Logger.getLogger(SugerenciaResource.class.getName());
+    
+    /*@Inject
+    private SugerencialLogic sugerenciaLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
+    */
+    
     /**
      * Retorna la sugerencia con el id asociado recibido en la URL.
      *
      * @param sugerenciasId Identificador de la sugerencia que se desea obtener.
+     * @return JSON {@link SugerenciaDTO} - La editorial buscada
      * Este debe ser una cadena de dígitos.
      */
     @GET

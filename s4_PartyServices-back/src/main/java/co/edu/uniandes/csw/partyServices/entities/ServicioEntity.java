@@ -29,6 +29,7 @@ public class ServicioEntity extends BaseEntity implements Serializable {
     
     private String tipo;
     
+    @PodamExclude
     @ManyToOne
     private TematicaEntity tematica;
 
@@ -57,6 +58,14 @@ public class ServicioEntity extends BaseEntity implements Serializable {
     public void setProveedores(List<ProveedorEntity> proveedores) {
         this.proveedores = proveedores;
     }
-    
+
+    public TematicaEntity getTematica() {
+        return tematica;
+    }
+
+    public void setTematica(TematicaEntity tematica) {
+        this.tematica = tematica;
+    }
+
     
 }

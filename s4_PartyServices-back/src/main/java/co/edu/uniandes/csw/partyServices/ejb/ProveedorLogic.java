@@ -1,0 +1,169 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package co.edu.uniandes.csw.partyServices.ejb;
+
+import javax.ejb.Stateless;
+import javax.inject.Inject;
+import co.edu.uniandes.csw.partyServices.entities.ProveedorEntity;
+import co.edu.uniandes.csw.partyServices.entities.AgendaEntity;
+import co.edu.uniandes.csw.partyServices.entities.NotificacionEntity;
+import co.edu.uniandes.csw.partyServices.entities.ValoracionEntity;
+import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
+import co.edu.uniandes.csw.partyServices.persistence.ProveedorPersistence;
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
+import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ *
+ * @author estudiante
+ */
+@Stateless
+public class ProveedorLogic {
+@Inject
+private ProveedorPersistence persistence;
+public ProveedorEntity createProveedor (ProveedorEntity entity) throws BusinessLogicException{
+    
+      LOGGER.log(Level.INFO, "Inicia proceso de creación del proveedor");
+        // Verifica la regla de negocio que dice que no puede haber dos proveedores con el mismo nombre
+        if (persistence.findByName(entity.getNombre()) != null) {
+            throw new BusinessLogicException("Ya existe un proveedor con el nombre \"" + entity.getNombre() + "\"");
+        }
+        String contra = entity.getContrasenia();
+        if(contra==null)
+            {
+            throw new BusinessLogicException("la contraseña no puede ser null");
+        } 
+        else if(contra.length()<8)
+        {
+            throw new BusinessLogicException("la contraseña debe tener más de 8 caracteres");
+        }
+        
+        else if(validateNombre(entity.getNombre()))
+                {
+                   throw new BusinessLogicException("la contraseña no debe contener caracteres especiales"); 
+                }
+        else if (contra== entity.getNombre())
+        {
+            throw new BusinessLogicException("la contraseña no puede ser igual al nombre de Usuario");
+        }
+        if(entity.getCatalogoProductos()==null)
+        {
+            throw new BusinessLogicException("el catálogo de productos no puede ser null");
+        }
+        if(entity.getAgenda()==null)
+        {
+            throw new BusinessLogicException("la agenda no puede ser null");
+        }
+        // Invoca la persistencia para crear el proveedor 
+        persistence.create(entity);
+        LOGGER.log(Level.INFO, "Termina proceso de creación del proveedor");
+        return entity;
+    }
+private boolean validateNombre(String nombre) {
+        Pattern pat = Pattern.compile("[a-zA-Z]");
+        Matcher mat = pat.matcher(nombre);
+        return (mat.matches() && !nombre.isEmpty());
+    }
+    /**
+     *
+     * Obtener todas los proveedores existentes en la base de datos.
+     *
+     * @return una lista de proveedores.
+     */
+    public List<ProveedorEntity> getProveedores() {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar todos los proveedores");
+        // Note que, por medio de la inyección de dependencias se llama al método "findAll()" que se encuentra en la persistencia.
+        List<ProveedorEntity> proveedores = persistence.findAll();
+        LOGGER.log(Level.INFO, "Termina proceso de todos  los proveedores");
+        return proveedores;
+    }
+
+    /**
+     *
+     * Obtener un proveedor por medio de su id.
+     *
+     * @param proveedorID: id del proveedor para ser buscada.
+     * @return el proveedor solicitado por medio de su id.
+     */
+    public ProveedorEntity getProveedor(Long proveedorID) {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar el proveedor con id = {0}", proveedorID);
+        // Note que, por medio de la inyección de dependencias se llama al método "find(id)" que se encuentra en la persistencia.
+        ProveedorEntity proveedorEntity = persistence.find(proveedorID);
+        if (proveedorEntity == null) {
+            LOGGER.log(Level.SEVERE, "el proveedor con el id = {0} no existe", proveedorID);
+        }
+        LOGGER.log(Level.INFO, "Termina proceso de consultar el proveedor con id = {0}", proveedorID);
+        return proveedorEntity;
+    }
+
+    /**
+     *
+     * Actualizar un proveedor.
+     *
+     * @param proveedorId: id del proveedor para buscarlo en la base de
+     * datos.
+     * @param proveedorEntity: proveedor con los cambios para ser actualizado,
+     * por ejemplo el nombre.
+     * @return el proveedor con los cambios actualizados en la base de datos.
+     */
+    public ProveedorEntity updateProveedor(Long proveedorId, ProveedorEntity proveedorEntity) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el proveedor con id = {0}", proveedorId);
+        if (persistence.findByName(proveedorEntity.getNombre()) != null) {
+            throw new BusinessLogicException("Ya existe un proveedor con el nombre \"" + proveedorEntity.getNombre() + "\"");
+        }
+        String contra = proveedorEntity.getContrasenia();
+        if(contra==null)
+            {
+            throw new BusinessLogicException("la contraseña no puede ser null");
+        } 
+        else if(contra.length()<8||contra.length()>35)
+        {
+            throw new BusinessLogicException("la contraseña debe tener más de 8 caracteres y máximo 35 caracteres");
+        }
+        else if(validateNombre(proveedorEntity.getNombre()))
+                {
+                   throw new BusinessLogicException("la contraseña no debe contener caracteres especiales"); 
+                }
+        else if (contra== proveedorEntity.getNombre())
+        {
+            throw new BusinessLogicException("la contraseña no puede ser igual al nombre de Usuario");
+        }
+        if(proveedorEntity.getCatalogoProductos()==null)
+        {
+            throw new BusinessLogicException("el catálogo de productos no puede ser null");
+        }
+        if(proveedorEntity.getAgenda()==null)
+        {
+            throw new BusinessLogicException("la agenda no puede ser null");
+        }
+        // Note que, por medio de la inyección de dependencias se llama al método "update(entity)" que se encuentra en la persistencia.
+        ProveedorEntity newEntity = persistence.update(proveedorEntity);
+        LOGGER.log(Level.INFO, "Termina proceso de actualizar el proveedor con id = {0}", proveedorEntity.getId());
+        return newEntity;
+    }
+
+    /**
+     * Borrar un proveedor
+     *
+     * @param proveedorID: id del proveedor a borrar
+     * @throws BusinessLogicException Si el proveedor a eliminar tiene .
+     */
+    public void deleteProveedor(Long proveedorID) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "Inicia proceso de borrar el proveedor con id = {0}", proveedorID);
+        ProveedorEntity provEntity = persistence.find(proveedorID);
+        if(!provEntity.getAgenda().getFechasOcupadas().isEmpty())
+        {
+            throw new BusinessLogicException("No se puede borrar el proveedor pues tiene un evento pendiente");
+        }
+        persistence.delete(proveedorID);
+        LOGGER.log(Level.INFO, "Termina proceso de borrar el proveedor con id = {0}", proveedorID);
+    }
+
+}
