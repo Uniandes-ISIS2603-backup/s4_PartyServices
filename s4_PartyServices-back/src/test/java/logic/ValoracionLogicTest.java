@@ -31,7 +31,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  * @author Jesús Orlando Cárcamo Posada
  */
 @RunWith(Arquillian.class)
-public class valoracionLogicTest {
+public class ValoracionLogicTest {
     
     private PodamFactory factory = new PodamFactoryImpl();
     
@@ -41,7 +41,7 @@ public class valoracionLogicTest {
      */
     @Inject
     private ValoracionLogic valoracionLogic;
-    
+
     /**
      * Contexto de Persistencia que se va a utilizar para acceder a la Base de
      * datos por fuera de los métodos que se están probando.
@@ -130,6 +130,7 @@ public class valoracionLogicTest {
         ValoracionEntity entity = em.find(ValoracionEntity.class, result.getId());
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getComentario(), entity.getComentario());
+        Assert.assertEquals(newEntity.getPuntaje(), entity.getPuntaje());
     }
     
     /**
@@ -140,7 +141,7 @@ public class valoracionLogicTest {
     @Test (expected= BusinessLogicException.class)
     public void createValoracionLimiteCaracteresTest() throws BusinessLogicException {
         String mensajeGrande = "hola";
-        for(int i=0; i<6000; i++){
+        for(int i=0; i<3000; i++){
             mensajeGrande = mensajeGrande.concat("hola");
         }
         ValoracionEntity newEntity = new ValoracionEntity();
