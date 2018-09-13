@@ -26,13 +26,7 @@ import javax.ws.rs.Produces;
 @RequestScoped
 public class PagoResource {
     
-    /**
-     * Retorna la sugerencia con el id asociado recibido en la URL.
-     *
-     * @param pagosId Identificador que se desea obtener.
-     * Este debe ser una cadena de dígitos.
-     * @return 
-     */
+    
     @GET
     @Path("{pagosId: \\d+}")
     public PagoDTO darPago(@PathParam("pagosId") Long pagosId){
@@ -41,6 +35,7 @@ public class PagoResource {
     
     
     @POST
+    @Path("{pagosId: \\d+}")
     public PagoDTO crearPago(PagoDTO PAGO){
         return PAGO;
     }
