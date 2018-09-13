@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.partyServices.dtos;
 
 //import co.edu.uniandes.csw.partyServices.entities.SugerenciaEntity;
+import co.edu.uniandes.csw.partyServices.entities.PagoEntity;
 import java.io.Serializable;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -34,10 +35,30 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author Elias Negrete
  */
 public class PagoDTO implements Serializable{
-    
+    //long que modela el id de un pago
     private Long id;
+    
+    //string que representa el tipo de un usuario
     private String tipo;
+    
+    //datos de un usuario
     private String usuario;
+    
+    //medio de pago
+    private String medioPago;
+    
+    
+   
+    
+    
+    
+
+    
+    public final static String TIPO_TARJETA_CREDITO = "Tarjeta";
+    public final static String TIPO_PAYPAL= "Paypal";
+    public final static String TIPO_ESP = "ESP";
+
+    
 
     
     /**
@@ -45,18 +66,26 @@ public class PagoDTO implements Serializable{
      */
     public PagoDTO() {
     }
+    
     /**
      * Conviertir Entity a DTO (Crea un nuevo DTO con los valores que recibe en
-     * la entidad que viene de argumento.
+     * la entidad que viene de argumento).
      *
      * @param pagoEntity: Es la entidad que se va a convertir a DTO
      */
-    /*public PagoDTO(PagoEntity pagoEntity) {
+    public PagoDTO(PagoEntity pagoEntity) {
         if (pagoEntity != null) {
+            
             this.id = pagoEntity.getId();
-            this.tipo = sugerenciaEntity.getTipo();
+            this.usuario = pagoEntity.getUsuario();
+            this.tipo = pagoEntity.getTipo();
+            this.medioPago = pagoEntity.getMedioPago();
+
         }
-    }*/
+    }
+    
+    
+    
     
     
     /**
@@ -68,10 +97,28 @@ public class PagoDTO implements Serializable{
         return id;
     }
     
+    public String getMedioPago() {
+        return medioPago;
+    }
+
+    public void setMedioPago(String medioPago) {
+        this.medioPago = medioPago;
+    }
     
+    /**
+     * Devuelve los datos de un usuario
+     *
+     * @return the usuario
+     */
      public String getUsuario() {
         return usuario;
     }
+     
+     /**
+     * Modifica el ID del pago.
+     *
+     * @param pUsuario  the usuario to set
+     */
      public void setUsuario(String pUsuario) {
         this.usuario = pUsuario;
         
@@ -113,12 +160,13 @@ public class PagoDTO implements Serializable{
      *
      * @return Un Entity con los valores del DTO
      */
-    /*public PagoEntity toEntity() {
+    public PagoEntity toEntity() {
         PagoEntity pagoEntity = new PagoEntity();
-        PagoEntity.setId(this.id);
-        PagoEntity.setTipo(this.tipo);
+        pagoEntity.setId(this.id);
+        pagoEntity.setUsuario(this.usuario);
+        pagoEntity.setTipo(this.tipo);
         return pagoEntity;
-    }*/
+    }
     
     @Override
     public String toString() {
