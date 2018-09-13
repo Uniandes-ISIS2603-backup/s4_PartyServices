@@ -29,6 +29,7 @@ public class ServicioEntity extends BaseEntity implements Serializable {
     
     private String tipo;
     
+    @PodamExclude
     @ManyToOne
     private TematicaEntity tematica;
 

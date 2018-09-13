@@ -29,17 +29,16 @@ public class ValoracionLogic {
      * Crea una valoración en la persistencia. 
      * 
      * @param valoracionEntity La entidad que representa la valoracion a persistir.
-     * @return La entidad d ela valoración luego de persistirla.
-     * @throws BusinessLogicException si el tamaño de la valoración es mayor a los 20000 caracteres.
+     * @return La entidad de la valoración luego de persistirla.
+     * @throws BusinessLogicException si el tamaño de la valoración es mayor a los 10000 caracteres.
      */
     public ValoracionEntity createValoracion(ValoracionEntity valoracionEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de creación de la valoracion");
-        if (valoracionEntity != null) {
-            if ( valoracionEntity.getComentario() != null && valoracionEntity.getComentario().length() > 20000) {
-                throw new BusinessLogicException("El tamaño del texto es superior a los 20000 caracteres");
-            }
-        }
         
+        if ( valoracionEntity.getComentario() != null && valoracionEntity.getComentario().length() > 10000) {
+                throw new BusinessLogicException("El tamaño del texto no debe ser superior a los 10000 caracteres");
+        }
+
         persistence.create(valoracionEntity);
         
         LOGGER.log(Level.INFO, "Termina proceso de creación de la valoracion");
