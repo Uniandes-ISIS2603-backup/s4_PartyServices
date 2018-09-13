@@ -35,7 +35,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class ClienteDTO implements Serializable{
     
     private Long id;
-    private String usuario;
+    private String login;
     private String contrasenia;
     /**
      * Constructor por defecto
@@ -89,8 +89,8 @@ public class ClienteDTO implements Serializable{
      *
      * @return el  usuario.
      */
-    public String getUsuario() {
-        return usuario;
+    public String getLogin() {
+        return login;
     }
 
     /**
@@ -98,8 +98,8 @@ public class ClienteDTO implements Serializable{
      *
      * @param user nick
      */
-    public void setUsuario(String user) {
-        this.usuario = user;
+    public void setLogin(String user) {
+        this.login = user;
     }
     
     /**

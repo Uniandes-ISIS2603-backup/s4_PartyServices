@@ -22,7 +22,7 @@ import uk.co.jemos.podam.common.PodamExclude;
 public class ClienteEntity  extends BaseEntity implements Serializable
 {
    
-    private String usuario;
+    private String login;
     private String contrasenia;
    
     
@@ -69,13 +69,13 @@ public class ClienteEntity  extends BaseEntity implements Serializable
 {
     this.contrasenia = pContra;
 }
-    public String getUsuario() {
-        return usuario;
+    public String getLogin() {
+        return login;
     }
 
     
-    public void setUsuario(String user) {
-        this.usuario = user;
+    public void setLogin(String user) {
+        this.login = user;
     }
    
     public Collection<EventoEntity> getEventos() {
