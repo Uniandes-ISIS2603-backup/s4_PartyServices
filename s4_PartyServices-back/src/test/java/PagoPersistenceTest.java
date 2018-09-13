@@ -54,7 +54,7 @@ public class PagoPersistenceTest
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
     
-       @Before
+    @Before
     public void configTest() {
         try {
             utx.begin();

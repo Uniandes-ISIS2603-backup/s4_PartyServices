@@ -24,6 +24,10 @@ public class ClienteEntity  extends BaseEntity implements Serializable
    
     private String login;
     private String contrasenia;
+    private String correo;
+
+    
+
    
     
     
@@ -58,6 +62,14 @@ public class ClienteEntity  extends BaseEntity implements Serializable
     
     public ClienteEntity(){
         
+    }
+    
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
     
    public String getContrasenia()
