@@ -21,6 +21,12 @@ public class PagoEntity extends BaseEntity implements Serializable{
     
     private String tipo;
     
+    private String medioPago;
+
+    public final static String TIPO_TARJETA_CREDITO = "Tarjeta";
+    public final static String TIPO_PAYPAL= "Paypal";
+    public final static String TIPO_ESP = "ESP";
+    
     
     @PodamExclude
     @ManyToOne()
@@ -36,6 +42,14 @@ public class PagoEntity extends BaseEntity implements Serializable{
 
     public void setCliente(ClienteEntity pCliente) {
         this.cliente = pCliente;
+    }
+    
+    public String getMedioPago() {
+        return medioPago;
+    }
+
+    public void setMedioPago(String medioPago) {
+        this.medioPago = medioPago;
     }
     
     

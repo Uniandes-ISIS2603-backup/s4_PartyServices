@@ -28,27 +28,28 @@ public class ClienteResource {
     
     
     @GET
-    @Path("{clienteId: \\d+}")
+    @Path("{clientesId: \\d+}")
     public ClienteDTO darCliente(@PathParam("pagosId") Long clienteId){
         return new ClienteDTO();
     }
     
     
     @POST
+    @Path("{clientesId: \\d+}")
     public ClienteDTO crearCliente(ClienteDTO pCliente){
         return pCliente;
     }
     
     
     @PUT
-    @Path("{clienteId: \\d+}")
+    @Path("{clientesId: \\d+}")
     public ClienteDTO modificarCliente(@PathParam("clienteId") Long clienteId, ClienteDTO pCliente){
         return pCliente;
     }
     
     
     @DELETE
-    @Path("{clienteId: \\d+}")
+    @Path("{clientesId: \\d+}")
     public void deleteCliente(@PathParam("clienteId") Long clienteId) {
         
     }
