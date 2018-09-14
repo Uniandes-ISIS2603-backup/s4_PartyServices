@@ -54,7 +54,7 @@ public class ProductoLogic {
        {
             throw new BusinessLogicException("El nombre del producto contiene caracteres especiales");
         }
-       if (productoEntity.getDueño() == null || productoEntity.getProveedor() == null) {
+       if (productoEntity.getDuenio() == null || productoEntity.getProveedor() == null) {
             throw new BusinessLogicException("El producto debe tener un proveedor asociado");
         }
         if (productoEntity.getCosto() < 0 || productoEntity.getCosto() >= 2147483647) {
