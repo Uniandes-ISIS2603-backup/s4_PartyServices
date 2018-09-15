@@ -140,7 +140,7 @@ public class ProductoPersistenceTest {
         Assert.assertEquals(newEntity.getProveedor(), resp.getProveedor());
         Assert.assertEquals(newEntity.getCosto(), resp.getCosto());
         Assert.assertEquals(newEntity.getCantidad(), resp.getCantidad());
-        Assert.assertEquals(newEntity.getEvento(), resp.getEvento());
+        Assert.assertEquals(newEntity.getEventos(), resp.getEventos());
        
 
     }

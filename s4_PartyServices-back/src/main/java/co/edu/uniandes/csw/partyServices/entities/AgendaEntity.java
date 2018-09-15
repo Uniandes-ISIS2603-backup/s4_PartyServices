@@ -5,8 +5,10 @@
  */
 package co.edu.uniandes.csw.partyServices.entities;
 
+import static co.edu.uniandes.csw.partyServices.entities.FechaEntity.Jornada.values;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,10 +24,43 @@ import uk.co.jemos.podam.common.PodamExclude;
 public class AgendaEntity extends BaseEntity implements Serializable{
    
     
+    public enum DiaSemana{
+        LUNES("LUNES"),
+        MARTES("MARTES"),
+        MIERCOLES("MIERCOLES"),
+        JUEVES("JUEVES"),
+        VIERNES("VIERNES"),
+        SABADO("SABADO"),
+        DOMINGO("DOMINGO");
+        
+        private final String valor;
+        
+        private DiaSemana(String valor){
+            this.valor=valor;
+        }
+        
+        public static DiaSemana desdeValor(String valor){
+            for (DiaSemana diaSemana :  values()) {
+                if(diaSemana.darValor().equals(valor)){
+                    return diaSemana;
+                }
+            }
+            return null;
+        }
+        
+        public String darValor(){
+            return valor;
+        }
+        
+    }
+    
+    
+    
+    
     /**
      * DD:MM:AAAA
      */
-    private String fechaPenitencia;
+    private Date fechaPenitencia;
 
     
     private String fechasNoDisponibles;
@@ -48,12 +83,12 @@ public class AgendaEntity extends BaseEntity implements Serializable{
              
     
     
-    public String getFechaPenitencia()
+    public Date getFechaPenitencia()
     {
         return fechaPenitencia;
     }
     
-    public void setFechaPenitencia(String fechaPenitencia)
+    public void setFechaPenitencia(Date fechaPenitencia)
     {
         this.fechaPenitencia=fechaPenitencia;
     }

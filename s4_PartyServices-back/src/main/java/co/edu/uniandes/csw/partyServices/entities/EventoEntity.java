@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import uk.co.jemos.podam.common.PodamExclude;
@@ -21,7 +22,37 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 public class EventoEntity  extends BaseEntity implements Serializable
 {
+
    
+    public enum Estado{
+        EN_PLANEACION("En planeacion"),
+        PLANEADO ("Planeado"),
+        EN_PROCESO ("En proceso"),
+        CANCELADO ("Cancelado"),
+        TERMINADO ("Terminado"), ;
+        
+        private final String valor;
+        
+        private Estado(String valor){
+            this.valor=valor;
+        }
+        
+        public static Estado desdeValor(String valor){
+            for (Estado estado :  values()) 
+            {
+                if(estado.darValor().equals(valor)){
+                    return estado;
+                }
+            }
+            return null;
+        }
+        public String darValor(){
+            return valor;
+        }
+        
+    }
+    
+    
     private String nombre ;
     
     private String estado ;
@@ -34,13 +65,13 @@ public class EventoEntity  extends BaseEntity implements Serializable
     @ManyToOne()
     private ClienteEntity cliente ;
  
-    private long latitud ;
+    private double latitud ;
     
-    private long longitud ;
+    private double longitud ;
     
     @PodamExclude    
-    @OneToMany(
-    mappedBy = "evento" ,
+    @ManyToMany(
+    mappedBy = "eventos" ,
     fetch = FetchType.LAZY
     )
     Collection<ProductoEntity> productos ;
@@ -103,19 +134,19 @@ public class EventoEntity  extends BaseEntity implements Serializable
         this.productos = productos;
     }
 
-    public long getLatitud() {
+    public double getLatitud() {
         return latitud;
     }
 
-    public void setLatitud(long latitud) {
+    public void setLatitud(double latitud) {
         this.latitud = latitud;
     }
 
-    public long getLongitud() {
+    public double getLongitud() {
         return longitud;
     }
 
-    public void setLongitud(long longitud) {
+    public void setLongitud(double longitud) {
         this.longitud = longitud;
     }
     

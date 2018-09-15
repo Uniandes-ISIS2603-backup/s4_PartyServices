@@ -5,10 +5,10 @@
  */
 package logic;
 
-import co.edu.uniandes.csw.partyServices.ejb.ValoracionLogic;
-import co.edu.uniandes.csw.partyServices.entities.ValoracionEntity;
+import co.edu.uniandes.csw.partyServices.ejb.SugerenciaLogic;
+import co.edu.uniandes.csw.partyServices.entities.SugerenciaEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
-import co.edu.uniandes.csw.partyServices.persistence.ValoracionPersistence;
+import co.edu.uniandes.csw.partyServices.persistence.SugerenciaPersistence;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -31,8 +31,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  * @author Jesús Orlando Cárcamo Posada
  */
 @RunWith(Arquillian.class)
-public class valoracionLogicTest {
-    
+public class SugerenciaLogicTest {
     private PodamFactory factory = new PodamFactoryImpl();
     
     /**
@@ -40,7 +39,7 @@ public class valoracionLogicTest {
      * van a probar.
      */
     @Inject
-    private ValoracionLogic valoracionLogic;
+    private SugerenciaLogic sugerenciaLogic;
     
     /**
      * Contexto de Persistencia que se va a utilizar para acceder a la Base de
@@ -64,9 +63,9 @@ public class valoracionLogicTest {
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(ValoracionEntity.class.getPackage())
-                .addPackage(ValoracionLogic.class.getPackage())
-                .addPackage(ValoracionPersistence.class.getPackage())
+                .addPackage(SugerenciaEntity.class.getPackage())
+                .addPackage(SugerenciaLogic.class.getPackage())
+                .addPackage(SugerenciaPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -74,13 +73,13 @@ public class valoracionLogicTest {
     /**
      * Lista que tiene los datos de prueba.
      */
-    private List<ValoracionEntity> data = new ArrayList<ValoracionEntity>();
+    private List<SugerenciaEntity> data = new ArrayList<SugerenciaEntity>();
     
     /**
      * Limpia las tablas que están implicadas en la prueba.
      */
     private void clearData() {
-        em.createQuery("delete from ValoracionEntity").executeUpdate();
+        em.createQuery("delete from SugerenciaEntity").executeUpdate();
     }
     
     /**
@@ -89,7 +88,7 @@ public class valoracionLogicTest {
      */
     private void insertData() {
         for (int i = 0; i < 3; i++) {
-            ValoracionEntity entity = factory.manufacturePojo(ValoracionEntity.class);
+            SugerenciaEntity entity = factory.manufacturePojo(SugerenciaEntity.class);
 
             em.persist(entity);
             data.add(entity);
@@ -118,47 +117,47 @@ public class valoracionLogicTest {
     }
     
     /**
-     * Prueba para crear una Valoracion.
+     * Prueba para crear una Sugerencia.
      *
      * @throws BusinessLogicException
      */
     @Test
-    public void createValoracionTest() throws BusinessLogicException {
-        ValoracionEntity newEntity = factory.manufacturePojo(ValoracionEntity.class);
-        ValoracionEntity result = valoracionLogic.createValoracion(newEntity);
+    public void createSugerenciaTest() throws BusinessLogicException {
+        SugerenciaEntity newEntity = factory.manufacturePojo(SugerenciaEntity.class);
+        SugerenciaEntity result = sugerenciaLogic.createSugerencia(newEntity);
         Assert.assertNotNull(result);
-        ValoracionEntity entity = em.find(ValoracionEntity.class, result.getId());
+        
+        SugerenciaEntity entity = em.find(SugerenciaEntity.class, result.getId());
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getComentario(), entity.getComentario());
     }
     
     /**
-     * Prueba para crear una Valoracion con más caracteres que el límite.
+     * Prueba para crear una Sugerencia con más caracteres que el límite.
      * 
      * @throws BusinessLogicException
      */
     @Test (expected= BusinessLogicException.class)
-    public void createValoracionLimiteCaracteresTest() throws BusinessLogicException {
+    public void createSugerenciaLimiteCaracteresTest() throws BusinessLogicException {
         String mensajeGrande = "hola";
-        for(int i=0; i<6000; i++){
+        for(int i=0; i<5001; i++){
             mensajeGrande = mensajeGrande.concat("hola");
         }
-        ValoracionEntity newEntity = new ValoracionEntity();
+        SugerenciaEntity newEntity = new SugerenciaEntity();
         newEntity.setComentario(mensajeGrande);
-        newEntity.setPuntaje(5);
-        ValoracionEntity result = valoracionLogic.createValoracion(newEntity);
+        SugerenciaEntity result = sugerenciaLogic.createSugerencia(newEntity);
     }
     
     /**
-     * Prueba para eliminar una Valoracion.
+     * Prueba para eliminar una Sugerencia.
      *
      * @throws BusinessLogicException
      */
     @Test
-    public void deleteValoracionTest() throws BusinessLogicException {
-        ValoracionEntity entity = data.get(1);
-        valoracionLogic.deleteValoracion(entity.getId());
-        ValoracionEntity deleted = em.find(ValoracionEntity.class, entity.getId());
+    public void deleteSugerenciaTest() throws BusinessLogicException {
+        SugerenciaEntity entity = data.get(1);
+        sugerenciaLogic.deleteSugerencia(entity.getId());
+        SugerenciaEntity deleted = em.find(SugerenciaEntity.class, entity.getId());
         Assert.assertNull(deleted); 
     }
     
