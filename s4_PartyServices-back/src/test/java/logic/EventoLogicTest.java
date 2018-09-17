@@ -8,6 +8,8 @@ package logic;
 import co.edu.uniandes.csw.partyServices.ejb.EventoLogic;
 import co.edu.uniandes.csw.partyServices.entities.ClienteEntity;
 import co.edu.uniandes.csw.partyServices.entities.EventoEntity;
+import co.edu.uniandes.csw.partyServices.entities.FechaEntity;
+import co.edu.uniandes.csw.partyServices.entities.ProductoEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.partyServices.persistence.EventoPersistence;
 import java.util.ArrayList;
@@ -49,7 +51,9 @@ public class EventoLogicTest
 
     private List<ClienteEntity> clienteData = new ArrayList<ClienteEntity>();
     
+    private List<FechaEntity> fechaData = new ArrayList<FechaEntity>() ;
     
+    private List<ProductoEntity> productoData = new ArrayList<ProductoEntity>();
    
     /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
@@ -93,6 +97,9 @@ public class EventoLogicTest
     {
         em.createQuery("delete from ClienteEntity").executeUpdate();
         em.createQuery("delete from EventoEntity").executeUpdate();
+        em.createQuery("delete from FechaEntity").executeUpdate();
+        em.createQuery("delete from ProductoEntity").executeUpdate();
+        
     }
 
     /**
@@ -100,7 +107,7 @@ public class EventoLogicTest
      * pruebas.
      */
     private void insertData() {
-        for (int i = 0; i < 3; i++) {
+      for (int i = 0; i < 3; i++) {
             EventoEntity evento = factory.manufacturePojo(EventoEntity.class);
             em.persist(evento);
             data.add(evento);
@@ -110,7 +117,16 @@ public class EventoLogicTest
             em.persist(cliente);
             clienteData.add(cliente);
         }
-      
+       for (int i = 0; i < 3; i++) {
+            FechaEntity fecha = factory.manufacturePojo(FechaEntity.class);
+            em.persist(fecha);
+            fechaData.add(fecha);
+        }
+       for (int i = 0; i < 3; i++) {
+            ProductoEntity producto = factory.manufacturePojo(ProductoEntity.class);
+            em.persist(producto);
+            productoData.add(producto);
+        }
       
     }
     
@@ -120,7 +136,11 @@ public class EventoLogicTest
         
         EventoEntity newEntity = factory.manufacturePojo(EventoEntity.class);
         newEntity.setCliente(clienteData.get(0));
+        newEntity.setFecha(fechaData.get(0));
         newEntity.setEstado("En planeacion");
+        newEntity.setProductos(productoData);
+        newEntity.setLatitud(4.570868);
+        newEntity.setLongitud(-67.853233);
         EventoEntity result = productoLogic.createEvento(newEntity);
         Assert.assertNotNull(result);
         

@@ -21,38 +21,7 @@ import uk.co.jemos.podam.common.PodamExclude;
  */
 @Entity
 public class EventoEntity  extends BaseEntity implements Serializable
-{
-
-   
-    public enum Estado{
-        EN_PLANEACION("En planeacion"),
-        PLANEADO ("Planeado"),
-        EN_PROCESO ("En proceso"),
-        CANCELADO ("Cancelado"),
-        TERMINADO ("Terminado"), ;
-        
-        private final String valor;
-        
-        private Estado(String valor){
-            this.valor=valor;
-        }
-        
-        public static Estado desdeValor(String valor){
-            for (Estado estado :  values()) 
-            {
-                if(estado.darValor().equals(valor)){
-                    return estado;
-                }
-            }
-            return null;
-        }
-        public String darValor(){
-            return valor;
-        }
-        
-    }
-    
-    
+{    
     private String nombre ;
     
     private String estado ;
