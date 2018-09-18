@@ -39,7 +39,11 @@ public class AgendaLogic {
     
     public AgendaEntity createAgenda(long proveedorId, AgendaEntity agendaEntity) throws BusinessLogicException
     {
-        
+        //verificacion que el proveedor de la agenda exista
+        ProveedorEntity proveedor = proveedorPersistence.find(proveedorId);
+        if(proveedor==null)
+            throw new BusinessLogicException("No existe el proveedor de la agenda que desea ingresar");
+        agendaEntity.setProveeedor(proveedor);
         
         //Verificacion que no existan agendas con proveedores iguales
         AgendaEntity agendaExistente = agendaPersistence.findByProveedor(proveedorId);
@@ -71,8 +75,6 @@ public class AgendaLogic {
        
         
         
-        ProveedorEntity proveedor= proveedorPersistence.find(proveedorId);
-        agendaEntity.setProveeedor(proveedor);
         return agendaPersistence.create(agendaEntity);
     }
     

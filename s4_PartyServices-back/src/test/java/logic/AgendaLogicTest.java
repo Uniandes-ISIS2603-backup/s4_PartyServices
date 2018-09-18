@@ -8,6 +8,7 @@ package logic;
 import co.edu.uniandes.csw.partyServices.ejb.AgendaLogic;
 import co.edu.uniandes.csw.partyServices.entities.AgendaEntity;
 import co.edu.uniandes.csw.partyServices.entities.FechaEntity;
+import co.edu.uniandes.csw.partyServices.entities.ProveedorEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.partyServices.persistence.AgendaPersistence;
 import co.edu.uniandes.csw.partyServices.util.ConstantesJornada;
@@ -20,6 +21,11 @@ import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -136,9 +142,29 @@ public class AgendaLogicTest
             
             agendaValida.setFechasNoDisponibles(fechasNoLaborales);
             
-            agendaLogic.createAgenda(345678, agendaValida);
+            
+            ProveedorEntity proveedor = factory.manufacturePojo(ProveedorEntity.class);
+            utx.begin();
+            em.persist(proveedor);
+            utx.commit();
+            
+            agendaLogic.createAgenda(proveedor.getId(), agendaValida);
         } catch (BusinessLogicException ex) {
-            Assert.fail("Deberia crear la agenda");
+            Assert.fail("Deberia crear la agenda"+ex);
+        } catch (NotSupportedException ex) {
+            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SystemException ex) {
+            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (RollbackException ex) {
+            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (HeuristicMixedException ex) {
+            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (HeuristicRollbackException ex) {
+            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SecurityException ex) {
+            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalStateException ex) {
+            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         try {
@@ -163,12 +189,30 @@ public class AgendaLogicTest
                 +"}";
             
             agendaValida.setFechasNoDisponibles(fechasNoLaborales);
+            ProveedorEntity proveedor = factory.manufacturePojo(ProveedorEntity.class);
+            utx.begin();
+            em.persist(proveedor);
+            utx.commit();
             
-            agendaLogic.createAgenda(345678, agendaValida);
+            agendaLogic.createAgenda(proveedor.getId(), agendaValida);
                 Assert.fail("no deberia crear la agenda");
         
         } catch (BusinessLogicException ex) {
         
+        } catch (NotSupportedException ex) {
+            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SystemException ex) {
+            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (RollbackException ex) {
+            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (HeuristicMixedException ex) {
+            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (HeuristicRollbackException ex) {
+            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SecurityException ex) {
+            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalStateException ex) {
+            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         
@@ -195,11 +239,30 @@ public class AgendaLogicTest
                 +"}";
             agendaValida.setFechasNoDisponibles(fechasNoLaborales);
             
-            agendaLogic.createAgenda(345678, agendaValida);
+            ProveedorEntity proveedor = factory.manufacturePojo(ProveedorEntity.class);
+            utx.begin();
+            em.persist(proveedor);
+            utx.commit();
+            
+            agendaLogic.createAgenda(proveedor.getId(), agendaValida);
                 Assert.fail("no deberia crear la agenda");
         
         } catch (BusinessLogicException ex) {
         
+        } catch (NotSupportedException ex) {
+            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SystemException ex) {
+            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (RollbackException ex) {
+            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (HeuristicMixedException ex) {
+            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (HeuristicRollbackException ex) {
+            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SecurityException ex) {
+            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalStateException ex) {
+            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
