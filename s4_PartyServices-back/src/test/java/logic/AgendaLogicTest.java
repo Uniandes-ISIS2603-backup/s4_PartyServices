@@ -74,6 +74,7 @@ public class AgendaLogicTest
     public void configTest() {
         try {
             utx.begin();
+            em.joinTransaction();
             clearData();
             insertData();
             utx.commit();

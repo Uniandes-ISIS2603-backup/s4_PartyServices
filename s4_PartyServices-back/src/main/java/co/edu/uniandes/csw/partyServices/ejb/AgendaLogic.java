@@ -132,5 +132,8 @@ public class AgendaLogic {
             LOGGER.log(Level.INFO,"No se encuentra agenda con el id ", agendaEntity.getId());
         return agenda;
     } 
-    
+    public void deleteAgenda(long agendaId)
+    {
+        agendaPersistence.delete(agendaId);
+    }
 }

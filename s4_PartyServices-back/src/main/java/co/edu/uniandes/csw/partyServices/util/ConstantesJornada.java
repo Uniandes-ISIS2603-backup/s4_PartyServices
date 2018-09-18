@@ -20,7 +20,7 @@ public enum ConstantesJornada{
         NINGUNA("Ninguna");
         
         
-        private final String valor;
+        private String valor;
         
        
         
