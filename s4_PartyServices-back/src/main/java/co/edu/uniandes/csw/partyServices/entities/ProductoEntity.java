@@ -100,6 +100,10 @@ public class ProductoEntity extends BaseEntity implements Serializable {
 
     public void setEvento(EventoEntity evento) 
     {
+        if(eventos ==null)
+        {
+            eventos = new ArrayList<EventoEntity>() ;
+        }
         eventos.add(evento) ;
     }
 
