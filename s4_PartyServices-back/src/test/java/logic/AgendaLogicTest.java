@@ -170,13 +170,13 @@ public class AgendaLogicTest
         
         try {
             //Agenda invalida debido a fecha penitencia mayor al mes
-            AgendaEntity agendaValida=factory.manufacturePojo(AgendaEntity.class);
+            AgendaEntity agendaINValida=factory.manufacturePojo(AgendaEntity.class);
             Date dia = new Date();
             Calendar cal=Calendar.getInstance();
             cal.setTime(dia);
             cal.add(Calendar.MONTH, 15);
             dia=cal.getTime();
-            agendaValida.setFechaPenitencia(dia);
+            agendaINValida.setFechaPenitencia(dia);
             
             String fechasNoLaborales=
                 "{"
@@ -189,13 +189,13 @@ public class AgendaLogicTest
                 + "\""+AgendaEntity.DiaSemana.DOMINGO.darValor()+"\":\""+ConstantesJornada.JORNADA_TARDE.darValor()+"\""
                 +"}";
             
-            agendaValida.setFechasNoDisponibles(fechasNoLaborales);
+            agendaINValida.setFechasNoDisponibles(fechasNoLaborales);
             ProveedorEntity proveedor = factory.manufacturePojo(ProveedorEntity.class);
             utx.begin();
             em.persist(proveedor);
             utx.commit();
             
-            agendaLogic.createAgenda(proveedor.getId(), agendaValida);
+            agendaLogic.createAgenda(proveedor.getId(), agendaINValida);
                 Assert.fail("no deberia crear la agenda");
         
         } catch (BusinessLogicException ex) {
@@ -280,12 +280,60 @@ public class AgendaLogicTest
         AgendaEntity agenda =  data.get(0);
         agendaLogic.deleteAgenda(agenda.getId());
         Assert.assertNull(agendaLogic.getAgenda(agenda.getId()));
+        data.remove(0);
     
     }
     @Test
     public void actualizarAgendaTest()
     {
-        
+        try {
+            AgendaEntity agenda = agendaLogic.getAgenda(data.get(0).getId());
+        Date dia = new Date();
+        Calendar cal=Calendar.getInstance();
+        cal.setTime(dia);
+        cal.add(Calendar.DATE, 10);
+        dia=cal.getTime();
+        agenda.setFechaPenitencia(dia);
+     
+        String fechasNoLaborales=
+                "{"
+                + "\""+AgendaEntity.DiaSemana.LUNES.darValor()+"\":\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.MARTES.darValor()+"\":\""+ConstantesJornada.NINGUNA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.MIERCOLES.darValor()+"\":\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.JUEVES.darValor()+"\":\""+ConstantesJornada.NINGUNA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.VIERNES.darValor()+"\":\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.SABADO.darValor()+"\":\""+ConstantesJornada.JORNADA_MANANA_NOCHE.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.DOMINGO.darValor()+"\":\""+ConstantesJornada.JORNADA_TARDE.darValor()+"\""
+                +"}";
+            
+            agenda.setFechasNoDisponibles(fechasNoLaborales);
+            
+            
+            ProveedorEntity proveedor = factory.manufacturePojo(ProveedorEntity.class);
+            utx.begin();
+            em.persist(proveedor);
+            utx.commit();
+            agendaLogic.updateAgenda(agenda);
+            
+        } catch (BusinessLogicException ex) {
+            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
+            Assert.fail("Deberia actualizar la agenda, "+ex.getMessage());
+        } catch (NotSupportedException ex) {
+            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SystemException ex) {
+            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (RollbackException ex) {
+            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (HeuristicMixedException ex) {
+            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (HeuristicRollbackException ex) {
+            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SecurityException ex) {
+            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalStateException ex) {
+            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
     }
     
     

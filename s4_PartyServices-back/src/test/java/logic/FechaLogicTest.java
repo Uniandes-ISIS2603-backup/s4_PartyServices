@@ -172,7 +172,10 @@ public class FechaLogicTest {
     @Test
     public void obtenerFechaTest()
     {
-        
+        for (FechaEntity fechaEntity : data) {
+            Assert.assertNotNull(fechaLogic.getFechaID(fechaEntity.getId()));
+            Assert.assertNotNull(fechaLogic.getFechaPorDia(fechaEntity.getDia()));
+        }
     }
     
     @Test
