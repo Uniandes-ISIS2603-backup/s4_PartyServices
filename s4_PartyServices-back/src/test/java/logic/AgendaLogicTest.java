@@ -152,19 +152,7 @@ public class AgendaLogicTest
             data.add(agendaValida);
         } catch (BusinessLogicException ex) {
             Assert.fail("Deberia crear la agenda"+ex);
-        } catch (NotSupportedException ex) {
-            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SystemException ex) {
-            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (RollbackException ex) {
-            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (HeuristicMixedException ex) {
-            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (HeuristicRollbackException ex) {
-            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SecurityException ex) {
-            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalStateException ex) {
+        } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
             Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -200,19 +188,7 @@ public class AgendaLogicTest
         
         } catch (BusinessLogicException ex) {
         
-        } catch (NotSupportedException ex) {
-            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SystemException ex) {
-            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (RollbackException ex) {
-            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (HeuristicMixedException ex) {
-            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (HeuristicRollbackException ex) {
-            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SecurityException ex) {
-            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalStateException ex) {
+        } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
             Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -250,19 +226,7 @@ public class AgendaLogicTest
         
         } catch (BusinessLogicException ex) {
         
-        } catch (NotSupportedException ex) {
-            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SystemException ex) {
-            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (RollbackException ex) {
-            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (HeuristicMixedException ex) {
-            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (HeuristicRollbackException ex) {
-            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SecurityException ex) {
-            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalStateException ex) {
+        } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
             Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -318,31 +282,13 @@ public class AgendaLogicTest
         } catch (BusinessLogicException ex) {
             Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
             Assert.fail("Deberia actualizar la agenda, "+ex.getMessage());
-        } catch (NotSupportedException ex) {
-            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SystemException ex) {
-            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (RollbackException ex) {
-            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (HeuristicMixedException ex) {
-            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (HeuristicRollbackException ex) {
-            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SecurityException ex) {
-            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalStateException ex) {
+        } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
             Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
         }
             
     }
     
-    
-    
-    
-    
-    
-    
-    
+
     @Test
     public void validarFormatoFechaPenitenciaTest(){
         //FORMATO VALIDO

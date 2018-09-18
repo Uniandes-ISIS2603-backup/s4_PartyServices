@@ -88,7 +88,7 @@ public class FechaLogic {
         if(ConstantesJornada.desdeValor(fechaEntity.getJornada()) == null){
                 throw new BusinessLogicException("No cumple con las jornadas posibles");          
         }
-        if(ConstantesJornada.desdeValor(fechaEntity.getJornada()).darValor().equals(ConstantesJornada.NINGUNA)){
+        if(ConstantesJornada.desdeValor(fechaEntity.getJornada()).darValor().equals(ConstantesJornada.NINGUNA.darValor())){
                 throw new BusinessLogicException("No cumple con las jornadas posibles");          
         }
         return fechaPersistence.update(fechaEntity);

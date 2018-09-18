@@ -152,19 +152,7 @@ public class FechaLogicTest {
         } catch (BusinessLogicException e) {
             
             Assert.fail("Deberia crear la fecha, "+e.getMessage());
-        } catch (NotSupportedException ex) {
-            Logger.getLogger(FechaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SystemException ex) {
-            Logger.getLogger(FechaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (RollbackException ex) {
-            Logger.getLogger(FechaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (HeuristicMixedException ex) {
-            Logger.getLogger(FechaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (HeuristicRollbackException ex) {
-            Logger.getLogger(FechaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SecurityException ex) {
-            Logger.getLogger(FechaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IllegalStateException ex) {
+        } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
             Logger.getLogger(FechaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -181,13 +169,55 @@ public class FechaLogicTest {
     @Test
     public void actualizarFechaTest()
     {
-        
+        try {
+            FechaEntity fecha = data.get(0);
+            fecha.setJornada(ConstantesJornada.JORNADA_MANANA.darValor());
+            fechaLogic.updateFecha(fecha);
+        } catch (BusinessLogicException ex) {
+            Assert.fail("Deberia actualizar la fecha");
+            Logger.getLogger(FechaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            FechaEntity fecha = data.get(0);
+            fecha.setJornada(ConstantesJornada.NINGUNA.darValor());
+            fechaLogic.updateFecha(fecha);
+             Assert.fail("NO deberia actualizar la fecha");
+            
+        } catch (BusinessLogicException ex) {
+           Logger.getLogger(FechaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     @Test
     public void eliminarFechaTest()
     {
-        
+       try {
+            FechaEntity fecha =factory.manufacturePojo(FechaEntity.class);
+            fecha.setEventos(new ArrayList<>());
+            utx.begin();
+            em.persist(fecha);
+            utx.commit();
+            fechaLogic.deleteFecha(fecha.getId());
+        } catch (BusinessLogicException ex) {
+            Assert.fail("Deberia poder elimnar la fecha");
+            Logger.getLogger(FechaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
+            Logger.getLogger(FechaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       try {
+            FechaEntity fecha = factory.manufacturePojo(FechaEntity.class);
+            ArrayList<EventoEntity> listaEventos= new ArrayList();
+            listaEventos.add(new EventoEntity());
+            fecha.setEventos(listaEventos);
+            utx.begin();
+            em.persist(fecha);
+            utx.commit();
+            fechaLogic.deleteFecha(fecha.getId());
+            Assert.fail("NO Deberia poder elimnar la fecha, la fecha tiene eventos");
+           
+        } catch (BusinessLogicException | NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
+             Logger.getLogger(FechaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }
