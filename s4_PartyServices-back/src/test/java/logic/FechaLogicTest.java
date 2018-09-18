@@ -10,6 +10,7 @@ import co.edu.uniandes.csw.partyServices.entities.EventoEntity;
 import co.edu.uniandes.csw.partyServices.entities.FechaEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.partyServices.persistence.FechaPersistence;
+import co.edu.uniandes.csw.partyServices.util.ConstantesJornada;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -120,7 +121,7 @@ public class FechaLogicTest {
             dia=cal.getTime();
            
             fechaValida.setDia(dia);
-            fechaValida.setJornada(FechaEntity.Jornada.JORNADA_NOCHE.darValor());
+            fechaValida.setJornada(ConstantesJornada.JORNADA_NOCHE.darValor());
             ArrayList<EventoEntity> eventos = new ArrayList<>();
             EventoEntity evento=factory.manufacturePojo(EventoEntity.class);
             em.persist(evento);

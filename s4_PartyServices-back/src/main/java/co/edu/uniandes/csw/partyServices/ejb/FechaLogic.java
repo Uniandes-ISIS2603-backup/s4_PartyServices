@@ -10,7 +10,9 @@ import co.edu.uniandes.csw.partyServices.entities.FechaEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.partyServices.persistence.AgendaPersistence;
 import co.edu.uniandes.csw.partyServices.persistence.FechaPersistence;
+import co.edu.uniandes.csw.partyServices.util.ConstantesJornada;
 import java.util.Date;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -30,20 +32,20 @@ public class FechaLogic {
     @Inject
     private AgendaPersistence agendaPersistence;
     
-    public FechaEntity createFecha(long agendaId, FechaEntity fechaEnitity) throws BusinessLogicException
+    public FechaEntity createFecha(long agendaId, FechaEntity fechaEntity) throws BusinessLogicException
     {
         //Verificacion regla de negocio de las jornadas
-        if(FechaEntity.Jornada.desdeValor(fechaEnitity.getJornada()) == null){
+        if(ConstantesJornada.desdeValor(fechaEntity.getJornada()) == null){
                 throw new BusinessLogicException("No cumple con las jornadas posibles");          
         }
-        if(FechaEntity.Jornada.desdeValor(fechaEnitity.getJornada()).darValor().equals(FechaEntity.Jornada.NINGUNA)){
+        if(ConstantesJornada.desdeValor(fechaEntity.getJornada()).darValor().equals(ConstantesJornada.NINGUNA)){
                 throw new BusinessLogicException("No cumple con las jornadas posibles");          
         }
             
         //Verificacion regla de negocio deben existir eventos
-        if(fechaEnitity.getEventos()==null)
+        if(fechaEntity.getEventos()==null)
             throw new BusinessLogicException("Debe tener eventos la fecha");
-        if(fechaEnitity.getEventos().size()<=0)
+        if(fechaEntity.getEventos().size()<=0)
             throw new BusinessLogicException("Debe tener eventos la fecha");
         
         //Verificacion regla de negocio no se pueden crear fechas del pasado
@@ -51,11 +53,33 @@ public class FechaLogic {
         dia.setHours(0);
         dia.setMinutes(0);
         dia.setSeconds(0);
-        if(dia.compareTo(fechaEnitity.getDia())>=0)
+        if(dia.compareTo(fechaEntity.getDia())>=0)
             throw new BusinessLogicException("El dia de la fecha no puede ser menor o igual al dia actual");
         
         AgendaEntity agenda = agendaPersistence.find(agendaId);
-        fechaEnitity.setAgenda(agenda);
-        return fechaPersistence.create(fechaEnitity);
+        fechaEntity.setAgenda(agenda);
+        return fechaPersistence.create(fechaEntity);
     }
+    
+    public FechaEntity getFechaID(long idFecha)
+    {
+        LOGGER.log(Level.INFO,"Entrando a optener agenda ", idFecha);
+        FechaEntity fecha= fechaPersistence.find(idFecha);
+        if(fecha==null)
+            LOGGER.log(Level.INFO,"No se encuentra agenda con el id ", idFecha);
+        return fecha;
+    }
+    
+    public FechaEntity updateFecha(FechaEntity fechaEntity) throws BusinessLogicException
+    {
+        //Verificacion regla de negocio de las jornadas
+        if(ConstantesJornada.desdeValor(fechaEntity.getJornada()) == null){
+                throw new BusinessLogicException("No cumple con las jornadas posibles");          
+        }
+        if(ConstantesJornada.desdeValor(fechaEntity.getJornada()).darValor().equals(ConstantesJornada.NINGUNA)){
+                throw new BusinessLogicException("No cumple con las jornadas posibles");          
+        }
+        return fechaPersistence.update(fechaEntity);
+    }
+    
 }

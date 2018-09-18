@@ -10,6 +10,7 @@ import co.edu.uniandes.csw.partyServices.entities.AgendaEntity;
 import co.edu.uniandes.csw.partyServices.entities.FechaEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.partyServices.persistence.AgendaPersistence;
+import co.edu.uniandes.csw.partyServices.util.ConstantesJornada;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -123,13 +124,13 @@ public class AgendaLogicTest
             
             String fechasNoLaborales=
                 "{"
-                + "\""+AgendaEntity.DiaSemana.LUNES.darValor()+"\":\""+FechaEntity.Jornada.JORNADA_COMPLETA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.MARTES.darValor()+"\":\""+FechaEntity.Jornada.NINGUNA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.MIERCOLES.darValor()+"\":\""+FechaEntity.Jornada.JORNADA_COMPLETA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.JUEVES.darValor()+"\":\""+FechaEntity.Jornada.NINGUNA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.VIERNES.darValor()+"\":\""+FechaEntity.Jornada.JORNADA_COMPLETA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.SABADO.darValor()+"\":\""+FechaEntity.Jornada.JORNADA_MANANA_NOCHE.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.DOMINGO.darValor()+"\":\""+FechaEntity.Jornada.JORNADA_TARDE.darValor()+"\""
+                + "\""+AgendaEntity.DiaSemana.LUNES.darValor()+"\":\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.MARTES.darValor()+"\":\""+ConstantesJornada.NINGUNA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.MIERCOLES.darValor()+"\":\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.JUEVES.darValor()+"\":\""+ConstantesJornada.NINGUNA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.VIERNES.darValor()+"\":\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.SABADO.darValor()+"\":\""+ConstantesJornada.JORNADA_MANANA_NOCHE.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.DOMINGO.darValor()+"\":\""+ConstantesJornada.JORNADA_TARDE.darValor()+"\""
                 +"}";
             
             agendaValida.setFechasNoDisponibles(fechasNoLaborales);
@@ -151,13 +152,13 @@ public class AgendaLogicTest
             
             String fechasNoLaborales=
                 "{"
-                + "\""+AgendaEntity.DiaSemana.LUNES.darValor()+"\":\""+FechaEntity.Jornada.JORNADA_COMPLETA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.MARTES.darValor()+"\":\""+FechaEntity.Jornada.NINGUNA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.MIERCOLES.darValor()+"\":\""+FechaEntity.Jornada.JORNADA_COMPLETA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.JUEVES.darValor()+"\":\""+FechaEntity.Jornada.NINGUNA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.VIERNES.darValor()+"\":\""+FechaEntity.Jornada.JORNADA_COMPLETA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.SABADO.darValor()+"\":\""+FechaEntity.Jornada.JORNADA_MANANA_NOCHE.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.DOMINGO.darValor()+"\":\""+FechaEntity.Jornada.JORNADA_TARDE.darValor()+"\""
+                + "\""+AgendaEntity.DiaSemana.LUNES.darValor()+"\":\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.MARTES.darValor()+"\":\""+ConstantesJornada.NINGUNA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.MIERCOLES.darValor()+"\":\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.JUEVES.darValor()+"\":\""+ConstantesJornada.NINGUNA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.VIERNES.darValor()+"\":\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.SABADO.darValor()+"\":\""+ConstantesJornada.JORNADA_MANANA_NOCHE.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.DOMINGO.darValor()+"\":\""+ConstantesJornada.JORNADA_TARDE.darValor()+"\""
                 +"}";
             
             agendaValida.setFechasNoDisponibles(fechasNoLaborales);
@@ -183,13 +184,13 @@ public class AgendaLogicTest
             
             String fechasNoLaborales=
                 "{"
-                + "\""+AgendaEntity.DiaSemana.LUNES.darValor()+"\":[\""+FechaEntity.Jornada.JORNADA_COMPLETA.darValor()+"\","+"\""+FechaEntity.Jornada.JORNADA_COMPLETA.darValor()+"\"]"
-                + "\""+AgendaEntity.DiaSemana.MARTES.darValor()+"\":\""+FechaEntity.Jornada.NINGUNA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.MIERCOLES.darValor()+"\":\""+FechaEntity.Jornada.JORNADA_COMPLETA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.JUEVES.darValor()+"\":\""+FechaEntity.Jornada.NINGUNA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.VIERNES.darValor()+"\":\""+FechaEntity.Jornada.JORNADA_COMPLETA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.SABADO.darValor()+"\":\""+FechaEntity.Jornada.JORNADA_MANANA_NOCHE.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.DOMINGO.darValor()+"\":\""+FechaEntity.Jornada.JORNADA_TARDE.darValor()+"\""
+                + "\""+AgendaEntity.DiaSemana.LUNES.darValor()+"\":[\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\","+"\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\"]"
+                + "\""+AgendaEntity.DiaSemana.MARTES.darValor()+"\":\""+ConstantesJornada.NINGUNA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.MIERCOLES.darValor()+"\":\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.JUEVES.darValor()+"\":\""+ConstantesJornada.NINGUNA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.VIERNES.darValor()+"\":\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.SABADO.darValor()+"\":\""+ConstantesJornada.JORNADA_MANANA_NOCHE.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.DOMINGO.darValor()+"\":\""+ConstantesJornada.JORNADA_TARDE.darValor()+"\""
                 +"}";
             agendaValida.setFechasNoDisponibles(fechasNoLaborales);
             
@@ -230,13 +231,13 @@ public class AgendaLogicTest
         try {
             String fechasNoValidas=
                 "{"
-                + "\""+AgendaEntity.DiaSemana.LUNES.darValor()+"\":\""+FechaEntity.Jornada.JORNADA_COMPLETA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.MARTES.darValor()+"\":\""+FechaEntity.Jornada.NINGUNA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.MIERCOLES.darValor()+"\":\""+FechaEntity.Jornada.JORNADA_COMPLETA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.JUEVES.darValor()+"\":\""+FechaEntity.Jornada.NINGUNA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.VIERNES.darValor()+"\":\""+FechaEntity.Jornada.JORNADA_COMPLETA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.SABADO.darValor()+"\":\""+FechaEntity.Jornada.JORNADA_MANANA_NOCHE.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.DOMINGO.darValor()+"\":\""+FechaEntity.Jornada.JORNADA_TARDE.darValor()+"\""
+                + "\""+AgendaEntity.DiaSemana.LUNES.darValor()+"\":\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.MARTES.darValor()+"\":\""+ConstantesJornada.NINGUNA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.MIERCOLES.darValor()+"\":\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.JUEVES.darValor()+"\":\""+ConstantesJornada.NINGUNA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.VIERNES.darValor()+"\":\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.SABADO.darValor()+"\":\""+ConstantesJornada.JORNADA_MANANA_NOCHE.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.DOMINGO.darValor()+"\":\""+ConstantesJornada.JORNADA_TARDE.darValor()+"\""
                 +"}";
             Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.ALL, null, fechasNoValidas+"afsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjks");
             agendaLogic.validarFormatoFechasNoLaborables(fechasNoValidas);
@@ -248,13 +249,13 @@ public class AgendaLogicTest
         try {
             String fechasNoValidas=
                 "{"
-                + "\""+AgendaEntity.DiaSemana.LUNES.darValor()+"\":[\""+FechaEntity.Jornada.JORNADA_COMPLETA.darValor()+"\","+"\""+FechaEntity.Jornada.JORNADA_COMPLETA.darValor()+"\"]"
-                + "\""+AgendaEntity.DiaSemana.MARTES.darValor()+"\":\""+FechaEntity.Jornada.NINGUNA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.MIERCOLES.darValor()+"\":\""+FechaEntity.Jornada.JORNADA_COMPLETA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.JUEVES.darValor()+"\":\""+FechaEntity.Jornada.NINGUNA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.VIERNES.darValor()+"\":\""+FechaEntity.Jornada.JORNADA_COMPLETA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.SABADO.darValor()+"\":\""+FechaEntity.Jornada.JORNADA_MANANA_NOCHE.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.DOMINGO.darValor()+"\":\""+FechaEntity.Jornada.JORNADA_TARDE.darValor()+"\""
+                + "\""+AgendaEntity.DiaSemana.LUNES.darValor()+"\":[\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\","+"\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\"]"
+                + "\""+AgendaEntity.DiaSemana.MARTES.darValor()+"\":\""+ConstantesJornada.NINGUNA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.MIERCOLES.darValor()+"\":\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.JUEVES.darValor()+"\":\""+ConstantesJornada.NINGUNA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.VIERNES.darValor()+"\":\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.SABADO.darValor()+"\":\""+ConstantesJornada.JORNADA_MANANA_NOCHE.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.DOMINGO.darValor()+"\":\""+ConstantesJornada.JORNADA_TARDE.darValor()+"\""
                 +"}";
             Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.ALL, null, fechasNoValidas+"afsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjks");
             agendaLogic.validarFormatoFechasNoLaborables(fechasNoValidas);
