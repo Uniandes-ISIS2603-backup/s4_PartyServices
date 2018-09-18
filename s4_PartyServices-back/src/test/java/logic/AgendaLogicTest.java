@@ -149,6 +149,7 @@ public class AgendaLogicTest
             utx.commit();
             
             agendaLogic.createAgenda(proveedor.getId(), agendaValida);
+            data.add(agendaValida);
         } catch (BusinessLogicException ex) {
             Assert.fail("Deberia crear la agenda"+ex);
         } catch (NotSupportedException ex) {
@@ -269,12 +270,17 @@ public class AgendaLogicTest
     @Test
     public void obtenerAgendaTest()
     {
-        
+        for (AgendaEntity agendaEntity : data) {
+            Assert.assertNotNull(agendaLogic.getAgenda(agendaEntity.getId()));
+        }
     }
     @Test
     public void eliminarAgendaTest()
     {
-        
+        AgendaEntity agenda =  data.get(0);
+        agendaLogic.deleteAgenda(agenda.getId());
+        Assert.assertNull(agendaLogic.getAgenda(agenda.getId()));
+    
     }
     @Test
     public void actualizarAgendaTest()
