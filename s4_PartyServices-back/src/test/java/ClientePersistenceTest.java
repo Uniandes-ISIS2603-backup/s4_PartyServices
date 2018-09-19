@@ -120,7 +120,7 @@ public class ClientePersistenceTest
      @Test
     public void FindClienteByNameTest() {
         ClienteEntity entity = data.get(0);
-        ClienteEntity newEntity = clientePersistence.findByName(entity.getLogin());
+        ClienteEntity newEntity = clientePersistence.findByLogin(entity.getLogin());
         Assert.assertNotNull(newEntity);
         Assert.assertEquals(entity.getLogin(), newEntity.getLogin());
     }

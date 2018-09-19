@@ -6,7 +6,10 @@
 package co.edu.uniandes.csw.partyServices.resources;
 
 import co.edu.uniandes.csw.partyServices.dtos.ClienteDTO;
+import co.edu.uniandes.csw.partyServices.ejb.AgendaLogic;
+import co.edu.uniandes.csw.partyServices.ejb.ClienteLogic;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -26,30 +29,33 @@ import javax.ws.rs.Produces;
 @RequestScoped
 public class ClienteResource {
     
+    @Inject
+    private ClienteLogic clienteLogic;
     
     @GET
-    @Path("{clienteId: \\d+}")
-    public ClienteDTO darCliente(@PathParam("pagosId") Long clienteId){
+    @Path("{clientesId: \\d+}")
+    public ClienteDTO darCliente(@PathParam("clientesId") Long clienteId){
         return new ClienteDTO();
     }
     
     
     @POST
+    @Path("{clientesId: \\d+}")
     public ClienteDTO crearCliente(ClienteDTO pCliente){
         return pCliente;
     }
     
     
     @PUT
-    @Path("{clienteId: \\d+}")
-    public ClienteDTO modificarCliente(@PathParam("clienteId") Long clienteId, ClienteDTO pCliente){
+    @Path("{clientesId: \\d+}")
+    public ClienteDTO modificarCliente(@PathParam("clientesId") Long clienteId, ClienteDTO pCliente){
         return pCliente;
     }
     
     
     @DELETE
-    @Path("{clienteId: \\d+}")
-    public void deleteCliente(@PathParam("clienteId") Long clienteId) {
+    @Path("{clientesId: \\d+}")
+    public void deleteCliente(@PathParam("clientesId") Long clienteId) {
         
     }
     
