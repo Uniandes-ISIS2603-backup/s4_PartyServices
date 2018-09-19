@@ -39,7 +39,7 @@ public class EventoLogicTest
     private PodamFactory factory = new PodamFactoryImpl();
 
     @Inject
-    private EventoLogic productoLogic;
+    private EventoLogic eventoLogic;
 
     @PersistenceContext
     private EntityManager em;
@@ -141,14 +141,53 @@ public class EventoLogicTest
         newEntity.setProductos(productoData);
         newEntity.setLatitud(4.570868);
         newEntity.setLongitud(-67.853233);
-        EventoEntity result = productoLogic.createEvento(newEntity);
+        EventoEntity result = eventoLogic.createEvento(newEntity);
+        Assert.assertNotNull(result);
+        data.add(newEntity);
+        
+    }
+     @Test(expected = BusinessLogicException.class)
+    public void createEventoSinClienteTest() throws BusinessLogicException 
+    {
+        EventoEntity newEntity = factory.manufacturePojo(EventoEntity.class);
+        newEntity.setCliente(null);
+        newEntity.setEstado("En planeacion");
+        newEntity.setProductos(productoData);
+        newEntity.setLatitud(4.570868);
+        newEntity.setLongitud(-67.853233);
+        EventoEntity result = eventoLogic.createEvento(newEntity);
         Assert.assertNotNull(result);
         
     }
-    @Test
-    public void deleteEventoTest()
+      @Test(expected = BusinessLogicException.class)
+    public void createEventoNombreInavalidoTest() throws BusinessLogicException 
     {
+        EventoEntity newEntity = factory.manufacturePojo(EventoEntity.class);
+        ClienteEntity cli = factory.manufacturePojo(ClienteEntity.class) ;
+        FechaEntity fech = factory.manufacturePojo(FechaEntity.class) ;
+        newEntity.setNombre(""); 
+        newEntity.setCliente(cli);
+        newEntity.setFecha(fech);
+        newEntity.setEstado("En planeacion");
+        newEntity.setProductos(productoData);
+        newEntity.setLatitud(4.570868);
+        newEntity.setLongitud(-67.853233);
+        EventoEntity result = eventoLogic.createEvento(newEntity);
+    }
+    
+    
+    
+    
+    
+    @Test
+    public void deleteEventoTest() throws BusinessLogicException
+    {
+        EventoEntity newEntity = data.get(0);
         
+        
+        eventoLogic.deleteEvento(newEntity.getNombre());
+        
+        Assert.assertNull(em.find(EventoEntity.class, newEntity));
     }
     
     public void updateEventoTest()
