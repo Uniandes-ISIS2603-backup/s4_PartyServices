@@ -31,6 +31,7 @@ public class AgendaDTO implements Serializable{
             this.id=agendaEntity.getId();
             this.fechaPenitencia=agendaEntity.getFechaPenitencia();
             this.fechasNoDisponibles=agendaEntity.getFechasNoDisponibles();
+            this.proveedorDTO=new ProveedorDTO(agendaEntity.getProveedor());
         }
     }
 
