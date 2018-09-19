@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.partyServices.resources;
 
 import co.edu.uniandes.csw.partyServices.dtos.TematicaDTO;
+import co.edu.uniandes.csw.partyServices.ejb.TematicaLogic;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -31,8 +32,8 @@ public class TematicaResource {
     
     private static final Logger LOGGER = Logger.getLogger(TematicaResource.class.getName());
     
-    //@Inject
-    /* TematicaLogic tematicaLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias. */
+    @Inject
+    TematicaLogic tematicaLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias. */
     
     /**
      * Busca la tematica con el id asociado recibido en la URL y la devuelve.
@@ -89,5 +90,26 @@ public class TematicaResource {
     @Path("{tematicasId: \\d+}")
     public void deleteTematica(@PathParam("tematicasId") Long tematicasId) throws WebApplicationException {
         
+    }
+    
+    /**
+     * Conexión con el servicio de sugerencias para una temática. {@link SugerenciaResource}
+     *
+     * Este método conecta la ruta de /tematicas con las rutas de /sugerencias que
+     * dependen de la temática, es una redirección al servicio que maneja el segmento
+     * de la URL que se encarga de las sugerencias.
+     *
+     * @param tematicasId El ID de la temática con respecto a la cual se accede al
+     * servicio.
+     * @return El servicio de Sugerencias para esa temática en paricular.\
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra la temática.
+     */
+    @Path("{tematicasId: \\d+}/sugerencias")
+    public Class<SugerenciaResource> getSugerenciaResource(@PathParam("tematicasId") Long tematicasId) {
+        if (tematicaLogic.getTematica(tematicasId) == null) {
+            throw new WebApplicationException("El recurso /tematicas/" + tematicasId + "/sugerencias no existe.", 404);
+        }
+        return SugerenciaResource.class;
     }
 }

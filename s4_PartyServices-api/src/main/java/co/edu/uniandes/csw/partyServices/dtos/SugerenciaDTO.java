@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.partyServices.dtos;
 
 //import co.edu.uniandes.csw.partyServices.entities.SugerenciaEntity;
+import co.edu.uniandes.csw.partyServices.entities.SugerenciaEntity;
 import java.io.Serializable;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -35,6 +36,7 @@ public class SugerenciaDTO implements Serializable{
     
     private Long id;
     private String comentario;
+    private String nombreUsuario;
     
     
     /**
@@ -49,17 +51,18 @@ public class SugerenciaDTO implements Serializable{
      *
      * @param sugerenciaEntity: Es la entidad que se va a convertir a DTO
      */
-    /*public SugerenciaDTO(SugerenciaEntity sugerenciaEntity) {
+    public SugerenciaDTO(SugerenciaEntity sugerenciaEntity) {
         if (sugerenciaEntity != null) {
             this.id = sugerenciaEntity.getId();
             this.comentario = sugerenciaEntity.getComentario();
+            this.nombreUsuario = sugerenciaEntity.getNombreUsuario();
         }
-    }*/
+    }
     
     /**
      * Devuelve el ID de la sugerencia.
      *
-     * @return the id
+     * @return id. El ID de la sugerencia.
      */
     public Long getId() {
         return id;
@@ -68,7 +71,7 @@ public class SugerenciaDTO implements Serializable{
     /**
      * Modifica el ID de la sugerencia.
      *
-     * @param id the id to set
+     * @param id. El id nuevo ID de la sugerencia.
      */
     public void setId(Long id) {
         this.id = id;
@@ -77,7 +80,7 @@ public class SugerenciaDTO implements Serializable{
     /**
      * Devuelve el comentario de la sugerencia.
      *
-     * @return el  comentario de la sugerencia.
+     * @return comentario. El comentario de la sugerencia.
      */
     public String getComentario() {
         return comentario;
@@ -86,10 +89,28 @@ public class SugerenciaDTO implements Serializable{
     /**
      * Modifica el comentario de la sugerencia.
      *
-     * @param name the comentario to set
+     * @param comentario. El nuevo comentario que se asignará a la sugerencia.
      */
     public void setComentario(String comentario) {
         this.comentario = comentario;
+    }
+    
+    /**
+     * Devuelve el nombre del usuario asignado a la sugerencia.
+     *
+     * @return nombreUsuario. El nombre del usuario asignado a la sugerencia.
+     */
+    public String getNombreUsuario(){
+        return nombreUsuario;
+    }
+    
+    /**
+     * Modifica el nombre del usuario asignado a la sugerencia.
+     *
+     * @param nombreUsuario. El nuevo nombre del usuario que se reemplazará.
+     */
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
     }
     
     /**
@@ -97,12 +118,13 @@ public class SugerenciaDTO implements Serializable{
      *
      * @return Un Entity con los valores del DTO
      */
-    /*public SugerenciaEntity toEntity() {
+    public SugerenciaEntity toEntity() {
         SugerenciaEntity sugerenciaEntity = new SugerenciaEntity();
         sugerenciaEntity.setId(this.id);
         sugerenciaEntity.setComentario(this.comentario);
+        sugerenciaEntity.setNombreUsuario(this.nombreUsuario);
         return sugerenciaEntity;
-    }*/
+    }
     
     @Override
     public String toString() {

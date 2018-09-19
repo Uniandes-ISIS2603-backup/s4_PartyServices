@@ -5,7 +5,7 @@
  */
 package co.edu.uniandes.csw.partyServices.entities;
 
-import static co.edu.uniandes.csw.partyServices.entities.FechaEntity.Jornada.values;
+
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
