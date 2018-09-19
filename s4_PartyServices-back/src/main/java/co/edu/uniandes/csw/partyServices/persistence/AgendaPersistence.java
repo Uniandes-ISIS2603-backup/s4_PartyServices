@@ -6,7 +6,6 @@
 package co.edu.uniandes.csw.partyServices.persistence;
 
 import co.edu.uniandes.csw.partyServices.entities.AgendaEntity;
-import co.edu.uniandes.csw.partyServices.entities.ProveedorEntity;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;

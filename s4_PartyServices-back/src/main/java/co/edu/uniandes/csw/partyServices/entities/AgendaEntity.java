@@ -72,7 +72,7 @@ public class AgendaEntity extends BaseEntity implements Serializable{
             //Terminan en many son lazy. Eger terminan en One
             fetch= FetchType.LAZY
     )
-    Collection<FechaEntity> fechasOcupadas;
+    private Collection<FechaEntity> fechasOcupadas;
     
     @PodamExclude
     @OneToOne(
