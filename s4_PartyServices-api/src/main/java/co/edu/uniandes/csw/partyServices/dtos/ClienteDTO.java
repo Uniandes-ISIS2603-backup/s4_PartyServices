@@ -41,8 +41,11 @@ public class ClienteDTO implements Serializable{
     private Long id;
     private String login;
     private String contrasenia;
+    private boolean penitenciado;
     private String email;
+    private String fechaNacimiento;
 
+    
     
     
     /**
@@ -63,6 +66,9 @@ public class ClienteDTO implements Serializable{
             this.login = clienteEntity.getLogin();
             this.email = clienteEntity.getEmail();
             this.contrasenia = clienteEntity.getContrasenia();
+            this.fechaNacimiento = clienteEntity.getFechaNacimiento();
+            this.penitenciado = clienteEntity.isPenitenciado();
+            
         }
     }
     
@@ -123,6 +129,10 @@ public class ClienteDTO implements Serializable{
         clienteEntity.setId(this.id);
         clienteEntity.setLogin(this.login);
         clienteEntity.setEmail(this.email);
+        clienteEntity.setContrasenia(this.contrasenia);
+        clienteEntity.setFechaNacimiento(this.fechaNacimiento);
+        clienteEntity.setPenitenciado(this.penitenciado);
+        
         return clienteEntity;
     }
     public String getEmail() {
@@ -138,4 +148,19 @@ public class ClienteDTO implements Serializable{
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
     
+    public String getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(String fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+    
+    public boolean isPenitenciado() {
+        return penitenciado;
+    }
+
+    public void setPenitenciado(boolean penitenciado) {
+        this.penitenciado = penitenciado;
+    }
 }
