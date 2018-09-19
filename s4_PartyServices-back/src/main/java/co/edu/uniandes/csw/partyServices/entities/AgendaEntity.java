@@ -64,6 +64,16 @@ public class AgendaEntity extends BaseEntity implements Serializable{
 
     
     private String fechasNoDisponibles;
+    
+    private String jornadaLunesND;
+    private String jornadaMartesND;
+    private String jornadaMiercolesND;
+    private String jornadaJuevesND;
+    private String jornadaViernesND;
+    private String jornadaSabadoND;
+    private String jornadaDomingoND;
+    
+    
     @PodamExclude
     @OneToMany(
             mappedBy="agenda",
@@ -80,6 +90,62 @@ public class AgendaEntity extends BaseEntity implements Serializable{
             fetch = FetchType.EAGER
     )
     private ProveedorEntity proveedor;
+
+    public String getJornadaLunesND() {
+        return jornadaLunesND;
+    }
+
+    public void setJornadaLunesND(String jornadaLunesND) {
+        this.jornadaLunesND = jornadaLunesND;
+    }
+
+    public String getJornadaMartesND() {
+        return jornadaMartesND;
+    }
+
+    public void setJornadaMartesND(String jornadaMartesND) {
+        this.jornadaMartesND = jornadaMartesND;
+    }
+
+    public String getJornadaMiercolesND() {
+        return jornadaMiercolesND;
+    }
+
+    public void setJornadaMiercolesND(String jornadaMiercolesND) {
+        this.jornadaMiercolesND = jornadaMiercolesND;
+    }
+
+    public String getJornadaJuevesND() {
+        return jornadaJuevesND;
+    }
+
+    public void setJornadaJuevesND(String jornadaJuevesND) {
+        this.jornadaJuevesND = jornadaJuevesND;
+    }
+
+    public String getJornadaViernesND() {
+        return jornadaViernesND;
+    }
+
+    public void setJornadaViernesND(String jornadaViernesND) {
+        this.jornadaViernesND = jornadaViernesND;
+    }
+
+    public String getJornadaSabadoND() {
+        return jornadaSabadoND;
+    }
+
+    public void setJornadaSabadoND(String jornadaSabadoND) {
+        this.jornadaSabadoND = jornadaSabadoND;
+    }
+
+    public String getJornadaDomingoND() {
+        return jornadaDomingoND;
+    }
+
+    public void setJornadaDomingoND(String jornadaDomingoND) {
+        this.jornadaDomingoND = jornadaDomingoND;
+    }
              
     
     

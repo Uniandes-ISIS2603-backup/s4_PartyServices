@@ -141,6 +141,15 @@ public class AgendaLogicTest
                 +"}";
             
             agendaValida.setFechasNoDisponibles(fechasNoLaborales);
+            agendaValida.setJornadaLunesND(ConstantesJornada.NINGUNA.darValor());
+            agendaValida.setJornadaMartesND(ConstantesJornada.NINGUNA.darValor());
+            agendaValida.setJornadaMiercolesND(ConstantesJornada.NINGUNA.darValor());
+            agendaValida.setJornadaJuevesND(ConstantesJornada.NINGUNA.darValor());
+            agendaValida.setJornadaViernesND(ConstantesJornada.NINGUNA.darValor());
+            agendaValida.setJornadaSabadoND(ConstantesJornada.NINGUNA.darValor());
+            agendaValida.setJornadaDomingoND(ConstantesJornada.NINGUNA.darValor());
+            
+            
             
             
             ProveedorEntity proveedor = factory.manufacturePojo(ProveedorEntity.class);
@@ -153,6 +162,51 @@ public class AgendaLogicTest
         } catch (BusinessLogicException ex) {
             Assert.fail("Deberia crear la agenda"+ex);
         } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
+            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        //Agenda invalida debido a fechaLunes no valida 
+        try {    
+            AgendaEntity agendaValida=factory.manufacturePojo(AgendaEntity.class);
+            Date dia = new Date();
+            Calendar cal=Calendar.getInstance();
+            cal.setTime(dia);
+            cal.add(Calendar.DATE, 15);
+            dia=cal.getTime();
+            agendaValida.setFechaPenitencia(dia);
+            
+            String fechasNoLaborales=
+                "{"
+                + "\""+AgendaEntity.DiaSemana.LUNES.darValor()+"\":\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.MARTES.darValor()+"\":\""+ConstantesJornada.NINGUNA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.MIERCOLES.darValor()+"\":\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.JUEVES.darValor()+"\":\""+ConstantesJornada.NINGUNA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.VIERNES.darValor()+"\":\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.SABADO.darValor()+"\":\""+ConstantesJornada.JORNADA_MANANA_NOCHE.darValor()+"\","
+                + "\""+AgendaEntity.DiaSemana.DOMINGO.darValor()+"\":\""+ConstantesJornada.JORNADA_TARDE.darValor()+"\""
+                +"}";
+            
+            agendaValida.setFechasNoDisponibles(fechasNoLaborales);
+            agendaValida.setJornadaLunesND("ewrtyuiomjhas");
+            agendaValida.setJornadaMartesND(ConstantesJornada.NINGUNA.darValor());
+            agendaValida.setJornadaMiercolesND(ConstantesJornada.NINGUNA.darValor());
+            agendaValida.setJornadaJuevesND(ConstantesJornada.NINGUNA.darValor());
+            agendaValida.setJornadaViernesND(ConstantesJornada.NINGUNA.darValor());
+            agendaValida.setJornadaSabadoND(ConstantesJornada.NINGUNA.darValor());
+            agendaValida.setJornadaDomingoND(ConstantesJornada.NINGUNA.darValor());
+            
+            
+            
+            
+            ProveedorEntity proveedor = factory.manufacturePojo(ProveedorEntity.class);
+            utx.begin();
+            em.persist(proveedor);
+            utx.commit();
+            
+            agendaLogic.createAgenda(proveedor.getId(), agendaValida);
+            data.add(agendaValida);
+            Assert.fail("NO Deberia crear la agenda");
+        }  catch (BusinessLogicException |NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
             Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -176,7 +230,14 @@ public class AgendaLogicTest
                 + "\""+AgendaEntity.DiaSemana.SABADO.darValor()+"\":\""+ConstantesJornada.JORNADA_MANANA_NOCHE.darValor()+"\","
                 + "\""+AgendaEntity.DiaSemana.DOMINGO.darValor()+"\":\""+ConstantesJornada.JORNADA_TARDE.darValor()+"\""
                 +"}";
-            
+            agendaINValida.setFechasNoDisponibles(fechasNoLaborales);
+            agendaINValida.setJornadaLunesND(ConstantesJornada.NINGUNA.darValor());
+            agendaINValida.setJornadaMartesND(ConstantesJornada.NINGUNA.darValor());
+            agendaINValida.setJornadaMiercolesND(ConstantesJornada.NINGUNA.darValor());
+            agendaINValida.setJornadaJuevesND(ConstantesJornada.NINGUNA.darValor());
+            agendaINValida.setJornadaViernesND(ConstantesJornada.NINGUNA.darValor());
+            agendaINValida.setJornadaSabadoND(ConstantesJornada.NINGUNA.darValor());
+            agendaINValida.setJornadaDomingoND(ConstantesJornada.NINGUNA.darValor());
             agendaINValida.setFechasNoDisponibles(fechasNoLaborales);
             ProveedorEntity proveedor = factory.manufacturePojo(ProveedorEntity.class);
             utx.begin();
@@ -215,6 +276,13 @@ public class AgendaLogicTest
                 + "\""+AgendaEntity.DiaSemana.DOMINGO.darValor()+"\":\""+ConstantesJornada.JORNADA_TARDE.darValor()+"\""
                 +"}";
             agendaValida.setFechasNoDisponibles(fechasNoLaborales);
+            agendaValida.setJornadaLunesND(ConstantesJornada.NINGUNA.darValor());
+            agendaValida.setJornadaMartesND(ConstantesJornada.NINGUNA.darValor());
+            agendaValida.setJornadaMiercolesND(ConstantesJornada.NINGUNA.darValor());
+            agendaValida.setJornadaJuevesND(ConstantesJornada.NINGUNA.darValor());
+            agendaValida.setJornadaViernesND(ConstantesJornada.NINGUNA.darValor());
+            agendaValida.setJornadaSabadoND(ConstantesJornada.NINGUNA.darValor());
+            agendaValida.setJornadaDomingoND(ConstantesJornada.NINGUNA.darValor());
             
             ProveedorEntity proveedor = factory.manufacturePojo(ProveedorEntity.class);
             utx.begin();
@@ -271,7 +339,13 @@ public class AgendaLogicTest
                 +"}";
             
             agenda.setFechasNoDisponibles(fechasNoLaborales);
-            
+            agenda.setJornadaLunesND(ConstantesJornada.NINGUNA.darValor());
+            agenda.setJornadaMartesND(ConstantesJornada.NINGUNA.darValor());
+            agenda.setJornadaMiercolesND(ConstantesJornada.NINGUNA.darValor());
+            agenda.setJornadaJuevesND(ConstantesJornada.NINGUNA.darValor());
+            agenda.setJornadaViernesND(ConstantesJornada.NINGUNA.darValor());
+            agenda.setJornadaSabadoND(ConstantesJornada.NINGUNA.darValor());
+            agenda.setJornadaDomingoND(ConstantesJornada.NINGUNA.darValor());
             
             ProveedorEntity proveedor = factory.manufacturePojo(ProveedorEntity.class);
             utx.begin();
