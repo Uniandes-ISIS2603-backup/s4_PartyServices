@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 import co.edu.uniandes.csw.partyServices.ejb.NotificacionLogic;
+import co.edu.uniandes.csw.partyServices.entities.AgendaEntity;
 import co.edu.uniandes.csw.partyServices.entities.ClienteEntity;
 import co.edu.uniandes.csw.partyServices.entities.EventoEntity;
 import co.edu.uniandes.csw.partyServices.entities.NotificacionEntity;
@@ -125,21 +126,29 @@ public class NotificacionLogicTest {
         Assert.assertEquals(newEntity.getProveedor(), entity.getProveedor());
     }
      
-        @Test
-        public void UpdateNotificacionTest() throws BusinessLogicException {
-        NotificacionEntity newEntity = factory.manufacturePojo(NotificacionEntity.class);
-        NotificacionEntity anotherEntity = factory.manufacturePojo(NotificacionEntity.class);
-        long idnot = anotherEntity.getId();
-        NotificacionEntity result = notificacionLogic.updateNotificacion(idnot, newEntity);
-        Assert.assertNotNull(result);
-        NotificacionEntity entity = em.find(NotificacionEntity.class, result.getId());
-        Assert.assertEquals(newEntity.getId(), entity.getId());
-        Assert.assertEquals(newEntity.getMensaje(), entity.getMensaje());
-        Assert.assertEquals(newEntity.getTipoDeAviso(), entity.getTipoDeAviso());
-        Assert.assertEquals(newEntity.getCliente(), entity.getCliente());
-        Assert.assertEquals(newEntity.getEvento(), entity.getEvento());
-        Assert.assertEquals(newEntity.getProveedor(), entity.getProveedor());
+         /**
+     * Prueba para actualizar un Author.
+     */
+    @Test
+    public void updateNotificationTest() throws BusinessLogicException {
+        NotificacionEntity entity = data.get(0);
+        NotificacionEntity pojoEntity = factory.manufacturePojo(NotificacionEntity.class);
+
+        pojoEntity.setId(entity.getId());
+
+        notificacionLogic.updateNotificacion(pojoEntity.getId(), pojoEntity);
+
+        NotificacionEntity resp = em.find(NotificacionEntity.class, entity.getId());
+
+        Assert.assertEquals(pojoEntity.getId(), resp.getId());
+        Assert.assertEquals(pojoEntity.getMensaje(), resp.getMensaje());
+        Assert.assertEquals(pojoEntity.getTipoDeAviso(), resp.getTipoDeAviso());
+        Assert.assertEquals(pojoEntity.getCliente(), resp.getCliente());
+        Assert.assertEquals(pojoEntity.getEvento(), resp.getEvento());
+        Assert.assertEquals(pojoEntity.getProveedor(), resp.getProveedor());
+        
     }
+
     
     @Test(expected = BusinessLogicException.class)
     public void createNotificacionSinClienteNiProveedor() throws BusinessLogicException {
@@ -157,15 +166,20 @@ public class NotificacionLogicTest {
         NotificacionEntity result = notificacionLogic.createNotificacion(newEntity);
     }
 
-        @Test(expected = BusinessLogicException.class)
-    public void createNotificacionConMensajeLargo() throws BusinessLogicException {
-         mensajeLargo = "mensaje";
-        for (int i=0;i<300;i++)
-        {
-            mensajeLargo= mensajeLargo+"mensaje";
+     
+        /**
+     * Prueba para crear una Notificacion con más caracteres que el límite.
+     * 
+     * @throws BusinessLogicException
+     */
+    @Test (expected= BusinessLogicException.class)
+    public void createNotificacionLimiteCaracteresTest() throws BusinessLogicException {
+        mensajeLargo = "tres";
+        for(int i=0; i<800; i++){
+            mensajeLargo = mensajeLargo.concat("tres");
         }
-        String tipoda= "tipo1";
         NotificacionEntity newEntity = new NotificacionEntity();
+                String tipoda= "tipo1";
         ProveedorEntity proveedor = factory.manufacturePojo(ProveedorEntity.class);
         ClienteEntity cliente = factory.manufacturePojo(ClienteEntity.class);
         EventoEntity evento = factory.manufacturePojo(EventoEntity.class);        
@@ -177,33 +191,33 @@ public class NotificacionLogicTest {
         NotificacionEntity result = notificacionLogic.createNotificacion(newEntity);
     }
     
-    @Test
+    @Test (expected= BusinessLogicException.class)
     public void updateNotificacionConMensajeLargo() throws BusinessLogicException {
-         mensajeLargo = "mensaje";
-        for (int i=0;i<300;i++)
-        {
-            mensajeLargo= mensajeLargo+"mensaje";
+        mensajeLargo = "tres";
+        for(int i=0; i<800; i++){
+            mensajeLargo = mensajeLargo.concat("tres");
         }
-        
-        String tipoda= "tipo1";
-        NotificacionEntity newEntity =  factory.manufacturePojo(NotificacionEntity.class);
-        long notID = newEntity.getId();
-        ProveedorEntity proveedor = factory.manufacturePojo(ProveedorEntity.class);
-        ClienteEntity cliente = factory.manufacturePojo(ClienteEntity.class);
-        EventoEntity evento = factory.manufacturePojo(EventoEntity.class);        
-        newEntity.setMensaje(mensajeLargo);
-        newEntity.setCliente(cliente);
-        newEntity.setProveedor(proveedor);
-        newEntity.setEvento(evento);
-        newEntity.setTipoDeAviso(tipoda);
-        NotificacionEntity result = notificacionLogic.updateNotificacion(notID, newEntity);
+        NotificacionEntity entity = data.get(0);
+        NotificacionEntity pojoEntity = factory.manufacturePojo(NotificacionEntity.class);
+        pojoEntity.setMensaje(mensajeLargo);
+        pojoEntity.setId(entity.getId());
+
+        notificacionLogic.updateNotificacion(pojoEntity.getId(), pojoEntity);
+
+        NotificacionEntity resp = em.find(NotificacionEntity.class, entity.getId());
+
+        Assert.assertEquals(pojoEntity.getId(), resp.getId());
+        Assert.assertEquals(pojoEntity.getMensaje(), resp.getMensaje());
+        Assert.assertEquals(pojoEntity.getTipoDeAviso(), resp.getTipoDeAviso());
+        Assert.assertEquals(pojoEntity.getCliente(), resp.getCliente());
+        Assert.assertEquals(pojoEntity.getEvento(), resp.getEvento());
+        Assert.assertEquals(pojoEntity.getProveedor(), resp.getProveedor());
     }
     
     @Test
     public void deleteNotificacionTest() throws BusinessLogicException {
-        NotificacionEntity entity = factory.manufacturePojo(NotificacionEntity.class);
-        notificacionLogic.deleteNotificacion(entity.getId());
-        NotificacionEntity deleted = em.find(NotificacionEntity.class, entity.getId());
+        notificacionLogic.deleteNotificacion(data.get(1).getId());
+        NotificacionEntity deleted = em.find(NotificacionEntity.class, data.get(1).getId());
         Assert.assertNull(deleted); 
     }
 }
