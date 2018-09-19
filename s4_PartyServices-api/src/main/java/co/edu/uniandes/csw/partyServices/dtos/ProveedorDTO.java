@@ -5,7 +5,10 @@
  */
 package co.edu.uniandes.csw.partyServices.dtos;
 
+import co.edu.uniandes.csw.partyServices.entities.AgendaEntity;
+import co.edu.uniandes.csw.partyServices.entities.ProveedorEntity;
 import java.io.Serializable;
+import java.util.Collection;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -14,15 +17,47 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author Gabriel Serna
  */
 public class ProveedorDTO implements Serializable{  
-    
+  
+  private long id;
   private String nombre ;
   private String contrasenia ;
   private Double calificacion;
-  private String [] catalogoProductos;
+  private AgendaEntity agenda;
+ 
+
   
   public ProveedorDTO(){
     
 }
+  
+public ProveedorDTO(ProveedorEntity provEntity) {
+        if (provEntity != null) {
+            this.id = provEntity.getId();
+            this.nombre = provEntity.getNombre();
+            this.contrasenia = provEntity.getContrasenia();
+            this.agenda = provEntity.getAgenda();
+        }
+    }
+
+    /**
+     * Convierte un objeto AuthorDTO a AuthorEntity.
+     *
+     * @return Nueva objeto AuthorEntity.
+     *
+     */
+    public ProveedorEntity toEntity() {
+        ProveedorEntity proveedorEntity = new ProveedorEntity();
+        proveedorEntity.setId(this.getId());
+        proveedorEntity.setNombre(this.getNombre());
+        proveedorEntity.setContrasenia(this.getContrasenia());
+        proveedorEntity.setAgenda(this.agenda);
+        return proveedorEntity;
+    }
+    
+    public long getId()
+    {
+        return id;
+    }
   public String getNombre ()
 {
     return nombre ;
@@ -34,10 +69,6 @@ public class ProveedorDTO implements Serializable{
 public Double getCalificacion()
 {
     return calificacion ;
-}
-public String[] getcatalogoProductos()
-{
-    return catalogoProductos ;
 }
 
 public void setNombre(String pNombre)
@@ -52,9 +83,9 @@ public void setCalificacion(Double pCalificacion)
 {
     this.calificacion = pCalificacion;
 }
-public void setCatalogoProductos(String[] pCatalogo)
+public void setID(long pid)
 {
-    this.catalogoProductos = pCatalogo ;
+    this.id = pid ;
 }
 
 
