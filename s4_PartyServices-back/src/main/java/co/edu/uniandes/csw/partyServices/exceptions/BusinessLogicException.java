@@ -43,7 +43,7 @@ public class BusinessLogicException extends Exception {
      *
      * @param message mensaje de la excepción
      */
-    public BusinessLogicException(String message) {
+    public BusinessLogicException(String message){
         super(message);
     }
 

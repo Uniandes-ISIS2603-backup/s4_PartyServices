@@ -6,13 +6,11 @@
 package co.edu.uniandes.csw.partyServices.ejb;
 
 import co.edu.uniandes.csw.partyServices.entities.ClienteEntity;
-import co.edu.uniandes.csw.partyServices.entities.ProveedorEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.partyServices.persistence.ClientePersistence;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
 import java.util.Date;
@@ -35,6 +33,11 @@ public class ClienteLogic {
     private ClientePersistence persistence;
 
     public ClienteEntity createCliente(ClienteEntity clienteEntity) throws BusinessLogicException {
+        //no debe haber dos clientes con el mismo login
+        if (persistence.findByLogin(clienteEntity.getLogin()) != null) {
+         throw new BusinessLogicException("Ya existe un cliente con el login \"" + clienteEntity.getLogin() + "\"");
+        }
+        
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         ZoneId defaultZoneId = ZoneId.systemDefault();
 
