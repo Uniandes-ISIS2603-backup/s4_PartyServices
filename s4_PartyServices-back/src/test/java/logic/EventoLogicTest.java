@@ -34,8 +34,8 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  * @author estudiante
  */
 @RunWith(Arquillian.class)
-public class EventoLogicTest 
-{
+public class EventoLogicTest {
+
     private PodamFactory factory = new PodamFactoryImpl();
 
     @Inject
@@ -50,11 +50,11 @@ public class EventoLogicTest
     private List<EventoEntity> data = new ArrayList<EventoEntity>();
 
     private List<ClienteEntity> clienteData = new ArrayList<ClienteEntity>();
-    
-    private List<FechaEntity> fechaData = new ArrayList<FechaEntity>() ;
-    
+
+    private List<FechaEntity> fechaData = new ArrayList<FechaEntity>();
+
     private List<ProductoEntity> productoData = new ArrayList<ProductoEntity>();
-   
+
     /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
      * El jar contiene las clases, el descriptor de la base de datos y el
@@ -93,13 +93,12 @@ public class EventoLogicTest
     /**
      * Limpia las tablas que están implicadas en la prueba.
      */
-    private void clearData() 
-    {
+    private void clearData() {
         em.createQuery("delete from ClienteEntity").executeUpdate();
         em.createQuery("delete from EventoEntity").executeUpdate();
         em.createQuery("delete from FechaEntity").executeUpdate();
         em.createQuery("delete from ProductoEntity").executeUpdate();
-        
+
     }
 
     /**
@@ -107,33 +106,31 @@ public class EventoLogicTest
      * pruebas.
      */
     private void insertData() {
-      for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; i++) {
             EventoEntity evento = factory.manufacturePojo(EventoEntity.class);
             em.persist(evento);
             data.add(evento);
         }
-      for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; i++) {
             ClienteEntity cliente = factory.manufacturePojo(ClienteEntity.class);
             em.persist(cliente);
             clienteData.add(cliente);
         }
-       for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; i++) {
             FechaEntity fecha = factory.manufacturePojo(FechaEntity.class);
             em.persist(fecha);
             fechaData.add(fecha);
         }
-       for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; i++) {
             ProductoEntity producto = factory.manufacturePojo(ProductoEntity.class);
             em.persist(producto);
             productoData.add(producto);
         }
-      
+
     }
-    
-    @Test
-    public void createEventoTest() throws BusinessLogicException
-    {
-        
+
+   @Test
+    public void createEventoTest() throws BusinessLogicException {
         EventoEntity newEntity = factory.manufacturePojo(EventoEntity.class);
         newEntity.setCliente(clienteData.get(0));
         newEntity.setFecha(fechaData.get(0));
@@ -143,12 +140,11 @@ public class EventoLogicTest
         newEntity.setLongitud(-67.853233);
         EventoEntity result = eventoLogic.createEvento(newEntity);
         Assert.assertNotNull(result);
-        data.add(newEntity);
-        
+
     }
-     @Test(expected = BusinessLogicException.class)
-    public void createEventoSinClienteTest() throws BusinessLogicException 
-    {
+
+    @Test(expected = BusinessLogicException.class)
+    public void createEventoSinClienteTest() throws BusinessLogicException {
         EventoEntity newEntity = factory.manufacturePojo(EventoEntity.class);
         newEntity.setCliente(null);
         newEntity.setEstado("En planeacion");
@@ -157,15 +153,30 @@ public class EventoLogicTest
         newEntity.setLongitud(-67.853233);
         EventoEntity result = eventoLogic.createEvento(newEntity);
         Assert.assertNotNull(result);
-        
+
     }
-      @Test(expected = BusinessLogicException.class)
-    public void createEventoNombreInavalidoTest() throws BusinessLogicException 
-    {
+
+    @Test(expected = BusinessLogicException.class)
+    public void createEventoNombreInavalidoTest() throws BusinessLogicException {
         EventoEntity newEntity = factory.manufacturePojo(EventoEntity.class);
-        ClienteEntity cli = factory.manufacturePojo(ClienteEntity.class) ;
-        FechaEntity fech = factory.manufacturePojo(FechaEntity.class) ;
-        newEntity.setNombre(""); 
+        ClienteEntity cli = factory.manufacturePojo(ClienteEntity.class);
+        FechaEntity fech = factory.manufacturePojo(FechaEntity.class);
+        newEntity.setNombre("");
+        newEntity.setCliente(cli);
+        newEntity.setFecha(fech);
+        newEntity.setEstado("En planeacion");
+        newEntity.setProductos(productoData);
+        newEntity.setLatitud(4.570868);
+        newEntity.setLongitud(-67.853233);
+        EventoEntity result = eventoLogic.createEvento(newEntity);
+    }
+    
+     @Test(expected = BusinessLogicException.class)
+    public void createEventoNombreRepetidoTest() throws BusinessLogicException 
+    {
+        EventoEntity newEntity = eventoLogic.findAll().get(0);
+        ClienteEntity cli = factory.manufacturePojo(ClienteEntity.class);
+        FechaEntity fech = factory.manufacturePojo(FechaEntity.class);
         newEntity.setCliente(cli);
         newEntity.setFecha(fech);
         newEntity.setEstado("En planeacion");
@@ -176,29 +187,119 @@ public class EventoLogicTest
     }
     
     
+     @Test(expected = BusinessLogicException.class)
+    public void createEventoNombreCortoTest() throws BusinessLogicException {
+        EventoEntity newEntity = factory.manufacturePojo(EventoEntity.class);
+        ClienteEntity cli = factory.manufacturePojo(ClienteEntity.class);
+        FechaEntity fech = factory.manufacturePojo(FechaEntity.class);
+        newEntity.setNombre("An");
+        newEntity.setCliente(cli);
+        newEntity.setFecha(fech);
+        newEntity.setEstado("En planeacion");
+        newEntity.setProductos(productoData);
+        newEntity.setLatitud(4.570868);
+        newEntity.setLongitud(-67.853233);
+        EventoEntity result = eventoLogic.createEvento(newEntity);
+    }
     
+    
+     @Test(expected = BusinessLogicException.class)
+    public void createEventoEstadoInavalidoTest() throws BusinessLogicException {
+        EventoEntity newEntity = factory.manufacturePojo(EventoEntity.class);
+        ClienteEntity cli = factory.manufacturePojo(ClienteEntity.class);
+        FechaEntity fech = factory.manufacturePojo(FechaEntity.class);
+        newEntity.setCliente(cli);
+        newEntity.setFecha(fech);
+        newEntity.setEstado("Planeado");
+        newEntity.setProductos(productoData);
+        newEntity.setLatitud(4.570868);
+        newEntity.setLongitud(-67.853233);
+        EventoEntity result = eventoLogic.createEvento(newEntity);
+    }
+    
+      @Test(expected = BusinessLogicException.class)
+    public void createEventoSinFechaTest() throws BusinessLogicException {
+        EventoEntity newEntity = factory.manufacturePojo(EventoEntity.class);
+        ClienteEntity cli = factory.manufacturePojo(ClienteEntity.class);
+        newEntity.setCliente(cli);
+        newEntity.setFecha(null);
+        newEntity.setEstado("En planeacion");
+        newEntity.setProductos(productoData);
+        newEntity.setLatitud(4.570868);
+        newEntity.setLongitud(-67.853233);
+        EventoEntity result = eventoLogic.createEvento(newEntity);
+    }
+    
+    
+      @Test(expected = BusinessLogicException.class)
+    public void createEventoSinProductosTest() throws BusinessLogicException {
+        EventoEntity newEntity = factory.manufacturePojo(EventoEntity.class);
+        ClienteEntity cli = factory.manufacturePojo(ClienteEntity.class);
+        FechaEntity fech = factory.manufacturePojo(FechaEntity.class);
+        newEntity.setCliente(cli);
+        newEntity.setFecha(fech);
+        newEntity.setEstado("En planeacion");
+        newEntity.setProductos(productoData);
+        newEntity.setLatitud(4.570868);
+        newEntity.setLongitud(-67.853233);
+        newEntity.setProductos(null);
+        EventoEntity result = eventoLogic.createEvento(newEntity);
+    }
+      @Test(expected = BusinessLogicException.class)
+    public void createLatitudInvalidaTest() throws BusinessLogicException {
+        EventoEntity newEntity = factory.manufacturePojo(EventoEntity.class);
+        ClienteEntity cli = factory.manufacturePojo(ClienteEntity.class);
+        FechaEntity fech = factory.manufacturePojo(FechaEntity.class);
+        newEntity.setCliente(cli);
+        newEntity.setFecha(fech);
+        newEntity.setProductos(null);
+        newEntity.setEstado("En planeacion");
+        newEntity.setProductos(productoData);
+        newEntity.setLatitud(14.570868);
+        newEntity.setLongitud(-67.853233);
+        EventoEntity result = eventoLogic.createEvento(newEntity);
+    }
+    
+    
+    
+      @Test(expected = BusinessLogicException.class)
+    public void createLongitudInvalidaTest() throws BusinessLogicException {
+        EventoEntity newEntity = factory.manufacturePojo(EventoEntity.class);
+        ClienteEntity cli = factory.manufacturePojo(ClienteEntity.class);
+        FechaEntity fech = factory.manufacturePojo(FechaEntity.class);
+        newEntity.setCliente(cli);
+        newEntity.setFecha(fech);
+        newEntity.setProductos(null);
+        newEntity.setEstado("En planeacion");
+        newEntity.setProductos(productoData);
+        newEntity.setLatitud(4.570868);
+        newEntity.setLongitud(67.853233);
+        EventoEntity result = eventoLogic.createEvento(newEntity);
+    }
     
     
     @Test
-    public void deleteEventoTest() throws BusinessLogicException
+    public void updateEventoTest() throws BusinessLogicException 
     {
-        EventoEntity newEntity = data.get(0);
+        ProductoEntity pro = factory.manufacturePojo(ProductoEntity.class);
+
+        EventoEntity entity = eventoLogic.findAll().get(0);
         
-        
-        eventoLogic.deleteEvento(newEntity.getNombre());
-        
-        Assert.assertNull(em.find(EventoEntity.class, newEntity));
+        entity.agragarProducto(pro);
+
+        EventoEntity result = eventoLogic.updateEvento(entity.getNombre(), entity);
+
+        Assert.assertEquals(entity.getProductos().size(), result.getProductos().size());
     }
-    
-    public void updateEventoTest()
-    {
-        
+
+    @Test
+    public void deleteEventoTest() throws BusinessLogicException {
+        List<EventoEntity> newEntity = eventoLogic.findAll();
+
+        eventoLogic.deleteEvento(newEntity.get(0).getNombre());
+        EventoEntity deleted = em.find(EventoEntity.class, newEntity.get(0).getId());
+        Assert.assertNull(deleted);
+
     }
-    
-    
-    
-    
-    
-    
-    
+
 }

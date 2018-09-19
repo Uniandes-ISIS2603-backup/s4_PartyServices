@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.partyServices.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -91,9 +92,6 @@ public class EventoEntity  extends BaseEntity implements Serializable
     public void setNotificaciones(Collection<NotificacionEntity> notificaciones) {
         this.notificaciones = notificaciones;
     }
-
-    
-    
     
     public Collection<ProductoEntity> getProductos() {
         return productos;
@@ -101,6 +99,18 @@ public class EventoEntity  extends BaseEntity implements Serializable
 
     public void setProductos(Collection<ProductoEntity> productos) {
         this.productos = productos;
+    }
+    public void agragarProducto(ProductoEntity producto)
+    {
+        if(productos==null)
+        {
+            productos = new ArrayList<>();
+            productos.add(producto) ;
+        }
+        else
+        {
+            productos.add(producto) ;
+        }
     }
 
     public double getLatitud() {
