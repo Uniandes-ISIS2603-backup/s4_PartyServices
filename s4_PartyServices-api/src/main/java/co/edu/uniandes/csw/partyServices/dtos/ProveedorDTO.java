@@ -22,7 +22,7 @@ public class ProveedorDTO implements Serializable{
   private String nombre ;
   private String contrasenia ;
   private Double calificacion;
-  private AgendaEntity agenda;
+  private AgendaDTO agenda;
  
 
   
@@ -35,7 +35,7 @@ public ProveedorDTO(ProveedorEntity provEntity) {
             this.id = provEntity.getId();
             this.nombre = provEntity.getNombre();
             this.contrasenia = provEntity.getContrasenia();
-            this.agenda = provEntity.getAgenda();
+            this.agenda = provEntity.getAgenda().toEntity();
         }
     }
 

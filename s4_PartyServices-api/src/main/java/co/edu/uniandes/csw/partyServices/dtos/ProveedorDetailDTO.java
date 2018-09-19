@@ -72,14 +72,23 @@ public class ProveedorDetailDTO extends ProveedorDTO implements Serializable {
             }
             proveedorEntity.setCatalogoProductos(productosEntity);
         }
-        if (prizes != null) {
-            List<PrizeEntity> prizesEntity = new ArrayList<>();
-            for (PrizeDTO dtoPrize : prizes) {
-                prizesEntity.add(dtoPrize.toEntity());
+        if (notificaciones != null) {
+            List<NotificacionEntity> notifEntity = new ArrayList<>();
+            for (NotificacionDTO dtoNotif : notificaciones) {
+                notifEntity.add(dtoNotif.toEntity());
             }
-            authorEntity.setPrizes(prizesEntity);
+            proveedorEntity.setNotificaciones(notifEntity);
         }
-        return authorEntity;
+        
+        if (valoraciones !=null){
+            List<ValoracionEntity> valorEntity = new ArrayList<>();
+            for (ValoracionDTO dtoValoracion : valoraciones){
+                valorEntity.add(dtoValoracion.toEntity());
+                
+            }
+            proveedorEntity.setValoraciones(valorEntity);
+         }
+        return proveedorEntity;
     }
 
     /**
