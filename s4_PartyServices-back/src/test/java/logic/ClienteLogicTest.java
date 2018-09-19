@@ -93,9 +93,7 @@ public class ClienteLogicTest {
             em.persist(entity);
             data.add(entity);
         }
-        data.get(1).setFechaNacimiento("19/02/1995");
-        em.merge(data.get(1));
-
+        
        
     }
     
@@ -107,7 +105,7 @@ public class ClienteLogicTest {
     public void createClienteTest() throws BusinessLogicException {
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
         newEntity.setFechaNacimiento("21/10/1997");
-        newEntity.setEmail("abdcd@udad.com");
+        newEntity.setEmail("aaaaaaaa@udad.com");
         newEntity.setLogin("lololololololo");
         newEntity.setContrasenia("aaaaaaaa");
         ClienteEntity result = ClienteLogic.createCliente(newEntity);
@@ -121,9 +119,10 @@ public class ClienteLogicTest {
     
     /**
      * prueba para eliminar un Cliente
+     * @throws co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException
      */
     @Test
-    public void deleteClienteTest(){
+    public void deleteClienteTest() throws BusinessLogicException{
         ClienteEntity entity = data.get(0);
         ClienteLogic.deleteCliente(entity.getId());
         ClienteEntity delet = em.find(ClienteEntity.class, entity.getId());
