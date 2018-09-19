@@ -5,7 +5,9 @@
  */
 package co.edu.uniandes.csw.partyServices.dtos;
 
+import co.edu.uniandes.csw.partyServices.entities.AgendaEntity;
 import java.io.Serializable;
+import java.util.Date;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -14,18 +16,48 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author n.hernandezs
  */
 public class AgendaDTO implements Serializable{
+    private long id;
     private String fechasNoDisponibles;
-    private String fechaPenitencia;
+    private Date fechaPenitencia;
+    private ProveedorDTO proveedorDTO;
     
     public AgendaDTO()
     {
         
     }
+    
+    public AgendaDTO(AgendaEntity agendaEntity){
+        if(agendaEntity!=null){
+            this.id=agendaEntity.getId();
+            this.fechaPenitencia=agendaEntity.getFechaPenitencia();
+            this.fechasNoDisponibles=agendaEntity.getFechasNoDisponibles();
+        }
+    }
+
+    public long getId() 
+    {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public ProveedorDTO getProveedorDTO() {
+        return proveedorDTO;
+    }
+
+    public void setProveedorDTO(ProveedorDTO proveedorDTO) {
+        this.proveedorDTO = proveedorDTO;
+    }
+    
+    
+    
     public String getFechasNoDisponibles()
     {
         return fechasNoDisponibles;
     }
-    public String getFechaPenitencia()
+    public Date getFechaPenitencia()
     {
         return fechaPenitencia;
     }
@@ -33,7 +65,7 @@ public class AgendaDTO implements Serializable{
     {
         this.fechasNoDisponibles=fechasNoDisponibles;
     }
-    public void setFechaPenitencia(String fechaPenitencia)
+    public void setFechaPenitencia(Date fechaPenitencia)
     {
         this.fechaPenitencia=fechaPenitencia;
     }
@@ -41,5 +73,16 @@ public class AgendaDTO implements Serializable{
     public String toString() 
     {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
+    
+    public AgendaEntity toEntity()
+    {
+        AgendaEntity agendaEntity = new AgendaEntity();
+        agendaEntity.setId(this.id);
+        agendaEntity.setFechaPenitencia(this.fechaPenitencia);
+        agendaEntity.setFechasNoDisponibles(this.fechasNoDisponibles);
+        agendaEntity.setProveeedor(this.proveedorDTO.toEntity());
+        return agendaEntity;
+       
     }
 }
