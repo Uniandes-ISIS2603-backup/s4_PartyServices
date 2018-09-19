@@ -6,17 +6,27 @@
 package logic;
 
 import co.edu.uniandes.csw.partyServices.ejb.FechaLogic;
+import co.edu.uniandes.csw.partyServices.entities.AgendaEntity;
 import co.edu.uniandes.csw.partyServices.entities.EventoEntity;
 import co.edu.uniandes.csw.partyServices.entities.FechaEntity;
+import co.edu.uniandes.csw.partyServices.entities.ProveedorEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.partyServices.persistence.FechaPersistence;
+import co.edu.uniandes.csw.partyServices.util.ConstantesJornada;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 import junit.framework.Assert;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -112,7 +122,16 @@ public class FechaLogicTest {
     {
         //Fecha valida
         try {
+            
             FechaEntity fechaValida = factory.manufacturePojo(FechaEntity.class);
+            //ProveedorEntity proveedor =factory.manufacturePojo(ProveedorEntity.class);
+            //em.persist(proveedor);
+            AgendaEntity agenda = factory.manufacturePojo(AgendaEntity.class);
+            //agenda.setProveeedor(proveedor);
+            utx.begin();
+            em.persist(agenda);
+            utx.commit();
+            fechaValida.setAgenda(agenda);
             Date dia = new Date();
             Calendar cal=Calendar.getInstance();
             cal.setTime(dia);
@@ -120,35 +139,85 @@ public class FechaLogicTest {
             dia=cal.getTime();
            
             fechaValida.setDia(dia);
-            fechaValida.setJornada(FechaEntity.Jornada.JORNADA_NOCHE.darValor());
+            
+            fechaValida.setJornada(ConstantesJornada.JORNADA_COMPLETA.darValor());
             ArrayList<EventoEntity> eventos = new ArrayList<>();
             EventoEntity evento=factory.manufacturePojo(EventoEntity.class);
+            utx.begin();
             em.persist(evento);
+            utx.commit();
             eventos.add(evento);
             fechaValida.setEventos(eventos);
-            fechaLogic.createFecha(3456789, fechaValida);
+            fechaLogic.createFecha(agenda.getId(), fechaValida);
         } catch (BusinessLogicException e) {
             
-            Assert.fail("Deberia crear la fecha"+e.getMessage());
+            Assert.fail("Deberia crear la fecha, "+e.getMessage());
+        } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
+            Logger.getLogger(FechaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
     @Test
     public void obtenerFechaTest()
     {
-        
+        for (FechaEntity fechaEntity : data) {
+            Assert.assertNotNull(fechaLogic.getFechaID(fechaEntity.getId()));
+            Assert.assertNotNull(fechaLogic.getFechaPorDia(fechaEntity.getDia()));
+        }
     }
     
     @Test
     public void actualizarFechaTest()
     {
-        
+        try {
+            FechaEntity fecha = data.get(0);
+            fecha.setJornada(ConstantesJornada.JORNADA_MANANA.darValor());
+            fechaLogic.updateFecha(fecha);
+        } catch (BusinessLogicException ex) {
+            Assert.fail("Deberia actualizar la fecha");
+            Logger.getLogger(FechaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            FechaEntity fecha = data.get(0);
+            fecha.setJornada(ConstantesJornada.NINGUNA.darValor());
+            fechaLogic.updateFecha(fecha);
+             Assert.fail("NO deberia actualizar la fecha");
+            
+        } catch (BusinessLogicException ex) {
+           Logger.getLogger(FechaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     @Test
     public void eliminarFechaTest()
     {
-        
+       try {
+            FechaEntity fecha =factory.manufacturePojo(FechaEntity.class);
+            fecha.setEventos(new ArrayList<>());
+            utx.begin();
+            em.persist(fecha);
+            utx.commit();
+            fechaLogic.deleteFecha(fecha.getId());
+        } catch (BusinessLogicException ex) {
+            Assert.fail("Deberia poder elimnar la fecha");
+            Logger.getLogger(FechaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
+            Logger.getLogger(FechaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       try {
+            FechaEntity fecha = factory.manufacturePojo(FechaEntity.class);
+            ArrayList<EventoEntity> listaEventos= new ArrayList();
+            listaEventos.add(new EventoEntity());
+            fecha.setEventos(listaEventos);
+            utx.begin();
+            em.persist(fecha);
+            utx.commit();
+            fechaLogic.deleteFecha(fecha.getId());
+            Assert.fail("NO Deberia poder elimnar la fecha, la fecha tiene eventos");
+           
+        } catch (BusinessLogicException | NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
+             Logger.getLogger(FechaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }
