@@ -6,7 +6,10 @@
 package co.edu.uniandes.csw.partyServices.resources;
 
 import co.edu.uniandes.csw.partyServices.dtos.ClienteDTO;
+import co.edu.uniandes.csw.partyServices.ejb.AgendaLogic;
+import co.edu.uniandes.csw.partyServices.ejb.ClienteLogic;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -26,6 +29,8 @@ import javax.ws.rs.Produces;
 @RequestScoped
 public class ClienteResource {
     
+    @Inject
+    private ClienteLogic clienteLogic;
     
     @GET
     @Path("{clientesId: \\d+}")
