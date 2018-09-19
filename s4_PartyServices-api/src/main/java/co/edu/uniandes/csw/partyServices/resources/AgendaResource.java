@@ -7,6 +7,8 @@ package co.edu.uniandes.csw.partyServices.resources;
 
 import co.edu.uniandes.csw.partyServices.dtos.AgendaDTO;
 import co.edu.uniandes.csw.partyServices.ejb.AgendaLogic;
+import co.edu.uniandes.csw.partyServices.entities.AgendaEntity;
+import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -32,28 +34,28 @@ public class AgendaResource {
     private AgendaLogic agendaLogic;
     
     @GET 
-    @Path("{proveedor: [a-zA-Z][a-zA-Z]*}")
-    public AgendaDTO obtenerAgenda(@PathParam("proveedor") String proveedor)
+    @Path("{id: \\d+}")
+    public AgendaDTO obtenerAgenda(@PathParam("id") long id)
     {
-        return new AgendaDTO();
+        return new AgendaDTO(agendaLogic.getAgenda(id));
     }
     
     @POST 
-    public AgendaDTO agregarAgenda(AgendaDTO agenda)
+    @Path("{proveedor: \\d+}")
+    public AgendaDTO agregarAgenda(@PathParam("proveedor") long proveedor,AgendaDTO agenda) throws BusinessLogicException
     {
-        return agenda;
+        return new AgendaDTO(agendaLogic.createAgenda(proveedor, agenda.toEntity()));
     }
     
     @PUT 
-    @Path("{proveedor: [a-zA-Z][a-zA-Z]*}")
-    public AgendaDTO actualizarAgenda(@PathParam("proveedor") String proveedor,AgendaDTO agenda)
+    public AgendaDTO actualizarAgenda(AgendaDTO agenda) throws BusinessLogicException
     {
-        return agenda;
+        return new AgendaDTO(agendaLogic.updateAgenda(agenda.toEntity()));
     }
     @DELETE 
-    @Path("{proveedor: [a-zA-Z][a-zA-Z]*}")
-    public void eliminarAgenda(@PathParam("proveedor") String proveedor)
+    @Path("{id: \\d+}")
+    public void eliminarAgenda(@PathParam("id") long id)
     {
-        
+        agendaLogic.deleteAgenda(id);
     }
 }
