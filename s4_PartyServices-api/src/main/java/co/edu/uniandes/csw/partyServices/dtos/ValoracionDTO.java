@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.partyServices.dtos;
 
 //import co.edu.uniandes.csw.partyServices.entities.ValoracionEntity;
+import co.edu.uniandes.csw.partyServices.entities.ValoracionEntity;
 import java.io.Serializable;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -20,7 +21,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *      "puntaje": number
  *      "comentario": string
  *   }
- * </pre> Por ejemplo una sugerencia se representa asi:<br>
+ * </pre> Por ejemplo una valoracion se representa asi:<br>
  *
  * <pre>
  *
@@ -36,7 +37,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class ValoracionDTO implements Serializable{
     
     private Long id;
-    private byte puntaje;
+    private Integer puntaje;
     private String comentario;
     
     
@@ -52,18 +53,18 @@ public class ValoracionDTO implements Serializable{
      *
      * @param valoracionEntity: Es la entidad que se va a convertir a DTO
      */
-    /*public ValoracionDTO(ValoracionEntity valoracionEntity) {
+    public ValoracionDTO(ValoracionEntity valoracionEntity) {
         if (valoracionEntity != null) {
             this.id = valoracionEntity.getId();
             this.puntaje = valoracionEntity.getPuntaje();
             this.comentario = valoracionEntity.getComentario();
         }
-    }*/
+    }
     
     /**
      * Devuelve el ID de la valoracion.
      *
-     * @return the id
+     * @return el id.
      */
     public Long getId() {
         return id;
@@ -72,7 +73,7 @@ public class ValoracionDTO implements Serializable{
     /**
      * Modifica el ID de la valoracion.
      *
-     * @param id the id to set
+     * @param id. El nuevo id.
      */
     public void setId(Long id) {
         this.id = id;
@@ -83,16 +84,16 @@ public class ValoracionDTO implements Serializable{
      *
      * @return el puntaje de la valoracion.
      */
-    public byte getPuntaje() {
+    public Integer getPuntaje() {
         return puntaje;
     }
     
     /**
      * Modifica el puntaje de la valoracion.
      *
-     * @param puntaje the comentario to set
+     * @param puntaje. El nuevo puntaje.
      */
-    public void setPuntaje(byte puntaje) {
+    public void setPuntaje(Integer puntaje) {
         this.puntaje = puntaje;
     }
     
@@ -108,7 +109,7 @@ public class ValoracionDTO implements Serializable{
     /**
      * Modifica el comentario de la valoracion.
      *
-     * @param comentario the comentario to set
+     * @param comentario. El nuevo comentario.
      */
     public void setComentario(String comentario) {
         this.comentario = comentario;
@@ -119,13 +120,13 @@ public class ValoracionDTO implements Serializable{
      *
      * @return Un Entity con los valores del DTO
      */
-   /* public ValoracionEntity toEntity() {
+    public ValoracionEntity toEntity() {
         ValoracionEntity valoracionEntity = new ValoracionEntity();
         valoracionEntity.setId(this.id);
         valoracionEntity.setPuntaje(this.puntaje);
         valoracionEntity.setComentario(this.comentario);
         return valoracionEntity;
-    }*/
+    }
     
     @Override
     public String toString() {
