@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.partyServices.dtos;
 
+import co.edu.uniandes.csw.partyServices.entities.ProductoEntity;
 import java.io.Serializable;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -15,15 +16,50 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  */
 public class ProductoDTO implements Serializable
 {
+    private long id ;
     private String nombre;
     private String tipoServicio ;
-    private String dueño ;
+    private String duenio ;
     private int costo ;
     private int cantidad ;
     
     public ProductoDTO()
     {
         
+    }
+    public ProductoDTO(ProductoEntity productoEntity) 
+    {
+        if (productoEntity != null) 
+        {
+            this.id = productoEntity.getId();
+            this.nombre = productoEntity.getNombre();
+            this.tipoServicio = productoEntity.getTipoServicio();
+            this.duenio = productoEntity.getDuenio() ;
+            this.costo = productoEntity.getCosto();
+            this.cantidad = productoEntity.getCantidad() ;
+  
+        }
+    }
+    
+      public ProductoEntity toEntity() 
+      {
+        ProductoEntity productoEntity = new ProductoEntity();
+        productoEntity.setId(this.getId());
+        productoEntity.setNombre(this.getNombre());
+        productoEntity.setTipoServicio(this.tipoServicio);
+        productoEntity.setDuenio(this.duenio);
+        productoEntity.setCosto(this.costo);
+        productoEntity.setCantidad(this.cantidad);
+        
+        return productoEntity;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
     
     public String getNombre()
@@ -34,9 +70,9 @@ public class ProductoDTO implements Serializable
     {
         return tipoServicio ;
     }
-    public String getDueño()
+    public String getDuenio()
     {
-        return dueño ;
+        return duenio ;
     }
     public int getCosto()
     {
@@ -57,9 +93,9 @@ public class ProductoDTO implements Serializable
     {
         this.tipoServicio = pTipoServicio ;
     }
-    public void setDueño(String pDueño)
+    public void setDuenio(String pDueño)
     {
-        this.dueño = pDueño;
+        this.duenio = pDueño;
     }
     public void setCosto(int pCosto)
     {

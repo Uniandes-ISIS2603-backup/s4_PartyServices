@@ -8,6 +8,7 @@ import co.edu.uniandes.csw.partyServices.util.ConstantesEvento;
 import co.edu.uniandes.csw.partyServices.entities.EventoEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.partyServices.persistence.EventoPersistence;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -148,5 +149,16 @@ public class EventoLogic {
         return (mat.matches());
     }
     
+     public List<EventoEntity> findAll()
+     {
+       return persistence.findAll() ;
+     }
+     
+     public EventoEntity findByNombre(String pNombre)
+     {
+         return persistence.findByName(pNombre) ;
+     }   
+          
+     
     
 }

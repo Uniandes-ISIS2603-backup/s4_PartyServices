@@ -43,7 +43,7 @@ public class FechaEntity extends BaseEntity implements Serializable {
             mappedBy="fecha",
             fetch= FetchType.LAZY
     )
-    Collection<EventoEntity> eventos;
+    private Collection<EventoEntity> eventos;
   
     public AgendaEntity getAgenda() {
         return agenda;

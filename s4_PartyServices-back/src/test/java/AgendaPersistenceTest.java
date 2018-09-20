@@ -1,8 +1,6 @@
 
 import co.edu.uniandes.csw.partyServices.entities.AgendaEntity;
-import co.edu.uniandes.csw.partyServices.entities.ProveedorEntity;
 import co.edu.uniandes.csw.partyServices.persistence.AgendaPersistence;
-import co.edu.uniandes.csw.partyServices.persistence.ProveedorPersistence;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,7 +8,6 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
-import org.glassfish.internal.deployment.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;

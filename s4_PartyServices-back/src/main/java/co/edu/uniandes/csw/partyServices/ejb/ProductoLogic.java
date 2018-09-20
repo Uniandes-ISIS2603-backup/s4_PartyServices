@@ -62,16 +62,13 @@ public class ProductoLogic {
         if (productoEntity.getCantidad() < 0 || productoEntity.getCantidad() >= 999) {
             throw new BusinessLogicException("El producto debe tener una cantidad entre 0 y 999");
         }
-        if (productoEntity.getEventos() == null) 
-        {
+        if (productoEntity.getEventos() == null) {
             throw new BusinessLogicException("El producto no puede tener eventos nulos");
-   
+
         }
-        if (productoEntity.getEventos().size() > productoEntity.getCantidad()) 
-        {
+        if (productoEntity.getEventos().size() > productoEntity.getCantidad()) {
             throw new BusinessLogicException("La cantidad de eventos en un producto no puede ser mayor a la cantidad de productos");
-         }
-        
+        }
 
         persistence.create(productoEntity);
 
@@ -120,4 +117,9 @@ public class ProductoLogic {
         return (mat.matches());
     }
 
+    public ProductoEntity findByNombre(String pNombre) 
+    {
+        return persistence.findByName(pNombre) ;
+        
+    }
 }

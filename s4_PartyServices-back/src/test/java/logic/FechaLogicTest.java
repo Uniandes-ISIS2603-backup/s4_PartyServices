@@ -9,7 +9,6 @@ import co.edu.uniandes.csw.partyServices.ejb.FechaLogic;
 import co.edu.uniandes.csw.partyServices.entities.AgendaEntity;
 import co.edu.uniandes.csw.partyServices.entities.EventoEntity;
 import co.edu.uniandes.csw.partyServices.entities.FechaEntity;
-import co.edu.uniandes.csw.partyServices.entities.ProveedorEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.partyServices.persistence.FechaPersistence;
 import co.edu.uniandes.csw.partyServices.util.ConstantesJornada;

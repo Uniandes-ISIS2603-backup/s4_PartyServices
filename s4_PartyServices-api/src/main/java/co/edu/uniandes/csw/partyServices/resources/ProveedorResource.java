@@ -6,17 +6,100 @@
 package co.edu.uniandes.csw.partyServices.resources;
 
 import co.edu.uniandes.csw.partyServices.dtos.ProveedorDTO;
+import co.edu.uniandes.csw.partyServices.dtos.ProveedorDetailDTO;
+import co.edu.uniandes.csw.partyServices.ejb.ProveedorLogic;
+import co.edu.uniandes.csw.partyServices.entities.ProveedorEntity;
+import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 
 /**
  *
  * @author estudiante
  */
-    public class ProveedorResource 
-{
-    
-     @GET
-    public ProveedorDTO getProveedor(){
-        return new ProveedorDTO();
+@Path("proveedor")
+@Produces("application/json")
+@Consumes("application/json")
+@RequestScoped
+public class ProveedorResource {
+
+    private static final Logger LOGGER = Logger.getLogger(ProveedorResource.class.getName());
+     @Inject
+    private ProveedorLogic proveedorLogic;
+     
+    @GET
+    public List<ProveedorDetailDTO> getProveedores() throws BusinessLogicException {
+          LOGGER.info("ProveedorResource getProveedores: input: void");
+        List<ProveedorDetailDTO> listaProveedores = listEntity2DTO(proveedorLogic.getProveedores());
+        LOGGER.log(Level.INFO, "AuthorResource getAuthors: output: {0}", listaProveedores.toString());
+        return listaProveedores;
     }
+
+    @GET
+    @Path("{proveedoresId: \\d+}")
+    public ProveedorDetailDTO getProveedor(@PathParam("proveedoresId") Long proveedoresId) {
+        LOGGER.log(Level.INFO, "ProveedorResource getAuthor: input: {0}", proveedoresId);
+        ProveedorEntity proveedorEntity = proveedorLogic.getProveedor(proveedoresId);
+        if (proveedorEntity == null) {
+            throw new WebApplicationException("El recurso /proveedores/" + proveedoresId + " no existe.", 404);
+        }
+        ProveedorDetailDTO detailDTO = new ProveedorDetailDTO(proveedorEntity);
+        LOGGER.log(Level.INFO, "ProveedorResource getProveedor: output: {0}", detailDTO.toString());
+        return detailDTO;
+    }
+    
+                
+    @POST
+    public ProveedorDTO crearProveedor(ProveedorDTO pProveedor) throws BusinessLogicException {
+       LOGGER.log(Level.INFO, "ProveedorResource createProveedor: input: {0}", pProveedor.toString());
+        ProveedorDTO proveedorDTO = new ProveedorDTO(proveedorLogic.createProveedor(pProveedor.toEntity()));
+        LOGGER.log(Level.INFO, "ProveedorResource createProveedor: output: {0}", proveedorDTO.toString());
+        return pProveedor;
+    }
+
+    @DELETE
+    @Path("{proveedor: [a-zA-Z][a-zA-Z]*}")
+    public void borrarProveedor(@PathParam("proveedor") Long proveedoresID) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "ProveedorResource deleteProveedor: input: {0}", proveedoresID);
+        if (proveedorLogic.getProveedor(proveedoresID) == null) {
+            throw new WebApplicationException("El recurso /authors/" + proveedoresID + " no existe.", 404);
+        }
+        proveedorLogic.deleteProveedor(proveedoresID);
+        LOGGER.info("AuthorResource deleteAuthor: output: void");
+    }
+
+    @PUT
+    @Path("{proveedor: [a-zA-Z][a-zA-Z]*}")
+    public ProveedorDTO actualizarProveedor(@PathParam("proveedoresID") Long proveedoresId, ProveedorDTO proveedor) throws BusinessLogicException {
+         LOGGER.log(Level.INFO, "ProveedorResource updateProveedor: input: proveedoresId: {0} , proveedor: {1}", new Object[]{proveedoresId, proveedor.toString()});
+        proveedor.setID(proveedoresId);
+        if (proveedorLogic.getProveedor(proveedoresId) == null) {
+            throw new WebApplicationException("El recurso /proveedores/" + proveedoresId + " no existe.", 404);
+        }
+        ProveedorDetailDTO detailDTO = new ProveedorDetailDTO(proveedorLogic.updateProveedor(proveedoresId, proveedor.toEntity()));
+        LOGGER.log(Level.INFO, "AuthorResource updateAuthor: output: {0}", detailDTO.toString());
+        return detailDTO;
+    }
+    
+        private List<ProveedorDetailDTO> listEntity2DTO(List<ProveedorEntity> entityList) {
+        List<ProveedorDetailDTO> list = new ArrayList<>();
+        for (ProveedorEntity entity : entityList) {
+            list.add(new ProveedorDetailDTO(entity));
+        }
+        return list;
+    }
+
 }

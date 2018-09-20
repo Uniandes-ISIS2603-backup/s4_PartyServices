@@ -6,6 +6,7 @@
 
 
 import co.edu.uniandes.csw.partyServices.entities.SugerenciaEntity;
+import co.edu.uniandes.csw.partyServices.entities.TematicaEntity;
 import co.edu.uniandes.csw.partyServices.persistence.SugerenciaPersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,11 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 public class SugerenciaPersistenceTest {
     
     /**
+     * Instancia de la clase PodamFactory que nos ayudará para crear datos aleatorios de las clases.
+     */
+    PodamFactory factory;
+    
+    /**
      * Inyección de la dependencia a la clase SugerenciaPersistence cuyos métodos
      * se van a probar.
      */
@@ -52,9 +58,15 @@ public class SugerenciaPersistenceTest {
     UserTransaction utx;
     
     /**
-     * Lista que tiene los datos de prueba.
+     * Lista que tiene los datos de prueba para las sugerencias.
      */
     private List<SugerenciaEntity> data = new ArrayList<SugerenciaEntity>();
+    
+    /**
+     * Lista que tiene los datos de prueba para las tematicas.
+     */
+    private List<TematicaEntity> dataTematica = new ArrayList<TematicaEntity>();
+    
     
     /**
      *
@@ -98,6 +110,7 @@ public class SugerenciaPersistenceTest {
      */
     private void clearData() {
         em.createQuery("delete from SugerenciaEntity").executeUpdate();
+        em.createQuery("delete from TematicaEntity").executeUpdate();
     }
     
     /**
@@ -105,13 +118,21 @@ public class SugerenciaPersistenceTest {
      * pruebas.
      */
     private void insertData() {
-        PodamFactory factory = new PodamFactoryImpl();
+         factory = new PodamFactoryImpl();
+        
+        for (int i = 0; i < 3; i++) {
+            TematicaEntity entity = factory.manufacturePojo(TematicaEntity.class);
+            em.persist(entity);
+            dataTematica.add(entity);
+        }
+        
         for (int i = 0; i < 3; i++) {
 
             SugerenciaEntity entity = factory.manufacturePojo(SugerenciaEntity.class);
-
+            if (i == 0) {
+                entity.setTematica(dataTematica.get(0));
+            }
             em.persist(entity);
-
             data.add(entity);
         }
     }
@@ -121,7 +142,7 @@ public class SugerenciaPersistenceTest {
      */
     @Test
     public void createSugerenciaTest() {
-        PodamFactory factory = new PodamFactoryImpl();
+     
         SugerenciaEntity newEntity = factory.manufacturePojo(SugerenciaEntity.class);
         SugerenciaEntity result = sugerenciaPersistence.create(newEntity);
 
@@ -130,6 +151,19 @@ public class SugerenciaPersistenceTest {
         SugerenciaEntity entity = em.find(SugerenciaEntity.class, result.getId());
 
         Assert.assertEquals(newEntity.getComentario(), entity.getComentario());
+        Assert.assertEquals(newEntity.getNombreUsuario(), entity.getNombreUsuario());
+    }
+    
+      /**
+     * Prueba para consultar una Sugerencia.
+     */
+    @Test
+    public void getSugerenciaTest() {
+        SugerenciaEntity entity = data.get(0);
+        SugerenciaEntity newEntity = sugerenciaPersistence.find(dataTematica.get(0).getId(), entity.getId());
+        Assert.assertNotNull(newEntity);
+        Assert.assertEquals(entity.getComentario(), newEntity.getComentario());
+        Assert.assertEquals(entity.getNombreUsuario(), newEntity.getNombreUsuario());
     }
     
     /**
@@ -141,6 +175,24 @@ public class SugerenciaPersistenceTest {
         sugerenciaPersistence.delete(entity.getId());
         SugerenciaEntity deleted = em.find(SugerenciaEntity.class, entity.getId());
         Assert.assertNull(deleted);
+    }
+    
+    /**
+     * Prueba para actualizar una Sugerencia.
+     */
+    @Test
+    public void updateSugerenciaTest() {
+        SugerenciaEntity entity = data.get(0);
+        SugerenciaEntity newEntity = factory.manufacturePojo(SugerenciaEntity.class);
+
+        newEntity.setId(entity.getId());
+
+        sugerenciaPersistence.update(newEntity);
+
+        SugerenciaEntity resp = em.find(SugerenciaEntity.class, entity.getId());
+
+        Assert.assertEquals(newEntity.getComentario(), resp.getComentario());
+        Assert.assertEquals(newEntity.getNombreUsuario(), resp.getNombreUsuario());
     }
     
 }

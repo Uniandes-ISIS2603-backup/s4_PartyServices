@@ -24,7 +24,7 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
     private final static long serialVersionUID = 1L ;
     
     @PodamExclude
-    @OneToOne
+    @OneToOne()
     private AgendaEntity agenda;
     
     private String nombre;
@@ -36,8 +36,8 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
     public ServicioEntity servicio;
     
     @PodamExclude
-    @OneToMany(mappedBy="proveedor",
-            fetch= FetchType.LAZY)
+    @OneToMany(mappedBy = "proveedor",
+            fetch = FetchType.LAZY)
     Collection<ProductoEntity> catalogoProductos = new ArrayList <ProductoEntity>();
    
     @PodamExclude
@@ -127,4 +127,3 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
     
 
       
-
