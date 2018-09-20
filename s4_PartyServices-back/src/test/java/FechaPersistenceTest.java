@@ -141,4 +141,8 @@ public class FechaPersistenceTest {
          Assert.assertEquals(fechaEntity.getDia().getDay()+" "+fechaEntity.getDia().getMonth()+" "+fechaEntity.getDia().getYear(), 
             dia.getDay()+" "+dia.getMonth()+" "+dia.getYear());
     }
+    @Test
+    public void findAllFechasTest(){
+        Assert.assertEquals(3, fechaPersistence.findAll().size());
+    }
 }

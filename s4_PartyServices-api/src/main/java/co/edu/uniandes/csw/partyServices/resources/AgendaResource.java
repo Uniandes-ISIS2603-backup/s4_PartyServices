@@ -8,7 +8,6 @@ package co.edu.uniandes.csw.partyServices.resources;
 import co.edu.uniandes.csw.partyServices.dtos.AgendaDTO;
 import co.edu.uniandes.csw.partyServices.dtos.AgendaDetailDTO;
 import co.edu.uniandes.csw.partyServices.ejb.AgendaLogic;
-import co.edu.uniandes.csw.partyServices.entities.AgendaEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
