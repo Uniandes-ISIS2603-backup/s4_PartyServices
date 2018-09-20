@@ -154,6 +154,11 @@ public class EventoLogic {
        return persistence.findAll() ;
      }
      
+     public EventoEntity findByNombre(String pNombre)
+     {
+         return persistence.findByName(pNombre) ;
+     }   
+          
      
     
 }
