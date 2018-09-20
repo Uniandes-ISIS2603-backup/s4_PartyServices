@@ -101,5 +101,26 @@ public class ProveedorResource {
         }
         return list;
     }
+        
+    /**
+     * Conexión con el servicio de valroaciones para un proveedor. {@link SugerenciaResource}
+     *
+     * Este método conecta la ruta de /proveedores con las rutas de /valroaciones que
+     * dependen del proveedor, es una redirección al servicio que maneja el segmento
+     * de la URL que se encarga de las sugerencias.
+     *
+     * @param proveedorId El ID del proveedor con respecto a la cual se accede al
+     * servicio.
+     * @return El servicio de valoraciones para ese proveedor en paricular.\
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra el proveedor.
+     */
+    @Path("{proveedorId: \\d+}/valoraciones")
+    public Class<ValoracionResource> getValoracionResource(@PathParam("proveedorId") Long proveedorId) {
+        if (proveedorLogic.getProveedor(proveedorId) == null) {
+            throw new WebApplicationException("El recurso /proveedores/" + proveedorId + "/valoraciones no existe.", 404);
+        }
+        return ValoracionResource.class;
+    }
 
 }

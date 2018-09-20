@@ -10,7 +10,6 @@ import co.edu.uniandes.csw.partyServices.dtos.EventoDetailDTO;
 import co.edu.uniandes.csw.partyServices.ejb.EventoLogic;
 import co.edu.uniandes.csw.partyServices.entities.EventoEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;

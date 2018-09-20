@@ -1,0 +1,255 @@
+{
+	"info": {
+		"_postman_id": "dfe21ecf-e244-41d6-a038-cf0e0e0ac35f",
+		"name": "Pruebas recursos Agenda y Fecha",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "delete fecha",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"dia\":\"27 Enero 2019\",\r\n\t\"jornada\":\"Tarde\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/fecha/01072019",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"fecha",
+						"01072019"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "put fecha",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"dia\":\"08092019\",\n\"jornada\":\"tarde\"\t\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/fecha/08092019",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"fecha",
+						"08092019"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get fecha",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/fecha/15012019",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"fecha",
+						"15012019"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "put agenda",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"fechasNoDisponibles\":\"Lunes mediodia\",\n\"fechaPenitencia\":\"30Agosto2018\"}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/agenda/bombas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"agenda",
+						"bombas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post agenda",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"fechasNoDisponibles\":\"Lunes tarde\",\n\"fechaPenitencia\":\"30Agosto2019\"}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/agenda",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"agenda"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get agenda",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"disabled": true
+					},
+					{
+						"key": "",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/agenda/PastelesYComida",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"agenda",
+						"PastelesYComida"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post fecha",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"dia\":\"08112019\",\n\"jornada\":\"noche\"\t\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/fecha",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"fecha"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete agenda",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"dia\":\"27 Enero 2019\",\r\n\t\"jornada\":\"Tarde\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/agenda/BebidasYTacos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"agenda",
+						"BebidasYTacos"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

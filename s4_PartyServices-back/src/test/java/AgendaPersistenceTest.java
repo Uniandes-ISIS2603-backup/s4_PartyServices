@@ -143,4 +143,10 @@ public class AgendaPersistenceTest {
         Assert.assertEquals(agendaActualizada.getFechaPenitencia().getDay()+" "+agendaActualizada.getFechaPenitencia().getMonth()+" "+agendaActualizada.getFechaPenitencia().getYear(), 
             dia.getDay()+" "+dia.getMonth()+" "+dia.getYear());
     }
+    @Test
+    public void findAllTest()
+    {
+        Assert.assertEquals(3, agendaPersistence.findAll().size());
+    }
+    
 }

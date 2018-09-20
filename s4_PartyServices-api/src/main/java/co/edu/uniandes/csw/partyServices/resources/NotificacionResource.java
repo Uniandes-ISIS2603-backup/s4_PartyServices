@@ -38,7 +38,11 @@ public class NotificacionResource {
 
     @Inject
     private NotificacionLogic notificacionLogic;
+    
+    
+    
      @GET
+     @Path("{evento: [a-zA-Z][a-zA-Z]*}")
     public NotificacionDTO getNotificacion(@PathParam("notificacionesId") Long notificacionesId){
         LOGGER.log(Level.INFO, "NotificacionResource getNotificacion: input: {0}", notificacionesId);
         NotificacionEntity notifEntity = notificacionLogic.getNotificacion(notificacionesId);
