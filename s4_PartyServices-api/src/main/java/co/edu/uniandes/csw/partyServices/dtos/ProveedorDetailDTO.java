@@ -70,7 +70,7 @@ public class ProveedorDetailDTO extends ProveedorDTO implements Serializable {
             for (ProductoDTO dtoProducto : productos) {
                 productoEntity.add(dtoProducto.toEntity());
             }
-            proveedorEntity.setCatalogoProductos(productosEntity);
+            proveedorEntity.setCatalogoProductos(productoEntity);
         }
         if (notificaciones != null) {
             List<NotificacionEntity> notifEntity = new ArrayList<>();
