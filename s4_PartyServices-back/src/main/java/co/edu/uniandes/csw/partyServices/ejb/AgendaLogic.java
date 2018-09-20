@@ -55,8 +55,7 @@ public class AgendaLogic {
     {
         LOGGER.log(Level.INFO,"Entrando a optener agenda ", idAgenda);
         AgendaEntity agenda= agendaPersistence.find(idAgenda);
-        if(agenda==null)
-            LOGGER.log(Level.INFO,"No se encuentra agenda con el id ", idAgenda);
+        
         return agenda;
     }
     
@@ -68,8 +67,7 @@ public class AgendaLogic {
         
         
         AgendaEntity agenda= agendaPersistence.update(agendaEntity);
-        if(agenda==null)
-            LOGGER.log(Level.INFO,"No se encuentra agenda con el id ", agendaEntity.getId());
+        
         return agenda;
     } 
     public void deleteAgenda(long agendaId)
@@ -94,25 +92,25 @@ public class AgendaLogic {
         
         //Verificacion regla de negocio de las jornadas de las fechas que no labora el proveedor
         if(ConstantesJornada.desdeValor(agendaEntity.getJornadaLunesND()) == null){
-                throw new BusinessLogicException("No cumple con las jornadas posibles");          
+                throw new BusinessLogicException("LUNES No cumple con las jornadas ");          
         }
         if(ConstantesJornada.desdeValor(agendaEntity.getJornadaMartesND()) == null){
-                throw new BusinessLogicException("No cumple con las jornadas posibles");          
+                throw new BusinessLogicException("MARTES No cumple con las jornadas ");          
         }
         if(ConstantesJornada.desdeValor(agendaEntity.getJornadaMiercolesND()) == null){
-                throw new BusinessLogicException("No cumple con las jornadas posibles");          
+                throw new BusinessLogicException("MIERCOLES No cumple con las jornadas ");          
         }
         if(ConstantesJornada.desdeValor(agendaEntity.getJornadaJuevesND()) == null){
-                throw new BusinessLogicException("No cumple con las jornadas posibles");          
+                throw new BusinessLogicException("JUEVES No cumple con las jornadas ");          
         }
         if(ConstantesJornada.desdeValor(agendaEntity.getJornadaViernesND()) == null){
-                throw new BusinessLogicException("No cumple con las jornadas posibles");          
+                throw new BusinessLogicException("VIERNES No cumple con las jornadas ");          
         }
         if(ConstantesJornada.desdeValor(agendaEntity.getJornadaSabadoND()) == null){
-                throw new BusinessLogicException("No cumple con las jornadas posibles");          
+                throw new BusinessLogicException("SABADO No cumple con las jornadas ");          
         }
         if(ConstantesJornada.desdeValor(agendaEntity.getJornadaDomingoND()) == null){
-                throw new BusinessLogicException("No cumple con las jornadas posibles");          
+                throw new BusinessLogicException("DOMINGO No cumple con las jornadas ");          
         }
     }
 }
