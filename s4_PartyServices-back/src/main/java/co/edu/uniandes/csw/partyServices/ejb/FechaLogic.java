@@ -35,7 +35,6 @@ public class FechaLogic {
     public FechaEntity createFecha(long agendaId, FechaEntity fechaEntity) throws BusinessLogicException
     {
         //Verificacion regla de negocio de las jornadas
-        ConstantesJornada c = ConstantesJornada.desdeValor(fechaEntity.getJornada());
         if(ConstantesJornada.desdeValor(fechaEntity.getJornada()) == null){
                 throw new BusinessLogicException("No cumple con las jornadas posibles");          
         }
