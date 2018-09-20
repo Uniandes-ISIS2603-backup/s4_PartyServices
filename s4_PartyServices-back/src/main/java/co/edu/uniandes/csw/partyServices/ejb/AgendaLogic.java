@@ -88,13 +88,8 @@ public class AgendaLogic {
         }
         
         
-        //Verificacion regla del negocio del cumplimiento del formato para fehcas en que no labora el proveedor
-        String fechasNoValidas=agendaEntity.getFechasNoDisponibles();
-        try {
-            validarFormatoFechasNoLaborables(fechasNoValidas);
-        } catch (Exception e) {
-            throw new BusinessLogicException("No corresponde el formato de fechas en que no labora. "+e.getMessage());
-        }
+        
+       
         
        
         
@@ -144,12 +139,27 @@ public class AgendaLogic {
                 throw new BusinessLogicException("La fecha de penitencia no puede ser mayor a un mes desde hoy");
         }
         
-        //Verificacion regla del negocio del cumplimiento del formato para fehcas en que no labora el proveedor
-        String fechasNoValidas=agendaEntity.getFechasNoDisponibles();
-        try {
-            validarFormatoFechasNoLaborables(fechasNoValidas);
-        } catch (Exception e) {
-            throw new BusinessLogicException("No corresponde el formato de fechas en que no labora. "+e.getMessage());
+        //Verificacion regla de negocio de las jornadas de las fechas que no labora el proveedor
+        if(ConstantesJornada.desdeValor(agendaEntity.getJornadaLunesND()) == null){
+                throw new BusinessLogicException("No cumple con las jornadas posibles");          
+        }
+        if(ConstantesJornada.desdeValor(agendaEntity.getJornadaMartesND()) == null){
+                throw new BusinessLogicException("No cumple con las jornadas posibles");          
+        }
+        if(ConstantesJornada.desdeValor(agendaEntity.getJornadaMiercolesND()) == null){
+                throw new BusinessLogicException("No cumple con las jornadas posibles");          
+        }
+        if(ConstantesJornada.desdeValor(agendaEntity.getJornadaJuevesND()) == null){
+                throw new BusinessLogicException("No cumple con las jornadas posibles");          
+        }
+        if(ConstantesJornada.desdeValor(agendaEntity.getJornadaViernesND()) == null){
+                throw new BusinessLogicException("No cumple con las jornadas posibles");          
+        }
+        if(ConstantesJornada.desdeValor(agendaEntity.getJornadaSabadoND()) == null){
+                throw new BusinessLogicException("No cumple con las jornadas posibles");          
+        }
+        if(ConstantesJornada.desdeValor(agendaEntity.getJornadaDomingoND()) == null){
+                throw new BusinessLogicException("No cumple con las jornadas posibles");          
         }
         
         

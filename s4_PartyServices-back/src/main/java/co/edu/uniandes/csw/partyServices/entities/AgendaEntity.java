@@ -63,8 +63,6 @@ public class AgendaEntity extends BaseEntity implements Serializable{
     private Date fechaPenitencia;
 
     
-    private String fechasNoDisponibles;
-    
     private String jornadaLunesND;
     private String jornadaMartesND;
     private String jornadaMiercolesND;
@@ -159,15 +157,7 @@ public class AgendaEntity extends BaseEntity implements Serializable{
         this.fechaPenitencia=fechaPenitencia;
     }
     
-    public String getFechasNoDisponibles()
-    {
-        return fechasNoDisponibles;
-    }
-    
-    public void setFechasNoDisponibles(String fechasNoDisponibles)
-    {
-        this.fechasNoDisponibles=fechasNoDisponibles;
-    }
+  
     
     public Collection<FechaEntity> getFechasOcupadas()
     {

@@ -17,7 +17,6 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  */
 public class AgendaDTO implements Serializable{
     private long id;
-    private String fechasNoDisponibles;
     private Date fechaPenitencia;
     private ProveedorDTO proveedorDTO;
     private String jornadaLunesND;
@@ -37,7 +36,6 @@ public class AgendaDTO implements Serializable{
         if(agendaEntity!=null){
             this.id=agendaEntity.getId();
             this.fechaPenitencia=agendaEntity.getFechaPenitencia();
-            this.fechasNoDisponibles=agendaEntity.getFechasNoDisponibles();
             this.proveedorDTO=new ProveedorDTO(agendaEntity.getProveedor());
             this.jornadaLunesND=agendaEntity.getJornadaLunesND();
             this.jornadaMartesND=agendaEntity.getJornadaMartesND();
@@ -126,18 +124,12 @@ public class AgendaDTO implements Serializable{
     
     
     
-    public String getFechasNoDisponibles()
-    {
-        return fechasNoDisponibles;
-    }
+   
     public Date getFechaPenitencia()
     {
         return fechaPenitencia;
     }
-    public void setFechasNoDisponibles(String fechasNoDisponibles)
-    {
-        this.fechasNoDisponibles=fechasNoDisponibles;
-    }
+   
     public void setFechaPenitencia(Date fechaPenitencia)
     {
         this.fechaPenitencia=fechaPenitencia;
@@ -153,7 +145,6 @@ public class AgendaDTO implements Serializable{
         AgendaEntity agendaEntity = new AgendaEntity();
         agendaEntity.setId(this.id);
         agendaEntity.setFechaPenitencia(this.fechaPenitencia);
-        agendaEntity.setFechasNoDisponibles(this.fechasNoDisponibles);
         agendaEntity.setProveeedor(this.proveedorDTO.toEntity());
         agendaEntity.setJornadaDomingoND(this.jornadaLunesND);
         agendaEntity.setJornadaDomingoND(this.jornadaMartesND);

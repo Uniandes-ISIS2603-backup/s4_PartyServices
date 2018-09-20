@@ -129,18 +129,7 @@ public class AgendaLogicTest
             dia=cal.getTime();
             agendaValida.setFechaPenitencia(dia);
             
-            String fechasNoLaborales=
-                "{"
-                + "\""+AgendaEntity.DiaSemana.LUNES.darValor()+"\":\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.MARTES.darValor()+"\":\""+ConstantesJornada.NINGUNA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.MIERCOLES.darValor()+"\":\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.JUEVES.darValor()+"\":\""+ConstantesJornada.NINGUNA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.VIERNES.darValor()+"\":\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.SABADO.darValor()+"\":\""+ConstantesJornada.JORNADA_MANANA_NOCHE.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.DOMINGO.darValor()+"\":\""+ConstantesJornada.JORNADA_TARDE.darValor()+"\""
-                +"}";
-            
-            agendaValida.setFechasNoDisponibles(fechasNoLaborales);
+           
             agendaValida.setJornadaLunesND(ConstantesJornada.NINGUNA.darValor());
             agendaValida.setJornadaMartesND(ConstantesJornada.NINGUNA.darValor());
             agendaValida.setJornadaMiercolesND(ConstantesJornada.NINGUNA.darValor());
@@ -174,19 +163,6 @@ public class AgendaLogicTest
             cal.add(Calendar.DATE, 15);
             dia=cal.getTime();
             agendaValida.setFechaPenitencia(dia);
-            
-            String fechasNoLaborales=
-                "{"
-                + "\""+AgendaEntity.DiaSemana.LUNES.darValor()+"\":\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.MARTES.darValor()+"\":\""+ConstantesJornada.NINGUNA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.MIERCOLES.darValor()+"\":\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.JUEVES.darValor()+"\":\""+ConstantesJornada.NINGUNA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.VIERNES.darValor()+"\":\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.SABADO.darValor()+"\":\""+ConstantesJornada.JORNADA_MANANA_NOCHE.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.DOMINGO.darValor()+"\":\""+ConstantesJornada.JORNADA_TARDE.darValor()+"\""
-                +"}";
-            
-            agendaValida.setFechasNoDisponibles(fechasNoLaborales);
             agendaValida.setJornadaLunesND("ewrtyuiomjhas");
             agendaValida.setJornadaMartesND(ConstantesJornada.NINGUNA.darValor());
             agendaValida.setJornadaMiercolesND(ConstantesJornada.NINGUNA.darValor());
@@ -220,17 +196,6 @@ public class AgendaLogicTest
             dia=cal.getTime();
             agendaINValida.setFechaPenitencia(dia);
             
-            String fechasNoLaborales=
-                "{"
-                + "\""+AgendaEntity.DiaSemana.LUNES.darValor()+"\":\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.MARTES.darValor()+"\":\""+ConstantesJornada.NINGUNA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.MIERCOLES.darValor()+"\":\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.JUEVES.darValor()+"\":\""+ConstantesJornada.NINGUNA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.VIERNES.darValor()+"\":\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.SABADO.darValor()+"\":\""+ConstantesJornada.JORNADA_MANANA_NOCHE.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.DOMINGO.darValor()+"\":\""+ConstantesJornada.JORNADA_TARDE.darValor()+"\""
-                +"}";
-            agendaINValida.setFechasNoDisponibles(fechasNoLaborales);
             agendaINValida.setJornadaLunesND(ConstantesJornada.NINGUNA.darValor());
             agendaINValida.setJornadaMartesND(ConstantesJornada.NINGUNA.darValor());
             agendaINValida.setJornadaMiercolesND(ConstantesJornada.NINGUNA.darValor());
@@ -238,7 +203,7 @@ public class AgendaLogicTest
             agendaINValida.setJornadaViernesND(ConstantesJornada.NINGUNA.darValor());
             agendaINValida.setJornadaSabadoND(ConstantesJornada.NINGUNA.darValor());
             agendaINValida.setJornadaDomingoND(ConstantesJornada.NINGUNA.darValor());
-            agendaINValida.setFechasNoDisponibles(fechasNoLaborales);
+           
             ProveedorEntity proveedor = factory.manufacturePojo(ProveedorEntity.class);
             utx.begin();
             em.persist(proveedor);
@@ -265,17 +230,7 @@ public class AgendaLogicTest
             dia=cal.getTime();
             agendaValida.setFechaPenitencia(dia);
             
-            String fechasNoLaborales=
-                "{"
-                + "\""+AgendaEntity.DiaSemana.LUNES.darValor()+"\":[\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\","+"\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\"]"
-                + "\""+AgendaEntity.DiaSemana.MARTES.darValor()+"\":\""+ConstantesJornada.NINGUNA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.MIERCOLES.darValor()+"\":\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.JUEVES.darValor()+"\":\""+ConstantesJornada.NINGUNA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.VIERNES.darValor()+"\":\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.SABADO.darValor()+"\":\""+ConstantesJornada.JORNADA_MANANA_NOCHE.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.DOMINGO.darValor()+"\":\""+ConstantesJornada.JORNADA_TARDE.darValor()+"\""
-                +"}";
-            agendaValida.setFechasNoDisponibles(fechasNoLaborales);
+           
             agendaValida.setJornadaLunesND(ConstantesJornada.NINGUNA.darValor());
             agendaValida.setJornadaMartesND(ConstantesJornada.NINGUNA.darValor());
             agendaValida.setJornadaMiercolesND(ConstantesJornada.NINGUNA.darValor());
@@ -327,18 +282,7 @@ public class AgendaLogicTest
         dia=cal.getTime();
         agenda.setFechaPenitencia(dia);
      
-        String fechasNoLaborales=
-                "{"
-                + "\""+AgendaEntity.DiaSemana.LUNES.darValor()+"\":\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.MARTES.darValor()+"\":\""+ConstantesJornada.NINGUNA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.MIERCOLES.darValor()+"\":\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.JUEVES.darValor()+"\":\""+ConstantesJornada.NINGUNA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.VIERNES.darValor()+"\":\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.SABADO.darValor()+"\":\""+ConstantesJornada.JORNADA_MANANA_NOCHE.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.DOMINGO.darValor()+"\":\""+ConstantesJornada.JORNADA_TARDE.darValor()+"\""
-                +"}";
-            
-            agenda.setFechasNoDisponibles(fechasNoLaborales);
+      
             agenda.setJornadaLunesND(ConstantesJornada.NINGUNA.darValor());
             agenda.setJornadaMartesND(ConstantesJornada.NINGUNA.darValor());
             agenda.setJornadaMiercolesND(ConstantesJornada.NINGUNA.darValor());
@@ -363,46 +307,7 @@ public class AgendaLogicTest
     }
     
 
-    @Test
-    public void validarFormatoFechaPenitenciaTest(){
-        //FORMATO VALIDO
-        try {
-            String fechasNoValidas=
-                "{"
-                + "\""+AgendaEntity.DiaSemana.LUNES.darValor()+"\":\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.MARTES.darValor()+"\":\""+ConstantesJornada.NINGUNA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.MIERCOLES.darValor()+"\":\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.JUEVES.darValor()+"\":\""+ConstantesJornada.NINGUNA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.VIERNES.darValor()+"\":\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.SABADO.darValor()+"\":\""+ConstantesJornada.JORNADA_MANANA_NOCHE.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.DOMINGO.darValor()+"\":\""+ConstantesJornada.JORNADA_TARDE.darValor()+"\""
-                +"}";
-            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.ALL, null, fechasNoValidas+"afsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjks");
-            agendaLogic.validarFormatoFechasNoLaborables(fechasNoValidas);
-        } catch (Exception ex) {
-            Assert.fail("No debaria lanzar ecepcion");
-            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        //FORMATO INVALIDO MUCHAS JORNADAS
-        try {
-            String fechasNoValidas=
-                "{"
-                + "\""+AgendaEntity.DiaSemana.LUNES.darValor()+"\":[\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\","+"\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\"]"
-                + "\""+AgendaEntity.DiaSemana.MARTES.darValor()+"\":\""+ConstantesJornada.NINGUNA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.MIERCOLES.darValor()+"\":\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.JUEVES.darValor()+"\":\""+ConstantesJornada.NINGUNA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.VIERNES.darValor()+"\":\""+ConstantesJornada.JORNADA_COMPLETA.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.SABADO.darValor()+"\":\""+ConstantesJornada.JORNADA_MANANA_NOCHE.darValor()+"\","
-                + "\""+AgendaEntity.DiaSemana.DOMINGO.darValor()+"\":\""+ConstantesJornada.JORNADA_TARDE.darValor()+"\""
-                +"}";
-            Logger.getLogger(AgendaLogicTest.class.getName()).log(Level.ALL, null, fechasNoValidas+"afsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjkafsdghjks");
-            agendaLogic.validarFormatoFechasNoLaborables(fechasNoValidas);
-            Assert.fail("No debaria permitir el formato");
-            
-        } catch (Exception ex) {
-           
-        }
-    }
+   
     
     
     
