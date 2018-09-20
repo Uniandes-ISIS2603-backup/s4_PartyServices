@@ -6,11 +6,9 @@
 package co.edu.uniandes.csw.partyServices.resources;
 
 import co.edu.uniandes.csw.partyServices.dtos.NotificacionDTO;
-import co.edu.uniandes.csw.partyServices.dtos.ProveedorDTO;
 import co.edu.uniandes.csw.partyServices.ejb.NotificacionLogic;
 import co.edu.uniandes.csw.partyServices.entities.NotificacionEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;

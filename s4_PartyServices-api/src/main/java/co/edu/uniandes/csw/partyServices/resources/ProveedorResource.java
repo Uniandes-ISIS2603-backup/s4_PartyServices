@@ -10,8 +10,6 @@ import co.edu.uniandes.csw.partyServices.dtos.ProveedorDetailDTO;
 import co.edu.uniandes.csw.partyServices.ejb.ProveedorLogic;
 import co.edu.uniandes.csw.partyServices.entities.ProveedorEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
-import com.sun.xml.internal.ws.spi.db.BindingContextFactory;
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;

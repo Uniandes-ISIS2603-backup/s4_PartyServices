@@ -31,6 +31,7 @@ import javax.ws.rs.WebApplicationException;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class SugerenciaClienteResource {
+    /**
     
     private static final Logger LOGGER = Logger.getLogger(SugerenciaClienteResource.class.getName());
     
@@ -53,7 +54,7 @@ public class SugerenciaClienteResource {
  * @return JSON {@link ClienteDTO} - El cliente guardado en la sugerencia.
  * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
  * Error de lógica que se genera cuando no se encuentra el cliente.
- */
+ 
     @POST
     @Path("{sugerenciasId: \\d+}")
     public ClienteDTO addCliente(@PathParam("tematicasId") Long tematicasId, @PathParam("sugerenciasId") Long sugerenciasId, @PathParam("clientesId") Long clientesId) {
@@ -75,7 +76,7 @@ public class SugerenciaClienteResource {
      * @return JSON {@link ClienteDetailDTO} - El cliente buscado
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando la sugerencia no tiene cliente.
-     */
+     
     @GET
     public ClienteDetailDTO getCliente(@PathParam("tematicasId") Long tematicasId, @PathParam("sugerenciasId") Long sugerenciasId) {
         LOGGER.log(Level.INFO, "SugerenciaClienteResource getCliente: input: tematicasId: {0}, sugerenciasId{1}", new Object[]{tematicasId, sugerenciasId});
@@ -99,7 +100,7 @@ public class SugerenciaClienteResource {
      * @return JSON {@link ClienteDetailDTO} - El cliente actualizado
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra el cliente.
-     */
+     
     @PUT
     @Path("{clientesId: \\d+}")
     public ClienteDetailDTO replaceCliente(@PathParam("tematicasId") Long tematicasId, @PathParam("sugerenciasId") Long sugerenciasId, @PathParam("clientesId") Long clientesId) {
@@ -119,13 +120,13 @@ public class SugerenciaClienteResource {
      * @param tematicasId El ID de la temática de la cual se le agrega la sugerencia.
      * @throws BusinessLogicException
      * Error de lógica que se genera cuando el premio no tiene autor.
-     */
+     
     @DELETE
     public void removeAuthor(@PathParam("tematicasId") Long tematicasId, @PathParam("sugerenciasId") Long sugerenciasId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "SugerenciaClienteResource removeCliente: input: input: tematicasId: {0}, sugerenciasId{1}", new Object[]{tematicasId, sugerenciasId});
         sugerenciaClienteLogic.removeCliente(tematicasId, sugerenciasId);
         LOGGER.info("SugerenciaClienteResource removeCliente: output: void");
     }
-    
+      */
 }
 
