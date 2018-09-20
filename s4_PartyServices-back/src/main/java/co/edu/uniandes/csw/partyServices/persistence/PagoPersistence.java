@@ -21,6 +21,8 @@ import javax.persistence.TypedQuery;
 @Stateless
 public class PagoPersistence {
     
+   
+        
     private static final Logger LOGGER = Logger.getLogger(PagoPersistence.class.getName()) ;
     
     @PersistenceContext(unitName = "LosMasmelosPU")
@@ -106,6 +108,10 @@ public class PagoPersistence {
         
         
     }
+	
+    
+    
+        
 	
     
     

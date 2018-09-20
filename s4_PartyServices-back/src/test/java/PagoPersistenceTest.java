@@ -31,7 +31,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 @RunWith(Arquillian.class)
 public class PagoPersistenceTest 
 {
-    @Inject
+      @Inject
     private PagoPersistence pagoPersistence ;
     
     

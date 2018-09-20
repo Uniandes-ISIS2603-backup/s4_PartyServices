@@ -17,10 +17,17 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 public class PagoEntity extends BaseEntity implements Serializable{
     
-    private String usuario;
-    
+   private String usuario;
     private String tipo;
+    private Long numeroTarjetaCredito;
+    private Integer codigoSeguridadTarjeta;
+    private String fechaExpiracionTarjetaCredito;
+    private String nombreTarjeta;
+    private String empresa;
+    private boolean cancelado;
+
     
+
     
     @PodamExclude
     @ManyToOne()
@@ -47,14 +54,61 @@ public class PagoEntity extends BaseEntity implements Serializable{
         this.usuario = pUsuario;
     }
     
-    
-    
     public String getTipo() {
         return tipo;
+    }
+    public Long getNumeroTarjetaCredito() {
+        return numeroTarjetaCredito;
+    }
+
+    public void setNumeroTarjetaCredito(Long numeroTarjetaCredito) {
+        this.numeroTarjetaCredito = numeroTarjetaCredito;
+    }
+
+    public Integer getCodigoSeguridadTarjeta() {
+        return codigoSeguridadTarjeta;
+    }
+
+    public void setCodigoSeguridadTarjeta(Integer codigoSeguridadTarjeta) {
+        this.codigoSeguridadTarjeta = codigoSeguridadTarjeta;
+    }
+
+    public String getFechaExpiracionTarjetaCredito() {
+        return fechaExpiracionTarjetaCredito;
+    }
+
+    public void setFechaExpiracionTarjetaCredito(String fechaExpiracionTarjetaCredito) {
+        this.fechaExpiracionTarjetaCredito = fechaExpiracionTarjetaCredito;
+    }
+
+    public String getNombreTarjeta() {
+        return nombreTarjeta;
+    }
+
+    public void setNombreTarjeta(String nombreTarjeta) {
+        this.nombreTarjeta = nombreTarjeta;
+    }
+
+    public String getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(String empresa) {
+        this.empresa = empresa;
     }
 
     
     public void setTipo(String pTipo) {
         this.tipo = pTipo;
     }
+    
+    public boolean isCancelado() {
+        return cancelado;
+    }
+
+    public void setCancelado(boolean cancelado) {
+        this.cancelado = cancelado;
+    }
+
+    
 }
