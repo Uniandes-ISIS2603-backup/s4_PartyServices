@@ -52,14 +52,6 @@ public ProveedorEntity createProveedor (ProveedorEntity entity) throws BusinessL
         {
             throw new BusinessLogicException("la contraseña no puede ser igual al nombre de Usuario");
         }
-        if(entity.getCatalogoProductos()==null)
-        {
-            throw new BusinessLogicException("el catálogo de productos no puede ser null");
-        }
-        if(entity.getAgenda()==null)
-        {
-            throw new BusinessLogicException("la agenda no puede ser null");
-        }
         // Invoca la persistencia para crear el proveedor 
         persistence.create(entity);
         LOGGER.log(Level.INFO, "Termina proceso de creación del proveedor");
@@ -117,6 +109,7 @@ private boolean validateNombre(String nombre) {
         if (persistence.findByName(proveedorEntity.getNombre()) != null) {
             throw new BusinessLogicException("Ya existe un proveedor con el nombre \"" + proveedorEntity.getNombre() + "\"");
         }
+        
         String contra = proveedorEntity.getContrasenia();
         if(contra==null)
             {
@@ -133,14 +126,6 @@ private boolean validateNombre(String nombre) {
         else if (contra== proveedorEntity.getNombre())
         {
             throw new BusinessLogicException("la contraseña no puede ser igual al nombre de Usuario");
-        }
-        if(proveedorEntity.getCatalogoProductos()==null)
-        {
-            throw new BusinessLogicException("el catálogo de productos no puede ser null");
-        }
-        if(proveedorEntity.getAgenda()==null)
-        {
-            throw new BusinessLogicException("la agenda no puede ser null");
         }
         // Note que, por medio de la inyección de dependencias se llama al método "update(entity)" que se encuentra en la persistencia.
         ProveedorEntity newEntity = persistence.update(proveedorEntity);

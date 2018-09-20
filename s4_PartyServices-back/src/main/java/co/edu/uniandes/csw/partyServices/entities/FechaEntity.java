@@ -27,37 +27,7 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 public class FechaEntity extends BaseEntity implements Serializable {
     
-    public enum Jornada{
-        JORNADA_MANANA("Manana"),
-        JORNADA_TARDE("Tarde"),
-        JORNADA_NOCHE("Noche"),
-        JORNADA_COMPLETA("Completa"),
-        JORNADA_MANANA_TARDE("Manana_tarde"),
-        JORNADA_TARDE_NOCHE("Tarde_noche"),
-        JORNADA_MANANA_NOCHE("Manana_noche"),
-        NINGUNA("Ninguna");
-        
-        
-        private final String valor;
-        
-        private Jornada(String valor){
-            this.valor=valor;
-        }
-        
-        public static Jornada desdeValor(String valor){
-            for (Jornada jornada :  values()) {
-                if(jornada.darValor().equals(valor)){
-                    return jornada;
-                }
-            }
-            return null;
-        }
-        
-        public String darValor(){
-            return valor;
-        }
-        
-    }
+    
     
     @PodamExclude
     @ManyToOne(cascade = CascadeType.ALL)
@@ -73,7 +43,7 @@ public class FechaEntity extends BaseEntity implements Serializable {
             mappedBy="fecha",
             fetch= FetchType.LAZY
     )
-    Collection<EventoEntity> eventos;
+    private Collection<EventoEntity> eventos;
   
     public AgendaEntity getAgenda() {
         return agenda;

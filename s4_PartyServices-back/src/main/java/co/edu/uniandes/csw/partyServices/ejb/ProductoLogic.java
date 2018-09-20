@@ -50,11 +50,10 @@ public class ProductoLogic {
         if (productoEntity.getNombre().length() < 3 || productoEntity.getNombre().length() > 35) {
             throw new BusinessLogicException("El nombre del producto debe de tener entre 3 y 35 caracteres");
         }
-       if (validateNombreCaracteres(productoEntity.getNombre())) 
-       {
+        if (validateNombreCaracteres(productoEntity.getNombre())) {
             throw new BusinessLogicException("El nombre del producto contiene caracteres especiales");
         }
-       if (productoEntity.getDueño() == null || productoEntity.getProveedor() == null) {
+        if (productoEntity.getDuenio() == null || productoEntity.getProveedor() == null) {
             throw new BusinessLogicException("El producto debe tener un proveedor asociado");
         }
         if (productoEntity.getCosto() < 0 || productoEntity.getCosto() >= 2147483647) {
@@ -63,10 +62,12 @@ public class ProductoLogic {
         if (productoEntity.getCantidad() < 0 || productoEntity.getCantidad() >= 999) {
             throw new BusinessLogicException("El producto debe tener una cantidad entre 0 y 999");
         }
-        if (productoEntity.getEventos() != null) {
-            if (productoEntity.getEventos().size() > productoEntity.getCantidad()) {
-                throw new BusinessLogicException("La cantidad de eventos en un producto no puede ser mayor a la cantidad de productos");
-            }
+        if (productoEntity.getEventos() == null) {
+            throw new BusinessLogicException("El producto no puede tener eventos nulos");
+
+        }
+        if (productoEntity.getEventos().size() > productoEntity.getCantidad()) {
+            throw new BusinessLogicException("La cantidad de eventos en un producto no puede ser mayor a la cantidad de productos");
         }
 
         persistence.create(productoEntity);
@@ -110,13 +111,15 @@ public class ProductoLogic {
         return newEntity;
     }
 
-    private boolean validateNombreCaracteres(String nombre) 
-    {
+    private boolean validateNombreCaracteres(String nombre) {
         Pattern pat = Pattern.compile("[a-zA-Z]");
         Matcher mat = pat.matcher(nombre);
         return (mat.matches());
     }
-    
-    
-    
+
+    public ProductoEntity findByNombre(String pNombre) 
+    {
+        return persistence.findByName(pNombre) ;
+        
+    }
 }

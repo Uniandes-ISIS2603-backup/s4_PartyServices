@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.partyServices.resources;
 
 import co.edu.uniandes.csw.partyServices.dtos.FechaDTO;
 import co.edu.uniandes.csw.partyServices.ejb.FechaLogic;
+import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -32,27 +33,27 @@ public class FechaResource {
     private FechaLogic fechaLogic;
     
     @GET
-    @Path("{dia: \\d+}")
-    public FechaDTO getFecha(@PathParam("dia") int dia)
+    @Path("{id: \\d+}")
+    public FechaDTO getFechaId(@PathParam("dia") long dia)
     {
-        return new FechaDTO();
+        return new FechaDTO(fechaLogic.getFechaID(dia));
     }
     @POST
-    public FechaDTO anadirFecha(FechaDTO fecha)
+    @Path("{agenda: \\d+}")
+    public FechaDTO anadirFecha(@PathParam("agenda") long agenda,FechaDTO fecha) throws BusinessLogicException
     {
-        return fecha;
+        return new FechaDTO(fechaLogic.createFecha(agenda, fecha.toEntity()));
     }
     @PUT
-    @Path("{dia: \\d+}")
-    public FechaDTO actualizarFecha(@PathParam("dia") int dia,FechaDTO fecha)
+    public FechaDTO actualizarFecha(FechaDTO fecha) throws BusinessLogicException
     {
-        return fecha;
+        return new FechaDTO(fechaLogic.updateFecha(fecha.toEntity()));
     }
     @DELETE
-    @Path("{dia: \\d+}")
-    public FechaDTO eliminarFecha(@PathParam("dia") int dia)
+    @Path("{id: \\d+}")
+    public void eliminarFecha(@PathParam("id") long id) throws BusinessLogicException
     {
-        return new FechaDTO();
+        fechaLogic.deleteFecha(id);
     }
    
     

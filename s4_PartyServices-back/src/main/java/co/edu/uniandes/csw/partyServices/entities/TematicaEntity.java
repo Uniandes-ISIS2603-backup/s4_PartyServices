@@ -63,6 +63,15 @@ public class TematicaEntity extends BaseEntity implements Serializable {
     {
         return servicios;
     }
+    
+    /**
+     * Establece el valor de la colección de servicios.
+     *
+     * @param servicios nuevo valor de la colección.
+     */
+    public void setServicios(List<ServicioEntity> servicios) {
+        this.servicios = servicios;
+    }
 
     /**
      * Modifica los sugerencias de la tematica.
