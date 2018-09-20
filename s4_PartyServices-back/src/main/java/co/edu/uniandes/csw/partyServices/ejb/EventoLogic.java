@@ -4,10 +4,11 @@
  * and open the template in the editor.
  */
 package co.edu.uniandes.csw.partyServices.ejb;
-
+import co.edu.uniandes.csw.partyServices.util.ConstantesEvento;
 import co.edu.uniandes.csw.partyServices.entities.EventoEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.partyServices.persistence.EventoPersistence;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -66,7 +67,7 @@ public class EventoLogic {
             throw new BusinessLogicException("El nombre no puede contener caracteres especiales");
         }
 
-        if (eventoEntity.getEstado().equals(EventoEntity.Estado.EN_PLANEACION) == false) 
+        if (eventoEntity.getEstado().equals(ConstantesEvento.EN_PLANEACION) == false) 
         {
             throw new BusinessLogicException("Para crear un evento su estado inicial debe ser en planeacion");
         }
@@ -81,12 +82,12 @@ public class EventoLogic {
             throw new BusinessLogicException("El evento no puede tener productos nulos");
         }
 
-        if (validateLatitud(eventoEntity.getLatitud())) 
+        if (!validateLatitud(eventoEntity.getLatitud())) 
         {
             throw new BusinessLogicException("La latitud del evento no se encuentra en colombia");
         }
         
-        if (validateLongitud(eventoEntity.getLongitud())) 
+        if (!validateLongitud(eventoEntity.getLongitud())) 
         {
             throw new BusinessLogicException("La longitud del evento no se encuentra en colombia");
         }
@@ -148,5 +149,11 @@ public class EventoLogic {
         return (mat.matches());
     }
     
+     public List<EventoEntity> findAll()
+     {
+       return persistence.findAll() ;
+     }
+     
+     
     
 }

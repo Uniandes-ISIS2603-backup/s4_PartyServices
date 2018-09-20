@@ -86,7 +86,18 @@ public ServicioDTO(){
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
 
-
+/**
+     * Convierte un objeto ServicioDTO a ServicioEntity.
+     *
+     * @return Nueva objeto ServicioEntity.
+     *
+     */
+    public ServicioEntity toEntity() {
+        ServicioEntity servicioEntity = new ServicioEntity();
+        servicioEntity.setId(this.getId());
+        servicioEntity.setTipo(this.getTipo());
+        return servicioEntity;
+    }
 
 
 }

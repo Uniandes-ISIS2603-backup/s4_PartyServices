@@ -26,7 +26,7 @@ public class ProductoEntity extends BaseEntity implements Serializable {
 
     private String tipoServicio;
 
-    private String dueño;
+    private String duenio;
 
     @PodamExclude
     @ManyToOne
@@ -56,13 +56,15 @@ public class ProductoEntity extends BaseEntity implements Serializable {
         this.tipoServicio = tipoServicio;
     }
 
-    public String getDueño() {
-        return dueño;
+    public String getDuenio() {
+        return duenio;
     }
 
-    public void setDueño(String dueño) {
-        this.dueño = dueño;
+    public void setDuenio(String duenio) {
+        this.duenio = duenio;
     }
+
+    
 
     public ProveedorEntity getProveedor() {
         return proveedor;
@@ -98,6 +100,10 @@ public class ProductoEntity extends BaseEntity implements Serializable {
 
     public void setEvento(EventoEntity evento) 
     {
+        if(eventos ==null)
+        {
+            eventos = new ArrayList<EventoEntity>() ;
+        }
         eventos.add(evento) ;
     }
 

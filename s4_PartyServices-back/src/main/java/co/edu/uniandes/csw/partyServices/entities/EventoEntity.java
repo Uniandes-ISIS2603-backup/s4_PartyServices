@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.partyServices.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,38 +22,7 @@ import uk.co.jemos.podam.common.PodamExclude;
  */
 @Entity
 public class EventoEntity  extends BaseEntity implements Serializable
-{
-
-   
-    public enum Estado{
-        EN_PLANEACION("En planeacion"),
-        PLANEADO ("Planeado"),
-        EN_PROCESO ("En proceso"),
-        CANCELADO ("Cancelado"),
-        TERMINADO ("Terminado"), ;
-        
-        private final String valor;
-        
-        private Estado(String valor){
-            this.valor=valor;
-        }
-        
-        public static Estado desdeValor(String valor){
-            for (Estado estado :  values()) 
-            {
-                if(estado.darValor().equals(valor)){
-                    return estado;
-                }
-            }
-            return null;
-        }
-        public String darValor(){
-            return valor;
-        }
-        
-    }
-    
-    
+{    
     private String nombre ;
     
     private String estado ;
@@ -122,9 +92,6 @@ public class EventoEntity  extends BaseEntity implements Serializable
     public void setNotificaciones(Collection<NotificacionEntity> notificaciones) {
         this.notificaciones = notificaciones;
     }
-
-    
-    
     
     public Collection<ProductoEntity> getProductos() {
         return productos;
@@ -132,6 +99,18 @@ public class EventoEntity  extends BaseEntity implements Serializable
 
     public void setProductos(Collection<ProductoEntity> productos) {
         this.productos = productos;
+    }
+    public void agragarProducto(ProductoEntity producto)
+    {
+        if(productos==null)
+        {
+            productos = new ArrayList<>();
+            productos.add(producto) ;
+        }
+        else
+        {
+            productos.add(producto) ;
+        }
     }
 
     public double getLatitud() {
