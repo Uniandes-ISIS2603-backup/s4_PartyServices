@@ -21,6 +21,8 @@ import javax.persistence.TypedQuery;
 @Stateless
 public class ClientePersistence {
     
+
+    
     private static final Logger LOGGER = Logger.getLogger(ClientePersistence.class.getName()) ;
     
     @PersistenceContext(unitName = "LosMasmelosPU")
@@ -85,7 +87,7 @@ public class ClientePersistence {
 
        }
     
-    public ClienteEntity findByName(String name) 
+    public ClienteEntity findByLogin(String name) 
     {
         LOGGER.log(Level.INFO, "Se consulta por el nombre ", name);
         TypedQuery query = em.createQuery("Select e From ClienteEntity e where e.login = :login", ClienteEntity.class);
@@ -107,7 +109,6 @@ public class ClientePersistence {
         
     }
 	
-    
     
         
     
