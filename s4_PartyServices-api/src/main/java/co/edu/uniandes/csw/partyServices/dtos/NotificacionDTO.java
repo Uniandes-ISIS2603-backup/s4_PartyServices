@@ -15,9 +15,17 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author estudiante
  */
 public class NotificacionDTO {
+    private long id;
     private String mensaje;
     private String tipoDeAviso;
     
+    
+    public NotificacionDTO(NotificacionEntity notificacionEntity) {
+        if (notificacionEntity != null) {
+            this.mensaje = notificacionEntity.getMensaje();
+            this.tipoDeAviso = notificacionEntity.getTipoDeAviso();
+        }
+    }
     public NotificacionDTO()
     {
         
@@ -41,6 +49,11 @@ public class NotificacionDTO {
     public void setMensaje(String pMensaje)
     {
         this.mensaje = pMensaje;
+    }
+    
+    public void setID (Long pId)
+    {
+        this.id = pId;
     }
       public void setTipoDeAviso(String ptipoDeAviso)
     {
