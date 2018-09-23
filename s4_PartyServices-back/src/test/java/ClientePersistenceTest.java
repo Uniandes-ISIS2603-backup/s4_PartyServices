@@ -23,28 +23,42 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
+ * Pruebas de persistencia de cliente
  *
- * @author estudiante
+ * @author Elias Negrete
  */
 @RunWith(Arquillian.class)
-public class ClientePersistenceTest 
-{
+public class ClientePersistenceTest {
+
+    /**
+     * Inyección de la persistencia de cliente para acceder a sus métodos.
+     */
     @Inject
-    private ClientePersistence clientePersistence ;
-    
-    
+    private ClientePersistence clientePersistence;
+
+    /**
+     * Entity Manager que regula la persistencia.
+     */
     @PersistenceContext
-    private EntityManager em ;
-    
+    private EntityManager em;
+
+    /**
+     * Transacciones de usuario
+     */
     @Inject
-    UserTransaction utx ;
-    
-    
-    
-    private List<ClienteEntity> data = new ArrayList<ClienteEntity>() ;
-    
+    UserTransaction utx;
+
+    /**
+     * Lista de entidades-cliente
+     */
+    private List<ClienteEntity> data = new ArrayList<ClienteEntity>();
+
+    /**
+     * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
+     * El jar contiene las clases, el descriptor de la base de datos y el
+     * archivo beans.xml para resolver la inyección de dependencias.
+     */
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
@@ -53,8 +67,11 @@ public class ClientePersistenceTest
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
-    
-       @Before
+
+    /**
+     * Configuración inicial de la prueba.
+     */
+    @Before
     public void configTest() {
         try {
             utx.begin();
@@ -72,29 +89,38 @@ public class ClientePersistenceTest
         }
     }
 
-   
+    /**
+     * Limpia las tablas que están implicadas en la prueba.
+     */
     private void clearData() {
         em.createQuery("delete from ClienteEntity").executeUpdate();
     }
 
-    
+    /**
+     * Inserta los datos iniciales para el correcto funcionamiento de las
+     * pruebas.
+     */
     private void insertData() {
         PodamFactory factory = new PodamFactoryImpl();
         for (int i = 0; i < 3; i++) {
 
+            //creación random de clientes-entidades
             ClienteEntity entity = factory.manufacturePojo(ClienteEntity.class);
 
+            //persistencia de lo anterior
             em.persist(entity);
 
+            //añadir a lista para usar
             data.add(entity);
         }
     }
-    
-    
-    @Test 
-    public void createClienteTest()
-    {
-         PodamFactory factory = new PodamFactoryImpl();
+
+    /**
+     * Prueba para crear un Cliente.
+     */
+    @Test
+    public void createClienteTest() {
+        PodamFactory factory = new PodamFactoryImpl();
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
         ClienteEntity result = clientePersistence.create(newEntity);
 
@@ -103,27 +129,80 @@ public class ClientePersistenceTest
         ClienteEntity entity = em.find(ClienteEntity.class, result.getId());
 
         Assert.assertEquals(newEntity.getLogin(), entity.getLogin());
+        Assert.assertEquals(newEntity.getContrasenia(), entity.getContrasenia());
+        Assert.assertEquals(newEntity.getEmail(), entity.getEmail());
+        Assert.assertEquals(newEntity.getFechaNacimiento(), entity.getFechaNacimiento());
     }
-    
-    
+
+    /**
+     * Prueba para consultar la lista de Clientes.
+     */
     @Test
-    public void deleteClienteTest()
-    {
-        ClienteEntity entity = data.get(0);
-        clientePersistence.delete(entity.getId());
-        ClienteEntity deleted = em.find(ClienteEntity.class, entity.getId());
-        Assert.assertNull(deleted);
-     
-        
+    public void getClientesTest() {
+        List<ClienteEntity> list = clientePersistence.findAll();
+        int cantidad = list.size();
+        Assert.assertEquals(data.size(), cantidad);
+        for (ClienteEntity entidadCliente : list) {
+            boolean encontrado = false;
+            for (ClienteEntity entityCliente : data) {
+                if (entidadCliente.getId().equals(entityCliente.getId())) {
+                    encontrado = true;
+                }
+            }
+            Assert.assertTrue(encontrado);
+        }
     }
-    
-     @Test
-    public void FindClienteByNameTest() {
-        ClienteEntity entity = data.get(0);
-        ClienteEntity newEntity = clientePersistence.findByLogin(entity.getLogin());
-        Assert.assertNotNull(newEntity);
-        Assert.assertEquals(entity.getLogin(), newEntity.getLogin());
+
+    /**
+     * Prueba para consultar un cliente.
+     */
+    @Test
+    public void getClienteTest() {
+        ClienteEntity entidadCliente = data.get(0);
+        ClienteEntity entidadNuevaCliente = clientePersistence.find(entidadCliente.getId());
+        Assert.assertEquals(entidadNuevaCliente.getLogin(), entidadCliente.getLogin());
+        Assert.assertEquals(entidadNuevaCliente.getContrasenia(), entidadCliente.getContrasenia());
+        Assert.assertEquals(entidadNuevaCliente.getEmail(), entidadCliente.getEmail());
+        Assert.assertEquals(entidadNuevaCliente.getFechaNacimiento(), entidadCliente.getFechaNacimiento());
+
     }
-    
-    
+
+    /**
+     * Prueba para eliminar un cliente.
+     */
+    @Test
+    public void deleteClienteTest() {
+        ClienteEntity entidadNueva = data.get(0);
+        clientePersistence.delete(entidadNueva.getId());
+        ClienteEntity eliminado = em.find(ClienteEntity.class, entidadNueva.getId());
+        Assert.assertNull(eliminado);
+
+    }
+
+    @Test
+    public void FindClienteByLoginTest() {
+        ClienteEntity entidad = data.get(0);
+        ClienteEntity nuevaEntidad = clientePersistence.findByLogin(entidad.getLogin());
+        Assert.assertNotNull(nuevaEntidad);
+        Assert.assertEquals(entidad.getLogin(), nuevaEntidad.getLogin());
+
+        nuevaEntidad = clientePersistence.findByLogin(null);
+        Assert.assertNull(nuevaEntidad);
+    }
+
+    /**
+     * Prueba para actualizar un administrador.
+     */
+
+    @Test
+    public void updateClienteTest() {
+        ClienteEntity entity = data.get(0);
+        PodamFactory factory = new PodamFactoryImpl();
+        ClienteEntity nuevaEntidad = factory.manufacturePojo(ClienteEntity.class);
+        nuevaEntidad.setId(entity.getId());
+        clientePersistence.update(nuevaEntidad);
+        ClienteEntity encontrado = em.find(ClienteEntity.class, entity.getId());
+        Assert.assertEquals(nuevaEntidad.getId(), encontrado.getId());
+    }
+
 }

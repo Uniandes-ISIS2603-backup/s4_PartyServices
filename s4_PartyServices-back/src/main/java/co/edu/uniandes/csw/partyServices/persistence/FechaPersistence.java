@@ -96,18 +96,22 @@ public class FechaPersistence {
     
     
     /**
-     * Busca si hay alguna fecha con el dia que se envía de argumento
+     * Busca si hay alguna fecha con el dia, agenda y fecha que se envía de argumento
      *
      * @param dia: el dia de la fecha que se está buscando
+     * @param idAgenda: idDe la agenda sobre la cual se busca 
      * @return null si no existe ninguna fecha con el dia del argumento.
      * Si existe alguna devuelve la primera.
      */
-    public FechaEntity findByDia(Date dia) {
+    public FechaEntity findByDiaAgendaAndJornada(Date dia,long idAgenda, String jornada) {
         LOGGER.log(Level.INFO, "Consultando fecha por dia ", dia);
         // Se crea un query para buscar fechas con el dia que recibe el método como argumento. 
-        TypedQuery query = em.createQuery("Select e From FechaEntity e where e.dia = :dia", FechaEntity.class);
+        TypedQuery query = em.createQuery("Select e From FechaEntity e where e.dia = :dia and e.agenda.id = :idAgenda and e.jornada=:jornada", FechaEntity.class);
         // Se remplaza el placeholder ":name" con el valor del argumento 
         query = query.setParameter("dia", dia);
+        query = query.setParameter("idAgenda", idAgenda);
+        query = query.setParameter("jornada", jornada);
+        
         // Se invoca el query se obtiene la lista resultado
         List<FechaEntity> sameName = query.getResultList();
         FechaEntity result;
