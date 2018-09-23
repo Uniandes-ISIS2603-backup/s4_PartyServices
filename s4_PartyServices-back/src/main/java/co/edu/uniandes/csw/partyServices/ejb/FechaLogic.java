@@ -39,13 +39,13 @@ public class FechaLogic {
                 throw new BusinessLogicException("No cumple con las jornadas posibles");          
         }
         if(ConstantesJornada.desdeValor( fechaEntity.getJornada() ).equals(ConstantesJornada.NINGUNA)){          
-            throw new BusinessLogicException("No cumple con las jornadas posibles");
+            throw new BusinessLogicException("La jornada ninguna no es valida");
         } 
             
         //Verificacion regla de negocio deben existir eventos
         if(fechaEntity.getEventos()==null)
-            throw new BusinessLogicException("Debe tener eventos la fecha");
-        if(fechaEntity.getEventos().size()<=0)
+            throw new BusinessLogicException("Los eventos de la fecha no estan inicializados");
+        if(fechaEntity.getEventos().isEmpty())
             throw new BusinessLogicException("Debe tener eventos la fecha");
         
         //Verificacion regla de negocio no se pueden crear fechas del pasado
@@ -63,12 +63,12 @@ public class FechaLogic {
         return fechaPersistence.create(fechaEntity);
     }
     
-    public FechaEntity getFechaPorDia(Date dia)
+    public FechaEntity getFechaPorDiaAgendaJornada(Date dia, long idAgenda, String jornada)
     {
-        LOGGER.log(Level.INFO,"Entrando a optener agenda ", dia);
-        FechaEntity fecha= fechaPersistence.findByDia(dia);
+        LOGGER.log(Level.INFO,"Entrando a optener fecha ", dia);
+        FechaEntity fecha= fechaPersistence.findByDiaAgendaAndJornada(dia, idAgenda, jornada);
         if(fecha==null)
-            LOGGER.log(Level.INFO,"No se encuentra agenda con el id ", dia);
+            LOGGER.log(Level.INFO,"No se encuentra fecha con el id ", dia);
         return fecha;
     }
     
@@ -85,10 +85,10 @@ public class FechaLogic {
     {
         //Verificacion regla de negocio de las jornadas
         if(ConstantesJornada.desdeValor(fechaEntity.getJornada()) == null){
-                throw new BusinessLogicException("No cumple con las jornadas posibles");          
+                throw new BusinessLogicException("No cumple con las jornadas posibles al actualizar la fecha");          
         }
         if(ConstantesJornada.desdeValor(fechaEntity.getJornada()).darValor().equals(ConstantesJornada.NINGUNA.darValor())){
-                throw new BusinessLogicException("No cumple con las jornadas posibles");          
+                throw new BusinessLogicException("No es valido a la jornada ninguna actualizando la fecha");          
         }
         return fechaPersistence.update(fechaEntity);
     }

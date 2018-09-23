@@ -5,7 +5,6 @@
  */
 package co.edu.uniandes.csw.partyServices.dtos;
 
-//import co.edu.uniandes.csw.partyServices.entities.SugerenciaEntity;
 import co.edu.uniandes.csw.partyServices.entities.SugerenciaEntity;
 import java.io.Serializable;
 import org.apache.commons.lang3.builder.ToStringBuilder;

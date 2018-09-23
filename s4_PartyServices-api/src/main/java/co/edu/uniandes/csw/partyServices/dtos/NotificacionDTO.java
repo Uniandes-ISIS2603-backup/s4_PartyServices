@@ -6,7 +6,6 @@
 package co.edu.uniandes.csw.partyServices.dtos;
 
 import co.edu.uniandes.csw.partyServices.entities.NotificacionEntity;
-import co.edu.uniandes.csw.partyServices.entities.ProveedorEntity;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -37,6 +36,15 @@ public class NotificacionDTO {
         notifEntity.setTipoDeAviso(this.getTipoDeAviso());
         return notifEntity;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+     
     public String getMensaje()
     {
         return mensaje;

@@ -6,6 +6,7 @@
 package logic;
 
 import co.edu.uniandes.csw.partyServices.ejb.ValoracionLogic;
+import co.edu.uniandes.csw.partyServices.entities.ProveedorEntity;
 import co.edu.uniandes.csw.partyServices.entities.ValoracionEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.partyServices.persistence.ValoracionPersistence;
@@ -57,6 +58,21 @@ public class ValoracionLogicTest {
     private UserTransaction utx;
     
     /**
+     * Lista que tiene los datos de prueba para las valoraciones.
+     */
+    private List<ValoracionEntity> data = new ArrayList<ValoracionEntity>();
+    
+    /**
+     * Lista que tiene los datos de prueba para crear un proveedor con muchas valoraciones.
+     */
+    private List<ValoracionEntity> dataMuchasValoraciones = new ArrayList<ValoracionEntity>();
+    
+    /**
+     * Lista que tiene los datos de prueba para los proveedores.
+     */
+    private List<ProveedorEntity> dataProveedor = new ArrayList<ProveedorEntity>();
+    
+    /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
      * El jar contiene las clases, el descriptor de la base de datos y el
      * archivo beans.xml para resolver la inyección de dependencias.
@@ -72,15 +88,11 @@ public class ValoracionLogicTest {
     }
     
     /**
-     * Lista que tiene los datos de prueba.
-     */
-    private List<ValoracionEntity> data = new ArrayList<ValoracionEntity>();
-    
-    /**
      * Limpia las tablas que están implicadas en la prueba.
      */
     private void clearData() {
         em.createQuery("delete from ValoracionEntity").executeUpdate();
+        em.createQuery("delete from ProveedorEntity").executeUpdate();
     }
     
     /**
@@ -88,13 +100,31 @@ public class ValoracionLogicTest {
      * pruebas.
      */
     private void insertData() {
-        for (int i = 0; i < 3; i++) {
+        
+        for (int i = 0; i < 2; i++) {
+            ProveedorEntity entity = factory.manufacturePojo(ProveedorEntity.class);
+            em.persist(entity);
+            dataProveedor.add(entity);
+        }
+        
+        for (int i = 0; i < 2; i++) {
             ValoracionEntity entity = factory.manufacturePojo(ValoracionEntity.class);
-
+            entity.setProveedor(dataProveedor.get(i));
             em.persist(entity);
             data.add(entity);
-
         }
+        
+        ProveedorEntity proveedorEntityListaValoraciones = factory.manufacturePojo(ProveedorEntity.class);
+        em.persist(proveedorEntityListaValoraciones);
+        
+        for (int i = 0; i < 10; i++) {
+            ValoracionEntity entity = factory.manufacturePojo(ValoracionEntity.class);
+            entity.setProveedor(proveedorEntityListaValoraciones);
+            em.persist(entity);
+            dataMuchasValoraciones.add(entity);
+        }
+      
+        dataProveedor.add(proveedorEntityListaValoraciones); //dataProveedor(2) = proveedorEntityListaValoraciones
     }
     
     /**
@@ -125,12 +155,16 @@ public class ValoracionLogicTest {
     @Test
     public void createValoracionTest() throws BusinessLogicException {
         ValoracionEntity newEntity = factory.manufacturePojo(ValoracionEntity.class);
-        ValoracionEntity result = valoracionLogic.createValoracion(newEntity);
+        newEntity.setProveedor(dataProveedor.get(2));
+        
+        ValoracionEntity result = valoracionLogic.createValoracion(newEntity.getProveedor().getId(), newEntity);
         Assert.assertNotNull(result);
+        
         ValoracionEntity entity = em.find(ValoracionEntity.class, result.getId());
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getComentario(), entity.getComentario());
         Assert.assertEquals(newEntity.getPuntaje(), entity.getPuntaje());
+        Assert.assertEquals(newEntity.getProveedor(), entity.getProveedor());
     }
     
     /**
@@ -147,20 +181,105 @@ public class ValoracionLogicTest {
         ValoracionEntity newEntity = new ValoracionEntity();
         newEntity.setComentario(mensajeGrande);
         newEntity.setPuntaje(5);
-        ValoracionEntity result = valoracionLogic.createValoracion(newEntity);
+        newEntity.setProveedor(dataProveedor.get(0));
+        ValoracionEntity result = valoracionLogic.createValoracion(newEntity.getProveedor().getId(), newEntity);
     }
     
     /**
-     * Prueba para eliminar una Valoracion.
+     * Prueba para consultar la lista de valoraciones.
      *
      * @throws BusinessLogicException
      */
     @Test
+    public void getValoracionesTest() throws BusinessLogicException {
+        List<ValoracionEntity> list = valoracionLogic.getValoraciones(dataProveedor.get(2).getId());
+        Assert.assertEquals(dataMuchasValoraciones.size(), list.size());
+        for (ValoracionEntity entity : list) {
+            boolean found = false;
+            for (ValoracionEntity storedEntity : dataMuchasValoraciones) {
+                if (entity.getId().equals(storedEntity.getId())) {
+                    found = true;
+                }
+            }
+            Assert.assertTrue(found);
+        }
+    }
+    
+    /**
+     * Prueba para consultar una valoracion.
+     */
+    @Test
+    public void getValoracionTest() {
+        ValoracionEntity entity = data.get(0);
+        ValoracionEntity resultEntity = valoracionLogic.getValoracion(dataProveedor.get(0).getId(), entity.getId());
+        
+        Assert.assertNotNull(resultEntity);
+        Assert.assertEquals(entity.getId(), resultEntity.getId());
+        Assert.assertEquals(entity.getComentario(), resultEntity.getComentario());
+        Assert.assertEquals(entity.getPuntaje(), resultEntity.getPuntaje());
+        Assert.assertEquals(entity.getNombreUsuario(), resultEntity.getNombreUsuario());
+    }
+    
+    /**
+     * Prueba para actualizar una Valoracion.
+     * @throws BusinessLogicException
+     */
+    @Test
+    public void updateValoracionTest() throws BusinessLogicException{
+        ValoracionEntity entity = data.get(1);
+        ValoracionEntity pojoEntity = factory.manufacturePojo(ValoracionEntity.class);
+
+        pojoEntity.setId(entity.getId());
+
+        valoracionLogic.updateValoracion(dataProveedor.get(1).getId(), pojoEntity);
+
+        ValoracionEntity resp = em.find(ValoracionEntity.class, entity.getId());
+
+        Assert.assertEquals(pojoEntity.getId(), resp.getId());
+        Assert.assertEquals(pojoEntity.getComentario(), resp.getComentario());
+        Assert.assertEquals(pojoEntity.getPuntaje(), resp.getPuntaje());
+        Assert.assertEquals(pojoEntity.getNombreUsuario(), resp.getNombreUsuario());
+    }
+    
+    /**
+     * Prueba para actualizar una valoracion con más caracteres que el límite.
+     * 
+     * @throws BusinessLogicException
+     */
+    @Test (expected= BusinessLogicException.class)
+    public void updateValoracionLimiteCaracteresTest() throws BusinessLogicException {
+        String mensajeGrande = "hola";
+        for(int i=0; i<5001; i++){
+            mensajeGrande = mensajeGrande.concat("hola");
+        }
+        ValoracionEntity newEntity = new ValoracionEntity();
+        newEntity.setComentario(mensajeGrande);
+        newEntity.setProveedor(dataProveedor.get(0));
+        ValoracionEntity result = valoracionLogic.updateValoracion(newEntity.getProveedor().getId(), newEntity);
+    }
+    
+    /**
+     * Prueba para eliminar una valoracion.
+     *
+     * @throws BusinessLogicException Si alguna valoracion no está asociada con el proveedor pasado por parámetro en el método deleteValoracion.
+     */
+    @Test
     public void deleteValoracionTest() throws BusinessLogicException {
         ValoracionEntity entity = data.get(1);
-        valoracionLogic.deleteValoracion(entity.getId());
+        valoracionLogic.deleteValoracion(dataProveedor.get(1).getId(), entity.getId());
         ValoracionEntity deleted = em.find(ValoracionEntity.class, entity.getId());
         Assert.assertNull(deleted); 
+    }
+    
+    /**
+     * Prueba para eliminarle una valoracion a un proveedor del cual no pertenece.
+     *
+     * @throws BusinessLogicException Si alguna valoracion no está asociada con el proveedor pasado por parámetro en el método deleteValoracion.
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void deleteValoracionConProveedorNoAsociadoTest() throws BusinessLogicException {
+        ValoracionEntity entity = data.get(0);
+        valoracionLogic.deleteValoracion(dataProveedor.get(1).getId(), entity.getId());
     }
     
 }

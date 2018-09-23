@@ -5,7 +5,9 @@
  */
 
 
+import co.edu.uniandes.csw.partyServices.entities.ProveedorEntity;
 import co.edu.uniandes.csw.partyServices.entities.ValoracionEntity;
+import co.edu.uniandes.csw.partyServices.persistence.ProveedorPersistence;
 import co.edu.uniandes.csw.partyServices.persistence.ValoracionPersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +20,6 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,11 +33,22 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 public class ValoracionPersistenceTest {
     
     /**
+     * Instancia de la clase PodamFactory que nos ayudará para crear datos aleatorios de las clases.
+     */
+    PodamFactory factory = new PodamFactoryImpl();;
+    
+    /**
      * Inyección de la dependencia a la clase ValoracionPersistence cuyos métodos
      * se van a probar.
      */
     @Inject
     public ValoracionPersistence valoracionPersistence;
+    
+    /**
+     * Inyección de la dependencia a la clase ProveedorPersistence cuyo método findAll nos va a servir.
+     */
+    @Inject
+    public ProveedorPersistence proveedorPersistence;
     
     /**
      * Contexto de Persistencia que se va a utilizar para acceder a la Base de
@@ -53,9 +65,14 @@ public class ValoracionPersistenceTest {
     UserTransaction utx;
     
     /**
-     * Lista que tiene los datos de prueba.
+     * Lista que tiene los datos de prueba para las valoraciones.
      */
     private List<ValoracionEntity> data = new ArrayList<ValoracionEntity>();
+    
+    /**
+     * Lista que tiene los datos de prueba para los proveedores.
+     */
+    private List<ProveedorEntity> dataProveedor = new ArrayList<ProveedorEntity>();
     
     /**
      *
@@ -102,6 +119,7 @@ public class ValoracionPersistenceTest {
      */
     private void clearData(){
         em.createQuery("Delete from ValoracionEntity").executeUpdate();
+        em.createQuery("Delete from ProveedorEntity").executeUpdate();  
     }
     
     /**
@@ -109,9 +127,18 @@ public class ValoracionPersistenceTest {
      * pruebas.
      */
     private void insertData(){
-        PodamFactory factory = new PodamFactoryImpl();
+        
+        for (int i = 0; i < 3; i++) {
+            ProveedorEntity entity = factory.manufacturePojo(ProveedorEntity.class);
+            em.persist(entity);
+            dataProveedor.add(entity);
+        }
+        
         for(int i=0; i<3; i++){
             ValoracionEntity entity = factory.manufacturePojo(ValoracionEntity.class);
+            if (i == 0) {
+                entity.setProveedor(dataProveedor.get(0));
+            }
             em.persist(entity);
             data.add(entity);
         }
@@ -121,25 +148,70 @@ public class ValoracionPersistenceTest {
      * Prueba para crear una Valoracion.
      */
     @Test
-    public void createSugerenciaTest() {
-        PodamFactory factory = new PodamFactoryImpl();
-        ValoracionEntity newEntity = factory.manufacturePojo(ValoracionEntity.class);
-        ValoracionEntity result = valoracionPersistence.create(newEntity);
+    public void createValoracionTest() {
+        PodamFactory fabrica = new PodamFactoryImpl();
+        ValoracionEntity nuevaEntidad = fabrica.manufacturePojo(ValoracionEntity.class);
+        ValoracionEntity result = valoracionPersistence.create(nuevaEntidad);
 
         Assert.assertNotNull(result);
 
         ValoracionEntity entity = em.find(ValoracionEntity.class, result.getId());
 
-        Assert.assertEquals(newEntity.getComentario(), entity.getComentario());
-        Assert.assertEquals(newEntity.getPuntaje(), entity.getPuntaje());
+        Assert.assertEquals(nuevaEntidad.getComentario(), entity.getComentario());
+        Assert.assertEquals(nuevaEntidad.getPuntaje(), entity.getPuntaje());
+        Assert.assertEquals(nuevaEntidad.getNombreUsuario(), entity.getNombreUsuario());
+    }
+    
+    /**
+     * Prueba para consultar una Valoracion.
+     */
+    @Test
+    public void getValoracionTest() {
+        //ValoracionEntity entity = data.get(0) esto no funciona no sé por qué, algunas veces lanza out of bound exception;
+        List<ValoracionEntity> listaValoraciones = valoracionPersistence.findAll();
+        ValoracionEntity entity = null;
+        ProveedorEntity proveedorEntity = null;
+        for(int i=0; i<3; i++){
+            ValoracionEntity valoracionEncontrada = listaValoraciones.get(i);
+            ProveedorEntity proveedorEncontrado = valoracionEncontrada.getProveedor();
+            if(proveedorEncontrado != null){
+                entity = valoracionEncontrada;
+                proveedorEntity = proveedorEncontrado;
+                break;
+            }
+        }
+        ValoracionEntity newEntity = valoracionPersistence.find(proveedorEntity.getId(), entity.getId());
+        Assert.assertNotNull(newEntity);
+        Assert.assertEquals(entity.getComentario(), newEntity.getComentario());
+        Assert.assertEquals(entity.getPuntaje(), newEntity.getPuntaje());
+        Assert.assertEquals(entity.getNombreUsuario(), newEntity.getNombreUsuario());
+    }
+    
+    /**
+     * Prueba para actualizar una Valoracion.
+     */
+    @Test
+    public void updateValoracionTest() {
+        //ValoracionEntity entity = data.get(2);
+        ValoracionEntity entity = valoracionPersistence.findAll().get(2);
+        ValoracionEntity newEntity = factory.manufacturePojo(ValoracionEntity.class);
+
+        newEntity.setId(entity.getId());
+
+        ValoracionEntity resp = valoracionPersistence.update(newEntity);
+
+        Assert.assertEquals(newEntity.getComentario(), resp.getComentario());
+        Assert.assertEquals(newEntity.getPuntaje(), resp.getPuntaje());
+        Assert.assertEquals(newEntity.getNombreUsuario(), resp.getNombreUsuario());
     }
     
     /**
      * Prueba para eliminar una Valoracion.
      */
     @Test
-    public void deleteSugerenciaTest() {
-        ValoracionEntity entity = data.get(0);
+    public void deleteValoracionTest() {
+        //ValoracionEntity entity = data.get(1);
+        ValoracionEntity entity = valoracionPersistence.findAll().get(1);
         valoracionPersistence.delete(entity.getId());
         ValoracionEntity deleted = em.find(ValoracionEntity.class, entity.getId());
         Assert.assertNull(deleted);

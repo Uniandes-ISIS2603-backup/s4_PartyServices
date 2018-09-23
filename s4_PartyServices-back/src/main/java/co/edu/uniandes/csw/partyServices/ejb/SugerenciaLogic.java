@@ -87,7 +87,7 @@ public class SugerenciaLogic {
      * @param sugerenciaEntity Instancia de SugerenciaEntity con los nuevos datos.
      * @param tematicasId id de la Tematica la cual será madre de la sugerencia actualizada.
      * @return Instancia de SugerenciaEntity con los datos actualizados.
-     * @throws BusinessLogicException si lsugerenciaEntity tiene más caracteres que los permitidos (20000).
+     * @throws BusinessLogicException si sugerenciaEntity tiene más caracteres que los permitidos (20000).
      */
     public SugerenciaEntity updateSugerencia(Long tematicasId, SugerenciaEntity sugerenciaEntity) throws BusinessLogicException{
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar la sugerencia con id = {0} de la temática con id = " + tematicasId, sugerenciaEntity.getId());

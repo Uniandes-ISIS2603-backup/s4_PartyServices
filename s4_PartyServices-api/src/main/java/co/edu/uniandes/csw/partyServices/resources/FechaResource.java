@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.partyServices.resources;
 import co.edu.uniandes.csw.partyServices.dtos.FechaDTO;
 import co.edu.uniandes.csw.partyServices.ejb.FechaLogic;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
+import java.util.Date;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -38,6 +39,18 @@ public class FechaResource {
     {
         return new FechaDTO(fechaLogic.getFechaID(dia));
     }
+    @GET
+    @Path("{agenda: \\d+}/{fecha: [a-zA-Z][a-zA-Z]*}/{jornada: [a-zA-Z][a-zA-Z]*}")
+   
+    public FechaDTO getFechaAgendaDiaJornada(
+            @PathParam("agenda") long agenda,
+            @PathParam("fecha")String fecha,
+            @PathParam("jornada")String jornada)
+    {
+        Date dia =new Date(fecha);
+        return new FechaDTO(fechaLogic.getFechaPorDiaAgendaJornada(dia,agenda,jornada));
+    }
+    
     @POST
     @Path("{agenda: \\d+}")
     public FechaDTO anadirFecha(@PathParam("agenda") long agenda,FechaDTO fecha) throws BusinessLogicException
