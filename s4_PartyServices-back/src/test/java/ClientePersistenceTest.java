@@ -178,7 +178,9 @@ public class ClientePersistenceTest {
         Assert.assertNull(eliminado);
 
     }
-
+/**
+ * Prueba para encontrar un cliente a través de su login
+ */
     @Test
     public void FindClienteByLoginTest() {
         ClienteEntity entidad = data.get(0);
@@ -191,7 +193,7 @@ public class ClientePersistenceTest {
     }
 
     /**
-     * Prueba para actualizar un administrador.
+     * Prueba para actualizar un cliente.
      */
 
     @Test

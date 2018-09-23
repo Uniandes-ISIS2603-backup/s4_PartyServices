@@ -147,6 +147,21 @@ public class PagoPersistenceTest {
         Assert.assertEquals(nuevaEntidad.getFechaExpiracionTarjetaCredito(), entity.getFechaExpiracionTarjetaCredito());
 
     }
+    /**
+     * Prueba para consultar un Pago.
+     */
+    @Test
+    public void getPagoTest() {
+        PagoEntity entidad = data.get(0);
+        PagoEntity nuevaEntidad = pagoPersistence.find(dataCliente.get(0).getId(), entidad.getId());
+        Assert.assertNotNull(nuevaEntidad);
+        Assert.assertEquals(entidad.getEmpresa(), nuevaEntidad.getEmpresa());
+        Assert.assertEquals(entidad.getNombreTarjeta(), nuevaEntidad.getNombreTarjeta());
+        Assert.assertEquals(entidad.getNumeroTarjetaCredito(), nuevaEntidad.getNumeroTarjetaCredito());
+        Assert.assertEquals(entidad.getUsuario(), nuevaEntidad.getUsuario());
+        Assert.assertEquals(entidad.getCodigoSeguridadTarjeta(), nuevaEntidad.getCodigoSeguridadTarjeta());
+        Assert.assertEquals(entidad.getFechaExpiracionTarjetaCredito(), nuevaEntidad.getFechaExpiracionTarjetaCredito());
+    }
 /**
  * Prueba para eliminar un pago
  */
@@ -158,11 +173,57 @@ public class PagoPersistenceTest {
         Assert.assertNull(deleted);
 
     }
+    
+     /**
+     * Prueba para consultar la lista de pagos.
+     */
+    @Test
+    public void getPagosTest() {
+        List<PagoEntity> list = pagoPersistence.findAll();
+        int cantidad = list.size();
+        Assert.assertEquals(data.size(), cantidad);
+        for (PagoEntity entidadPago : list) {
+            boolean encontrado = false;
+            for (PagoEntity entidadNuevaPago : data) {
+                if (entidadPago.getId().equals(entidadNuevaPago.getId())) {
+                    encontrado = true;
+                }
+            }
+            Assert.assertTrue(encontrado);
+        }
+    }
+    
+    /**
+     * Prueba para  actualizar un pago.
+     */
+    @Test
+    public void updatePagoTest() {
+        PagoEntity entidadPago = data.get(0);
+        PodamFactory factory = new PodamFactoryImpl();
+        PagoEntity nuevaEntidadPago = factory.manufacturePojo(PagoEntity.class);
+
+        nuevaEntidadPago.setId(entidadPago.getId());
+
+        pagoPersistence.update(nuevaEntidadPago);
+
+        PagoEntity resp = em.find(PagoEntity.class, entidadPago.getId());
+        
+        Assert.assertEquals(nuevaEntidadPago.getEmpresa(), resp.getEmpresa());
+        Assert.assertEquals(nuevaEntidadPago.getNombreTarjeta(), resp.getNombreTarjeta());
+        Assert.assertEquals(nuevaEntidadPago.getNumeroTarjetaCredito(), resp.getNumeroTarjetaCredito());
+        Assert.assertEquals(nuevaEntidadPago.getUsuario(), resp.getUsuario());
+        Assert.assertEquals(nuevaEntidadPago.getCodigoSeguridadTarjeta(), resp.getCodigoSeguridadTarjeta());
+        Assert.assertEquals(nuevaEntidadPago.getFechaExpiracionTarjetaCredito(), resp.getFechaExpiracionTarjetaCredito());
+    
+
+        
+    }
+    
 /**
  * Prueba para encontrar un pago por el login de su cliente
  */
     @Test
-    public void FindPagoByNameTest() {
+    public void FindPagoByUsuarioTest() {
         PagoEntity entity = data.get(0);
         PagoEntity newEntity = pagoPersistence.findByUsuario(entity.getUsuario());
         Assert.assertNotNull(newEntity);
