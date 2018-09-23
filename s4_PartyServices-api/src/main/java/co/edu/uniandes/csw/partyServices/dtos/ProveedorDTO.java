@@ -35,7 +35,9 @@ public ProveedorDTO(ProveedorEntity provEntity) {
             this.id = provEntity.getId();
             this.nombre = provEntity.getNombre();
             this.contrasenia = provEntity.getContrasenia();
+            if(provEntity.getAgenda()!=null){
             this.agenda = new AgendaDTO (provEntity.getAgenda());
+            }
         }
     }
 
@@ -50,7 +52,10 @@ public ProveedorDTO(ProveedorEntity provEntity) {
         proveedorEntity.setId(this.getId());
         proveedorEntity.setNombre(this.getNombre());
         proveedorEntity.setContrasenia(this.getContrasenia());
+        
+        if(this.agenda!=null){
         proveedorEntity.setAgenda(this.agenda.toEntity());
+        }
         return proveedorEntity;
     }
     
