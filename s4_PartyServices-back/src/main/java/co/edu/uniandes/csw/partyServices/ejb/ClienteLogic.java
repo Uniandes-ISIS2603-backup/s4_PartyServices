@@ -47,7 +47,7 @@ public class ClienteLogic {
      * @throws BusinessLogicException Si no se cumplen las reglas de negocio
      */
     public ClienteEntity createCliente(ClienteEntity clienteEntity) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de creación del cliente");
+        LOGGER.log(Level.INFO, "Se inicia la creación del cliente. A espera de problemas");
 
         //no debe haber dos clientes con el mismo login
         if (persistence.findByLogin(clienteEntity.getLogin()) != null) {
@@ -57,10 +57,13 @@ public class ClienteLogic {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         ZoneId defaultZoneId = ZoneId.systemDefault();
 
-        LOGGER.log(Level.INFO, "Se inicia la creación del cliente. A espera de problemas");
+        if(clienteEntity.getFechaNacimiento() == null){
+            throw new BusinessLogicException("La fecha de nacimiento no puede ser nula");
+        }
 
         Date fechaAhora = Date.from(Instant.now());
         try {
+            
             Date fechaClienteNacimiento = format.parse(clienteEntity.getFechaNacimiento());
             int añosPermitidos = Period.between(fechaClienteNacimiento.toInstant().atZone(defaultZoneId).toLocalDate(), fechaAhora.toInstant().atZone(defaultZoneId).toLocalDate()).getYears();
 
@@ -74,13 +77,12 @@ public class ClienteLogic {
                 throw new BusinessLogicException("Un usuario menor de edad no puede organizar una fiesta");
             }
         } catch (ParseException ex) {
-            LOGGER.log(Level.INFO, "Hubo un error con la fecha.");
 
-            throw new BusinessLogicException("La fecha de nacimiento no cumple el formato" + ex);
+            throw new BusinessLogicException("La fecha de nacimiento no cumple el formato");
         }
 
         if (validaciones(clienteEntity)) {
-        LOGGER.log(Level.INFO, "Termina proceso de creación del cliente");
+        LOGGER.log(Level.INFO, "Termina proceso de creación del cliente. No hubo problemas");
 
             return persistence.create(clienteEntity);
         } else {
@@ -204,20 +206,24 @@ public class ClienteLogic {
      * @throws BusinessLogicException Si el cliente a eliminar tiene eventos en progreso.
      */
     public void deleteCliente(Long clienteID) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de borrar el proveedor con id = {0}", clienteID);
+        LOGGER.log(Level.INFO, "Inicia proceso de borrar el cliente con id = {0}", clienteID);
         List<EventoEntity> eventos = getCliente(clienteID).getEventos();
         if (eventos != null && !eventos.isEmpty()) {
-            throw new BusinessLogicException("No se puede borrar el cliente con id = " + clienteID + " porque tiene eventos en progreso");
+            for (EventoEntity entity : eventos) {
+                if (entity.getEstado().equals(ConstantesEvento.EN_PROCESO)) {
+                throw new BusinessLogicException("No se puede borrar un cliente que tenga un evento en curso");
+            }
+
+            }
+
         }
-        //if (entity.getEstado().equals(ConstantesEvento.EN_PROCESO)) {
-         //       throw new BusinessLogicException("No se puede borrar un cliente que tenga un evento en curso");
-          //  }
+        
        
             
        
 
         persistence.delete(clienteID);
-        LOGGER.log(Level.INFO, "Termina proceso de borrar el proveedor con id = {0}", clienteID);
+        LOGGER.log(Level.INFO, "Termina proceso de borrar el cliente con id = {0}", clienteID);
     }
 
 }
