@@ -11,6 +11,8 @@ import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.partyServices.persistence.AgendaPersistence;
 import co.edu.uniandes.csw.partyServices.persistence.FechaPersistence;
 import co.edu.uniandes.csw.partyServices.util.ConstantesJornada;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -60,6 +62,13 @@ public class FechaLogic {
         if(agenda==null)
             throw new BusinessLogicException("La agenda de la fecha que esta creando no existe");
         fechaEntity.setAgenda(agenda);
+        
+        Collection<FechaEntity>fechasOcupadas=agenda.getFechasOcupadas();
+        if(fechasOcupadas==null)
+            fechasOcupadas=new ArrayList<>();
+        fechasOcupadas.add(fechaEntity);
+        agenda.setFechasOcupadas(fechasOcupadas);
+        agendaPersistence.update(agenda);
         return fechaPersistence.create(fechaEntity);
     }
     
