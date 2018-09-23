@@ -151,7 +151,7 @@ public class ClienteLogic {
      *
      * @param clienteEntity La entidad de tipo cliente del nuevo cliente a
      * persistir.
-     * @return true or false dependiendo de si se valida todas las reglas
+     * @return true dependiendo de si se valida todas las reglas o una excpeción en caso de que no
      * @throws BusinessLogicException Si no se cumplen las reglas de negocio
      */
     public boolean validaciones(ClienteEntity clienteEntity) throws BusinessLogicException {
@@ -201,16 +201,20 @@ public class ClienteLogic {
      * Borrar un cliente
      *
      * @param clienteID: id del cliente a borrar
-     * @throws BusinessLogicException Si el cliente a eliminar tiene .
+     * @throws BusinessLogicException Si el cliente a eliminar tiene eventos en progreso.
      */
     public void deleteCliente(Long clienteID) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de borrar el proveedor con id = {0}", clienteID);
-        ClienteEntity clienteEntity = persistence.find(clienteID);
-        for (EventoEntity entity : clienteEntity.getEventos()) {
-            if (entity.getEstado().equals(ConstantesEvento.EN_PROCESO)) {
-                throw new BusinessLogicException("No se puede borrar un cliente que tenga un evento en curso");
-            }
+        List<EventoEntity> eventos = getCliente(clienteID).getEventos();
+        if (eventos != null && !eventos.isEmpty()) {
+            throw new BusinessLogicException("No se puede borrar el cliente con id = " + clienteID + " porque tiene eventos en progreso");
         }
+        //if (entity.getEstado().equals(ConstantesEvento.EN_PROCESO)) {
+         //       throw new BusinessLogicException("No se puede borrar un cliente que tenga un evento en curso");
+          //  }
+       
+            
+       
 
         persistence.delete(clienteID);
         LOGGER.log(Level.INFO, "Termina proceso de borrar el proveedor con id = {0}", clienteID);
