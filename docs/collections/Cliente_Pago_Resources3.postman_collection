@@ -126,7 +126,7 @@
 			"response": []
 		},
 		{
-			"name": "GET obtener Cliente Copy",
+			"name": "GET obtener Pago",
 			"request": {
 				"method": "GET",
 				"header": [],

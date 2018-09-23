@@ -110,8 +110,8 @@ public class ServicioResource
      */
     @PUT
     @Path("{serviciosId: \\d+}")
-    public ServicioDetailDTO updateServicio(@PathParam("serviciosId") Long serviciosId, ServicioDetailDTO servicio) {
-        LOGGER.log(Level.INFO, "ServicioResource updateServicio: input: serviciosId: {0} , servicio: {1}", new Object[]{serviciosId, servicio.toString()});
+    public ServicioDetailDTO updateServicio(@PathParam("serviciosId") Long serviciosId, ServicioDTO servicio) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "ServicioResource updateServicio: input: id: {0} , servicio: {1}", new Object[]{serviciosId, servicio.toString()});
         servicio.setId(serviciosId);
         if (servicioLogic.getServicio(serviciosId) == null) {
             throw new WebApplicationException("El recurso /servicios/" + serviciosId + " no existe.", 404);
@@ -156,7 +156,6 @@ public class ServicioResource
      
      * ----------------------------------------------------------------------------------------------------------------------------------------------------
      * ----------------------------------------------------------------------------------------------------------------------------------------------------
-     * 
     @Path("{serviciosId: \\d+}/proveedores")
     public Class<ServicioProveedoresResource> getServicioProveedoresResource(@PathParam("serviciosId") Long serviciosId) {
         if (servicioLogic.getServicio(serviciosId) == null) {

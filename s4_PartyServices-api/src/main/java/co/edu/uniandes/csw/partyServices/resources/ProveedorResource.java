@@ -71,8 +71,8 @@ public class ProveedorResource {
     }
 
     @DELETE
-    @Path("{proveedor: [a-zA-Z][a-zA-Z]*}")
-    public void borrarProveedor(@PathParam("proveedor") Long proveedoresID) throws BusinessLogicException {
+    @Path("{proveedoresId: \\d+}")
+    public void borrarProveedor(@PathParam("proveedoresId") Long proveedoresID) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "ProveedorResource deleteProveedor: input: {0}", proveedoresID);
         if (proveedorLogic.getProveedor(proveedoresID) == null) {
             throw new WebApplicationException("El recurso /authors/" + proveedoresID + " no existe.", 404);
@@ -82,10 +82,10 @@ public class ProveedorResource {
     }
 
     @PUT
-    @Path("{proveedor: [a-zA-Z][a-zA-Z]*}")
-    public ProveedorDTO actualizarProveedor(@PathParam("proveedoresID") Long proveedoresId, ProveedorDTO proveedor) throws BusinessLogicException {
+    @Path("{proveedoresId: \\d+}")
+    public ProveedorDTO actualizarProveedor(@PathParam("proveedoresId") Long proveedoresId, ProveedorDTO proveedor) throws BusinessLogicException {
          LOGGER.log(Level.INFO, "ProveedorResource updateProveedor: input: proveedoresId: {0} , proveedor: {1}", new Object[]{proveedoresId, proveedor.toString()});
-        proveedor.setID(proveedoresId);
+        proveedor.setId(proveedoresId);
         if (proveedorLogic.getProveedor(proveedoresId) == null) {
             throw new WebApplicationException("El recurso /proveedores/" + proveedoresId + " no existe.", 404);
         }
