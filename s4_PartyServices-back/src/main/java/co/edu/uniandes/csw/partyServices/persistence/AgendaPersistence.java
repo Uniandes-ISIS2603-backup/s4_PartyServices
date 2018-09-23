@@ -72,7 +72,7 @@ public class AgendaPersistence {
      */
     public AgendaEntity findByProveedor(long proveedorId) 
     {
-        LOGGER.log(Level.INFO, "Consultando agenda por proveedor ", proveedorId);
+        LOGGER.log(Level.INFO, "Consultando agenda por proveedor {0}", proveedorId);
         // Se crea un query para buscar editoriales con el nombre que recibe el método como argumento. ":name" es un placeholder que debe ser remplazado
         TypedQuery query = em.createQuery("Select e From AgendaEntity e where e.proveedor.id = :proveedorId", AgendaEntity.class);
         // Se remplaza el placeholder ":name" con el valor del argumento 
@@ -87,7 +87,7 @@ public class AgendaPersistence {
         } else {
             result = sameName.get(0);
         }
-        LOGGER.log(Level.INFO, "Saliendo de consultar agenda por proveedor ", proveedorId);
+        LOGGER.log(Level.INFO, "Saliendo de consultar agenda por proveedor {0}", proveedorId);
         return result;
     }
     

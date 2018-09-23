@@ -65,19 +65,19 @@ public class FechaLogic {
     
     public FechaEntity getFechaPorDiaAgendaJornada(Date dia, long idAgenda, String jornada)
     {
-        LOGGER.log(Level.INFO,"Entrando a optener fecha ", dia);
+        LOGGER.log(Level.INFO,"Entrando a optener fecha {0}", dia);
         FechaEntity fecha= fechaPersistence.findByDiaAgendaAndJornada(dia, idAgenda, jornada);
         if(fecha==null)
-            LOGGER.log(Level.INFO,"No se encuentra fecha con el id ", dia);
+            LOGGER.log(Level.INFO,"No se encuentra fecha con el id {0}", dia);
         return fecha;
     }
     
     public FechaEntity getFechaID(long idFecha)
     {
-        LOGGER.log(Level.INFO,"Entrando a optener fecha ", idFecha);
+        LOGGER.log(Level.INFO,"Entrando a optener fecha {0}", idFecha);
         FechaEntity fecha= fechaPersistence.find(idFecha);
         if(fecha==null)
-            LOGGER.log(Level.INFO,"No se encuentra fecha con el id ", idFecha);
+            LOGGER.log(Level.INFO,"No se encuentra fecha con el id {0}", idFecha);
         return fecha;
     }
     
@@ -96,10 +96,8 @@ public class FechaLogic {
     public void deleteFecha(long fechaId) throws BusinessLogicException
     {
         FechaEntity fecha =fechaPersistence.find(fechaId);
-        if(fecha!=null)
-            if(fecha.getEventos()!=null)
-                if(!fecha.getEventos().isEmpty())
-                    throw new BusinessLogicException("No se puede eliminar la fecha porque tiene "+fecha.getEventos().size()+" eventos");
+        if(fecha!=null && fecha.getEventos()!=null && !fecha.getEventos().isEmpty())
+            throw new BusinessLogicException("No se puede eliminar la fecha porque tiene "+fecha.getEventos().size()+" eventos");
             
         fechaPersistence.delete(fechaId);
     }

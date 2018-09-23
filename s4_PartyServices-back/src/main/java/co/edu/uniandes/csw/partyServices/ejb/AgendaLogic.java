@@ -53,21 +53,21 @@ public class AgendaLogic {
    
     public AgendaEntity getAgenda(long idAgenda)
     {
-        LOGGER.log(Level.INFO,"Entrando a optener agenda ", idAgenda);
+        LOGGER.log(Level.INFO,"Entrando a optener agenda {0}", idAgenda);
         AgendaEntity agenda= agendaPersistence.find(idAgenda);
         
         return agenda;
     }
     public AgendaEntity getAgendaByProveedor(long idProveedor)
     {
-        LOGGER.log(Level.INFO,"Entrando a optener agenda ", idProveedor);
+        LOGGER.log(Level.INFO,"Entrando a optener agenda {0}", idProveedor);
         AgendaEntity agenda= agendaPersistence.findByProveedor(idProveedor);
         
         return agenda;
     }
     
     public AgendaEntity updateAgenda(AgendaEntity agendaEntity) throws BusinessLogicException{
-        LOGGER.log(Level.INFO,"Entrando a actualizar agenda ", agendaEntity.getId());
+        LOGGER.log(Level.INFO,"Entrando a actualizar agenda {0}", agendaEntity.getId());
         
         //Verifica reglas de negocio en comun con crear
         verificarContenidoAgenda(agendaEntity);
