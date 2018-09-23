@@ -13,6 +13,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -53,7 +54,7 @@ public class FechaResource {
     
     @POST
     @Path("{agenda: \\d+}")
-    public FechaDTO anadirFecha(@PathParam("agenda") long agenda,FechaDTO fecha) throws BusinessLogicException
+    public FechaDTO anadirFecha( @PathParam("agenda") long agenda,FechaDTO fecha) throws BusinessLogicException
     {
         return new FechaDTO(fechaLogic.createFecha(agenda, fecha.toEntity()));
     }
