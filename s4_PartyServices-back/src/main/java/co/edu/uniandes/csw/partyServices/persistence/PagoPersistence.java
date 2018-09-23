@@ -15,6 +15,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 /**
+ * Clase que maneja la persistencia para Pago. Se conecta a través del Entity
+ * Manager de javax.persistance con la base de datos SQL.
  *
  * @author estudiante
  */
@@ -22,13 +24,26 @@ import javax.persistence.TypedQuery;
 public class PagoPersistence {
     
    
-        
+    /*
+    *Log de evntos
+    */    
     private static final Logger LOGGER = Logger.getLogger(PagoPersistence.class.getName()) ;
     
+    /**
+     * manejador de entidades
+     */
     @PersistenceContext(unitName = "LosMasmelosPU")
     protected EntityManager em ;
     
     
+    /**
+     * Crear un pago
+     *
+     * Crea una nuevo pago con la información recibida en la entidad.
+     *
+     * @param pPagoEntity  La entidad que representa la nuevo pago
+     * @return La entidad creada
+     */
     public PagoEntity create(PagoEntity pPagoEntity)
     { 
         LOGGER.log(Level.INFO, "Se está creando un nuevo pago");
@@ -52,11 +67,20 @@ public class PagoPersistence {
            
     }
     
-    
+    /**
+     * Buscar un pago
+     *
+     * Busca si hay algun pago asociada a un cliente y con un ID específico
+     *
+     * @param clientesID  El ID del cliente con respecto al cual se busca
+     * @param pagosId  El ID del pago buscada
+     * @return El pago encontrado o null. Nota: Si existe uno o más pagos
+     * devuelve siempre la primera que encuentra
+     */
     public PagoEntity find(Long clientesID, Long pagosId)
     {
         
-       LOGGER.log(Level.INFO, "Consultando el review con id = {0} del libro con id = " );
+       LOGGER.log(Level.INFO, "Consultando el pago con id = {0} del cliente con id = " );
         TypedQuery<PagoEntity> q = em.createQuery("select p from PagoEntity p where (p.cliente.id = :clienteid) and (p.id = :pagosId)", PagoEntity.class);
         q.setParameter("clienteid",clientesID );
         q.setParameter("pagosId", pagosId);
@@ -74,12 +98,17 @@ public class PagoPersistence {
         
     }
     
-    
-    public void delete(Long cliente, Long pPagoId)
+     /** Eliminar un pago
+     *
+     * Elimina el pago asociado al ID que recibe
+     *
+     * @param pPagoId  El ID del pago que se desea borrar
+     */
+    public void delete( Long pPagoId)
     {
         LOGGER.log(Level.INFO, "Se borra al pago en base del Id solicitado");
         
-        PagoEntity entityPago= find(cliente, pPagoId) ;
+        PagoEntity entityPago= em.find( PagoEntity.class,pPagoId) ;
         
         em.remove(entityPago);
         
@@ -88,6 +117,14 @@ public class PagoPersistence {
         
     }
     
+    /**
+     * Actualizar un pago
+     *
+     * Actualiza la entidad que recibe en la base de datos
+     *
+     * @param pagoEntity  La entidad actualizada que se desea guardar
+     * @return La entidad resultante luego de la acutalización
+     */
     public PagoEntity update(PagoEntity pagoEntity) 
        {
            
@@ -98,7 +135,12 @@ public class PagoPersistence {
         
 
        }
-    
+    /**
+     * Se busca un pago a través del login de su cliente.
+     * 
+     * @param pUsuario el login del usuario buscado
+     * @return result La entidad resultante d ela busqueda
+     */
     public PagoEntity findByUsuario(String pUsuario) 
     {
         LOGGER.log(Level.INFO, "Se consulta por el nombre ", pUsuario);

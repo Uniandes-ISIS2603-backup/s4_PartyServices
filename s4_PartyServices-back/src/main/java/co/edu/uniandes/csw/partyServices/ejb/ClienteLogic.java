@@ -21,19 +21,34 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 /**
+ * Clase que implementa la conexion con la persistencia para la entidad de
+ * Cliente.
  *
- * @author estudiante
+ * @author Elias Negrete
  */
+@Stateless
 public class ClienteLogic {
-     private static final Logger LOGGER = Logger.getLogger(ClienteLogic.class.getName());
+
+    private static final Logger LOGGER = Logger.getLogger(ClienteLogic.class.getName());
 
     @Inject
-    private ClientePersistence persistence;
+    private ClientePersistence persistence;// Variable para acceder a la persistencia de la aplicación. Es una inyección de dependencias.
 
+    /**
+     * Guardar un nuevo cliente
+     *
+     * @param clienteEntity La entidad de tipo cliente del nuevo cliente a
+     * persistir.
+     * @return La entidad luego de persistirla
+     * @throws BusinessLogicException Si no se cumplen las reglas de negocio
+     */
     public ClienteEntity createCliente(ClienteEntity clienteEntity) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "Inicia proceso de creación del cliente");
+
         //no debe haber dos clientes con el mismo login
         if (persistence.findByLogin(clienteEntity.getLogin()) != null) {
             throw new BusinessLogicException("Ya existe un cliente con el login \"" + clienteEntity.getLogin() + "\"");
@@ -65,19 +80,19 @@ public class ClienteLogic {
         }
 
         if (validaciones(clienteEntity)) {
+        LOGGER.log(Level.INFO, "Termina proceso de creación del cliente");
+
             return persistence.create(clienteEntity);
         } else {
             throw new BusinessLogicException("No se pudo validar una regla de negocio");
         }
     }
 
-   
-
     /**
      *
      * Obtener todas los clientes existentes en la base de datos.
      *
-     * @return una lista de proveedores.
+     * @return una lista de clientes.
      */
     public List<ClienteEntity> getClientes() {
         LOGGER.log(Level.INFO, "Inicia proceso de consultar todos los clientes");
@@ -86,6 +101,7 @@ public class ClienteLogic {
         LOGGER.log(Level.INFO, "Termina proceso de todos recoger los clientes");
         return clientesGuardados;
     }
+
     /**
      *
      * Obtener un cliente por medio de su id.
@@ -95,7 +111,7 @@ public class ClienteLogic {
      */
     public ClienteEntity getCliente(Long clienteID) {
         LOGGER.log(Level.INFO, "Inicia proceso de consultar el cliente con id = {0}", clienteID);
-        
+
         // Note que, por medio de la inyección de dependencias se llama al método "find(id)" que se encuentra en la persistencia.
         ClienteEntity clienteEntity = persistence.find(clienteID);
         if (clienteEntity == null) {
@@ -106,44 +122,45 @@ public class ClienteLogic {
     }
 
     /**
-     
-
-    /**
-     *
-     * Actualizar un proveedor.
-     *
+     * Actualizar un cliente.
+     * @param clienteId: id de la cliente para buscarla en la base de
+     * datos.
      * @param clienteEntity: cliente con los cambios para ser actualizado, por
      * ejemplo el nombre.
      * @return el cliente con los cambios actualizados en la base de datos.
      * @throws
      * co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException
      */
-    public ClienteEntity updateCliente( ClienteEntity clienteEntity) throws BusinessLogicException {
+    public ClienteEntity updateCliente(Long clienteId,ClienteEntity clienteEntity) throws BusinessLogicException {
 
-        ClienteEntity newEntity = null;
 
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar el cliente con id = {0}", clienteEntity.getId());
 
-        if (persistence.findByLogin(clienteEntity.getLogin()) == null) {
-            throw new BusinessLogicException("No existe un cliente con el login \"" + clienteEntity.getLogin() + "\"");
-        }
-
-        if (validaciones(clienteEntity)) {
-            newEntity = persistence.update(clienteEntity);
-        } else {
+      
+        if (!validaciones(clienteEntity)) {
             throw new BusinessLogicException("No se pudo validar una regla de negocio");
         }
+        ClienteEntity newEntity =persistence.update(clienteEntity) ;
 
         LOGGER.log(Level.INFO, "Termina proceso de actualizar el cliente con id = {0}", clienteEntity.getId());
         return newEntity;
     }
 
+    /**
+     * Valida las diferentes reglas de negocio 
+     *
+     * @param clienteEntity La entidad de tipo cliente del nuevo cliente a
+     * persistir.
+     * @return true dependiendo de si se valida todas las reglas o una excpeción en caso de que no
+     * @throws BusinessLogicException Si no se cumplen las reglas de negocio
+     */
     public boolean validaciones(ClienteEntity clienteEntity) throws BusinessLogicException {
 
+        //el login no puede ser vacio o nulo
         if (clienteEntity.getLogin() == null || clienteEntity.getLogin().equals("")) {
             throw new BusinessLogicException("El login no puede ser vacio o nulo, por favor intente nuevamente.");
         }
-        
+
         //validacion sobre la longitud y los cracateres del nombre
         String validacionLogin = "^(?=.{8,20}$)[a-zA-Z0-9]+$";
         Pattern loginPattern = Pattern.compile(validacionLogin);
@@ -152,9 +169,10 @@ public class ClienteLogic {
         if (!loginMatcher.matches()) {
             throw new BusinessLogicException("El formato del login no es valido: solo puede contener número o letras en rango de 8 a 20 caracteres");
         }
-        
-        if(clienteEntity.getLogin().equalsIgnoreCase(clienteEntity.getContrasenia())){
-          throw new BusinessLogicException("La contraseña no puede ser igual al login");
+
+        //el login no puede ser igual a la contraseña
+        if (clienteEntity.getLogin().equalsIgnoreCase(clienteEntity.getContrasenia())) {
+            throw new BusinessLogicException("La contraseña no puede ser igual al login");
 
         }
 
@@ -178,24 +196,26 @@ public class ClienteLogic {
         return true;
 
     }
-    
-    
+
     /**
      * Borrar un cliente
      *
      * @param clienteID: id del cliente a borrar
-     * @throws BusinessLogicException Si el cliente a eliminar tiene .
+     * @throws BusinessLogicException Si el cliente a eliminar tiene eventos en progreso.
      */
     public void deleteCliente(Long clienteID) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de borrar el proveedor con id = {0}", clienteID);
-        ClienteEntity clienteEntity = persistence.find(clienteID);
-       for (EventoEntity entity : clienteEntity.getEventos()) {
-            if(entity.getEstado().equals(ConstantesEvento.EN_PROCESO)){
-                throw new BusinessLogicException("No se puede borrar un cliente que tenga un evento en curso");
-            }
-       }
-        
-        
+        List<EventoEntity> eventos = getCliente(clienteID).getEventos();
+        if (eventos != null && !eventos.isEmpty()) {
+            throw new BusinessLogicException("No se puede borrar el cliente con id = " + clienteID + " porque tiene eventos en progreso");
+        }
+        //if (entity.getEstado().equals(ConstantesEvento.EN_PROCESO)) {
+         //       throw new BusinessLogicException("No se puede borrar un cliente que tenga un evento en curso");
+          //  }
+       
+            
+       
+
         persistence.delete(clienteID);
         LOGGER.log(Level.INFO, "Termina proceso de borrar el proveedor con id = {0}", clienteID);
     }
