@@ -1,0 +1,254 @@
+{
+	"info": {
+		"_postman_id": "2918da21-65d7-4fdf-a522-d74fa74ff256",
+		"name": "Cliente_Pago_Resources",
+		"description": "Colleción de las pruebas CRUD de los recursos clientes y pagos.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST agregar Cliente",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n     \"login\":\"Aquiseinsertaunlogin\",\n\n     \"contrasenia\":\"00000000\",\n\n     \"email\":\"unemailnotanlargo@cosas.com\",\n     \n     \n    \n     \"fechaNacimiento\":\"08/12/1999\"\n    \n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes"
+					]
+				},
+				"description": "Se busca agregar un único cliente a la base de datos a través de PostMan."
+			},
+			"response": []
+		},
+		{
+			"name": "PUT modificar Cliente",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\":23,\"tipo\":\"nov\"}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/pagos/45",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"pagos",
+						"45"
+					]
+				},
+				"description": "Se busca modificar un único cliente de la base de datos a través de PostMan."
+			},
+			"response": []
+		},
+		{
+			"name": "PUT modificar Pago",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\":23,\"tipo\":\"nov\"}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/pagos/45",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"pagos",
+						"45"
+					]
+				},
+				"description": "Se busca modificar un pago de un único cliente de la base de datos a través de PostMan."
+			},
+			"response": []
+		},
+		{
+			"name": "GET obtener Cliente",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/pagos/45",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"pagos",
+						"45"
+					]
+				},
+				"description": "Se busca obtener un único cliente de la base de datos a través de PostMan."
+			},
+			"response": []
+		},
+		{
+			"name": "GET obtener Cliente Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/pagos/45",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"pagos",
+						"45"
+					]
+				},
+				"description": "Se busca obtener un único cliente de la base de datos a través de PostMan."
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE borrar Cliente",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/pagos/45",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"pagos",
+						"45"
+					]
+				},
+				"description": "Se busca eliminar un único cliente de la base de datos a través de PostMan"
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE borrar Pago",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/pagos/45",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"pagos",
+						"45"
+					]
+				},
+				"description": "Se busca eliminar un pago de un único cliente de la base de datos a través de PostMan"
+			},
+			"response": []
+		},
+		{
+			"name": "POST agregar Pagos",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n     \"login\":\"Aquiseinsertaunlogin\",\n\n     \"contrasenia\":\"00000000\",\n\n     \"email\":\"unemailnotanlargo@cosas.com\",\n     \n     \n    \n     \"fechaNacimiento\":\"08/12/1999\"\n    \n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes"
+					]
+				},
+				"description": "Se busca agregar a un único cliente de la base de datos, los pagos a través de PostMan."
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "01eba6ad-5590-4dd4-a23f-b8dbf426d04b",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "0fdf36a3-3aa2-41df-a088-0fd0de56e927",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
