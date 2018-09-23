@@ -63,7 +63,7 @@ public class FechaLogic {
         return fechaPersistence.create(fechaEntity);
     }
     
-    public FechaEntity getFechaPorDiaAgenda(Date dia, long idAgenda, String jornada)
+    public FechaEntity getFechaPorDiaAgendaJornada(Date dia, long idAgenda, String jornada)
     {
         LOGGER.log(Level.INFO,"Entrando a optener fecha ", dia);
         FechaEntity fecha= fechaPersistence.findByDiaAgendaAndJornada(dia, idAgenda, jornada);
