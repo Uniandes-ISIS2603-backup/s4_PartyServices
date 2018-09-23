@@ -167,7 +167,7 @@ public class ClienteLogicTest {
     /**
      * prueba para actualizar la fecha de nacimiento de un Cliente
      * @throws BusinessLogicException 
-     */
+     
     public void updateFechaNacimientoTest() throws BusinessLogicException{
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
         
@@ -183,7 +183,7 @@ public class ClienteLogicTest {
 
         
     }
-    
+    */
     @Test(expected = BusinessLogicException.class)
     public void fechaFormatoIncorrectoTest() throws BusinessLogicException{
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
