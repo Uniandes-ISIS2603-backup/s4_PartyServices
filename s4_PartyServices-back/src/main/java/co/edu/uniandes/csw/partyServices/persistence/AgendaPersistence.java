@@ -64,33 +64,7 @@ public class AgendaPersistence {
         return em.find(AgendaEntity.class, agendaId);
     }
 
-    /**
-     * Busca agenda por su id
-     *
-     * @param proveedorId: el proveedor de la agenda.
-     * @return una agenda.
-     */
-    public AgendaEntity findByProveedor(long proveedorId) 
-    {
-        LOGGER.log(Level.INFO, "Consultando agenda por proveedor {0}", proveedorId);
-        // Se crea un query para buscar editoriales con el nombre que recibe el método como argumento. ":name" es un placeholder que debe ser remplazado
-        TypedQuery query = em.createQuery("Select e From AgendaEntity e where e.proveedor.id = :proveedorId", AgendaEntity.class);
-        // Se remplaza el placeholder ":name" con el valor del argumento 
-        query = query.setParameter("proveedorId", proveedorId);
-        // Se invoca el query se obtiene la lista resultado
-        List<AgendaEntity> sameName = query.getResultList();
-        AgendaEntity result;
-        if (sameName == null) {
-            result = null;
-        } else if (sameName.isEmpty()) {
-            result = null;
-        } else {
-            result = sameName.get(0);
-        }
-        LOGGER.log(Level.INFO, "Saliendo de consultar agenda por proveedor {0}", proveedorId);
-        return result;
-    }
-    
+     
     /**
      * Actualiza una agenda.
      *
