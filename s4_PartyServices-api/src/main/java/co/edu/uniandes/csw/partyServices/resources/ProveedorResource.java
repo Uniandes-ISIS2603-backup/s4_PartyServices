@@ -67,7 +67,7 @@ public class ProveedorResource {
        LOGGER.log(Level.INFO, "ProveedorResource createProveedor: input: {0}", pProveedor.toString());
         ProveedorDTO proveedorDTO = new ProveedorDTO(proveedorLogic.createProveedor(pProveedor.toEntity()));
         LOGGER.log(Level.INFO, "ProveedorResource createProveedor: output: {0}", proveedorDTO.toString());
-        return pProveedor;
+        return proveedorDTO;
     }
 
     @DELETE
