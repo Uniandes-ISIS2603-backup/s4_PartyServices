@@ -67,21 +67,25 @@ public class FechaLogic {
         return fechaPersistence.create(fechaEntity);
     }
     
-    public FechaEntity getFechaPorDiaAgendaJornada(Date dia, long idAgenda, String jornada)
+    public FechaEntity getFechaPorDiaAgendaJornada(Date dia, long idAgenda, String jornada) throws BusinessLogicException
     {
         LOGGER.log(Level.INFO,"Entrando a optener fecha {0}", dia);
         FechaEntity fecha= fechaPersistence.findByDiaAgendaAndJornada(dia, idAgenda, jornada);
-        if(fecha==null)
+        if(fecha==null){
             LOGGER.log(Level.INFO,"No se encuentra fecha con el id {0}", dia);
+            throw new BusinessLogicException("No existe fecha con dia, idAgenda y jornada "+dia.toString()+idAgenda+jornada);
+        }
         return fecha;
     }
     
-    public FechaEntity getFechaID(long idFecha)
+    public FechaEntity getFechaID(long idFecha) throws BusinessLogicException
     {
         LOGGER.log(Level.INFO,"Entrando a optener fecha {0}", idFecha);
         FechaEntity fecha= fechaPersistence.find(idFecha);
-        if(fecha==null)
+        if(fecha==null){
             LOGGER.log(Level.INFO,"No se encuentra fecha con el id {0}", idFecha);
+            throw new BusinessLogicException("No existe fecha con id "+idFecha);
+        }
         return fecha;
     }
     
