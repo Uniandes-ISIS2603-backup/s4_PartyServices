@@ -16,7 +16,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  */
 public class ProductoDTO implements Serializable
 {
-    private long id ;
+    private Long id ;
     private String nombre;
     private String tipoServicio ;
     private String duenio ;

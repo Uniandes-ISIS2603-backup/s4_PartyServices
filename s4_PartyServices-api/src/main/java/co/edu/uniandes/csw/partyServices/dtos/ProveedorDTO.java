@@ -5,10 +5,8 @@
  */
 package co.edu.uniandes.csw.partyServices.dtos;
 
-import co.edu.uniandes.csw.partyServices.entities.AgendaEntity;
 import co.edu.uniandes.csw.partyServices.entities.ProveedorEntity;
 import java.io.Serializable;
-import java.util.Collection;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
