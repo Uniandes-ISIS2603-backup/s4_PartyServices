@@ -156,7 +156,7 @@ public class FechaPersistenceTest {
             utx.begin();
             em.persist(fecha);
             utx.commit();
-            FechaEntity fechaEntity = fechaPersistence.findByDia(dia,agenda.getId(),ConstantesJornada.JORNADA_MANANA.darValor());
+            FechaEntity fechaEntity = fechaPersistence.findByDiaAgendaAndJornada(dia,agenda.getId(),ConstantesJornada.JORNADA_MANANA.darValor());
             
             
             Assert.assertNotNull(fechaEntity);
