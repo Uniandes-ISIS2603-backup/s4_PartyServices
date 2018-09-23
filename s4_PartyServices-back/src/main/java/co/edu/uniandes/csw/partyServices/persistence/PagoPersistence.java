@@ -53,21 +53,33 @@ public class PagoPersistence {
     }
     
     
-    public PagoEntity find(Long pPagoId)
+    public PagoEntity find(Long clientesID, Long pagosId)
     {
         
-        LOGGER.log(Level.INFO, "Se busca el pago en base al ID solicitado");
-        
-        return em.find(PagoEntity.class, pPagoId) ;
+       LOGGER.log(Level.INFO, "Consultando el review con id = {0} del libro con id = " );
+        TypedQuery<PagoEntity> q = em.createQuery("select p from PagoEntity p where (p.cliente.id = :clienteid) and (p.id = :pagosId)", PagoEntity.class);
+        q.setParameter("clienteid",clientesID );
+        q.setParameter("pagosId", pagosId);
+        List<PagoEntity> results = q.getResultList();
+        PagoEntity review = null;
+        if (results == null) {
+            review = null;
+        } else if (results.isEmpty()) {
+            review = null;
+        } else if (results.size() >= 1) {
+            review = results.get(0);
+        }
+        LOGGER.log(Level.INFO, "Saliendo de consultar el review con id = {0} del libro con id =" );
+        return review;
         
     }
     
     
-    public void delete(Long pPagoId)
+    public void delete(Long cliente, Long pPagoId)
     {
         LOGGER.log(Level.INFO, "Se borra al pago en base del Id solicitado");
         
-        PagoEntity entityPago= find(pPagoId) ;
+        PagoEntity entityPago= find(cliente, pPagoId) ;
         
         em.remove(entityPago);
         
