@@ -100,7 +100,7 @@ public class EventoEntity  extends BaseEntity implements Serializable
     public void setProductos(Collection<ProductoEntity> productos) {
         this.productos = productos;
     }
-    public void agragarProducto(ProductoEntity producto)
+    public void agregarProducto(ProductoEntity producto)
     {
         if(productos==null)
         {

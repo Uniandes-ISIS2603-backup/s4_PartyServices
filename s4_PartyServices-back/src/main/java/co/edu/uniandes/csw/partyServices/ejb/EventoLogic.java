@@ -6,8 +6,10 @@
 package co.edu.uniandes.csw.partyServices.ejb;
 import co.edu.uniandes.csw.partyServices.util.ConstantesEvento;
 import co.edu.uniandes.csw.partyServices.entities.EventoEntity;
+import co.edu.uniandes.csw.partyServices.entities.ProductoEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.partyServices.persistence.EventoPersistence;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -79,8 +81,9 @@ public class EventoLogic {
 
         if (eventoEntity.getProductos() == null) 
         {
-            throw new BusinessLogicException("El evento no puede tener productos nulos");
+            eventoEntity.setProductos(new ArrayList<>());
         }
+       
 
         if (!validateLatitud(eventoEntity.getLatitud())) 
         {
