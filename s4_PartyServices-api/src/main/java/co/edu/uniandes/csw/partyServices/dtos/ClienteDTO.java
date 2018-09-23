@@ -35,7 +35,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  */
 public class ClienteDTO implements Serializable{
     
-     private Long id;
+    private Long id;
     private String login;
     private String contrasenia;
     private boolean penitenciado;

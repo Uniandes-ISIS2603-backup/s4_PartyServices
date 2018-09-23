@@ -5,7 +5,9 @@
  */
 package logic;
 
+import co.edu.uniandes.csw.partyServices.ejb.ClienteLogic;
 import co.edu.uniandes.csw.partyServices.ejb.PagoLogic;
+import co.edu.uniandes.csw.partyServices.entities.ClienteEntity;
 import co.edu.uniandes.csw.partyServices.entities.PagoEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.partyServices.persistence.PagoPersistence;
@@ -38,6 +40,8 @@ public class PagoLogicTest {
     
     @Inject
     private PagoLogic PagoLogic;
+    @Inject
+    private ClienteLogic clienteLogic;
     
     @PersistenceContext
     private EntityManager em;
@@ -117,7 +121,19 @@ public class PagoLogicTest {
         newEntity.setCodigoSeguridadTarjeta(123);
         newEntity.setNombreTarjeta("LAURA L");
         
-        PagoEntity result = PagoLogic.createPago(newEntity);
+                ClienteEntity newEntity2 = factory.manufacturePojo(ClienteEntity.class);
+
+                newEntity2.setId((long)1);
+                newEntity2.setFechaNacimiento("21/10/1997");
+        newEntity2.setEmail("aaaaaaaa@udad.com");
+        newEntity2.setLogin("lololololololo");
+        newEntity2.setContrasenia("aaaaaaaa");
+        
+        
+        newEntity2.setId(1l);
+               Assert.assertNotNull(clienteLogic.createCliente(newEntity2));
+        System.out.println(newEntity2.getId());
+        PagoEntity result = PagoLogic.createPago(newEntity2.getId(),newEntity);
         Assert.assertNotNull(result);
         
         PagoEntity entity = em.find(PagoEntity.class, result.getId());
@@ -130,7 +146,7 @@ public class PagoLogicTest {
     @Test
     public void deletePagoTest(){
         PagoEntity entity = data.get(0);
-        PagoLogic.deletePago(entity.getId());
+        PagoLogic.deletePago(1l,entity.getId());
         PagoEntity deleted = em.find(PagoEntity.class, entity.getId());
                 
     }
@@ -141,7 +157,7 @@ public class PagoLogicTest {
     @Test
     public void getPagoTest(){
        PagoEntity ent = data.get(0);
-       PagoEntity result = PagoLogic.getPago(ent.getId());
+       PagoEntity result = PagoLogic.getPago(1l,ent.getId());
        Assert.assertNotNull(result);
        Assert.assertEquals(ent.getFechaExpiracionTarjetaCredito(), result.getFechaExpiracionTarjetaCredito());
        Assert.assertEquals(ent.getCodigoSeguridadTarjeta(), result.getCodigoSeguridadTarjeta());
@@ -158,7 +174,7 @@ public class PagoLogicTest {
         PagoEntity newEntity = factory.manufacturePojo(PagoEntity.class);
         
         newEntity.setNumeroTarjetaCredito(5555555555554044L);
-      PagoLogic.createPago(newEntity);
+      PagoLogic.createPago(1,newEntity);
 
     }
     
@@ -173,8 +189,7 @@ public class PagoLogicTest {
         newEntity.setNumeroTarjetaCredito(5555555555554444L);
         newEntity.setEmpresa("Visa");
         newEntity.setCodigoSeguridadTarjeta(123);
-        
-        PagoLogic.createPago(newEntity);
+        PagoLogic.createPago(1l,newEntity);
 
     }
     
@@ -188,8 +203,7 @@ public class PagoLogicTest {
         
         
         newEntity.setFechaExpiracionTarjetaCredito("11/08");
-        
-        PagoLogic.createPago(newEntity);
+        PagoLogic.createPago(1l,newEntity);
 
     }
     
@@ -203,8 +217,7 @@ public class PagoLogicTest {
         
         
         newEntity.setFechaExpiracionTarjetaCredito("11/50");
-        
-        PagoLogic.createPago(newEntity);
+        PagoLogic.createPago(1l,newEntity);
 
     }
     
@@ -219,8 +232,7 @@ public class PagoLogicTest {
        
         newEntity.setFechaExpiracionTarjetaCredito("1150");
        
-        
-        PagoLogic.createPago(newEntity);
+        PagoLogic.createPago(1l,newEntity);
 
     }
     
@@ -235,8 +247,7 @@ public class PagoLogicTest {
         
         
         newEntity.setCodigoSeguridadTarjeta(12);
-        
-       PagoLogic.createPago(newEntity);
+       PagoLogic.createPago(1l,newEntity);
 
     }
     
@@ -249,8 +260,7 @@ public class PagoLogicTest {
         PagoEntity newEntity = factory.manufacturePojo(PagoEntity.class);
     
         newEntity.setNombreTarjeta("llll<<");
-        
-        PagoLogic.createPago(newEntity);
+        PagoLogic.createPago(1l,newEntity);
 
     }
 

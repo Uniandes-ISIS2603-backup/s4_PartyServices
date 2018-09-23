@@ -26,71 +26,61 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 
 /**
- *Clase que implementa el recurso "Pagos"
+ * Clase que implementa el recurso "Pagos"
+ *
  * @author Elias David Negrete Salgado
  */
-@Path("pagos")
 @Produces("application/json")
 @Consumes("application/json")
 @RequestScoped
 public class PagoResource {
-    
+
     private static final Logger LOGGER = Logger.getLogger(PagoResource.class.getName());
 
     @Inject
     private PagoLogic pagoLogic;
 
-    
     @POST
-    public PagoDTO createPago(@PathParam("pagosId") Long booksId, PagoDTO review) throws BusinessLogicException {
-        PagoDTO nuevoReviewDTO = new PagoDTO(pagoLogic.createPago( review.toEntity()));
-        return nuevoReviewDTO;
+    public PagoDTO createPago(@PathParam("clientesId") Long clientesId, PagoDTO pago) throws BusinessLogicException {
+        PagoDTO nuevoDTO = new PagoDTO(pagoLogic.createPago(clientesId, pago.toEntity()));
+        return nuevoDTO;
     }
 
-    
-    
-
-    
     @GET
     @Path("{pagosId: \\d+}")
-    public PagoDTO getReview(@PathParam("pagosId") Long booksId, @PathParam("pagosId") Long reviewsId) throws BusinessLogicException {
-        PagoEntity entity = pagoLogic.getPago( reviewsId);
+    public PagoDTO getReview(@PathParam("clientesId") Long clientesId, @PathParam("pagosId") Long pagosId) throws BusinessLogicException {
+        PagoEntity entity = pagoLogic.getPago(clientesId, pagosId);
         if (entity == null) {
-            throw new WebApplicationException("El recurso /" + booksId + "/" + reviewsId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /" + clientesId + "/" + pagosId + " no existe.", 404);
         }
         PagoDTO reviewDTO = new PagoDTO(entity);
         return reviewDTO;
     }
 
-    
     @PUT
     @Path("{pagosId: \\d+}")
-    public PagoDTO updatePago(@PathParam("clientesId") Long booksId, @PathParam("pagosId") Long reviewsId, PagoDTO review) throws BusinessLogicException {
-        if (reviewsId.equals(review.getId())) {
+    public PagoDTO updatePago(@PathParam("clientesId") Long clientesId, @PathParam("pagosId") Long pagosId, PagoDTO pagoDTO) throws BusinessLogicException {
+        if (pagosId.equals(pagoDTO.getId())) {
             throw new BusinessLogicException("Los ids no coinciden.");
         }
-        PagoEntity entity = pagoLogic.getPago( reviewsId);
+        PagoEntity entity = pagoLogic.getPago(clientesId, pagosId);
         if (entity == null) {
-            throw new WebApplicationException("El recurso /" + booksId + "/" + reviewsId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /" + clientesId + "/" + pagosId + " no existe.", 404);
 
         }
-        PagoDTO reviewDTO = new PagoDTO(pagoLogic.updatePago(entity));
-        return reviewDTO;
+        PagoDTO DTO = new PagoDTO(pagoLogic.updatePago(entity));
+        return DTO;
 
     }
 
-    
     @DELETE
     @Path("{pagosId: \\d+}")
-    public void deletePago(@PathParam("clientesId") Long booksId, @PathParam("pagosId") Long reviewsId) throws BusinessLogicException {
-        PagoEntity entity = pagoLogic.getPago( reviewsId);
+    public void deletePago(@PathParam("clientesId") Long clientesId, @PathParam("pagosId") Long pagosId) throws BusinessLogicException {
+        PagoEntity entity = pagoLogic.getPago(clientesId, pagosId);
         if (entity == null) {
-            throw new WebApplicationException("El recurso " + booksId + "/" + reviewsId + " no existe.", 404);
+            throw new WebApplicationException("El recurso " + clientesId + "/" + pagosId + " no existe.", 404);
         }
-        pagoLogic.deletePago( reviewsId);
+        pagoLogic.deletePago(clientesId, pagosId);
     }
 
-    
-   
-    
 }
