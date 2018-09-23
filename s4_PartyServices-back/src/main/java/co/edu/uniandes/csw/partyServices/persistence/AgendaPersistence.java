@@ -67,7 +67,7 @@ public class AgendaPersistence {
     /**
      * Busca agenda por su id
      *
-     * @param proveedor: el proveedor de la agenda.
+     * @param proveedorId: el proveedor de la agenda.
      * @return una agenda.
      */
     public AgendaEntity findByProveedor(long proveedorId) 
