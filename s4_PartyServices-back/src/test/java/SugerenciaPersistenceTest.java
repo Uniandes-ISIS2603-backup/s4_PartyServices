@@ -187,9 +187,7 @@ public class SugerenciaPersistenceTest {
 
         newEntity.setId(entity.getId());
 
-        sugerenciaPersistence.update(newEntity);
-
-        SugerenciaEntity resp = em.find(SugerenciaEntity.class, entity.getId());
+        SugerenciaEntity resp = sugerenciaPersistence.update(newEntity);
 
         Assert.assertEquals(newEntity.getComentario(), resp.getComentario());
         Assert.assertEquals(newEntity.getNombreUsuario(), resp.getNombreUsuario());

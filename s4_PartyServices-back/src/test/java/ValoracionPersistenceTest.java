@@ -159,6 +159,7 @@ public class ValoracionPersistenceTest {
 
         Assert.assertEquals(nuevaEntidad.getComentario(), entity.getComentario());
         Assert.assertEquals(nuevaEntidad.getPuntaje(), entity.getPuntaje());
+        Assert.assertEquals(nuevaEntidad.getNombreUsuario(), entity.getNombreUsuario());
     }
     
     /**
@@ -183,6 +184,7 @@ public class ValoracionPersistenceTest {
         Assert.assertNotNull(newEntity);
         Assert.assertEquals(entity.getComentario(), newEntity.getComentario());
         Assert.assertEquals(entity.getPuntaje(), newEntity.getPuntaje());
+        Assert.assertEquals(entity.getNombreUsuario(), newEntity.getNombreUsuario());
     }
     
     /**
@@ -196,12 +198,11 @@ public class ValoracionPersistenceTest {
 
         newEntity.setId(entity.getId());
 
-        valoracionPersistence.update(newEntity);
-
-        ValoracionEntity resp = em.find(ValoracionEntity.class, entity.getId());
+        ValoracionEntity resp = valoracionPersistence.update(newEntity);
 
         Assert.assertEquals(newEntity.getComentario(), resp.getComentario());
         Assert.assertEquals(newEntity.getPuntaje(), resp.getPuntaje());
+        Assert.assertEquals(newEntity.getNombreUsuario(), resp.getNombreUsuario());
     }
     
     /**
