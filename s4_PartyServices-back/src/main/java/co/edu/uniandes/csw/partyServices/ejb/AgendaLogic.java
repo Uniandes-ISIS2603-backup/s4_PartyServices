@@ -99,7 +99,7 @@ public class AgendaLogic {
         
         //Verificacion regla de negocio de las jornadas de las fechas que no labora el proveedor
         if(ConstantesJornada.desdeValor(agendaEntity.getJornadaLunesND()) == null){
-                throw new BusinessLogicException("LUNES No cumple con las jornadas ");          
+                throw new BusinessLogicException("LUNES No cumple con las jornadas "+agendaEntity.getJornadaLunesND());          
         }
         if(ConstantesJornada.desdeValor(agendaEntity.getJornadaMartesND()) == null){
                 throw new BusinessLogicException("MARTES No cumple con las jornadas ");          
