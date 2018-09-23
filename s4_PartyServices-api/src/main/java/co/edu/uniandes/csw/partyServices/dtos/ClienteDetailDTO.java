@@ -44,33 +44,11 @@ public class ClienteDetailDTO extends ClienteDTO implements Serializable {
     
     public ClienteDetailDTO(ClienteEntity cliente) {
         super(cliente);
-        if (cliente.getEventos() != null) {
-            eventos = new ArrayList<>();
-            for (EventoEntity entityReview : cliente.getEventos()) {
-                eventos.add(new EventoDTO(entityReview));
-            }
-        }
-        if (cliente.getSugerencias() != null) {
-            sugerencias = new ArrayList<>();
-            for (SugerenciaEntity entityReview : cliente.getSugerencias()) {
-                sugerencias.add(new SugerenciaDTO(entityReview));
-            }
-        }
+       
         if (cliente.getPagos()!= null) {
             pagos = new ArrayList<>();
             for (PagoEntity entityReview : cliente.getPagos()) {
                 pagos.add(new PagoDTO(entityReview));
-            }
-        }
-        if (cliente.getNotificaciones()!= null) {
-            notificaciones = new ArrayList<>();
-            for (NotificacionEntity entityReview : cliente.getNotificaciones()) {
-                notificaciones.add(new NotificacionDTO(entityReview));
-            }
-        }if (cliente.getValoraciones()!= null) {
-            pagos = new ArrayList<>();
-            for (ValoracionEntity valoracionEntity : cliente.getValoraciones()) {
-                valoraciones.add(new ValoracionDTO(valoracionEntity));
             }
         }
     }
