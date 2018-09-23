@@ -31,6 +31,8 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
     
     private String contrasenia;
     
+    private Double calificacion;
+    
     @PodamExclude
     @ManyToOne
     public ServicioEntity servicio;
@@ -60,10 +62,16 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
         return nombre;
     }
    
-    
-
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public Double getCalificacion() {
+        return calificacion;
+    }
+
+    public void setCalificacion(Double calificacion) {
+        this.calificacion = calificacion;
     }
 
     
