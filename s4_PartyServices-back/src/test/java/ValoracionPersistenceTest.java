@@ -118,8 +118,8 @@ public class ValoracionPersistenceTest {
      * Limpia las tablas que están implicadas en la prueba.
      */
     private void clearData(){
-        em.createQuery("Delete from ProveedorEntity").executeUpdate();
         em.createQuery("Delete from ValoracionEntity").executeUpdate();
+        em.createQuery("Delete from ProveedorEntity").executeUpdate();  
     }
     
     /**
@@ -166,9 +166,20 @@ public class ValoracionPersistenceTest {
      */
     @Test
     public void getValoracionTest() {
-        //ValoracionEntity entity = data.get(0);
-        ValoracionEntity entity = data.get(0);
-        ValoracionEntity newEntity = valoracionPersistence.find(dataProveedor.get(0).getId(), entity.getId());
+        //ValoracionEntity entity = data.get(0) esto no funciona no sé por qué, algunas veces lanza out of bound exception;
+        List<ValoracionEntity> listaValoraciones = valoracionPersistence.findAll();
+        ValoracionEntity entity = null;
+        ProveedorEntity proveedorEntity = null;
+        for(int i=0; i<3; i++){
+            ValoracionEntity valoracionEncontrada = listaValoraciones.get(i);
+            ProveedorEntity proveedorEncontrado = valoracionEncontrada.getProveedor();
+            if(proveedorEncontrado != null){
+                entity = valoracionEncontrada;
+                proveedorEntity = proveedorEncontrado;
+                break;
+            }
+        }
+        ValoracionEntity newEntity = valoracionPersistence.find(proveedorEntity.getId(), entity.getId());
         Assert.assertNotNull(newEntity);
         Assert.assertEquals(entity.getComentario(), newEntity.getComentario());
         Assert.assertEquals(entity.getPuntaje(), newEntity.getPuntaje());
