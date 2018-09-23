@@ -110,7 +110,7 @@ public class PagoPersistenceTest
     public void deletePagoTest()
     {
         PagoEntity entity = data.get(0);
-        pagoPersistence.delete(entity.getId());
+        pagoPersistence.delete(1l,entity.getId());
         PagoEntity deleted = em.find(PagoEntity.class, entity.getId());
         Assert.assertNull(deleted);
      

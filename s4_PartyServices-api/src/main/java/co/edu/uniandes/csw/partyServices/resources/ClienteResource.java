@@ -123,9 +123,10 @@ public class ClienteResource {
         }
         return list;
     }
+   
+
     
-    
-     @Path("{clientesId: \\d+}/pagos")
+     @Path("{clientesId: \\d+}/pagoss")
     public Class<PagoResource> getPagoResource(@PathParam("clientesId") Long clientesId) throws BusinessLogicException {
         if (clienteLogic.getCliente(clientesId) == null) {
             throw new WebApplicationException("El recurso /clientes/" + clientesId + "/pagos no existe.", 404);
