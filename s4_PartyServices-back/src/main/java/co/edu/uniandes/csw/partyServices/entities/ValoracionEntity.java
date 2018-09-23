@@ -21,6 +21,8 @@ public class ValoracionEntity extends BaseEntity implements Serializable{
     
     private String comentario;
     
+    private String nombreUsuario;
+    
     @PodamExclude
     @ManyToOne
     private ClienteEntity cliente;
@@ -85,5 +87,23 @@ public class ValoracionEntity extends BaseEntity implements Serializable{
      */
     public void setComentario(String comentario) {
         this.comentario = comentario;
+    }
+    
+    /**
+     * Devuelve el nombre del usuario de la valoracion.
+     *
+     * @return nombreUsuario.
+     */
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+
+    /**
+     * Modifica el nombre del usuario de la valoracion.
+     *
+     * @param nombreUsuario el nuevo nombre del usuario que se reemplazará.
+     */
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
     }
 }
