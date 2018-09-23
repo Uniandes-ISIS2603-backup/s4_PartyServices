@@ -44,6 +44,10 @@ public class PagoDTO implements Serializable{
     private String fechaExpiracionTarjetaCredito;
     private String nombreTarjeta;
     private String empresa;
+    
+    private ClienteDTO cliente;
+
+    
 
     /**
      * Constructor por defecto
@@ -66,6 +70,11 @@ public class PagoDTO implements Serializable{
             this.fechaExpiracionTarjetaCredito = pagoEntity.getFechaExpiracionTarjetaCredito();
             this.nombreTarjeta = pagoEntity.getNombreTarjeta();
             this.numeroTarjetaCredito = pagoEntity.getNumeroTarjetaCredito();
+            if (pagoEntity.getCliente()!= null) {
+                this.cliente = new ClienteDTO(pagoEntity.getCliente());
+            } else {
+                this.cliente = null;
+            }
         }
     }
 
@@ -154,6 +163,14 @@ public class PagoDTO implements Serializable{
     public void setEmpresa(String empresa) {
         this.empresa = empresa;
     }
+    
+    public ClienteDTO getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(ClienteDTO cliente) {
+        this.cliente = cliente;
+    }
 
     /**
      * Convertir DTO a Entity
@@ -169,6 +186,9 @@ public class PagoDTO implements Serializable{
         pagoEntity.setFechaExpiracionTarjetaCredito(this.fechaExpiracionTarjetaCredito);
         pagoEntity.setNombreTarjeta(this.nombreTarjeta);
         pagoEntity.setNumeroTarjetaCredito(this.numeroTarjetaCredito);
+        if (this.cliente != null) {
+            pagoEntity.setCliente(this.cliente.toEntity());
+        }
         
         return pagoEntity;
     }

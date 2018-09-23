@@ -72,13 +72,12 @@ public class ClienteResource {
     
     
     @POST
-    @Path("{clientesId: \\d+}")
     public ClienteDTO createCliente(ClienteDTO pCliente) throws BusinessLogicException{
-        LOGGER.log(Level.INFO, "BookResource createBook: input: {0}", pCliente.toString());
         ClienteDTO nuevoBookDTO = new ClienteDTO(clienteLogic.createCliente(pCliente.toEntity()));
         LOGGER.log(Level.INFO, "BookResource createBook: output: {0}", nuevoBookDTO.toString());
-        return nuevoBookDTO;   
+        return nuevoBookDTO;
     }
+    
     
     
     @PUT
@@ -124,9 +123,10 @@ public class ClienteResource {
         }
         return list;
     }
+   
+
     
-    
-     @Path("{clientesId: \\d+}/pagos")
+     @Path("{clientesId: \\d+}/pagoss")
     public Class<PagoResource> getPagoResource(@PathParam("clientesId") Long clientesId) throws BusinessLogicException {
         if (clienteLogic.getCliente(clientesId) == null) {
             throw new WebApplicationException("El recurso /clientes/" + clientesId + "/pagos no existe.", 404);

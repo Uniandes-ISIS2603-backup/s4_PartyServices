@@ -5,8 +5,10 @@
  */
 package co.edu.uniandes.csw.partyServices.ejb;
 
+import co.edu.uniandes.csw.partyServices.entities.ClienteEntity;
 import co.edu.uniandes.csw.partyServices.entities.PagoEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
+import co.edu.uniandes.csw.partyServices.persistence.ClientePersistence;
 import co.edu.uniandes.csw.partyServices.persistence.PagoPersistence;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,8 +31,17 @@ public class PagoLogic {
 
     @Inject
     private PagoPersistence persistence;
+    
+    @Inject
+        private ClientePersistence persistenceCliente;
 
-    public PagoEntity createPago(PagoEntity PagoEntity) throws BusinessLogicException {
+
+    public PagoEntity createPago(long clienteId, PagoEntity PagoEntity) throws BusinessLogicException {
+         ClienteEntity b = persistenceCliente.find(clienteId);
+         
+         
+
+
 
         if (!validarNumero(PagoEntity.getNumeroTarjetaCredito())) {
             throw new BusinessLogicException("El número de la tarjeta no es valido");
@@ -75,20 +86,20 @@ public class PagoLogic {
         } catch (ParseException ex) {
             throw new BusinessLogicException("La fecha de expiracion no cumple el formato: "+ ex);
         }
-
+PagoEntity.setCliente(b);
        return persistence.create(PagoEntity);
     }
 
-    public PagoEntity getPago(Long id) {
-        return persistence.find(id);
+    public PagoEntity getPago(Long clienteid, Long id) {
+        return persistence.find(clienteid,id);
     }
     
     public PagoEntity updatePago(PagoEntity pago) {
         return persistence.update(pago);
     }
 
-    public void deletePago(Long id) {
-        persistence.delete(id);
+    public void deletePago(Long cliente,Long id) {
+        persistence.delete(cliente,id);
     }
 
     public boolean validarNumero(Long numero1) {
