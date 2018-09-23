@@ -61,6 +61,16 @@ public class FechaDTO implements Serializable{
     {
         this.jornada=jornada;
     }
+
+    public AgendaDTO getAgenda() {
+        return agenda;
+    }
+
+    public void setAgenda(AgendaDTO agenda) {
+        this.agenda = agenda;
+    }
+    
+    
     @Override
     public String toString() 
     {
