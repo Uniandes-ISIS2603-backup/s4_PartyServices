@@ -217,7 +217,7 @@ public class FechaLogicTest {
     {
         for (FechaEntity fechaEntity : data) {
             Assert.assertNotNull(fechaLogic.getFechaID(fechaEntity.getId()));
-            Assert.assertNotNull(fechaLogic.getFechaPorDia(fechaEntity.getDia()));
+            Assert.assertNotNull(fechaLogic.getFechaPorDiaAgenda(fechaEntity.getDia(),0));
         }
     }
     

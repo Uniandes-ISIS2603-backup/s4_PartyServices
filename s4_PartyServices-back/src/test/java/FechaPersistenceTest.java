@@ -4,12 +4,20 @@ import co.edu.uniandes.csw.partyServices.entities.FechaEntity;
 import co.edu.uniandes.csw.partyServices.entities.ProveedorEntity;
 import co.edu.uniandes.csw.partyServices.persistence.AgendaPersistence;
 import co.edu.uniandes.csw.partyServices.persistence.FechaPersistence;
+import co.edu.uniandes.csw.partyServices.util.ConstantesJornada;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -135,11 +143,30 @@ public class FechaPersistenceTest {
 
     @Test
     public void findFechaByDiaTest() {
-        Date dia =new Date();
-        FechaEntity fechaEntity = fechaPersistence.findByDia(dia); 
-        Assert.assertNotNull(fechaEntity);
-         Assert.assertEquals(fechaEntity.getDia().getDay()+" "+fechaEntity.getDia().getMonth()+" "+fechaEntity.getDia().getYear(), 
-            dia.getDay()+" "+dia.getMonth()+" "+dia.getYear());
+        try {
+            Date dia =new Date();
+            AgendaEntity agenda=new AgendaEntity();
+            utx.begin();
+            em.persist(agenda);
+            utx.commit();
+            FechaEntity fecha = new FechaEntity();
+            fecha.setDia(dia);
+            fecha.setAgenda(agenda);
+            fecha.setJornada(ConstantesJornada.JORNADA_MANANA.darValor());
+            utx.begin();
+            em.persist(fecha);
+            utx.commit();
+            FechaEntity fechaEntity = fechaPersistence.findByDia(dia,agenda.getId(),ConstantesJornada.JORNADA_MANANA.darValor());
+            
+            
+            Assert.assertNotNull(fechaEntity);
+            Assert.assertEquals(fechaEntity.getDia().getDay()+" "+fechaEntity.getDia().getMonth()+" "+fechaEntity.getDia().getYear(),
+                    dia.getDay()+" "+dia.getMonth()+" "+dia.getYear());
+            Assert.assertEquals(fechaEntity.getAgenda().getId(), agenda.getId());
+            Assert.assertEquals(fecha.getJornada(), fechaEntity.getJornada());
+        } catch (RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException | NotSupportedException ex) {
+            Logger.getLogger(FechaPersistenceTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     @Test
     public void findAllFechasTest(){

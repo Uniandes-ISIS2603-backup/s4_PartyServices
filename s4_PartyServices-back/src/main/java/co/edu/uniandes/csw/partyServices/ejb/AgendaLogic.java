@@ -58,6 +58,13 @@ public class AgendaLogic {
         
         return agenda;
     }
+    public AgendaEntity getAgendaByProveedor(long idProveedor)
+    {
+        LOGGER.log(Level.INFO,"Entrando a optener agenda ", idProveedor);
+        AgendaEntity agenda= agendaPersistence.findByProveedor(idProveedor);
+        
+        return agenda;
+    }
     
     public AgendaEntity updateAgenda(AgendaEntity agendaEntity) throws BusinessLogicException{
         LOGGER.log(Level.INFO,"Entrando a actualizar agenda ", agendaEntity.getId());

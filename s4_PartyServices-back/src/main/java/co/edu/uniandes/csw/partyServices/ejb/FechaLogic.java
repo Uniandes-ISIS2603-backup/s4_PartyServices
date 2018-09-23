@@ -63,10 +63,10 @@ public class FechaLogic {
         return fechaPersistence.create(fechaEntity);
     }
     
-    public FechaEntity getFechaPorDia(Date dia)
+    public FechaEntity getFechaPorDiaAgenda(Date dia, long idAgenda)
     {
         LOGGER.log(Level.INFO,"Entrando a optener fecha ", dia);
-        FechaEntity fecha= fechaPersistence.findByDia(dia);
+        FechaEntity fecha= fechaPersistence.findByDia(dia, idAgenda);
         if(fecha==null)
             LOGGER.log(Level.INFO,"No se encuentra fecha con el id ", dia);
         return fecha;
