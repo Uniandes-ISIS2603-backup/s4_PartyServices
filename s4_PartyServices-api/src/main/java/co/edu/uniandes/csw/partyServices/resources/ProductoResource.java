@@ -84,7 +84,7 @@ public class ProductoResource
     @Path("{producto: [a-zA-Z][a-zA-Z]*}")
     public ProductoDTO actualizarProducto(@PathParam("producto")String producto, ProductoDTO pProducto) throws BusinessLogicException
     {
-         LOGGER.log(Level.INFO, "ProductoResource updateBook: input: id: {0} , book: {1}");
+         LOGGER.log(Level.INFO, "ProductoResource updateProducto: input: id: {0} , book: {1}");
         pProducto.setNombre(producto);
         ProductoEntity entity = productoLogic.findByNombre(producto);
         if (entity== null) 
@@ -96,7 +96,7 @@ public class ProductoResource
         
         ProductoDTO detailDTO = new ProductoDTO(updateado);
        
-        LOGGER.log(Level.INFO, "ProductoResource updateBook: output: {0}", detailDTO.toString());
+        LOGGER.log(Level.INFO, "ProductoResource updateProducto: output: {0}", detailDTO.toString());
         return detailDTO;
        
     }

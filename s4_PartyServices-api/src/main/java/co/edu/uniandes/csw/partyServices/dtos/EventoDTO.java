@@ -23,6 +23,9 @@ public class EventoDTO implements Serializable
     private String nombre ;
     private String estado;
     private FechaDTO fecha;
+    private ClienteDTO cliente ;
+    private double latitud ;
+    private double longitud ;
     
     /**
      * Constructor por defecto.
@@ -37,6 +40,9 @@ public class EventoDTO implements Serializable
             this.nombre = eventoEntity.getNombre();
             this.estado = eventoEntity.getEstado() ;
             this.fecha = new FechaDTO(eventoEntity.getFecha()) ;
+            this.cliente = new ClienteDTO(eventoEntity.getCliente());
+            this.latitud = eventoEntity.getLatitud();
+            this.longitud = eventoEntity.getLongitud() ;
   
         }
     }
@@ -47,12 +53,12 @@ public class EventoDTO implements Serializable
         eventoEntity.setNombre(this.getNombre());
         eventoEntity.setEstado(this.estado);
         eventoEntity.setFecha(this.fecha.toEntity());
+        eventoEntity.setCliente(this.cliente.toEntity());
+        eventoEntity.setLatitud(this.latitud);
+        eventoEntity.setLongitud(this.longitud);
         return eventoEntity;
     }
 
-    
-    
-    
     
     /**
      * Devuelve el id del evento
@@ -114,6 +120,31 @@ public class EventoDTO implements Serializable
         this.fecha = fecha;
     }
 
+    public ClienteDTO getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(ClienteDTO cliente) {
+        this.cliente = cliente;
+    }
+
+    public double getLatitud() {
+        return latitud;
+    }
+
+    public void setLatitud(double latitud) {
+        this.latitud = latitud;
+    }
+
+    public double getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(double longitud) {
+        this.longitud = longitud;
+    }
+
+    
     
     @Override
     public String toString() {

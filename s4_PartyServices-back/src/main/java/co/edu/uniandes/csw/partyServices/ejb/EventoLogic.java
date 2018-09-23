@@ -6,7 +6,6 @@
 package co.edu.uniandes.csw.partyServices.ejb;
 import co.edu.uniandes.csw.partyServices.util.ConstantesEvento;
 import co.edu.uniandes.csw.partyServices.entities.EventoEntity;
-import co.edu.uniandes.csw.partyServices.entities.ProductoEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.partyServices.persistence.EventoPersistence;
 import java.util.ArrayList;
@@ -84,7 +83,6 @@ public class EventoLogic {
             eventoEntity.setProductos(new ArrayList<>());
         }
        
-
         if (!validateLatitud(eventoEntity.getLatitud())) 
         {
             throw new BusinessLogicException("La latitud del evento no se encuentra en colombia");

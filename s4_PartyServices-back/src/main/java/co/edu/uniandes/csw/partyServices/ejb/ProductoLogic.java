@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.partyServices.ejb;
 import co.edu.uniandes.csw.partyServices.entities.ProductoEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.partyServices.persistence.ProductoPersistence;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -62,8 +63,9 @@ public class ProductoLogic {
         if (productoEntity.getCantidad() < 0 || productoEntity.getCantidad() >= 999) {
             throw new BusinessLogicException("El producto debe tener una cantidad entre 0 y 999");
         }
-        if (productoEntity.getEventos() == null) {
-            throw new BusinessLogicException("El producto no puede tener eventos nulos");
+        if (productoEntity.getEventos() == null) 
+        {
+            productoEntity.setEventos(new ArrayList<>());
 
         }
         if (productoEntity.getEventos().size() > productoEntity.getCantidad()) {
