@@ -43,18 +43,13 @@ public class FechaLogic {
         if(ConstantesJornada.desdeValor( fechaEntity.getJornada() ).equals(ConstantesJornada.NINGUNA)){          
             throw new BusinessLogicException("La jornada ninguna no es valida");
         } 
+        
+        if(fechaEntity.getDia()==null)
+            throw new BusinessLogicException("La fecha es nula");
             
-        //Verificacion regla de negocio deben existir eventos
-        if(fechaEntity.getEventos()==null)
-            throw new BusinessLogicException("Los eventos de la fecha no estan inicializados");
-        if(fechaEntity.getEventos().isEmpty())
-            throw new BusinessLogicException("Debe tener eventos la fecha");
         
         //Verificacion regla de negocio no se pueden crear fechas del pasado
         Date dia= new Date();
-        dia.setHours(0);
-        dia.setMinutes(0);
-        dia.setSeconds(0);
         if(dia.compareTo(fechaEntity.getDia())>=0)
             throw new BusinessLogicException("El dia de la fecha no puede ser menor o igual al dia actual");
         
