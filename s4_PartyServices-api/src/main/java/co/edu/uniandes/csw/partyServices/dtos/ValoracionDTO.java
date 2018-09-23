@@ -5,7 +5,6 @@
  */
 package co.edu.uniandes.csw.partyServices.dtos;
 
-//import co.edu.uniandes.csw.partyServices.entities.ValoracionEntity;
 import co.edu.uniandes.csw.partyServices.entities.ValoracionEntity;
 import java.io.Serializable;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -39,6 +38,7 @@ public class ValoracionDTO implements Serializable{
     private Long id;
     private Integer puntaje;
     private String comentario;
+    private String nombreUsuario;
     
     
     /**
@@ -58,6 +58,7 @@ public class ValoracionDTO implements Serializable{
             this.id = valoracionEntity.getId();
             this.puntaje = valoracionEntity.getPuntaje();
             this.comentario = valoracionEntity.getComentario();
+            this.nombreUsuario = valoracionEntity.getNombreUsuario();
         }
     }
     
@@ -116,6 +117,24 @@ public class ValoracionDTO implements Serializable{
     }
     
     /**
+     * Devuelve el nombre del usuario asignado a la valoracion.
+     *
+     * @return nombreUsuario. El nombre del usuario asignado a la valoracion.
+     */
+    public String getNombreUsuario(){
+        return nombreUsuario;
+    }
+    
+    /**
+     * Modifica el nombre del usuario asignado a la valoracion.
+     *
+     * @param nombreUsuario. El nuevo nombre del usuario que se reemplazará.
+     */
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
+    
+    /**
      * Convertir DTO a Entity
      *
      * @return Un Entity con los valores del DTO
@@ -125,6 +144,7 @@ public class ValoracionDTO implements Serializable{
         valoracionEntity.setId(this.id);
         valoracionEntity.setPuntaje(this.puntaje);
         valoracionEntity.setComentario(this.comentario);
+        valoracionEntity.setNombreUsuario(this.nombreUsuario);
         return valoracionEntity;
     }
     
