@@ -89,7 +89,7 @@ public class ValoracionPersistence {
      */
     public ValoracionEntity find(Long proveedorId, Long valoracionId) {
         LOGGER.log(Level.INFO, "Consultando la valoracion con id = {0} del proveedor con id = " + proveedorId, valoracionId);
-        
+
         TypedQuery<ValoracionEntity> q = em.createQuery("select p from ValoracionEntity p where (p.proveedor.id = :proveedorId) and (p.id = :valoracionId)", ValoracionEntity.class);
         q.setParameter("proveedorId", proveedorId);
         q.setParameter("valoracionId", valoracionId);

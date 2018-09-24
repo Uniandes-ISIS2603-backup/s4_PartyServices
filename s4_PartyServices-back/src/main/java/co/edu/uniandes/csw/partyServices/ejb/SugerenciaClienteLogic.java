@@ -24,7 +24,7 @@ import javax.inject.Inject;
  */
 @Stateless
 public class SugerenciaClienteLogic {
-    
+
     private static final Logger LOGGER = Logger.getLogger(SugerenciaClienteLogic.class.getName());
 
     @Inject
@@ -32,32 +32,37 @@ public class SugerenciaClienteLogic {
 
     @Inject
     private SugerenciaPersistence sugerenciaPersistence; // Variable para acceder a la persistencia de la aplicación. Es una inyección de dependencias.
-    
-     /**
+
+    /**
      * Agregar un cliente a una sugerencia.
      *
      * @param sugerenciasId. El ID de la sugerencia a guardar
-     * @param tematicasId. El ID de la temática de la cual hace parte la sugerencia.
-     * @param clientesId. El ID del cliente al cual se le va a guardar la sugerencia.
-     * @return El cliente agregado a la sugerencia. 
+     * @param tematicasId. El ID de la temática de la cual hace parte la
+     * sugerencia.
+     * @param clientesId. El ID del cliente al cual se le va a guardar la
+     * sugerencia.
+     * @return El cliente agregado a la sugerencia.
      */
     public ClienteEntity addCliente(Long tematicasId, Long sugerenciasId, Long clientesId) {
         LOGGER.log(Level.INFO, "Inicia proceso de asociar el cliente con id = {0} a la sugerencia con id = {1} que pertenece a la temática con id = {2}", new Object[]{clientesId, sugerenciasId, tematicasId});
         ClienteEntity clienteEntity = clientePersistence.find(clientesId);
-        SugerenciaEntity sugerenciaEntity = sugerenciaPersistence.find( tematicasId, sugerenciasId);
+        SugerenciaEntity sugerenciaEntity = sugerenciaPersistence.find(tematicasId, sugerenciasId);
         sugerenciaEntity.setCliente(clienteEntity);
         SugerenciaEntity actualizado = sugerenciaPersistence.update(sugerenciaEntity);
         LOGGER.log(Level.INFO, "Termina proceso de asociar el cliente con id = {0} a la sugerencia con id = {1} que pertenece a la temática con id = {2}", new Object[]{clientesId, sugerenciasId, tematicasId});
         return actualizado.getCliente();
     }
-    
+
     /**
      *
-     * Obtener el cliente asociado a una sugerenica por medio del ID de esta y el ID de la temática a la que pertenece.
+     * Obtener el cliente asociado a una sugerenica por medio del ID de esta y
+     * el ID de la temática a la que pertenece.
      *
      * @param sugerenciasId. ID de la sugerencia a ser buscada.
-     * @param tematicasId. El ID de la temática de la cual hace parte la sugerencia.
-     * @return el cliente de la sugerencia solicitada por medio del ID de esta y el ID de su temática.
+     * @param tematicasId. El ID de la temática de la cual hace parte la
+     * sugerencia.
+     * @return el cliente de la sugerencia solicitada por medio del ID de esta y
+     * el ID de su temática.
      */
     public ClienteEntity getCliente(Long tematicasId, Long sugerenciasId) {
         LOGGER.log(Level.INFO, "Inicia proceso de consultar el cliente de la sugerencia con id = {0} que pertenece a la temática con id " + tematicasId, sugerenciasId);
@@ -65,12 +70,13 @@ public class SugerenciaClienteLogic {
         LOGGER.log(Level.INFO, "Termina proceso de consultar el cliente de la sugerencia con id = {0} que pertenece a la temática con id " + tematicasId, sugerenciasId);
         return clienteEntity;
     }
-    
+
     /**
      * Remplazar el cliente de una sugerencia.
      *
      * @param sugerenciasId. El ID de la sugerencia que se quiere actualizar.
-     * @param tematicasId. El ID de la temática de la cual hace parte la sugerencia.
+     * @param tematicasId. El ID de la temática de la cual hace parte la
+     * sugerencia.
      * @param clientesId. El ID del nuevo cliente asociado a la sugerencia.
      * @return el nuevo autor asociado.
      */
@@ -83,12 +89,13 @@ public class SugerenciaClienteLogic {
         LOGGER.log(Level.INFO, "Termina proceso de reemplazar el cliente de la sugerencia con ID = {0}, por el cliente con ID = {1}, que pertenece a la temática con ID = {2}", new Object[]{sugerenciasId, clientesId, tematicasId});
         return actualizado.getCliente();
     }
-    
+
     /**
      * Borrar el cliente de una sugerencia.
      *
      * @param sugerenciasId. La sugerencia a la que se desea borrar el cliente.
-     * @param tematicasId. El ID de la temática de la cual hace parte la sugerencia.
+     * @param tematicasId. El ID de la temática de la cual hace parte la
+     * sugerencia.
      * @throws BusinessLogicException si la sugerencia no tiene cliente.
      */
     public void removeCliente(Long tematicasId, Long sugerenciasId) throws BusinessLogicException {
