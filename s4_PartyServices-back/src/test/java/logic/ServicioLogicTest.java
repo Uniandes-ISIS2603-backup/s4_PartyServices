@@ -154,17 +154,33 @@ public class ServicioLogicTest {
     /**
      * Prueba para actualizar un Servicio.
      */
-    
+    /**
     @Test
     public void updateServicioTest() throws BusinessLogicException {
+        List<ServicioEntity> entity = servicioLogic.findAll();
         
-        ServicioEntity entity = data.get(0);
         ServicioEntity pojoEntity = factory.manufacturePojo(ServicioEntity.class);
-        pojoEntity.setId(entity.getId());
+        pojoEntity.setId(entity.get(0).getId());
         servicioLogic.updateServicio(pojoEntity.getId(), pojoEntity);
-        ServicioEntity resp = em.find(ServicioEntity.class, entity.getId());
+        ServicioEntity resp = em.find(ServicioEntity.class, entity.get(0).getId());
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
         Assert.assertEquals(pojoEntity.getTipo(), resp.getTipo());
+        
+    }
+    */
+    @Test
+    public void updateServicioTest() throws BusinessLogicException 
+    {
+        ProveedorEntity pro = factory.manufacturePojo(ProveedorEntity.class);
+
+        ServicioEntity entity = servicioLogic.findAll().get(0);
+        
+        entity.agregarProveedor(pro);
+
+        ServicioEntity result = servicioLogic.updateServicio(entity.getId(), entity);
+
+        Assert.assertEquals(entity.getId(), result.getId());
+        Assert.assertEquals(entity.getTipo(), result.getTipo());
         
     }
 
