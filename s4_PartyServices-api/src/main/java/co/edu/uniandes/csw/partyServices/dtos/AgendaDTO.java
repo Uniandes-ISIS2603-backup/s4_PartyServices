@@ -145,13 +145,13 @@ public class AgendaDTO implements Serializable{
         AgendaEntity agendaEntity = new AgendaEntity();
         agendaEntity.setId(this.id);
         agendaEntity.setFechaPenitencia(this.fechaPenitencia);
-        agendaEntity.setProveeedor(this.proveedorDTO.toEntity());
-        agendaEntity.setJornadaDomingoND(this.jornadaLunesND);
-        agendaEntity.setJornadaDomingoND(this.jornadaMartesND);
-        agendaEntity.setJornadaDomingoND(this.jornadaMiercolesND);
-        agendaEntity.setJornadaDomingoND(this.jornadaJuevesND);
-        agendaEntity.setJornadaDomingoND(this.jornadaViernesND);
-        agendaEntity.setJornadaDomingoND(this.jornadaSabadoND);
+        if(this.proveedorDTO!=null) agendaEntity.setProveeedor(this.proveedorDTO.toEntity());
+        agendaEntity.setJornadaLunesND(this.jornadaLunesND);
+        agendaEntity.setJornadaMartesND(this.jornadaMartesND);
+        agendaEntity.setJornadaMiercolesND(this.jornadaMiercolesND);
+        agendaEntity.setJornadaJuevesND(this.jornadaJuevesND);
+        agendaEntity.setJornadaViernesND(this.jornadaViernesND);
+        agendaEntity.setJornadaSabadoND(this.jornadaSabadoND);
         agendaEntity.setJornadaDomingoND(this.jornadaDomingoND);
         return agendaEntity;
        

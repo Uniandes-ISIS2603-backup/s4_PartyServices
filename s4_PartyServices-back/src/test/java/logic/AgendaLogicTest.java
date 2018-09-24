@@ -258,7 +258,11 @@ public class AgendaLogicTest
     public void obtenerAgendaTest()
     {
         for (AgendaEntity agendaEntity : data) {
-            Assert.assertNotNull(agendaLogic.getAgenda(agendaEntity.getId()));
+            try {
+                Assert.assertNotNull(agendaLogic.getAgenda(agendaEntity.getId()));
+            } catch (BusinessLogicException ex) {
+                Assert.fail();
+            }
         }
     }
     @Test
@@ -266,7 +270,11 @@ public class AgendaLogicTest
     {
         AgendaEntity agenda =  data.get(0);
         agendaLogic.deleteAgenda(agenda.getId());
-        Assert.assertNull(agendaLogic.getAgenda(agenda.getId()));
+        try {
+            Assert.assertNull(agendaLogic.getAgenda(agenda.getId()));
+        } catch (BusinessLogicException ex) {
+            Assert.fail();
+        }
         data.remove(0);
     
     }
