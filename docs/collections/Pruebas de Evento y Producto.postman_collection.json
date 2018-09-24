@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "f549252f-3dfd-4840-bc9c-b80e21ceb45c",
+		"_postman_id": "c2991f65-69c7-492e-b1df-be0e8dbd4a74",
 		"name": "Pruebas de Evento y Producto",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -17,10 +17,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"id\":\"100\",\n \"estado\":\"terminado\",\n \"fecha\":\"201802\"\n}"
+					"raw": "{\n    \"cliente\": {\n        \"contrasenia\": \"00000000\",\n        \"email\": \"unemailnotanlargo@cosas.com\",\n        \"fechaNacimiento\": \"08/12/1999\",\n        \"id\": 2,\n        \"login\": \"Aquiseinsertaunlogin\"\n    },\n    \"estado\": \"Cancelado\",\n    \"fecha\": {\n        \"agenda\": {\n            \"id\": 0\n        },\n        \"dia\": \"2018-10-09T00:00:00-05:00\",\n        \"id\": 4,\n        \"jornada\": \"Tarde\"\n    },\n    \"id\": 2,\n    \"latitud\": 4.570868,\n    \"longitud\": -70.853233,\n    \"nombre\": \"FiestaPaula\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/evento/poolParty",
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/evento/FiestaPaula",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -30,7 +30,7 @@
 						"s4_PartyServices-api",
 						"api",
 						"evento",
-						"poolParty"
+						"FiestaPaula"
 					]
 				}
 			},
@@ -41,9 +41,12 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/evento/poolParty",
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/evento/FiestaPaula",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -53,7 +56,7 @@
 						"s4_PartyServices-api",
 						"api",
 						"evento",
-						"poolParty"
+						"FiestaPaula"
 					]
 				}
 			},
@@ -71,7 +74,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"nombre\":\"bombas\",\n \"tipoServicio\":\"decoracion\",\n \"dueño\":\"bombas fantasia\",\n \"costo\":\"10000\" ,\n \"cantidad\":\"2\"\n}"
+					"raw": "{\n\t\n\t\"nombre\":\"bombasRojas\",\n\t\"tipoServicio\":\"decoracion\",\n\t\"duenio\":\"bombas fantasia\",\n\t \"costo\":\"10000\" ,\n\t \"cantidad\":\"200\",\n\t \"proveedor\":{\"nombre\":\"pepe\", \"contrasenia\": \"pepeelmasgrande\", \"calificacion\":0 ,\"agenda\":{}}\n \n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/s4_PartyServices-api/api/producto",
@@ -94,9 +97,12 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/producto/bombas",
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/producto/bombasRojas",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -106,7 +112,7 @@
 						"s4_PartyServices-api",
 						"api",
 						"producto",
-						"bombas"
+						"bombasRojas"
 					]
 				}
 			},
@@ -117,9 +123,12 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/producto/bombas",
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/producto/bombasRojas",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -129,7 +138,7 @@
 						"s4_PartyServices-api",
 						"api",
 						"producto",
-						"bombas"
+						"bombasRojas"
 					]
 				}
 			},
@@ -147,10 +156,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"nombre\":\"bombas\",\n \"tipoServicio\":\"decoracion\",\n \"dueño\":\"bombas fantasia\",\n \"costo\":\"10000\" ,\n \"cantidad\":\"2\"\n}"
+					"raw": "{\"nombre\":\"bombas\",\n \"tipoServicio\":\"decoracion\",\n \"dueño\":\"bombas fantasia\",\n \"costo\":\"10000\" ,\n \"cantidad\":\"2\",\n \"proveedor\":{\"nombre\":\"pepe\", \"contrasenia\": \"pepeelmasgrande\", \"calificacion\":0 ,\"agenda\":{}}\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/producto/bombas",
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/producto/bombasRojas",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -160,7 +169,7 @@
 						"s4_PartyServices-api",
 						"api",
 						"producto",
-						"bombas"
+						"bombasRojas"
 					]
 				}
 			},
@@ -178,10 +187,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": ""
+					"raw": "{\n    \"cliente\": {\n        \"contrasenia\": \"00000000\",\n        \"email\": \"unemailnotanlargo@cosas.com\",\n        \"fechaNacimiento\": \"08/12/1999\",\n        \"id\": 2,\n        \"login\": \"Aquiseinsertaunlogin\"\n    },\n    \"estado\": \"En planeacion\",\n    \"fecha\": {\n        \"agenda\": {\n            \"id\": 0\n        },\n        \"dia\": \"2018-10-09T00:00:00-05:00\",\n        \"id\": 4,\n        \"jornada\": \"Tarde\"\n    },\n    \"id\": 2,\n    \"latitud\": 4.570868,\n    \"longitud\": -70.853233,\n    \"nombre\": \"Fiesta Paula\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/evento/poolParty",
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/evento/FiestaPaula",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -191,7 +200,7 @@
 						"s4_PartyServices-api",
 						"api",
 						"evento",
-						"poolParty"
+						"FiestaPaula"
 					]
 				}
 			},
@@ -209,7 +218,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"id\":\"100\",\n \"estado\":\"terminado\",\n \"fecha\":\"201802\"\n}"
+					"raw": "{\"nombre\":\"FiestaPaula\",\n \"estado\":\"En planeacion\",\n \"fecha\":{\n    \"agenda\": {\n        \"id\": 13,\n        \"jornadaDomingoND\": \"Ninguna\",\n        \"jornadaJuevesND\": \"Ninguna\",\n        \"jornadaLunesND\": \"Ninguna\",\n        \"jornadaMartesND\": \"Tarde\",\n        \"jornadaMiercolesND\": \"Ninguna\",\n        \"jornadaSabadoND\": \"Ninguna\",\n        \"jornadaViernesND\": \"Ninguna\",\n        \"proveedorDTO\": {}\n    },\n    \"dia\": \"2018-10-09T00:00:00-05:00\",\n    \"id\": 4,\n    \"jornada\": \"Tarde\"\n},\n \"latitud\":\"4.570868\",\n \"longitud\":\"-70.853233\",\n \"cliente\":{\"login\":\"Aquiseinsertaunlogin\",\"contrasenia\":\"00000000\",\"email\":\"unemailnotanlargo@cosas.com\",\"fechaNacimiento\":\"08/12/1999\"}\n\t\t\t\t\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/s4_PartyServices-api/api/evento",
