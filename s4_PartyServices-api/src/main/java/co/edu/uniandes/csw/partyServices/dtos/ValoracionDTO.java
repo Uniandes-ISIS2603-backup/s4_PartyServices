@@ -40,6 +40,9 @@ public class ValoracionDTO implements Serializable{
     private String comentario;
     private String nombreUsuario;
     
+    /**
+     * Relación fantasma con proveedor no hace parte del UML pero no corría si no la ponía, después se quitará
+     */
     private ProveedorDTO proveedor;
     /**
      * Constructor por defecto
