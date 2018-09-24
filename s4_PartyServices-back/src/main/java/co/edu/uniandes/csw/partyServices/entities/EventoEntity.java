@@ -29,7 +29,7 @@ public class EventoEntity  extends BaseEntity implements Serializable
     private String estado ;
     
     @PodamExclude
-    @ManyToOne
+    @ManyToOne()
     private FechaEntity fecha ;
     
     @PodamExclude

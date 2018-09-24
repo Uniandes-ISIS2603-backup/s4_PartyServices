@@ -27,7 +27,7 @@ public class FechaEntity extends BaseEntity implements Serializable {
     
     
     @PodamExclude
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private AgendaEntity agenda;
     
     @Temporal(TemporalType.DATE)
