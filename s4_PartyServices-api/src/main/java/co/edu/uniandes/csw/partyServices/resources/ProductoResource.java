@@ -82,17 +82,17 @@ public class ProductoResource
     
     @PUT
     @Path("{producto: [a-zA-Z][a-zA-Z]*}")
-    public ProductoDTO actualizarProducto(@PathParam("producto")String producto) throws BusinessLogicException
+    public ProductoDTO actualizarProducto(@PathParam("producto")String pNombre, ProductoDTO producto) throws BusinessLogicException
     {
          LOGGER.log(Level.INFO, "ProductoResource updateProducto: input: id: {0} , book: {1}");
-       
-        ProductoEntity entity = productoLogic.findByNombre(producto);
+       producto.setNombre(pNombre);
+        ProductoEntity entity = productoLogic.findByNombre(pNombre);
         if (entity== null) 
         {
             throw new WebApplicationException("El recurso /productos/" + producto + " no existe.", 404);
         }
         
-        ProductoEntity updateado = productoLogic.updateProducto(producto, entity);
+        ProductoEntity updateado = productoLogic.updateProducto(pNombre, producto.toEntity());
         
         ProductoDTO detailDTO = new ProductoDTO(updateado);
        
