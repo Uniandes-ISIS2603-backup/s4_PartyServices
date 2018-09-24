@@ -319,7 +319,6 @@ public class ClienteLogicTest {
      * @throws
      * co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException
      */
-
     @Test(expected = BusinessLogicException.class)
     public void validacionesFalseTest() throws BusinessLogicException {
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
