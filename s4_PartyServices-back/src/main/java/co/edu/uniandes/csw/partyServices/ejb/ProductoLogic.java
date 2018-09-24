@@ -54,7 +54,7 @@ public class ProductoLogic {
         if (validateNombreCaracteres(productoEntity.getNombre())) {
             throw new BusinessLogicException("El nombre del producto contiene caracteres especiales");
         }
-        if (productoEntity.getDuenio() == null ) 
+        if (productoEntity.getDuenio() == null || productoEntity.getProveedor() == null ) 
         {
             throw new BusinessLogicException("El producto debe tener un proveedor asociado");
         }
