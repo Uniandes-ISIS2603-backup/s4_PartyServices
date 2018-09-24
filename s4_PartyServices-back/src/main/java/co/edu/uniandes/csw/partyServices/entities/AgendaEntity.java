@@ -42,7 +42,7 @@ public class AgendaEntity extends BaseEntity implements Serializable{
     @PodamExclude
     @OneToMany(
             mappedBy="agenda",
-            cascade = CascadeType.PERSIST, 
+            cascade = CascadeType.ALL, 
             orphanRemoval =true ,
             //Terminan en many son lazy. Eger terminan en One
             fetch= FetchType.LAZY
