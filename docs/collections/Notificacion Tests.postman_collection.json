@@ -1,0 +1,536 @@
+{
+	"info": {
+		"_postman_id": "869b5fa2-3e46-4494-882f-2d3ce1b19450",
+		"name": "Notificacion Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear una notificacion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "63461fd7-3c18-4328-ade6-fd487647c672",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_notificacion\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"mensaje\":\"Se ha agregado un nuevo evento\",\n    \"tipoDeAviso\":\"Aviso\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/notificacion",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"notificacion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear una notificacion con un mensaje nulo.",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "54968456-5b37-483b-ab17-e0ac1beca5d7",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No crea con el mismo nombre\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El mensaje no puede ser nulo\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"tipoDeAviso\":\"Aviso\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/notificacion",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"notificacion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear una notificacion con un tipo nulo.",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d9ed9272-f883-449c-98c9-54f914162ac2",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No crea con el mismo nombre\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El mensaje no puede ser tipo Null\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"mensaje\":\"Se ha agregado un nuevo evento\"\n    \n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/notificacion",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"notificacion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener todas las notificaciones",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1b7d8b4d-d0a6-4ce4-b818-ca77c767c1f5",
+						"type": "text/javascript",
+						"exec": [
+							"var data= JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get all\"] = responseCode.code === 200;",
+							"tests[\"proveedores count\"] = data.length >= 0;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"mensaje\":\"Se ha agregado un nuevo evento\",\n    \"tipoDeAviso\":\"Aviso\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/notificacion",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"notificacion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener  una notificacion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ef2de230-9e0b-4d1f-aef6-c437e3677f9a",
+						"type": "text/javascript",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"mensaje\":\"Se ha agregado un nuevo evento\",\n    \"tipoDeAviso\":\"Aviso\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/notificacion/{{new_id_notificacion}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"notificacion",
+						"{{new_id_notificacion}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener  una notificacion que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d268a031-79d0-48c6-be1d-cf94d4a99033",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No consulta con id que no existe\"] = responseCode.code === 404; ",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /notificacion/0 no existe.\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"mensaje\":\"Se ha agregado un nuevo evento\",\n    \"tipoDeAviso\":\"Aviso\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/notificacion/0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"notificacion",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar  una notificacion que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "84b02ab1-e90f-4eee-9493-ec6debd8ad08",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No actualiza con id que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /notificacion/0 no existe.\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"mensaje\":\"Se ha agregado un nuevo evento\",\n    \"tipoDeAviso\":\"Aviso\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/notificacion/0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"notificacion",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar  una notificacion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b9f3589d-fd50-4bcf-8aed-2dc7a4326807",
+						"type": "text/javascript",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Put\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"mensaje\":\"Se ha agregado un nuevo evento para la fecha indicada\",\n    \"tipoDeAviso\":\"Aviso\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/notificacion/{{new_id_notificacion}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"notificacion",
+						"{{new_id_notificacion}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar  una notificacion con mensaje nulo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dfc07d07-7792-476a-b0a9-45cfeed566bf",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No crea con ISBN invalido\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El mensaje no puede ser nulo\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"tipoDeAviso\":\"Aviso\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/notificacion/{{new_id_notificacion}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"notificacion",
+						"{{new_id_notificacion}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar  una notificacion con un tipo nulo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c87f4783-80c2-4c02-b670-4a875364ab9d",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No crea con ISBN invalido\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El mensaje no puede ser tipo Null\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"mensaje\":\"Se ha agregado un nuevo evento para la fecha indicada\"\n\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/notificacion/{{new_id_notificacion}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"notificacion",
+						"{{new_id_notificacion}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar  una notificacion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d3cb46e2-0420-4430-9dcb-853551d2601c",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/notificacion/{{new_id_notificacion}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"notificacion",
+						"{{new_id_notificacion}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar  una notificacion que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "395c130a-5586-4ba4-9489-5e0073e3da16",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No borra con id que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /notificacion/0 no existe.\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/notificacion/0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"notificacion",
+						"0"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

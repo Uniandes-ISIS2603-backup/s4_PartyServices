@@ -218,8 +218,12 @@ public class FechaLogicTest {
     public void obtenerFechaTest()
     {
         for (FechaEntity fechaEntity : data) {
-            Assert.assertNotNull(fechaLogic.getFechaID(fechaEntity.getId()));
-            Assert.assertNotNull(fechaLogic.getFechaPorDiaAgendaJornada(fechaEntity.getDia(),fechaEntity.getAgenda().getId(),fechaEntity.getJornada()));
+            try {
+                Assert.assertNotNull(fechaLogic.getFechaID(fechaEntity.getId()));
+                Assert.assertNotNull(fechaLogic.getFechaPorDiaAgendaJornada(fechaEntity.getDia(),fechaEntity.getAgenda().getId(),fechaEntity.getJornada()));
+            } catch (BusinessLogicException ex) {
+                Assert.fail();
+            }
         }
     }
     
