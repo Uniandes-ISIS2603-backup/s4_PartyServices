@@ -24,7 +24,6 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
@@ -236,17 +235,6 @@ public class ProductoLogicTest {
         ProductoEntity result = productoLogic.createProducto(newEntity);
     }
 
-    @Test(expected = BusinessLogicException.class)
-    public void createProductoEventoInvalidoTest() throws BusinessLogicException 
-    {
-        ProductoEntity newEntity = factory.manufacturePojo(ProductoEntity.class);
-        newEntity.setEventos(null);
-        newEntity.setProveedor(proveedorData.get(0));
-        newEntity.setNombre("Producto de prueba eventos nulos");
-        newEntity.setCosto(1100);
-        newEntity.setCantidad(11);
-        ProductoEntity result = productoLogic.createProducto(newEntity);    
-    }
 
     @Test(expected = BusinessLogicException.class)
     public void createProductoCantidadDeEventosInvalidosTest() throws BusinessLogicException 

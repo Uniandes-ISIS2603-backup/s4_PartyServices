@@ -57,24 +57,24 @@ public class ClienteLogic {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         ZoneId defaultZoneId = ZoneId.systemDefault();
 
-        if(clienteEntity.getFechaNacimiento() == null){
+        if (clienteEntity.getFechaNacimiento() == null) {
             throw new BusinessLogicException("La fecha de nacimiento no puede ser nula");
         }
 
         Date fechaAhora = Date.from(Instant.now());
         try {
-            
+
             Date fechaClienteNacimiento = format.parse(clienteEntity.getFechaNacimiento());
             int añosPermitidos = Period.between(fechaClienteNacimiento.toInstant().atZone(defaultZoneId).toLocalDate(), fechaAhora.toInstant().atZone(defaultZoneId).toLocalDate()).getYears();
 
             if (fechaClienteNacimiento.compareTo(fechaAhora) > 0) {
-                LOGGER.log(Level.INFO, "Hubo un error con la fecha.");
+                LOGGER.log(Level.INFO, "Hubo un error con la fecha, no puede ser posterior a la fecha actual.");
 
                 throw new BusinessLogicException("La fecha de nacimiento es superior a la actual");
             } else if (añosPermitidos < 18) {
-                LOGGER.log(Level.INFO, "Hubo un error con la fecha.");
+                LOGGER.log(Level.INFO, "Hubo un error con la edad, no puede ser menor a la requerida.");
 
-                throw new BusinessLogicException("Un usuario menor de edad no puede organizar una fiesta");
+                throw new BusinessLogicException("Un usuario menor de edad permitida no puede organizar una fiesta");
             }
         } catch (ParseException ex) {
 
@@ -82,7 +82,7 @@ public class ClienteLogic {
         }
 
         if (validaciones(clienteEntity)) {
-        LOGGER.log(Level.INFO, "Termina proceso de creación del cliente. No hubo problemas");
+            LOGGER.log(Level.INFO, "Termina proceso de creación del cliente. No hubo problemas");
 
             return persistence.create(clienteEntity);
         } else {
@@ -125,35 +125,34 @@ public class ClienteLogic {
 
     /**
      * Actualizar un cliente.
-     * @param clienteId: id de la cliente para buscarla en la base de
-     * datos.
+     *
+     * @param clienteId: id de la cliente para buscarla en la base de datos.
      * @param clienteEntity: cliente con los cambios para ser actualizado, por
      * ejemplo el nombre.
      * @return el cliente con los cambios actualizados en la base de datos.
      * @throws
      * co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException
      */
-    public ClienteEntity updateCliente(Long clienteId,ClienteEntity clienteEntity) throws BusinessLogicException {
-
+    public ClienteEntity updateCliente(Long clienteId, ClienteEntity clienteEntity) throws BusinessLogicException {
 
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar el cliente con id = {0}", clienteEntity.getId());
 
-      
         if (!validaciones(clienteEntity)) {
             throw new BusinessLogicException("No se pudo validar una regla de negocio");
         }
-        ClienteEntity newEntity =persistence.update(clienteEntity) ;
+        ClienteEntity newEntity = persistence.update(clienteEntity);
 
         LOGGER.log(Level.INFO, "Termina proceso de actualizar el cliente con id = {0}", clienteEntity.getId());
         return newEntity;
     }
 
     /**
-     * Valida las diferentes reglas de negocio 
+     * Valida las diferentes reglas de negocio
      *
      * @param clienteEntity La entidad de tipo cliente del nuevo cliente a
      * persistir.
-     * @return true dependiendo de si se valida todas las reglas o una excpeción en caso de que no
+     * @return true dependiendo de si se valida todas las reglas o una excpeción
+     * en caso de que no
      * @throws BusinessLogicException Si no se cumplen las reglas de negocio
      */
     public boolean validaciones(ClienteEntity clienteEntity) throws BusinessLogicException {
@@ -203,7 +202,8 @@ public class ClienteLogic {
      * Borrar un cliente
      *
      * @param clienteID: id del cliente a borrar
-     * @throws BusinessLogicException Si el cliente a eliminar tiene eventos en progreso.
+     * @throws BusinessLogicException Si el cliente a eliminar tiene eventos en
+     * progreso.
      */
     public void deleteCliente(Long clienteID) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de borrar el cliente con id = {0}", clienteID);
@@ -211,16 +211,12 @@ public class ClienteLogic {
         if (eventos != null && !eventos.isEmpty()) {
             for (EventoEntity entity : eventos) {
                 if (entity.getEstado().equals(ConstantesEvento.EN_PROCESO)) {
-                throw new BusinessLogicException("No se puede borrar un cliente que tenga un evento en curso");
-            }
+                    throw new BusinessLogicException("No se puede borrar un cliente que tenga un evento en curso");
+                }
 
             }
 
         }
-        
-       
-            
-       
 
         persistence.delete(clienteID);
         LOGGER.log(Level.INFO, "Termina proceso de borrar el cliente con id = {0}", clienteID);

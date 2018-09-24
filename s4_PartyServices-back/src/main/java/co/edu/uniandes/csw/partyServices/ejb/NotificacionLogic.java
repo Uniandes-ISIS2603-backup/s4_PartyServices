@@ -20,47 +20,42 @@ import javax.inject.Inject;
  * @author estudiante
  */
 @Stateless
-public class NotificacionLogic 
-{ private static final Logger LOGGER = Logger.getLogger(NotificacionLogic.class.getName());
-@Inject
-private NotificacionPersistence persistence;
-public NotificacionEntity createNotificacion (NotificacionEntity entity) throws BusinessLogicException{
-    
-      LOGGER.log(Level.INFO, "Inicia proceso de creación de la notificacion");
-         if(entity.getMensaje()== null)
-      {
-          throw new BusinessLogicException("El mensaje no puede ser nulo");
-      }
-      if(entity.getMensaje().length()>2000)
-      {
-          throw new BusinessLogicException("El mensaje es demasiado largo. Debe tener menos de 2000 caracteres");
-      }
-            if(entity.getTipoDeAviso()== null)
-      {
-          throw new BusinessLogicException("El mensaje no puede ser tipo Null");
-      }
-            boolean notifCliente = false;
-            boolean notifProveedor = false;
-            if(entity.getCliente()!=null)
-            {
-             notifCliente = true;
-            }
-            if(entity.getProveedor()!=null)
-            {
-                notifProveedor = true;
-            }
-        if(notifCliente&&notifProveedor == false)
-        {
-             throw new BusinessLogicException("El mensaje debe tener un destinatario");
-        }
-    
+public class NotificacionLogic {
 
-            
+    private static final Logger LOGGER = Logger.getLogger(NotificacionLogic.class.getName());
+    @Inject
+    private NotificacionPersistence persistence;
+
+    public NotificacionEntity createNotificacion(NotificacionEntity entity) throws BusinessLogicException {
+
+        LOGGER.log(Level.INFO, "Inicia proceso de creación de la notificacion");
+        if (entity.getMensaje() == null) {
+            throw new BusinessLogicException("El mensaje no puede ser nulo");
+        }
+        if (entity.getMensaje().length() > 2000) {
+            throw new BusinessLogicException("El mensaje es demasiado largo. Debe tener menos de 2000 caracteres");
+        }
+        if (entity.getTipoDeAviso() == null) {
+            throw new BusinessLogicException("El mensaje no puede ser tipo Null");
+        }
+        boolean notifCliente = false;
+        boolean notifProveedor = false;
+        if (entity.getCliente() != null) {
+            notifCliente = true;
+        }
+        if (entity.getProveedor() != null) {
+            notifProveedor = true;
+        }
+        if (notifCliente && notifProveedor == false) {
+            throw new BusinessLogicException("El mensaje debe tener un destinatario");
+        }
+
         // Invoca la persistencia para crear la notificacion 
         persistence.create(entity);
         LOGGER.log(Level.INFO, "Termina proceso de creación de la notificacion");
         return entity;
     }
+
     /**
      *
      * Obtener todas los proveedores existentes en la base de datos.
@@ -97,39 +92,32 @@ public NotificacionEntity createNotificacion (NotificacionEntity entity) throws 
      *
      * Actualizar una notificacion.
      *
-     * @param notifID: id de la notificacion para buscarlo en la base de
-     * datos.
-     * @param notificacionEntity: notificacion con los cambios para ser actualizada,
-     * por ejemplo el mensaje.
+     * @param notifID: id de la notificacion para buscarlo en la base de datos.
+     * @param notificacionEntity: notificacion con los cambios para ser
+     * actualizada, por ejemplo el mensaje.
      * @return la notificacion con los cambios actualizados en la base de datos.
      */
     public NotificacionEntity updateNotificacion(Long notifID, NotificacionEntity entity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar la notificacion con id = {0}", notifID);
-                 if(entity.getMensaje()== null)
-      {
-          throw new BusinessLogicException("El mensaje no puede ser nulo");
-      }
-      if(entity.getMensaje().length()>2000)
-      {
-          throw new BusinessLogicException("El mensaje es demasiado largo. Debe tener menos de 2000 caracteres");
-      }
-            if(entity.getTipoDeAviso()== null)
-      {
-          throw new BusinessLogicException("El mensaje no puede ser tipo Null");
-      }
-            boolean notifCliente = false;
-            boolean notifProveedor = false;
-            if(entity.getCliente()!=null)
-            {
-             notifCliente = true;
-            }
-            if(entity.getProveedor()!=null)
-            {
-                notifProveedor = true;
-            }
-        if(notifCliente&&notifProveedor == false)
-        {
-             throw new BusinessLogicException("El mensaje debe tener un destinatario");
+        if (entity.getMensaje() == null) {
+            throw new BusinessLogicException("El mensaje no puede ser nulo");
+        }
+        if (entity.getMensaje().length() > 2000) {
+            throw new BusinessLogicException("El mensaje es demasiado largo. Debe tener menos de 2000 caracteres");
+        }
+        if (entity.getTipoDeAviso() == null) {
+            throw new BusinessLogicException("El mensaje no puede ser tipo Null");
+        }
+        boolean notifCliente = false;
+        boolean notifProveedor = false;
+        if (entity.getCliente() != null) {
+            notifCliente = true;
+        }
+        if (entity.getProveedor() != null) {
+            notifProveedor = true;
+        }
+        if (notifCliente && notifProveedor == false) {
+            throw new BusinessLogicException("El mensaje debe tener un destinatario");
         }
         // Note que, por medio de la inyección de dependencias se llama al método "update(entity)" que se encuentra en la persistencia.
         NotificacionEntity newEntity = persistence.update(entity);
@@ -145,8 +133,7 @@ public NotificacionEntity createNotificacion (NotificacionEntity entity) throws 
      */
     public void deleteNotificacion(Long notifID) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de borrar la notificacion con id = {0}", notifID);
-        
-        
+
         persistence.delete(notifID);
         LOGGER.log(Level.INFO, "Termina proceso de borrar la notificacion con id = {0}", notifID);
     }

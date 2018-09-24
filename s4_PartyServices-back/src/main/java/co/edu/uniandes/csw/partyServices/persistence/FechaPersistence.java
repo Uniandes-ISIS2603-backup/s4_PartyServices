@@ -60,7 +60,7 @@ public class FechaPersistence {
      */
     public FechaEntity find(Long fechaId) 
     {
-        LOGGER.log(Level.INFO, "Consultando editorial con id={0}", fechaId);
+        LOGGER.log(Level.INFO, "Consultando fecha con id={0}", fechaId);
      
         return em.find(FechaEntity.class, fechaId);
     }
@@ -91,7 +91,7 @@ public class FechaPersistence {
         // busca la agenda
         FechaEntity entity = em.find(FechaEntity.class, fechaId);
         em.remove(entity);
-        LOGGER.log(Level.INFO, "Saliendo de fecha la agenda con id = {0}", fechaId);
+        LOGGER.log(Level.INFO, "Saliendo de borrar la fecha con id = {0}", fechaId);
     }
     
     
@@ -104,7 +104,7 @@ public class FechaPersistence {
      * Si existe alguna devuelve la primera.
      */
     public FechaEntity findByDiaAgendaAndJornada(Date dia,long idAgenda, String jornada) {
-        LOGGER.log(Level.INFO, "Consultando fecha por dia ", dia);
+        LOGGER.log(Level.INFO, "Consultando fecha por dia {0}", dia);
         // Se crea un query para buscar fechas con el dia que recibe el método como argumento. 
         TypedQuery query = em.createQuery("Select e From FechaEntity e where e.dia = :dia and e.agenda.id = :idAgenda and e.jornada=:jornada", FechaEntity.class);
         // Se remplaza el placeholder ":name" con el valor del argumento 
@@ -122,7 +122,7 @@ public class FechaPersistence {
         } else {
             result = sameName.get(0);
         }
-        LOGGER.log(Level.INFO, "Saliendo de consultar fecha por dia ", dia);
+        LOGGER.log(Level.INFO, "Saliendo de consultar fecha por dia {0}", dia);
         return result;
     }
 }
