@@ -91,7 +91,7 @@ public class SugerenciaResource {
      * temática. Si no hay ninguna retorna una lista vacía.
      */
     @GET
-    public List<SugerenciaDTO> getSugerencias(@PathParam("TematicasId") Long tematicasId) {
+    public List<SugerenciaDTO> getSugerencias(@PathParam("tematicasId") Long tematicasId) {
         LOGGER.log(Level.INFO, "SugerenciaResource getSugerencias: input: {0}", tematicasId);
         List<SugerenciaDTO> listaDTOs = listEntity2DTO(sugerenciaLogic.getSugerencias(tematicasId));
         LOGGER.log(Level.INFO, "SugerenciaResource getSugerencias: output: {0}", listaDTOs.toString());
@@ -115,9 +115,7 @@ public class SugerenciaResource {
     @Path("{sugerenciasId: \\d+}")
     public SugerenciaDTO updateSugerencia(@PathParam("tematicasId") Long tematicasId, @PathParam("sugerenciasId") Long sugerenciasId, SugerenciaDTO sugerencia) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "SugerenciaResource updateSugerencia: input: tematicasId: {0} , sugerenciasId: {1} , sugerencia:{2}", new Object[]{tematicasId, sugerenciasId, sugerencia.toString()});
-        if (!sugerenciasId.equals(sugerencia.getId())) {
-            throw new BusinessLogicException("Los ids de la sugerencia no coinciden.");
-        }
+        
         SugerenciaEntity entity = sugerenciaLogic.getSugerencia(tematicasId, sugerenciasId);
         if (entity == null) {
             throw new WebApplicationException("El recurso /tematicas/" + tematicasId + "/sugerencias/" + sugerenciasId + " no existe.", 404);

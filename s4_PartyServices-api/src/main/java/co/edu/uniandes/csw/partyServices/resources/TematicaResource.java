@@ -191,4 +191,25 @@ public class TematicaResource {
         }
         return list;
     }
+    
+    /**
+     * Conexión con el servicio de sugerencias para una temática. {@link TematicaResource}
+     *
+     * Este método conecta la ruta de /tematicas con las rutas de /sugerencias que
+     * dependen de la tematica, es una redirección al servicio que maneja el segmento
+     * de la URL que se encarga de las sugerencias.
+     *
+     * @param tematicasId El ID de la tematica con respecto a la cual se accede al
+     * servicio.
+     * @return El servicio de sugerencias para esa tematica en paricular.\
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra la tematica.
+     */
+    @Path("{tematicasId: \\d+}/sugerencias")
+    public Class<SugerenciaResource> getSugerenciaResource(@PathParam("tematicasId") Long tematicasId) {
+        if (tematicaLogic.getTematica(tematicasId) == null) {
+            throw new WebApplicationException("El recurso /tematicas/" + tematicasId + "/sugerencias no existe.", 404);
+        }
+        return SugerenciaResource.class;
+    }
 }
