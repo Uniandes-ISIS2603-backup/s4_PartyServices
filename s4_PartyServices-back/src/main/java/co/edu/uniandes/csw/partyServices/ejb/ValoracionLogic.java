@@ -46,11 +46,9 @@ public class ValoracionLogic {
                 throw new BusinessLogicException("El tamaño del texto no debe ser superior a los 10000 caracteres");
         }
         ProveedorEntity proveedor = proveedorPersistence.find(proveedorId);
-        valoracionEntity.setProveedor(proveedor);
-        persistence.create(valoracionEntity);
-        
+        valoracionEntity.setProveedor(proveedor); 
         LOGGER.log(Level.INFO, "Termina proceso de creación de la valoracion");
-        return valoracionEntity;
+        return persistence.create(valoracionEntity);
     }
     
     /**

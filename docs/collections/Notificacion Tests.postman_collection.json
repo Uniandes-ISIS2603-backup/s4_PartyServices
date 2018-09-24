@@ -55,10 +55,10 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "54968456-5b37-483b-ab17-e0ac1beca5d7",
+						"id": "d6c5f67a-dae9-4b01-a0aa-05a0678d2c4b",
 						"type": "text/javascript",
 						"exec": [
-							"tests[\"No crea con el mismo nombre\"] = responseCode.code === 412;",
+							"tests[\"No crea con el mensaje nulo\"] = responseCode.code === 412;",
 							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El mensaje no puede ser nulo\");"
 						]
 					}
@@ -98,10 +98,10 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "d9ed9272-f883-449c-98c9-54f914162ac2",
+						"id": "cc543ff5-e346-435e-8c91-bb0f591558ef",
 						"type": "text/javascript",
 						"exec": [
-							"tests[\"No crea con el mismo nombre\"] = responseCode.code === 412;",
+							"tests[\"No crea con el tipoDeAviso nulo\"] = responseCode.code === 412;",
 							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El mensaje no puede ser tipo Null\");"
 						]
 					}
@@ -363,10 +363,10 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "dfc07d07-7792-476a-b0a9-45cfeed566bf",
+						"id": "9c08fe37-cba3-4983-a78c-d246cd1d7249",
 						"type": "text/javascript",
 						"exec": [
-							"tests[\"No crea con ISBN invalido\"] = responseCode.code === 412;",
+							"tests[\"No actualiza con el mensaje nulo\"] = responseCode.code === 412;",
 							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El mensaje no puede ser nulo\");"
 						]
 					}
@@ -407,10 +407,10 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "c87f4783-80c2-4c02-b670-4a875364ab9d",
+						"id": "470d4c6a-56db-4108-8f4a-d85fd5c8765b",
 						"type": "text/javascript",
 						"exec": [
-							"tests[\"No crea con ISBN invalido\"] = responseCode.code === 412;",
+							"tests[\"No actualiza con el tipoDeAviso Nulo\"] = responseCode.code === 412;",
 							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El mensaje no puede ser tipo Null\");"
 						]
 					}

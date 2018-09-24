@@ -11,11 +11,11 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "994e2ca7-013c-4764-8837-883e6ede1c26",
+						"id": "96f7a21c-05ff-4c6b-a18e-9cba037681ce",
 						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
-							"postman.setGlobalVariable(\"new_nombre_proveedor\",data.nombre);",
+							"postman.setGlobalVariable(\"new_id_proveedor\",data.id);",
 							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
 						]
 					}
@@ -98,10 +98,10 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "0f993a43-f02c-4819-9562-3c003d94fa79",
+						"id": "073bfd6e-b53e-4102-837a-7e81d32010f7",
 						"type": "text/javascript",
 						"exec": [
-							"tests[\"No crea con el mismo nombre\"] = responseCode.code === 412;",
+							"tests[\"No crea con la contraseña en null\"] = responseCode.code === 412;",
 							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"la contraseña no puede ser null\");"
 						]
 					}
@@ -141,10 +141,10 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "54af7ac3-1ee2-460a-a812-1d44dd7be4ee",
+						"id": "0d44e140-bb70-4f41-ab01-e0789e159d8b",
 						"type": "text/javascript",
 						"exec": [
-							"tests[\"No crea con el mismo nombre\"] = responseCode.code === 412;",
+							"tests[\"No crea con contraseña con menos de 8 caracteres\"] = responseCode.code === 412;",
 							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"la contraseña debe tener más de 8 caracteres\");"
 						]
 					}
@@ -184,10 +184,10 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "570ed622-414d-4749-849e-78e1563acebb",
+						"id": "a555a434-1bd9-41e1-bff1-5c042b754a8e",
 						"type": "text/javascript",
 						"exec": [
-							"tests[\"No crea con el mismo nombre\"] = responseCode.code === 412;",
+							"tests[\"No crea con la contraseña igual que el nombre\"] = responseCode.code === 412;",
 							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"la contraseña no puede ser igual al nombre de Usuario\");"
 						]
 					}
@@ -425,10 +425,10 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "dede05e9-f0a5-45b5-9fd4-0cd28e3ea827",
+						"id": "a9d84e23-754d-4e65-88e3-71d2129d6911",
 						"type": "text/javascript",
 						"exec": [
-							"tests[\"No crea con ISBN invalido\"] = responseCode.code === 412;",
+							"tests[\"No con contraseña nula\"] = responseCode.code === 412;",
 							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"la contraseña debe tener más de 8 caracteres y máximo 35 caracteres\");"
 						]
 					}
@@ -469,10 +469,10 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "d2a5542c-1bf4-46d9-bd1a-8c18da7981be",
+						"id": "5f5617a6-c1c6-46fd-baf5-792570900eda",
 						"type": "text/javascript",
 						"exec": [
-							"tests[\"No crea con ISBN invalido\"] = responseCode.code === 412;",
+							"tests[\"No actualizar con contraseña menor a 8 caracteres\"] = responseCode.code === 412;",
 							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"la contraseña debe tener más de 8 caracteres y máximo 35 caracteres\");"
 						]
 					}
@@ -548,7 +548,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "d3e8536d-d0cb-4896-a0f0-f181a3839ecc",
+						"id": "f818fe1c-1901-4245-a88b-4a8df6e30da1",
 						"type": "text/javascript",
 						"exec": [
 							"tests[\"No borra con id que no existe\"] = responseCode.code === 404;",
