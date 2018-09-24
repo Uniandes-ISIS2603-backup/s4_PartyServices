@@ -7,8 +7,10 @@ package co.edu.uniandes.csw.partyServices.ejb;
 
 import co.edu.uniandes.csw.partyServices.entities.ProveedorEntity;
 import co.edu.uniandes.csw.partyServices.entities.ServicioEntity;
+import co.edu.uniandes.csw.partyServices.entities.TematicaEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.partyServices.persistence.ServicioPersistence;
+import co.edu.uniandes.csw.partyServices.persistence.TematicaPersistence;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,6 +26,9 @@ public class ServicioLogic {
 
     @Inject
     private ServicioPersistence persistence; // Variable para acceder a la persistencia de la aplicación. Es una inyección de dependencias.
+    
+    @Inject
+    private TematicaPersistence tematicaPersistence;
 
     /**
      * Crea una servicio en la persistencia.
@@ -78,27 +83,30 @@ public class ServicioLogic {
     }
 
     /**
+     * Actualiza la información de una instancia de Servicio.
      *
-     * Actualizar una servicio.
-     *
-     * @param serviciosId: id de la servicio para buscarla en la base de
-     * datos.
-     * @param servicioEntity: servicio con los cambios para ser actualizada,
-     * por ejemplo el nombre.
-     * @return la servicio con los cambios actualizados en la base de datos.
+     * @param serviciosId Identificador de la instancia a actualizar
+     * @param servicioEntity Instancia de ServicioEntity con los nuevos datos.
+     * @return Instancia de ServicioEntity con los datos actualizados.
      */
-    public ServicioEntity updateServicio(Long serviciosId, ServicioEntity servicioEntity) {
-        LOGGER.log(Level.INFO, "Inicia proceso de actualizar la servicio con id = {0}", serviciosId);
-        // Note que, por medio de la inyección de dependencias se llama al método "update(entity)" que se encuentra en la persistencia.
+    public ServicioEntity updateServicio(Long serviciosId, ServicioEntity servicioEntity) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el libro con id = {0}", serviciosId);
+        if (!validateTipo(servicioEntity.getTipo())) {
+            throw new BusinessLogicException("El Tipo es inválido");
+        }
         ServicioEntity newEntity = persistence.update(servicioEntity);
-        LOGGER.log(Level.INFO, "Termina proceso de actualizar la servicio con id = {0}", servicioEntity.getId());
+        LOGGER.log(Level.INFO, "Termina proceso de actualizar el libro con id = {0}", servicioEntity.getId());
         return newEntity;
+    }
+    
+    public boolean validateTipo(String pTipo) {
+        return !(pTipo == null || pTipo.isEmpty());
     }
 
     /**
      * Borrar un servicio
      *
-     * @param serviciosId: id de la servicio a borrar
+     * @param serviciosId: id del servicio a borrar
      * @throws BusinessLogicException Si la servicio a eliminar tiene servicios.
      */
     public void deleteServicio(Long serviciosId) throws BusinessLogicException {
@@ -111,5 +119,10 @@ public class ServicioLogic {
         persistence.delete(serviciosId);
         LOGGER.log(Level.INFO, "Termina proceso de borrar el servicio con id = {0}", serviciosId);
     }
+    
+    public List<ServicioEntity> findAll()
+     {
+       return persistence.findAll() ;
+     }
     
 }

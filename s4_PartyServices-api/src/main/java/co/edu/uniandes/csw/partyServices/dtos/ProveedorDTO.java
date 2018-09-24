@@ -5,10 +5,8 @@
  */
 package co.edu.uniandes.csw.partyServices.dtos;
 
-import co.edu.uniandes.csw.partyServices.entities.AgendaEntity;
 import co.edu.uniandes.csw.partyServices.entities.ProveedorEntity;
 import java.io.Serializable;
-import java.util.Collection;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -18,7 +16,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  */
 public class ProveedorDTO implements Serializable{  
   
-  private long id;
+  private Long id;
   private String nombre ;
   private String contrasenia ;
   private Double calificacion;
@@ -35,7 +33,10 @@ public ProveedorDTO(ProveedorEntity provEntity) {
             this.id = provEntity.getId();
             this.nombre = provEntity.getNombre();
             this.contrasenia = provEntity.getContrasenia();
+            this.calificacion = provEntity.getCalificacion();
+            if(provEntity.getAgenda()!=null){
             this.agenda = new AgendaDTO (provEntity.getAgenda());
+            }
         }
     }
 
@@ -47,14 +48,17 @@ public ProveedorDTO(ProveedorEntity provEntity) {
      */
     public ProveedorEntity toEntity() {
         ProveedorEntity proveedorEntity = new ProveedorEntity();
-        proveedorEntity.setId(this.getId());
+        proveedorEntity.setId(this.id);
         proveedorEntity.setNombre(this.getNombre());
         proveedorEntity.setContrasenia(this.getContrasenia());
+        proveedorEntity.setCalificacion(this.calificacion);
+        if(this.agenda!=null){
         proveedorEntity.setAgenda(this.agenda.toEntity());
+        }
         return proveedorEntity;
     }
     
-    public long getId()
+    public Long getId()
     {
         return id;
     }
@@ -83,7 +87,7 @@ public void setCalificacion(Double pCalificacion)
 {
     this.calificacion = pCalificacion;
 }
-public void setID(long pid)
+public void setId(Long pid)
 {
     this.id = pid ;
 }

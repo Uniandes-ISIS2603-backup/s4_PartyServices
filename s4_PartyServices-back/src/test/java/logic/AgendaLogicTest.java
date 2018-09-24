@@ -258,7 +258,11 @@ public class AgendaLogicTest
     public void obtenerAgendaTest()
     {
         for (AgendaEntity agendaEntity : data) {
-            Assert.assertNotNull(agendaLogic.getAgenda(agendaEntity.getId()));
+            try {
+                Assert.assertNotNull(agendaLogic.getAgenda(agendaEntity.getId()));
+            } catch (BusinessLogicException ex) {
+                Assert.fail();
+            }
         }
     }
     @Test
@@ -266,7 +270,12 @@ public class AgendaLogicTest
     {
         AgendaEntity agenda =  data.get(0);
         agendaLogic.deleteAgenda(agenda.getId());
-        Assert.assertNull(agendaLogic.getAgenda(agenda.getId()));
+        try {
+            agendaLogic.getAgenda(agenda.getId());
+            Assert.fail("Deberia mandar excepcion porque no existe la agenda");
+        } catch (BusinessLogicException ex) {
+            
+        }
         data.remove(0);
     
     }

@@ -40,9 +40,11 @@ public class AgendaLogic {
         agendaEntity.setProveeedor(proveedor);
         
         //Verificacion que no existan agendas con proveedores iguales
-        AgendaEntity agendaExistente = agendaPersistence.findByProveedor(proveedorId);
-        if(agendaExistente!=null)
-            throw new BusinessLogicException("Ya existe una agenda para el proveedor seleccionado");
+        for (ProveedorEntity proveedorEntity : proveedorPersistence.findAll()) {
+            if(proveedorEntity!=null && proveedorEntity.getAgenda()!=null)
+                throw new BusinessLogicException("Ya existe una agenda para el proveedor asociado");
+        }
+        
         
         //Verifica reglas negocio comunes con update
         verificarContenidoAgenda(agendaEntity);
@@ -51,16 +53,26 @@ public class AgendaLogic {
     }
     
    
-    public AgendaEntity getAgenda(long idAgenda)
+    public AgendaEntity getAgenda(long idAgenda) throws BusinessLogicException
     {
-        LOGGER.log(Level.INFO,"Entrando a optener agenda ", idAgenda);
+        LOGGER.log(Level.INFO,"Entrando a optener agenda {0}", idAgenda);
         AgendaEntity agenda= agendaPersistence.find(idAgenda);
-        
+        if(agenda==null)
+            throw new BusinessLogicException("No existe agenda con id "+idAgenda);
         return agenda;
+    }
+    public AgendaEntity getAgendaByProveedor(long idProveedor) throws BusinessLogicException
+    {
+        for (ProveedorEntity proveedorEntity : proveedorPersistence.findAll()) {
+            if(proveedorEntity!=null && proveedorEntity.getAgenda()!=null)
+                return proveedorEntity.getAgenda();
+        }
+        throw new BusinessLogicException("No existe una agenda para el proveedor");
+        
     }
     
     public AgendaEntity updateAgenda(AgendaEntity agendaEntity) throws BusinessLogicException{
-        LOGGER.log(Level.INFO,"Entrando a actualizar agenda ", agendaEntity.getId());
+        LOGGER.log(Level.INFO,"Entrando a actualizar agenda {0}", agendaEntity.getId());
         
         //Verifica reglas de negocio en comun con crear
         verificarContenidoAgenda(agendaEntity);
@@ -92,7 +104,7 @@ public class AgendaLogic {
         
         //Verificacion regla de negocio de las jornadas de las fechas que no labora el proveedor
         if(ConstantesJornada.desdeValor(agendaEntity.getJornadaLunesND()) == null){
-                throw new BusinessLogicException("LUNES No cumple con las jornadas ");          
+                throw new BusinessLogicException("LUNES No cumple con las jornadas "+agendaEntity.getJornadaLunesND());          
         }
         if(ConstantesJornada.desdeValor(agendaEntity.getJornadaMartesND()) == null){
                 throw new BusinessLogicException("MARTES No cumple con las jornadas ");          

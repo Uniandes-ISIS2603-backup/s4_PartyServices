@@ -1,4 +1,5 @@
 
+import co.edu.uniandes.csw.partyServices.entities.ClienteEntity;
 import co.edu.uniandes.csw.partyServices.entities.PagoEntity;
 import co.edu.uniandes.csw.partyServices.persistence.PagoPersistence;
 import java.util.ArrayList;
@@ -23,28 +24,47 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
+ * Pruebas de la persistencia de la clase Pago
  *
- * @author estudiante
+ * @author Elias Negrete
  */
 @RunWith(Arquillian.class)
-public class PagoPersistenceTest 
-{
-      @Inject
-    private PagoPersistence pagoPersistence ;
-    
-    
-    @PersistenceContext
-    private EntityManager em ;
-    
+public class PagoPersistenceTest {
+
+    /**
+     * Inyección de la persistencia de cliente para acceder a sus métodos.
+     */
     @Inject
-    UserTransaction utx ;
-    
-    
-    
-    private List<PagoEntity> data = new ArrayList<PagoEntity>() ;
-    
+    private PagoPersistence pagoPersistence;
+
+    /**
+     * Entity Manager que regula la persistencia.
+     */
+    @PersistenceContext
+    private EntityManager em;
+
+    /**
+     * Transacciones de usuario
+     */
+    @Inject
+    UserTransaction utx;
+
+    /**
+     * Lista de entidades-pago
+     */
+    private List<PagoEntity> data = new ArrayList<PagoEntity>();
+
+    /**
+     * Lista de entidades-cliente
+     */
+    private List<ClienteEntity> dataCliente = new ArrayList<ClienteEntity>();
+
+    /**
+     * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
+     * El jar contiene las clases, el descriptor de la base de datos y el
+     * archivo beans.xml para resolver la inyección de dependencias.
+     */
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
@@ -53,8 +73,11 @@ public class PagoPersistenceTest
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
-    
-       @Before
+
+    /**
+     * La forma como se configura la prueba.
+     */
+    @Before
     public void configTest() {
         try {
             utx.begin();
@@ -72,58 +95,139 @@ public class PagoPersistenceTest
         }
     }
 
-   
+    /**
+     * Limpia las tablas de los datos.
+     */
     private void clearData() {
         em.createQuery("delete from PagoEntity").executeUpdate();
+        em.createQuery("delete from ClienteEntity").executeUpdate();
+
     }
 
-    
+    /**
+     * Inserta los archivos de inicio para el correcto funcionamiento de las
+     * pruebas.
+     */
     private void insertData() {
         PodamFactory factory = new PodamFactoryImpl();
         for (int i = 0; i < 3; i++) {
 
-            PagoEntity entity = factory.manufacturePojo(PagoEntity.class);
+            ClienteEntity entity = factory.manufacturePojo(ClienteEntity.class);
 
             em.persist(entity);
 
+            dataCliente.add(entity);
+        }
+        for (int i = 0; i < 3; i++) {
+            PagoEntity entity = factory.manufacturePojo(PagoEntity.class);
+            if (i == 0) {
+                entity.setCliente(dataCliente.get(0));
+            }
+            em.persist(entity);
             data.add(entity);
         }
     }
-    
-    
-    @Test 
-    public void createPagoTest()
-    {
-       PodamFactory factory = new PodamFactoryImpl();
-       PagoEntity newEntity = factory.manufacturePojo(PagoEntity.class);
-        PagoEntity result = pagoPersistence.create(newEntity);
 
-        Assert.assertNotNull(result);
-
-        PagoEntity entity = em.find(PagoEntity.class, result.getId());
-
-        Assert.assertEquals(newEntity.getUsuario(), entity.getUsuario());
-    }
-    
-    
+    /**
+     * Prueba para crear un pago
+     */
     @Test
-    public void deletePagoTest()
-    {
+    public void createPagoTest() {
+        PodamFactory factory = new PodamFactoryImpl();
+        PagoEntity nuevaEntidad = factory.manufacturePojo(PagoEntity.class);
+        PagoEntity resultadoEntity = pagoPersistence.create(nuevaEntidad);
+
+        Assert.assertNotNull(resultadoEntity);
+
+        PagoEntity entity = em.find(PagoEntity.class, resultadoEntity.getId());
+
+        Assert.assertEquals(nuevaEntidad.getUsuario(), entity.getUsuario());
+        Assert.assertEquals(nuevaEntidad.getCodigoSeguridadTarjeta(), entity.getCodigoSeguridadTarjeta());
+        Assert.assertEquals(nuevaEntidad.getEmpresa(), entity.getEmpresa());
+        Assert.assertEquals(nuevaEntidad.getFechaExpiracionTarjetaCredito(), entity.getFechaExpiracionTarjetaCredito());
+
+    }
+
+    /**
+     * Prueba para consultar un Pago.
+     */
+    @Test
+    public void getPagoTest() {
+        PagoEntity entidad = data.get(0);
+        PagoEntity nuevaEntidad = pagoPersistence.find(dataCliente.get(0).getId(), entidad.getId());
+        Assert.assertNotNull(nuevaEntidad);
+        Assert.assertEquals(entidad.getEmpresa(), nuevaEntidad.getEmpresa());
+        Assert.assertEquals(entidad.getNombreTarjeta(), nuevaEntidad.getNombreTarjeta());
+        Assert.assertEquals(entidad.getNumeroTarjetaCredito(), nuevaEntidad.getNumeroTarjetaCredito());
+        Assert.assertEquals(entidad.getUsuario(), nuevaEntidad.getUsuario());
+        Assert.assertEquals(entidad.getCodigoSeguridadTarjeta(), nuevaEntidad.getCodigoSeguridadTarjeta());
+        Assert.assertEquals(entidad.getFechaExpiracionTarjetaCredito(), nuevaEntidad.getFechaExpiracionTarjetaCredito());
+    }
+
+    /**
+     * Prueba para eliminar un pago
+     */
+    @Test
+    public void deletePagoTest() {
         PagoEntity entity = data.get(0);
         pagoPersistence.delete(entity.getId());
         PagoEntity deleted = em.find(PagoEntity.class, entity.getId());
         Assert.assertNull(deleted);
-     
-        
+
     }
-    
-     @Test
-    public void FindPagoByNameTest() {
+
+    /**
+     * Prueba para consultar la lista de pagos.
+     */
+    @Test
+    public void getPagosTest() {
+        List<PagoEntity> list = pagoPersistence.findAll();
+        int cantidad = list.size();
+        Assert.assertEquals(data.size(), cantidad);
+        for (PagoEntity entidadPago : list) {
+            boolean encontrado = false;
+            for (PagoEntity entidadNuevaPago : data) {
+                if (entidadPago.getId().equals(entidadNuevaPago.getId())) {
+                    encontrado = true;
+                }
+            }
+            Assert.assertTrue(encontrado);
+        }
+    }
+
+    /**
+     * Prueba para actualizar un pago.
+     */
+    @Test
+    public void updatePagoTest() {
+        PagoEntity entidadPago = data.get(0);
+        PodamFactory factory = new PodamFactoryImpl();
+        PagoEntity nuevaEntidadPago = factory.manufacturePojo(PagoEntity.class);
+
+        nuevaEntidadPago.setId(entidadPago.getId());
+
+        pagoPersistence.update(nuevaEntidadPago);
+
+        PagoEntity resp = em.find(PagoEntity.class, entidadPago.getId());
+
+        Assert.assertEquals(nuevaEntidadPago.getEmpresa(), resp.getEmpresa());
+        Assert.assertEquals(nuevaEntidadPago.getNombreTarjeta(), resp.getNombreTarjeta());
+        Assert.assertEquals(nuevaEntidadPago.getNumeroTarjetaCredito(), resp.getNumeroTarjetaCredito());
+        Assert.assertEquals(nuevaEntidadPago.getUsuario(), resp.getUsuario());
+        Assert.assertEquals(nuevaEntidadPago.getCodigoSeguridadTarjeta(), resp.getCodigoSeguridadTarjeta());
+        Assert.assertEquals(nuevaEntidadPago.getFechaExpiracionTarjetaCredito(), resp.getFechaExpiracionTarjetaCredito());
+
+    }
+
+    /**
+     * Prueba para encontrar un pago por el login de su cliente
+     */
+    @Test
+    public void FindPagoByUsuarioTest() {
         PagoEntity entity = data.get(0);
         PagoEntity newEntity = pagoPersistence.findByUsuario(entity.getUsuario());
         Assert.assertNotNull(newEntity);
         Assert.assertEquals(entity.getUsuario(), newEntity.getUsuario());
     }
-    
-    
+
 }

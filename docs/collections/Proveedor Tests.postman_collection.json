@@ -1,0 +1,582 @@
+{
+	"info": {
+		"_postman_id": "cab34e8f-89a3-4ba0-a8cf-29505480a7d3",
+		"name": "Proveedor Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear un proveedor",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "96f7a21c-05ff-4c6b-a18e-9cba037681ce",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_proveedor\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\":\"Gabriel\",\n    \"contrasenia\":\"123456789\",\n    \"calificacion\":10,\n    \"agenda\":{}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/proveedor",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"proveedor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un proveedor con el mismo nombre que otro ya creado.",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "254ef2f7-af2b-4450-b316-9f6d9843a6ea",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No crea con el mismo nombre\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"Ya existe un proveedor con el nombre\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\":\"Gabriel\",\n    \"contrasenia\":\"123456789\",\n    \"calificacion\":10,\n    \"agenda\":{}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/proveedor",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"proveedor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un proveedor con contraseña nula.",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "073bfd6e-b53e-4102-837a-7e81d32010f7",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No crea con la contraseña en null\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"la contraseña no puede ser null\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\":\"Gabriel_S\",\n    \"calificacion\":10,\n    \"agenda\":{}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/proveedor",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"proveedor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un proveedor con contraseña con menos de 8 caracteres",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0d44e140-bb70-4f41-ab01-e0789e159d8b",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No crea con contraseña con menos de 8 caracteres\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"la contraseña debe tener más de 8 caracteres\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\":\"Gabriel_S2\",\n\t\"contrasenia\":\"123\",\n    \"calificacion\":10,\n    \"agenda\":{}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/proveedor",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"proveedor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un proveedor con contraseña igual al nombre del usuario.",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a555a434-1bd9-41e1-bff1-5c042b754a8e",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No crea con la contraseña igual que el nombre\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"la contraseña no puede ser igual al nombre de Usuario\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\":\"Gabriel_S3\",\n    \"contrasenia\":\"Gabriel_S3\",\n    \"calificacion\":10,\n    \"agenda\":{}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/proveedor",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"proveedor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener todos los proveedores",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "aba7b3cf-3b18-4c5b-827a-cc4278e6799c",
+						"type": "text/javascript",
+						"exec": [
+							"var data= JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get all\"] = responseCode.code === 200;",
+							"tests[\"proveedores count\"] = data.length >= 0;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/proveedor",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"proveedor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un proveedor",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f0024d8a-2f66-49e9-94ff-3e8fd7478d9a",
+						"type": "text/javascript",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/proveedor/{{new_id_proveedor}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"proveedor",
+						"{{new_id_proveedor}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un proveedor que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3e1e6315-f16f-41ac-8fdd-6cbbfd02d407",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No consulta con id que no existe\"] = responseCode.code === 404; ",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /proveedores/0 no existe.\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/proveedor/0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"proveedor",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar un proveedor que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d7eb1020-692e-484c-bf38-f91d114cfd94",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No actualiza con id que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /proveedores/0 no existe.\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\":\"Gabriel\",\n    \"contrasenia\":\"123456789\",\n    \"calificacion\":10,\n    \"agenda\":{}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/proveedor/0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"proveedor",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar un proveedor ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "75585018-e335-45e2-8f2a-27929a7c8ddb",
+						"type": "text/javascript",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Put\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\":\"Gabriel_2\",\n    \"contrasenia\":\"123456789\",\n    \"calificacion\":7,\n    \"agenda\":{}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/proveedor/{{new_id_proveedor}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"proveedor",
+						"{{new_id_proveedor}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar un proveedor  con contraseña nula",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a9d84e23-754d-4e65-88e3-71d2129d6911",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No con contraseña nula\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"la contraseña debe tener más de 8 caracteres y máximo 35 caracteres\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\":\"Gabriel\",\n    \"contrasenia\":\"\",\n    \"calificacion\":10,\n    \"agenda\":{}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/proveedor/{{new_id_proveedor}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"proveedor",
+						"{{new_id_proveedor}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar un proveedor  con contraseña con menos de 8 caracteres",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5f5617a6-c1c6-46fd-baf5-792570900eda",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No actualizar con contraseña menor a 8 caracteres\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"la contraseña debe tener más de 8 caracteres y máximo 35 caracteres\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\":\"Gabriel\",\n    \"contrasenia\":\"asd\",\n    \"calificacion\":10,\n    \"agenda\":{}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/proveedor/{{new_id_proveedor}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"proveedor",
+						"{{new_id_proveedor}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar proveedor",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7c6b4f32-8cda-4d25-84c8-706c64350cb7",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/proveedor/{{new_id_proveedor}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"proveedor",
+						"{{new_id_proveedor}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar proveedor que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f818fe1c-1901-4245-a88b-4a8df6e30da1",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No borra con id que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /authors/0 no existe.\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/proveedor/0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"proveedor",
+						"0"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

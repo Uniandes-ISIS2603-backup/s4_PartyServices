@@ -31,13 +31,16 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
     
     private String contrasenia;
     
+    private Double calificacion;
+    
     @PodamExclude
     @ManyToOne
     public ServicioEntity servicio;
     
     @PodamExclude
     @OneToMany(mappedBy = "proveedor",
-            fetch = FetchType.LAZY)
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
     Collection<ProductoEntity> catalogoProductos = new ArrayList <ProductoEntity>();
    
     @PodamExclude
@@ -52,6 +55,8 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
     @PodamExclude
     @OneToMany(
             mappedBy = "proveedor",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
             fetch = FetchType.LAZY
     )
     Collection<ValoracionEntity> valoraciones;
@@ -60,10 +65,16 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
         return nombre;
     }
    
-    
-
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public Double getCalificacion() {
+        return calificacion;
+    }
+
+    public void setCalificacion(Double calificacion) {
+        this.calificacion = calificacion;
     }
 
     

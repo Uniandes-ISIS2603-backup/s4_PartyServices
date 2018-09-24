@@ -5,7 +5,6 @@
  */
 package co.edu.uniandes.csw.partyServices.dtos;
 
-//import co.edu.uniandes.csw.partyServices.entities.ValoracionEntity;
 import co.edu.uniandes.csw.partyServices.entities.ValoracionEntity;
 import java.io.Serializable;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -39,8 +38,12 @@ public class ValoracionDTO implements Serializable{
     private Long id;
     private Integer puntaje;
     private String comentario;
+    private String nombreUsuario;
     
-    
+    /**
+     * Relación fantasma con proveedor no hace parte del UML pero no corría si no la ponía, después se quitará
+     */
+    private ProveedorDTO proveedor;
     /**
      * Constructor por defecto
      */
@@ -58,6 +61,12 @@ public class ValoracionDTO implements Serializable{
             this.id = valoracionEntity.getId();
             this.puntaje = valoracionEntity.getPuntaje();
             this.comentario = valoracionEntity.getComentario();
+            this.nombreUsuario = valoracionEntity.getNombreUsuario();
+            if (valoracionEntity.getProveedor() != null) {
+                this.proveedor = new ProveedorDTO(valoracionEntity.getProveedor());
+            } else {
+                this.proveedor = null;
+            }
         }
     }
     
@@ -116,6 +125,42 @@ public class ValoracionDTO implements Serializable{
     }
     
     /**
+     * Devuelve el nombre del usuario asignado a la valoracion.
+     *
+     * @return nombreUsuario. El nombre del usuario asignado a la valoracion.
+     */
+    public String getNombreUsuario(){
+        return nombreUsuario;
+    }
+    
+    /**
+     * Modifica el nombre del usuario asignado a la valoracion.
+     *
+     * @param nombreUsuario. El nuevo nombre del usuario que se reemplazará.
+     */
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
+    
+    /**
+     * Devuelve el proveedor asociado a esta valoracion.
+     *
+     * @return El proveedor
+     */
+    public ProveedorDTO getProveedor() {
+        return proveedor;
+    }
+
+    /**
+     * Modifica el proveedor asociado a esta valoracion.
+     *
+     * @param proveedor. El proveedor que se reemplazará
+     */
+    public void setProveedor(ProveedorDTO proveedor) {
+        this.proveedor = proveedor;
+    }
+    
+    /**
      * Convertir DTO a Entity
      *
      * @return Un Entity con los valores del DTO
@@ -125,6 +170,10 @@ public class ValoracionDTO implements Serializable{
         valoracionEntity.setId(this.id);
         valoracionEntity.setPuntaje(this.puntaje);
         valoracionEntity.setComentario(this.comentario);
+        valoracionEntity.setNombreUsuario(this.nombreUsuario);
+        if (this.proveedor != null) {
+            valoracionEntity.setProveedor(this.proveedor.toEntity());
+        }
         return valoracionEntity;
     }
     

@@ -20,6 +20,7 @@ public class FechaDetailDTO extends FechaDTO implements Serializable{
     
     public FechaDetailDTO(){
         super();
+        eventos=new ArrayList<>();
     }
 
     public List<EventoDTO> getEventos() {
@@ -36,7 +37,7 @@ public class FechaDetailDTO extends FechaDTO implements Serializable{
         super(fechaEntity);
         if(fechaEntity!=null)
         {
-            eventos=new ArrayList<EventoDTO>();
+            eventos=new ArrayList<>();
             for (EventoEntity evento : fechaEntity.getEventos()) {
                 eventos.add(new EventoDTO(evento));
             }

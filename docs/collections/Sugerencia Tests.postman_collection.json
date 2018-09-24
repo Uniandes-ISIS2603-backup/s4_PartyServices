@@ -1,0 +1,558 @@
+{
+	"info": {
+		"_postman_id": "390fe1b3-6183-4246-ab98-5a52b27d4731",
+		"name": "Sugerencia Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear una tematica",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0cb910fb-1a83-4f5b-8e0d-f058a3a3d26d",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_tematicaSugerencia\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"Matrimonio\",\n    \"servicio\":{}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/tematicas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"tematicas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crearle una sugerencia a una tematica",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "af0499c1-0588-4490-89b9-262f9e509997",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_sugerencia\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"comentario\":\"Pastel de arequipe el mejor!\",\n    \"nombreUsuario\":\"Cesar\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/tematicas/{{new_id_tematicaSugerencia}}/sugerencias",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"tematicas",
+						"{{new_id_tematicaSugerencia}}",
+						"sugerencias"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crearle una sugerencia a una tematica que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dc53bae4-c278-484d-ae71-defa162ef75c",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No se puede asociar una sugerencia a una tematica que no existe.\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /tematicas/0/sugerencias no existe.\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"comentario\":\"Pastel de arequipe el mejor!\",\n    \"nombreUsuario\":\"Cesar\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/tematicas/0/sugerencias",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"tematicas",
+						"0",
+						"sugerencias"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener las sugerencias de una tematica ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fc6256cd-ef9d-4216-8fda-d522c48de98c",
+						"type": "text/javascript",
+						"exec": [
+							"var data= JSON.parse(responseBody);",
+							"tests[\"no genera error en el Get All\"] = responseCode.code === 200;",
+							"tests[\"reviews count\"] = data.length >= 0;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"comentario\":\"Pastel de arequipe el mejor!\",\n    \"nombreUsuario\":\"Cesar\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/tematicas/{{new_id_tematicaSugerencia}}/sugerencias",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"tematicas",
+						"{{new_id_tematicaSugerencia}}",
+						"sugerencias"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener una sugerencias de una tematica  ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "033932f5-48c0-4077-8f3b-71efaf8e431a",
+						"type": "text/javascript",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"no genera error en el Get\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"comentario\":\"Pastel de arequipe el mejor!\",\n    \"nombreUsuario\":\"Cesar\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/tematicas/{{new_id_tematicaSugerencia}}/sugerencias/{{new_id_sugerencia}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"tematicas",
+						"{{new_id_tematicaSugerencia}}",
+						"sugerencias",
+						"{{new_id_sugerencia}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editarle una sugerencia a una tematica",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "909d27d9-3492-4505-9f27-29b68ab4c90e",
+						"type": "text/javascript",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"no genera error en el Put\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"comentario\":\"Pastel de arequipe el mejor! y también globos azules\",\n    \"nombreUsuario\":\"Cesar\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/tematicas/{{new_id_tematicaSugerencia}}/sugerencias/{{new_id_sugerencia}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"tematicas",
+						"{{new_id_tematicaSugerencia}}",
+						"sugerencias",
+						"{{new_id_sugerencia}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editarle una sugerencia que no existe a una temática",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8c8a49e2-6b50-4378-a0ba-70707d597d6c",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No se puede editar una sugerencia que no existe.\"] = responseCode.code === 404;",
+							"let id = pm.variables.get(\"new_id_tematicaSugerencia\");",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /tematicas/\"+id+\"/sugerencias/0 no existe.\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"comentario\":\"Pastel de arequipe el mejor! Y también globos azules\",\n    \"nombreUsuario\":\"Cesar\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/tematicas/{{new_id_tematicaSugerencia}}/sugerencias/0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"tematicas",
+						"{{new_id_tematicaSugerencia}}",
+						"sugerencias",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Editarle una sugerencia a una temática que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "631e9c8b-fecf-4818-af7f-72e7a76d10b7",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No se puede editar una sugerencia sobre una tematica que no existe.\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /tematicas/0/sugerencias no existe.\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"comentario\":\"Pastel de arequipe el mejor! Y también globos azules\",\n    \"nombreUsuario\":\"Cesar\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/tematicas/0/sugerencias/{{new_id_sugerencia}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"tematicas",
+						"0",
+						"sugerencias",
+						"{{new_id_sugerencia}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borrarle una sugerencia a una tematica",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "53b4b5b3-1187-4c0d-8a7b-e2be6b4dd2bc",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"no genera error en el Delete\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/tematicas/{{new_id_tematicaSugerencia}}/sugerencias/{{new_id_sugerencia}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"tematicas",
+						"{{new_id_tematicaSugerencia}}",
+						"sugerencias",
+						"{{new_id_sugerencia}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borrarle una sugerencia que no existe a una tematica ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b73f8672-2d8b-4bdc-99f8-c71744a4094d",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No se puede borrar una sugerencia que no existe.\"] = responseCode.code === 404;",
+							"let id = pm.variables.get(\"new_id_tematicaSugerencia\");",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /tematicas/\"+id+\"/sugerencias/0 no existe.\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/tematicas/{{new_id_tematicaSugerencia}}/sugerencias/0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"tematicas",
+						"{{new_id_tematicaSugerencia}}",
+						"sugerencias",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borrarle una sugerencia a una tematica que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3dabc657-31af-4125-97eb-5ef8d6ec49f3",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No se puede borrar una sugerencia sobre una tematica que no existe.\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /tematicas/0/sugerencias no existe.\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/tematicas/0/sugerencias/{{new_id_sugerencia}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"tematicas",
+						"0",
+						"sugerencias",
+						"{{new_id_sugerencia}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Borrar una tematica",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fa721b82-b9e8-4179-878f-a245b8b41f2f",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/tematicas/{{new_id_tematicaSugerencia}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"tematicas",
+						"{{new_id_tematicaSugerencia}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

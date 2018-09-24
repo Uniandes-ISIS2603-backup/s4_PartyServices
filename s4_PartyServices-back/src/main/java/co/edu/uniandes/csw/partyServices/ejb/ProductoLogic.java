@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.partyServices.ejb;
 import co.edu.uniandes.csw.partyServices.entities.ProductoEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.partyServices.persistence.ProductoPersistence;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -53,7 +54,8 @@ public class ProductoLogic {
         if (validateNombreCaracteres(productoEntity.getNombre())) {
             throw new BusinessLogicException("El nombre del producto contiene caracteres especiales");
         }
-        if (productoEntity.getDuenio() == null || productoEntity.getProveedor() == null) {
+        if (productoEntity.getDuenio() == null || productoEntity.getProveedor() == null ) 
+        {
             throw new BusinessLogicException("El producto debe tener un proveedor asociado");
         }
         if (productoEntity.getCosto() < 0 || productoEntity.getCosto() >= 2147483647) {
@@ -62,8 +64,9 @@ public class ProductoLogic {
         if (productoEntity.getCantidad() < 0 || productoEntity.getCantidad() >= 999) {
             throw new BusinessLogicException("El producto debe tener una cantidad entre 0 y 999");
         }
-        if (productoEntity.getEventos() == null) {
-            throw new BusinessLogicException("El producto no puede tener eventos nulos");
+        if (productoEntity.getEventos() == null) 
+        {
+            productoEntity.setEventos(new ArrayList<>());
 
         }
         if (productoEntity.getEventos().size() > productoEntity.getCantidad()) {
@@ -89,7 +92,9 @@ public class ProductoLogic {
 
         if (buscado == null) {
             throw new BusinessLogicException("No existen productos con el nombre solicitado");
-        } else if (buscado.getEventos().size() > 0) {
+        } 
+        else if (!buscado.getEventos().isEmpty()) 
+        {
             throw new BusinessLogicException("No es posible borrar el producto solicitado porque aun tiene eventos asociados");
         }
 

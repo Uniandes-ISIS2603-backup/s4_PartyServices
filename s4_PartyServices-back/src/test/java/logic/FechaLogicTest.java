@@ -108,7 +108,9 @@ public class FechaLogicTest {
         for (int i = 0; i < 3; i++) {
 
             FechaEntity entity = factory.manufacturePojo(FechaEntity.class);
-
+            AgendaEntity agenda =factory.manufacturePojo(AgendaEntity.class);
+            em.persist(agenda);
+            entity.setAgenda(agenda);
             em.persist(entity);
 
             data.add(entity);
@@ -216,8 +218,12 @@ public class FechaLogicTest {
     public void obtenerFechaTest()
     {
         for (FechaEntity fechaEntity : data) {
-            Assert.assertNotNull(fechaLogic.getFechaID(fechaEntity.getId()));
-            Assert.assertNotNull(fechaLogic.getFechaPorDia(fechaEntity.getDia()));
+            try {
+                Assert.assertNotNull(fechaLogic.getFechaID(fechaEntity.getId()));
+                Assert.assertNotNull(fechaLogic.getFechaPorDiaAgendaJornada(fechaEntity.getDia(),fechaEntity.getAgenda().getId(),fechaEntity.getJornada()));
+            } catch (BusinessLogicException ex) {
+                Assert.fail();
+            }
         }
     }
     

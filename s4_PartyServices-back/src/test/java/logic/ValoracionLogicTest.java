@@ -212,10 +212,12 @@ public class ValoracionLogicTest {
     public void getValoracionTest() {
         ValoracionEntity entity = data.get(0);
         ValoracionEntity resultEntity = valoracionLogic.getValoracion(dataProveedor.get(0).getId(), entity.getId());
+        
         Assert.assertNotNull(resultEntity);
         Assert.assertEquals(entity.getId(), resultEntity.getId());
         Assert.assertEquals(entity.getComentario(), resultEntity.getComentario());
         Assert.assertEquals(entity.getPuntaje(), resultEntity.getPuntaje());
+        Assert.assertEquals(entity.getNombreUsuario(), resultEntity.getNombreUsuario());
     }
     
     /**
@@ -236,6 +238,7 @@ public class ValoracionLogicTest {
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
         Assert.assertEquals(pojoEntity.getComentario(), resp.getComentario());
         Assert.assertEquals(pojoEntity.getPuntaje(), resp.getPuntaje());
+        Assert.assertEquals(pojoEntity.getNombreUsuario(), resp.getNombreUsuario());
     }
     
     /**
@@ -244,7 +247,7 @@ public class ValoracionLogicTest {
      * @throws BusinessLogicException
      */
     @Test (expected= BusinessLogicException.class)
-    public void updateSugerenciaLimiteCaracteresTest() throws BusinessLogicException {
+    public void updateValoracionLimiteCaracteresTest() throws BusinessLogicException {
         String mensajeGrande = "hola";
         for(int i=0; i<5001; i++){
             mensajeGrande = mensajeGrande.concat("hola");
@@ -261,7 +264,7 @@ public class ValoracionLogicTest {
      * @throws BusinessLogicException Si alguna valoracion no está asociada con el proveedor pasado por parámetro en el método deleteValoracion.
      */
     @Test
-    public void deleteProveedorTest() throws BusinessLogicException {
+    public void deleteValoracionTest() throws BusinessLogicException {
         ValoracionEntity entity = data.get(1);
         valoracionLogic.deleteValoracion(dataProveedor.get(1).getId(), entity.getId());
         ValoracionEntity deleted = em.find(ValoracionEntity.class, entity.getId());

@@ -11,6 +11,8 @@ import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.partyServices.persistence.AgendaPersistence;
 import co.edu.uniandes.csw.partyServices.persistence.FechaPersistence;
 import co.edu.uniandes.csw.partyServices.util.ConstantesJornada;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,18 +43,13 @@ public class FechaLogic {
         if(ConstantesJornada.desdeValor( fechaEntity.getJornada() ).equals(ConstantesJornada.NINGUNA)){          
             throw new BusinessLogicException("La jornada ninguna no es valida");
         } 
+        
+        if(fechaEntity.getDia()==null)
+            throw new BusinessLogicException("La fecha es nula");
             
-        //Verificacion regla de negocio deben existir eventos
-        if(fechaEntity.getEventos()==null)
-            throw new BusinessLogicException("Los eventos de la fecha no estan inicializados");
-        if(fechaEntity.getEventos().isEmpty())
-            throw new BusinessLogicException("Debe tener eventos la fecha");
         
         //Verificacion regla de negocio no se pueden crear fechas del pasado
         Date dia= new Date();
-        dia.setHours(0);
-        dia.setMinutes(0);
-        dia.setSeconds(0);
         if(dia.compareTo(fechaEntity.getDia())>=0)
             throw new BusinessLogicException("El dia de la fecha no puede ser menor o igual al dia actual");
         
@@ -60,24 +57,35 @@ public class FechaLogic {
         if(agenda==null)
             throw new BusinessLogicException("La agenda de la fecha que esta creando no existe");
         fechaEntity.setAgenda(agenda);
+        
+        Collection<FechaEntity>fechasOcupadas=agenda.getFechasOcupadas();
+        if(fechasOcupadas==null)
+            fechasOcupadas=new ArrayList<>();
+        fechasOcupadas.add(fechaEntity);
+        agenda.setFechasOcupadas(fechasOcupadas);
+        agendaPersistence.update(agenda);
         return fechaPersistence.create(fechaEntity);
     }
     
-    public FechaEntity getFechaPorDia(Date dia)
+    public FechaEntity getFechaPorDiaAgendaJornada(Date dia, long idAgenda, String jornada) throws BusinessLogicException
     {
-        LOGGER.log(Level.INFO,"Entrando a optener fecha ", dia);
-        FechaEntity fecha= fechaPersistence.findByDia(dia);
-        if(fecha==null)
-            LOGGER.log(Level.INFO,"No se encuentra fecha con el id ", dia);
+        LOGGER.log(Level.INFO,"Entrando a optener fecha {0}", dia);
+        FechaEntity fecha= fechaPersistence.findByDiaAgendaAndJornada(dia, idAgenda, jornada);
+        if(fecha==null){
+            LOGGER.log(Level.INFO,"No se encuentra fecha con el id {0}", dia);
+            throw new BusinessLogicException("No existe fecha con dia, idAgenda y jornada "+dia.toString()+idAgenda+jornada);
+        }
         return fecha;
     }
     
-    public FechaEntity getFechaID(long idFecha)
+    public FechaEntity getFechaID(long idFecha) throws BusinessLogicException
     {
-        LOGGER.log(Level.INFO,"Entrando a optener fecha ", idFecha);
+        LOGGER.log(Level.INFO,"Entrando a optener fecha {0}", idFecha);
         FechaEntity fecha= fechaPersistence.find(idFecha);
-        if(fecha==null)
-            LOGGER.log(Level.INFO,"No se encuentra fecha con el id ", idFecha);
+        if(fecha==null){
+            LOGGER.log(Level.INFO,"No se encuentra fecha con el id {0}", idFecha);
+            throw new BusinessLogicException("No existe fecha con id "+idFecha);
+        }
         return fecha;
     }
     
@@ -96,10 +104,8 @@ public class FechaLogic {
     public void deleteFecha(long fechaId) throws BusinessLogicException
     {
         FechaEntity fecha =fechaPersistence.find(fechaId);
-        if(fecha!=null)
-            if(fecha.getEventos()!=null)
-                if(!fecha.getEventos().isEmpty())
-                    throw new BusinessLogicException("No se puede eliminar la fecha porque tiene "+fecha.getEventos().size()+" eventos");
+        if(fecha!=null && fecha.getEventos()!=null && !fecha.getEventos().isEmpty())
+            throw new BusinessLogicException("No se puede eliminar la fecha porque tiene "+fecha.getEventos().size()+" eventos");
             
         fechaPersistence.delete(fechaId);
     }

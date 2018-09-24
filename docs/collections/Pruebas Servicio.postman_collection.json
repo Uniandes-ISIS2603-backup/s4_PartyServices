@@ -1,0 +1,277 @@
+{
+	"info": {
+		"_postman_id": "ba91dcf0-a233-4bc5-970e-c0f3b52239ca",
+		"name": "Pruebas Servicio",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST Servicio",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "003b7e97-831b-438f-b8ee-433f421710bc",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_nombre_proveedor\",data.nombre);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"tematica\":{\"nombre\":\"Matrimonio\"},\n    \"tipo\":\"Drama\",\n    \"proveedor\":{\"nombre\":\"pepe\",\"contraseña\":\"pepeelmasgrande\",\"calificacion\":0,\"agenda\":{}}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/servicio",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"servicio"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Servicios",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "39fa21ab-5012-427c-b13c-9bd602a12697",
+						"type": "text/javascript",
+						"exec": [
+							"var data= JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get all\"] = responseCode.code === 200;",
+							"tests[\"servicios count\"] = data.length >= 0;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/servicio",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"servicio"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Servicio",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a7fa48b1-5e54-40c2-aa48-2bd0a3b87512",
+						"type": "text/javascript",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/servicio/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"servicio",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Servicio Inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5eefedae-9c17-4e94-8300-dae4ae23e5cb",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No consulta con id que no existe\"] = responseCode.code === 404; ",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /servicios/100 no existe.\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/servicio/100",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"servicio",
+						"100"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Servicio",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9771dfc6-1f59-4481-9ae0-53c982310c8c",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/servicio/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"servicio",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Servicio Inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "82ef1478-eeee-4ca7-a25d-fb5e476a7283",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 404;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/servicio/100",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"servicio",
+						"100"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE Servicio",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f42b9059-2934-4bee-bcf2-d269d588d927",
+						"type": "text/javascript",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Put\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"tematica\":{\"nombre\":\"Matrimonio_2\"},\n    \"tipo\":\"Drama\",\n    \"proveedor\":{\"nombre\":\"pepe\",\"contraseña\":\"pepeelmasgrande\",\"calificacion\":0,\"agenda\":{}}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/servicio/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"servicio",
+						"3"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
