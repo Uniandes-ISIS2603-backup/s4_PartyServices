@@ -112,10 +112,6 @@ public class TematicaLogic {
             throw new BusinessLogicException("No se puede borrar la tematica con id = " + tematicasId + " porque tiene servicios asociados");
         }
         
-        List<SugerenciaEntity> sugerencias = getTematica(tematicasId).getSugerencias();
-        if (sugerencias != null && !sugerencias.isEmpty()) {
-            throw new BusinessLogicException("No se puede borrar la tematica con id = " + tematicasId + " porque tiene sugerencias asociadas");
-        }
         persistence.delete(tematicasId);
         LOGGER.log(Level.INFO, "Termina proceso de borrar la tematica con id = {0}", tematicasId);
     }

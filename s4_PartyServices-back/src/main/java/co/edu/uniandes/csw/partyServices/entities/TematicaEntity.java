@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.partyServices.entities;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
@@ -30,7 +31,10 @@ public class TematicaEntity extends BaseEntity implements Serializable {
     private List<ServicioEntity> servicios = new ArrayList<ServicioEntity>();
     
     @PodamExclude
-    @OneToMany(mappedBy = "tematica",fetch=FetchType.LAZY)
+    @OneToMany(mappedBy = "tematica",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true, 
+            fetch=FetchType.LAZY)
     private List<SugerenciaEntity> sugerencias = new ArrayList<SugerenciaEntity>();
     
     
