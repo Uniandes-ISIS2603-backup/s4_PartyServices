@@ -42,7 +42,7 @@ public class NotificacionResource {
     
     
      @GET
-     @Path("{evento: [a-zA-Z][a-zA-Z]*}")
+     @Path("{notificacionesId: \\d+}")
     public NotificacionDTO getNotificacion(@PathParam("notificacionesId") Long notificacionesId){
         LOGGER.log(Level.INFO, "NotificacionResource getNotificacion: input: {0}", notificacionesId);
         NotificacionEntity notifEntity = notificacionLogic.getNotificacion(notificacionesId);
@@ -72,8 +72,8 @@ public class NotificacionResource {
     }
     
       @DELETE
-      @Path("{notificacion: [a-zA-Z][a-zA-Z]*}")
-    public void borrarNotificacion(@PathParam("notificacion")long notificacionID) throws BusinessLogicException
+      @Path("{notificacionesId: \\d+}")
+    public void borrarNotificacion(@PathParam("notificacionesId")Long notificacionID) throws BusinessLogicException
     {
          LOGGER.log(Level.INFO, "NotificacionResource deleteNotificacion: input: {0}", notificacionID);
         if (notificacionLogic.getNotificacion(notificacionID) == null) {
@@ -85,11 +85,11 @@ public class NotificacionResource {
     }
     
     @PUT
-    @Path("{notificacion: [a-zA-Z][a-zA-Z]*}")
-    public NotificacionDTO actualizarNotificacion(@PathParam("notificacion")Long notifID, NotificacionDTO pNotif) throws BusinessLogicException
+    @Path("{notificacionesId: \\d+}")
+    public NotificacionDTO actualizarNotificacion(@PathParam("notificacionesId")Long notifID, NotificacionDTO pNotif) throws BusinessLogicException
     {
        LOGGER.log(Level.INFO, "NotificacionResource updateNotificacion: input: authorsId: {0} , author: {1}", new Object[]{notifID, pNotif.toString()});
-        pNotif.setID(notifID);
+        pNotif.setId(notifID);
         if (notificacionLogic.getNotificacion(notifID) == null) {
             throw new WebApplicationException("El recurso /notificacion/" + notifID + " no existe.", 404);
         }
