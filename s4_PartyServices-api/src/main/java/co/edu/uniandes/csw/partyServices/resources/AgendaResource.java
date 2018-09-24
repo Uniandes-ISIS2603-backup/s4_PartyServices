@@ -39,10 +39,17 @@ public class AgendaResource {
     
     @GET 
     @Path("{id: \\d+}")
-    public AgendaDTO obtenerAgenda(@PathParam("id") long id)
+    public AgendaDTO obtenerAgenda(@PathParam("id") long id) throws BusinessLogicException
     {
         LOGGER.log(Level.INFO, "AgendaResource obtenerAgenda: input: {0}", id);
         return new AgendaDetailDTO(agendaLogic.getAgenda(id));
+    }
+    @GET 
+    @Path("proveedor/{id: \\d+}")
+    public AgendaDTO obtenerAgendaPorProveedor(@PathParam("id") long id) throws BusinessLogicException
+    {
+        LOGGER.log(Level.INFO, "AgendaResource obtenerAgenda: input: {0}", id);
+        return new AgendaDetailDTO(agendaLogic.getAgendaByProveedor(id));
     }
     
     @POST 
@@ -50,8 +57,7 @@ public class AgendaResource {
     public AgendaDTO agregarAgenda(@PathParam("proveedor") long proveedor,AgendaDTO agenda) throws BusinessLogicException
     {
         LOGGER.log(Level.INFO, "AgendaResource agregarAgenda:", agenda.getId());
-        
-        return new AgendaDTO(agendaLogic.createAgenda(proveedor, agenda.toEntity()));
+        return new AgendaDetailDTO(agendaLogic.createAgenda(proveedor, agenda.toEntity()));
     }
     
     @PUT 

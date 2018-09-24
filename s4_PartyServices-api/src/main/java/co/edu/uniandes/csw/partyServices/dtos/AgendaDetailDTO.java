@@ -35,6 +35,7 @@ public class AgendaDetailDTO extends AgendaDTO implements Serializable{
         }
     }
     
+    @Override
     public AgendaEntity toEntity()
     {
         AgendaEntity agendaEntity = super.toEntity();

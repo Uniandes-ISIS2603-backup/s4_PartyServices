@@ -21,35 +21,28 @@ import java.util.regex.Pattern;
  * @author estudiante
  */
 @Stateless
-public class ProveedorLogic 
-{
+public class ProveedorLogic {
+
     private static final Logger LOGGER = Logger.getLogger(ProveedorLogic.class.getName());
-    
-@Inject
-private ProveedorPersistence persistence;
-public ProveedorEntity createProveedor (ProveedorEntity entity) throws BusinessLogicException{
-    
-      LOGGER.log(Level.INFO, "Inicia proceso de creación del proveedor");
+
+    @Inject
+    private ProveedorPersistence persistence;
+
+    public ProveedorEntity createProveedor(ProveedorEntity entity) throws BusinessLogicException {
+
+        LOGGER.log(Level.INFO, "Inicia proceso de creación del proveedor");
         // Verifica la regla de negocio que dice que no puede haber dos proveedores con el mismo nombre
         if (persistence.findByName(entity.getNombre()) != null) {
             throw new BusinessLogicException("Ya existe un proveedor con el nombre \"" + entity.getNombre() + "\"");
         }
         String contra = entity.getContrasenia();
-        if(contra==null)
-            {
+        if (contra == null) {
             throw new BusinessLogicException("la contraseña no puede ser null");
-        } 
-        else if(contra.length()<8)
-        {
+        } else if (contra.length() < 8) {
             throw new BusinessLogicException("la contraseña debe tener más de 8 caracteres");
-        }
-        
-        else if(validateNombre(entity.getNombre()))
-                {
-                   throw new BusinessLogicException("la contraseña no debe contener caracteres especiales"); 
-                }
-        else if (contra== entity.getNombre())
-        {
+        } else if (validateNombre(entity.getContrasenia())) {
+            throw new BusinessLogicException("la contraseña no debe contener caracteres especiales");
+        } else if (contra.equals(entity.getNombre())) {
             throw new BusinessLogicException("la contraseña no puede ser igual al nombre de Usuario");
         }
         // Invoca la persistencia para crear el proveedor 
@@ -57,11 +50,13 @@ public ProveedorEntity createProveedor (ProveedorEntity entity) throws BusinessL
         LOGGER.log(Level.INFO, "Termina proceso de creación del proveedor");
         return entity;
     }
-private boolean validateNombre(String nombre) {
+
+    private boolean validateNombre(String nombre) {
         Pattern pat = Pattern.compile("[a-zA-Z]");
         Matcher mat = pat.matcher(nombre);
         return (mat.matches() && !nombre.isEmpty());
     }
+
     /**
      *
      * Obtener todas los proveedores existentes en la base de datos.
@@ -98,8 +93,7 @@ private boolean validateNombre(String nombre) {
      *
      * Actualizar un proveedor.
      *
-     * @param proveedorId: id del proveedor para buscarlo en la base de
-     * datos.
+     * @param proveedorId: id del proveedor para buscarlo en la base de datos.
      * @param proveedorEntity: proveedor con los cambios para ser actualizado,
      * por ejemplo el nombre.
      * @return el proveedor con los cambios actualizados en la base de datos.
@@ -109,22 +103,15 @@ private boolean validateNombre(String nombre) {
         if (persistence.findByName(proveedorEntity.getNombre()) != null) {
             throw new BusinessLogicException("Ya existe un proveedor con el nombre \"" + proveedorEntity.getNombre() + "\"");
         }
-        
+
         String contra = proveedorEntity.getContrasenia();
-        if(contra==null)
-            {
+        if (contra == null) {
             throw new BusinessLogicException("la contraseña no puede ser null");
-        } 
-        else if(contra.length()<8||contra.length()>35)
-        {
+        } else if (contra.length() < 8 || contra.length() > 35) {
             throw new BusinessLogicException("la contraseña debe tener más de 8 caracteres y máximo 35 caracteres");
-        }
-        else if(validateNombre(proveedorEntity.getNombre()))
-                {
-                   throw new BusinessLogicException("la contraseña no debe contener caracteres especiales"); 
-                }
-        else if (contra== proveedorEntity.getNombre())
-        {
+        } else if (validateNombre(proveedorEntity.getNombre())) {
+            throw new BusinessLogicException("la contraseña no debe contener caracteres especiales");
+        } else if (contra.equals(proveedorEntity.getNombre())) {
             throw new BusinessLogicException("la contraseña no puede ser igual al nombre de Usuario");
         }
         // Note que, por medio de la inyección de dependencias se llama al método "update(entity)" que se encuentra en la persistencia.
@@ -142,9 +129,11 @@ private boolean validateNombre(String nombre) {
     public void deleteProveedor(Long proveedorID) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de borrar el proveedor con id = {0}", proveedorID);
         ProveedorEntity provEntity = persistence.find(proveedorID);
-        if(!provEntity.getAgenda().getFechasOcupadas().isEmpty())
-        {
-            throw new BusinessLogicException("No se puede borrar el proveedor pues tiene un evento pendiente");
+        LOGGER.log(Level.INFO, "Termina proceso de encontrar el proveedor con id = {0}", proveedorID);
+        if (provEntity.getAgenda() != null) {
+            if (!provEntity.getAgenda().getFechasOcupadas().isEmpty()) {
+                throw new BusinessLogicException("No se puede borrar el proveedor pues tiene un evento pendiente");
+            }
         }
         persistence.delete(proveedorID);
         LOGGER.log(Level.INFO, "Termina proceso de borrar el proveedor con id = {0}", proveedorID);
