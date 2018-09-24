@@ -147,6 +147,7 @@ public class PagoPersistenceTest {
         Assert.assertEquals(nuevaEntidad.getFechaExpiracionTarjetaCredito(), entity.getFechaExpiracionTarjetaCredito());
 
     }
+
     /**
      * Prueba para consultar un Pago.
      */
@@ -162,9 +163,10 @@ public class PagoPersistenceTest {
         Assert.assertEquals(entidad.getCodigoSeguridadTarjeta(), nuevaEntidad.getCodigoSeguridadTarjeta());
         Assert.assertEquals(entidad.getFechaExpiracionTarjetaCredito(), nuevaEntidad.getFechaExpiracionTarjetaCredito());
     }
-/**
- * Prueba para eliminar un pago
- */
+
+    /**
+     * Prueba para eliminar un pago
+     */
     @Test
     public void deletePagoTest() {
         PagoEntity entity = data.get(0);
@@ -173,8 +175,8 @@ public class PagoPersistenceTest {
         Assert.assertNull(deleted);
 
     }
-    
-     /**
+
+    /**
      * Prueba para consultar la lista de pagos.
      */
     @Test
@@ -192,9 +194,9 @@ public class PagoPersistenceTest {
             Assert.assertTrue(encontrado);
         }
     }
-    
+
     /**
-     * Prueba para  actualizar un pago.
+     * Prueba para actualizar un pago.
      */
     @Test
     public void updatePagoTest() {
@@ -207,21 +209,19 @@ public class PagoPersistenceTest {
         pagoPersistence.update(nuevaEntidadPago);
 
         PagoEntity resp = em.find(PagoEntity.class, entidadPago.getId());
-        
+
         Assert.assertEquals(nuevaEntidadPago.getEmpresa(), resp.getEmpresa());
         Assert.assertEquals(nuevaEntidadPago.getNombreTarjeta(), resp.getNombreTarjeta());
         Assert.assertEquals(nuevaEntidadPago.getNumeroTarjetaCredito(), resp.getNumeroTarjetaCredito());
         Assert.assertEquals(nuevaEntidadPago.getUsuario(), resp.getUsuario());
         Assert.assertEquals(nuevaEntidadPago.getCodigoSeguridadTarjeta(), resp.getCodigoSeguridadTarjeta());
         Assert.assertEquals(nuevaEntidadPago.getFechaExpiracionTarjetaCredito(), resp.getFechaExpiracionTarjetaCredito());
-    
 
-        
     }
-    
-/**
- * Prueba para encontrar un pago por el login de su cliente
- */
+
+    /**
+     * Prueba para encontrar un pago por el login de su cliente
+     */
     @Test
     public void FindPagoByUsuarioTest() {
         PagoEntity entity = data.get(0);

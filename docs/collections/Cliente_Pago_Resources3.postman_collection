@@ -38,6 +38,285 @@
 			"response": []
 		},
 		{
+			"name": "POST agregar Cliente con login repetido",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n     \"login\":\"Aquiseinsertaunlogin\",\n\n     \"contrasenia\":\"00000000\",\n\n     \"email\":\"unemailnotanlargo@cosas.com\",\n     \n     \n    \n     \"fechaNacimiento\":\"08/12/1999\"\n    \n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes"
+					]
+				},
+				"description": "Se bsuca probar el mensaje de error al provocar un Business Exception por no seguir una regla de negocio:\n\"El login no puede repetirse entre usuarios\""
+			},
+			"response": []
+		},
+		{
+			"name": "POST agregar Cliente con login null",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n     \n\n     \"contrasenia\":\"00000000\",\n\n     \"email\":\"unemailnotanlargo@cosas.com\",\n     \n     \n    \n     \"fechaNacimiento\":\"08/12/1999\"\n    \n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes"
+					]
+				},
+				"description": "Se bsuca probar el mensaje de error al provocar un Business Exception por no seguir una regla de negocio:\n\"Un login no puede ser null\""
+			},
+			"response": []
+		},
+		{
+			"name": "POST agregar Cliente con login vacío ",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n     \"login\":\"\",\n\n     \"contrasenia\":\"00000000\",\n\n     \"email\":\"unemailnotanlargo@cosas.com\",\n     \n     \n    \n     \"fechaNacimiento\":\"08/12/1999\"\n    \n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes"
+					]
+				},
+				"description": "Se bsuca probar el mensaje de error al provocar un Business Exception por no seguir una regla de negocio:\n\"Un login no puede ser vacío\""
+			},
+			"response": []
+		},
+		{
+			"name": "POST agregar Cliente con login caracteres especiales",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n     \"login\":\"-@{{{{{{{{{{{{{{{\",\n\n     \"contrasenia\":\"00000000\",\n\n     \"email\":\"unemailnotanlargo@cosas.com\",\n     \n     \n    \n     \"fechaNacimiento\":\"08/12/1999\"\n    \n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes"
+					]
+				},
+				"description": "Se bsuca probar el mensaje de error al provocar un Business Exception por no seguir una regla de negocio:\n\"Un login no puede tener caracteres especiales\""
+			},
+			"response": []
+		},
+		{
+			"name": "POST agregar Cliente con longitud irregular",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n     \"login\":\"Aquiseinsertaunloginaaaaaaaaaaaaaaaaa\",\n\n     \"contrasenia\":\"00000000\",\n\n     \"email\":\"unemailnotanlargo@cosas.com\",\n     \n     \n    \n     \"fechaNacimiento\":\"08/12/1999\"\n    \n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes"
+					]
+				},
+				"description": "Se bsuca probar el mensaje de error al provocar un Business Exception por no seguir una regla de negocio:\n\"Un login debe tener una longitud dentre 8 y 20 caracteres\""
+			},
+			"response": []
+		},
+		{
+			"name": "POST agregar Cliente con fecha null",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n     \"login\":\"Aquiseinsertaunlogin\",\n\n     \"contrasenia\":\"00000000\",\n\n     \"email\":\"unemailnotanlargo@cosas.com\",\n     \n     \n    \n     \"fechaNacimiento\":\"08/12/1999\"\n    \n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes"
+					]
+				},
+				"description": "Se bsuca probar el mensaje de error al provocar un Business Exception por no seguir una regla de negocio:\n\"La fecha de nacimiento no puede ser nula\""
+			},
+			"response": []
+		},
+		{
+			"name": "POST agregar Cliente con fecha posterior",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n     \"login\":\"Aquiseinsertaunlogin\",\n\n     \"contrasenia\":\"00000000\",\n\n     \"email\":\"unemailnotanlargo@cosas.com\",\n     \n     \n    \n     \"fechaNacimiento\":\"08/12/1999\"\n    \n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes"
+					]
+				},
+				"description": "Se bsuca probar el mensaje de error al provocar un Business Exception por no seguir una regla de negocio:\n\"La fecha de nacimiento no puede ser posterior a la fecha actual\""
+			},
+			"response": []
+		},
+		{
+			"name": "POST agregar Cliente con edad suficiente",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n     \"login\":\"Aquiseinsertaunlogin\",\n\n     \"contrasenia\":\"00000000\",\n\n     \"email\":\"unemailnotanlargo@cosas.com\",\n     \n     \n    \n     \"fechaNacimiento\":\"08/12/1999\"\n    \n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes"
+					]
+				},
+				"description": "Se bsuca probar el mensaje de error al provocar un Business Exception por no seguir una regla de negocio:\n\"Un cliente no puede registrarse is no tiene edad para hacerlo, es decir, si tiene 5 años por ejemplo\""
+			},
+			"response": []
+		},
+		{
+			"name": "POST agregar Pagos",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n     \"login\":\"Aquiseinsertaunlogin\",\n\n     \"contrasenia\":\"00000000\",\n\n     \"email\":\"unemailnotanlargo@cosas.com\",\n     \n     \n    \n     \"fechaNacimiento\":\"08/12/1999\"\n    \n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes"
+					]
+				},
+				"description": "Se busca agregar a un único cliente de la base de datos, los pagos a través de PostMan."
+			},
+			"response": []
+		},
+		{
 			"name": "PUT modificar Cliente",
 			"request": {
 				"method": "PUT",
@@ -198,33 +477,28 @@
 			"response": []
 		},
 		{
-			"name": "POST agregar Pagos",
+			"name": "GET obtener todos los Clientes",
 			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n     \"login\":\"Aquiseinsertaunlogin\",\n\n     \"contrasenia\":\"00000000\",\n\n     \"email\":\"unemailnotanlargo@cosas.com\",\n     \n     \n    \n     \"fechaNacimiento\":\"08/12/1999\"\n    \n}"
-				},
+				"method": "GET",
+				"header": [],
+				"body": {},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/clientes",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"s4_PartyServices-api",
-						"api",
-						"clientes"
-					]
+					"raw": ""
 				},
-				"description": "Se busca agregar a un único cliente de la base de datos, los pagos a través de PostMan."
+				"description": "Se busca obtener todos los clientes creados hasta ahora (2). Estos se encuentran en la dirección /clientes/. Si los clientes se encunetran vacíos, por favor ejecute la función \"POST agregar Cliente\" antes."
+			},
+			"response": []
+		},
+		{
+			"name": "GET obtener todos los Pagos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": ""
+				},
+				"description": "Se busca obtener todos los pagos de un cliente en específico. Estos pagos se encuentran en la posición /pagos/ y hasta ahora se han creado 2. Si la anterior suposición no es cierta, intente crear pagos con la función \"POST agregar Pagos\"."
 			},
 			"response": []
 		}
