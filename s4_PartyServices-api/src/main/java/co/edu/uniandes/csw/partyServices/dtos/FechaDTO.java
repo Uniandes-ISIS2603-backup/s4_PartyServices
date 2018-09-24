@@ -6,7 +6,8 @@
 package co.edu.uniandes.csw.partyServices.dtos;
 
 import co.edu.uniandes.csw.partyServices.entities.FechaEntity;
-//import com.fasterxml.jackson.annotation.JsonFormat;
+
+
 import java.io.Serializable;
 import java.util.Date;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -18,6 +19,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  */
 public class FechaDTO implements Serializable{
     //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    //@Custom
     private Date dia;
     private String jornada;
     private Long id;
