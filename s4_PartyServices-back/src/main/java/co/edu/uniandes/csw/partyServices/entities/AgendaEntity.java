@@ -111,6 +111,10 @@ public class AgendaEntity extends BaseEntity implements Serializable{
     public void setJornadaDomingoND(String jornadaDomingoND) {
         this.jornadaDomingoND = jornadaDomingoND;
     }
+
+    public void setProveedor(ProveedorEntity proveedor) {
+        this.proveedor = proveedor;
+    }
              
     
     

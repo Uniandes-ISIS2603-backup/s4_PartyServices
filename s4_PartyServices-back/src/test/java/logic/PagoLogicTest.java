@@ -47,7 +47,7 @@ public class PagoLogicTest {
      */
     @Inject
     private PagoLogic PagoLogic;
-    
+
     /**
      * inserción de una instancia de la logica de Cliente
      */
@@ -70,12 +70,11 @@ public class PagoLogicTest {
      * Lista de los pagos a probar
      */
     private List<PagoEntity> data = new ArrayList<>();
-    
+
     /**
      * Lista de los clientes a probar
      */
     private List<ClienteEntity> dataCliente = new ArrayList();
-
 
     /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
@@ -158,27 +157,24 @@ public class PagoLogicTest {
         newEntity.setCodigoSeguridadTarjeta(123);
         newEntity.setNombreTarjeta("LAURA L");
 
-
         PagoEntity result = PagoLogic.createPago(dataCliente.get(1).getId(), newEntity);
 
         Assert.assertNotNull(result);
         PagoEntity entity = em.find(PagoEntity.class, result.getId());
-        
+
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getEmpresa(), entity.getEmpresa());
         Assert.assertEquals(newEntity.getUsuario(), entity.getUsuario());
         Assert.assertEquals(newEntity.getCodigoSeguridadTarjeta(), entity.getCodigoSeguridadTarjeta());
-                Assert.assertEquals(newEntity.getNumeroTarjetaCredito(), entity.getNumeroTarjetaCredito());
+        Assert.assertEquals(newEntity.getNumeroTarjetaCredito(), entity.getNumeroTarjetaCredito());
 
-    
-        
-        
-       }
-    
+    }
+
     /**
      * Prueba para consultar la lista de pagos.
      *
-     * @throws co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException
+     * @throws
+     * co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException
      */
     @Test
     public void getPagosTest() throws BusinessLogicException {
@@ -201,7 +197,7 @@ public class PagoLogicTest {
     @Test
     public void deletePagoTest() throws BusinessLogicException {
         PagoEntity entity = data.get(0);
-        PagoLogic.deletePago(dataCliente.get(1).getId() ,entity.getId());
+        PagoLogic.deletePago(dataCliente.get(1).getId(), entity.getId());
         PagoEntity deleted = em.find(PagoEntity.class, entity.getId());
 
     }
@@ -221,11 +217,10 @@ public class PagoLogicTest {
         Assert.assertEquals(entity.getCodigoSeguridadTarjeta(), resultEntity.getCodigoSeguridadTarjeta());
         Assert.assertEquals(entity.getNumeroTarjetaCredito(), resultEntity.getNumeroTarjetaCredito());
 
-        
     }
 
     /**
-     * Prueba para crear un pago con uno numero de credito no valido 
+     * Prueba para crear un pago con uno numero de credito no valido
      *
      * @throws BusinessLogicException
      */
@@ -256,8 +251,8 @@ public class PagoLogicTest {
     }
 
     /**
-     * Prueba para crear un pago con una tarjeta de credito con una fecha de expiarcion que
-     * ya paso
+     * Prueba para crear un pago con una tarjeta de credito con una fecha de
+     * expiarcion que ya paso
      *
      * @throws BusinessLogicException
      */
@@ -285,8 +280,8 @@ public class PagoLogicTest {
     }
 
     /**
-     * Prueba para crear un pago con una fecha de eparciorcion que
-     * no cumpla el formato
+     * Prueba para crear un pago con una fecha de eparciorcion que no cumpla el
+     * formato
      *
      * @throws BusinessLogicException
      */
@@ -301,8 +296,7 @@ public class PagoLogicTest {
     }
 
     /**
-     * Prueba para pago con un codigo de seguridad
-     * invalido
+     * Prueba para pago con un codigo de seguridad invalido
      *
      * @throws BusinessLogicException
      */

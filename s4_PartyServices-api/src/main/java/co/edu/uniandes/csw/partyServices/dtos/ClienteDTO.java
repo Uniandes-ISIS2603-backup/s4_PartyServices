@@ -19,12 +19,12 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * <pre>
  *   {
  *   "login":STRING,
-
-     "contrasenia":STRING,
-
-     "email":STRING,
-  
-     "fechaNacimiento":STRING
+ *
+ * "contrasenia":STRING,
+ *
+ * "email":STRING,
+ *
+ * "fechaNacimiento":STRING
  *   }
  * </pre> Por ejemplo un pago se representa asi:<br>
  *
@@ -32,14 +32,14 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *
  *   {
  *   "login":"Aquiseinsertaunlogin",
-
-     "contrasenia":"00000000",
-
-     "email":"unemailnotanlargo@cosas.com",
-     
-     
-    
-     "fechaNacimiento":"08/12/1999"
+ *
+ * "contrasenia":"00000000",
+ *
+ * "email":"unemailnotanlargo@cosas.com",
+ *
+ *
+ *
+ * "fechaNacimiento":"08/12/1999"
  *   }
  *
  * </pre>

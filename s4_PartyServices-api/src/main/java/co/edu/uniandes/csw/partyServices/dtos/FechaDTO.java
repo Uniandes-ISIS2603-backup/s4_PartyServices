@@ -6,6 +6,8 @@
 package co.edu.uniandes.csw.partyServices.dtos;
 
 import co.edu.uniandes.csw.partyServices.entities.FechaEntity;
+
+
 import java.io.Serializable;
 import java.util.Date;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -16,6 +18,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author n.hernandezs
  */
 public class FechaDTO implements Serializable{
+    
     private Date dia;
     private String jornada;
     private Long id;
@@ -61,6 +64,16 @@ public class FechaDTO implements Serializable{
     {
         this.jornada=jornada;
     }
+
+    public AgendaDTO getAgenda() {
+        return agenda;
+    }
+
+    public void setAgenda(AgendaDTO agenda) {
+        this.agenda = agenda;
+    }
+    
+    
     @Override
     public String toString() 
     {
