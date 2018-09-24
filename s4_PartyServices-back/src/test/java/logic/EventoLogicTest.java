@@ -232,20 +232,6 @@ public class EventoLogicTest {
     
     
       @Test(expected = BusinessLogicException.class)
-    public void createEventoSinProductosTest() throws BusinessLogicException {
-        EventoEntity newEntity = factory.manufacturePojo(EventoEntity.class);
-        ClienteEntity cli = factory.manufacturePojo(ClienteEntity.class);
-        FechaEntity fech = factory.manufacturePojo(FechaEntity.class);
-        newEntity.setCliente(cli);
-        newEntity.setFecha(fech);
-        newEntity.setEstado("En planeacion");
-        newEntity.setProductos(productoData);
-        newEntity.setLatitud(4.570868);
-        newEntity.setLongitud(-67.853233);
-        newEntity.setProductos(null);
-        EventoEntity result = eventoLogic.createEvento(newEntity);
-    }
-      @Test(expected = BusinessLogicException.class)
     public void createLatitudInvalidaTest() throws BusinessLogicException {
         EventoEntity newEntity = factory.manufacturePojo(EventoEntity.class);
         ClienteEntity cli = factory.manufacturePojo(ClienteEntity.class);
@@ -285,7 +271,7 @@ public class EventoLogicTest {
 
         EventoEntity entity = eventoLogic.findAll().get(0);
         
-        entity.agragarProducto(pro);
+        entity.agregarProducto(pro);
 
         EventoEntity result = eventoLogic.updateEvento(entity.getNombre(), entity);
 

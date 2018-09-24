@@ -48,14 +48,14 @@ public class EventoResource {
     {
 
         
-        LOGGER.log(Level.INFO, "AuthorResource getAuthor: input: {0}", evento);
+        LOGGER.log(Level.INFO, "EventoResource getEvento: input: {0}", evento);
         EventoEntity evenEntity = eventoLogic.findByNombre(evento);
         
         if (evenEntity == null) {
-            throw new WebApplicationException("El recurso /authors/" + evento + " no existe.", 404);
+            throw new WebApplicationException("El recurso /eventos/" + evento + " no existe.", 404);
         }
         EventoDetailDTO detailDTO = new EventoDetailDTO(evenEntity);
-        LOGGER.log(Level.INFO, "AuthorResource getAuthor: output: {0}", detailDTO.toString());
+        LOGGER.log(Level.INFO, "EventoResource getEvento: output: {0}", detailDTO.toString());
         return detailDTO;
       
      
@@ -75,7 +75,7 @@ public class EventoResource {
     public void borrarEvento(@PathParam("evento") String evento) throws BusinessLogicException 
     {
         
-         LOGGER.log(Level.INFO, "EventoResource deleteProducto: input: {0}", evento);
+         LOGGER.log(Level.INFO, "EventoResource deleteEvento: input: {0}", evento);
         EventoEntity entity = eventoLogic.findByNombre(evento);
         
         if (entity == null) 
@@ -85,7 +85,7 @@ public class EventoResource {
      
         eventoLogic.deleteEvento(evento);
        
-        LOGGER.info("EventoResource deleteProducto: output: void");
+        LOGGER.info("EventoResource deleteEvento: output: void");
     }
 
     @PUT
@@ -93,7 +93,7 @@ public class EventoResource {
     public EventoDTO actualizarEvento(@PathParam("evento") String evento, EventoDTO pEvento) throws BusinessLogicException 
     {
         
-          LOGGER.log(Level.INFO, "EventoResource updateBook: input: id: {0} , book: {1}");
+         LOGGER.log(Level.INFO, "EventoResource updateEvento");
         pEvento.setNombre(evento);
         EventoEntity entity = eventoLogic.findByNombre(evento);
         if (entity== null) 
@@ -105,7 +105,7 @@ public class EventoResource {
         
        EventoDTO detailDTO = new EventoDTO(updateado);
        
-        LOGGER.log(Level.INFO, "EventoResource updateBook: output: {0}", detailDTO.toString());
+        LOGGER.log(Level.INFO, "EventoResource updateEvento: output: {0}", detailDTO.toString());
         
         return detailDTO;
     }
