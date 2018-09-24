@@ -71,7 +71,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"nombre\":\"bombas\",\n \"tipoServicio\":\"decoracion\",\n \"dueño\":\"bombas fantasia\",\n \"costo\":\"10000\" ,\n \"cantidad\":\"2\"\n}"
+					"raw": "{\n\t\n\t\"nombre\":\"bombasRojas\",\n\t\"tipoServicio\":\"decoracion\",\n\t\"duenio\":\"bombas fantasia\",\n\t \"costo\":\"10000\" ,\n\t \"cantidad\":\"200\",\n\t \"proveedor\":{\"nombre\":\"pepe\", \"contrasenia\": \"pepeelmasgrande\", \"calificacion\":0 ,\"agenda\":{}}\n \n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/s4_PartyServices-api/api/producto",
@@ -96,7 +96,7 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/producto/bombas",
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/producto/bombasRojas",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -106,7 +106,7 @@
 						"s4_PartyServices-api",
 						"api",
 						"producto",
-						"bombas"
+						"bombasRojas"
 					]
 				}
 			},
@@ -119,7 +119,7 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/producto/bombas",
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/producto/bombasRojas",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -129,7 +129,7 @@
 						"s4_PartyServices-api",
 						"api",
 						"producto",
-						"bombas"
+						"bombasRojas"
 					]
 				}
 			},
@@ -147,10 +147,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"nombre\":\"bombas\",\n \"tipoServicio\":\"decoracion\",\n \"dueño\":\"bombas fantasia\",\n \"costo\":\"10000\" ,\n \"cantidad\":\"2\"\n}"
+					"raw": "{\"nombre\":\"bombas\",\n \"tipoServicio\":\"decoracion\",\n \"dueño\":\"bombas fantasia\",\n \"costo\":\"10000\" ,\n \"cantidad\":\"2\",\n \"proveedor\":{\"nombre\":\"pepe\", \"contrasenia\": \"pepeelmasgrande\", \"calificacion\":0 ,\"agenda\":{}}\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/producto/bombas",
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/producto/bombasRojas",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -160,7 +160,7 @@
 						"s4_PartyServices-api",
 						"api",
 						"producto",
-						"bombas"
+						"bombasRojas"
 					]
 				}
 			},
@@ -209,7 +209,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"id\":\"100\",\n \"estado\":\"terminado\",\n \"fecha\":\"201802\"\n}"
+					"raw": "{\"nombre\":\"Fiesta Paula\",\n \"estado\":\"En planeacion\",\n \"fecha\":{\"dia\":\"2019-10-10\",\"jornada\":\"noche\"},\n \"latitud\":\"4.570868\",\n \"longitud\":\"-70.853233\",\n \"cliente\":{\"login\":\"Aquiseinsertaunlogin\",\"contrasenia\":\"00000000\",\"email\":\"unemailnotanlargo@cosas.com\",\"fechaNacimiento\":\"08/12/1999\"}\n\t\t\t\t\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/s4_PartyServices-api/api/evento",
