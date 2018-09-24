@@ -1,7 +1,5 @@
-
 package co.edu.uniandes.csw.partyServices.resources;
 
-import co.edu.uniandes.csw.partyServices.dtos.ClienteDTO;
 import co.edu.uniandes.csw.partyServices.dtos.PagoDTO;
 import co.edu.uniandes.csw.partyServices.ejb.PagoLogic;
 import co.edu.uniandes.csw.partyServices.entities.PagoEntity;
@@ -60,8 +58,8 @@ public class PagoResource {
      * Busca y devuelve todas las pagos que existen en un cliente.
      *
      * @param clientesId El ID del libro del cual se buscan las reseñas
-     * @return JSONArray {@link PagoDTO} - Las reseñas encontradas en el
-     * libro. Si no hay ninguna retorna una lista vacía.
+     * @return JSONArray {@link PagoDTO} - Las reseñas encontradas en el libro.
+     * Si no hay ninguna retorna una lista vacía.
      */
     @GET
     public List<PagoDTO> getPagos(@PathParam("clientesId") Long clientesId) {
@@ -86,8 +84,8 @@ public class PagoResource {
     @GET
     @Path("{pagosId: \\d+}")
     public PagoDTO getPago(@PathParam("clientesId") Long clientesId, @PathParam("pagosId") Long pagosId) throws BusinessLogicException {
-       LOGGER.log(Level.INFO, "Resource get: input: {0}", pagosId);
-       PagoEntity entity = pagoLogic.getPago(clientesId, pagosId);
+        LOGGER.log(Level.INFO, "Resource get: input: {0}", pagosId);
+        PagoEntity entity = pagoLogic.getPago(clientesId, pagosId);
         if (entity == null) {
             throw new WebApplicationException("El recurso /clientes/" + clientesId + "/pagos/" + pagosId + " no existe.", 404);
         }
@@ -116,7 +114,7 @@ public class PagoResource {
         if (pagosId.equals(pago.getId())) {
             throw new BusinessLogicException("Los ids del pago no coinciden.");
         }
-       PagoEntity entity = pagoLogic.getPago(clientesId, pagosId);
+        PagoEntity entity = pagoLogic.getPago(clientesId, pagosId);
         if (entity == null) {
             throw new WebApplicationException("El recurso /clientes/" + clientesId + "/pagos/" + pagosId + " no existe.", 404);
 
