@@ -1,4 +1,3 @@
-
 package co.edu.uniandes.csw.partyServices.resources;
 
 import co.edu.uniandes.csw.partyServices.dtos.ClienteDTO;
@@ -22,7 +21,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 
-
 @Path("clientes")
 @Produces("application/json")
 @Consumes("application/json")
@@ -33,7 +31,7 @@ public class ClienteResource {
 
     @Inject
     private ClienteLogic clienteLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
-    
+
     /**
      * Crea un nuevo cliente con la informacion que se recibe en el cuerpo de la
      * petición y se regresa un objeto identico con un id auto-generado por la
@@ -42,7 +40,8 @@ public class ClienteResource {
      * @param cliente {@link ClienteDTO} - El cliente que se desea guardar.
      * @return JSON {@link ClienteDTO} - El cliente guardado con el atributo id
      * autogenerado.
-     * @throws co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException
+     * @throws
+     * co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException
      */
     @POST
     public ClienteDTO createCliente(ClienteDTO cliente) throws BusinessLogicException {
@@ -54,7 +53,7 @@ public class ClienteResource {
         ClienteEntity nuevoEntity = clienteLogic.createCliente(entity);
         // Como debe retornar un DTO (json) se invoca el constructor del DTO con argumento el entity nuevo
         ClienteDTO nuevoDTO = new ClienteDTO(nuevoEntity);
-        
+
         LOGGER.log(Level.INFO, "Resource create: output: {0}", nuevoDTO.toString());
         return nuevoDTO;
     }
@@ -62,8 +61,8 @@ public class ClienteResource {
     /**
      * Busca y devuelve todos los clientes que existen en la aplicacion.
      *
-     * @return JSONArray {@link ClienteDetailDTO} - Los clientes encontrados en la
-     * aplicación. Si no hay ninguno retorna una lista vacía.
+     * @return JSONArray {@link ClienteDetailDTO} - Los clientes encontrados en
+     * la aplicación. Si no hay ninguno retorna una lista vacía.
      */
     @GET
     public List<ClienteDetailDTO> getClientes() {
@@ -76,8 +75,8 @@ public class ClienteResource {
     /**
      * Busca el cliente con el id asociado recibido en la URL y lo devuelve.
      *
-     * @param clientesId Identificador del cliente que se esta buscando. Este debe
-     * ser una cadena de dígitos.
+     * @param clientesId Identificador del cliente que se esta buscando. Este
+     * debe ser una cadena de dígitos.
      * @return JSON {@link ClienteDetailDTO} - El cliente buscado
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra el cliente.
@@ -96,11 +95,11 @@ public class ClienteResource {
     }
 
     /**
-     * Actualiza el cliente con el id recibido en la URL con la información que se
-     * recibe en el cuerpo de la petición.
+     * Actualiza el cliente con el id recibido en la URL con la información que
+     * se recibe en el cuerpo de la petición.
      *
-     * @param clientesId Identificador del cliente libro que se desea actualizar. Este debe
-     * ser una cadena de dígitos.
+     * @param clientesId Identificador del cliente libro que se desea
+     * actualizar. Este debe ser una cadena de dígitos.
      * @param cliente {@link ClienteDTO} El cliente que se desea guardar.
      * @return JSON {@link ClienteDetailDTO} - El cliente guardada.
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
@@ -125,9 +124,10 @@ public class ClienteResource {
     /**
      * Borra el cliente con el id asociado recibido en la URL.
      *
-     * @param clientesId Identificador del libro que se desea borrar. Este debe ser
-     * una cadena de dígitos.
-     * @throws co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException 
+     * @param clientesId Identificador del libro que se desea borrar. Este debe
+     * ser una cadena de dígitos.
+     * @throws
+     * co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException
      * cuando el libro tiene autores asociados.
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra el libro.
@@ -136,7 +136,7 @@ public class ClienteResource {
     @Path("{clientesId: \\d+}")
     public void deleteCliente(@PathParam("clientesId") Long clientesId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Resource delete: input: {0}", clientesId);
-       ClienteEntity entity = clienteLogic.getCliente(clientesId);
+        ClienteEntity entity = clienteLogic.getCliente(clientesId);
         if (entity == null) {
             throw new WebApplicationException("El recurso /clientes/" + clientesId + " no existe.", 404);
         }
@@ -148,8 +148,8 @@ public class ClienteResource {
      * Conexión con el servicio de pagos para un cliente. {@link PagoResource}
      *
      * Este método conecta la ruta de /clientes con las rutas de /pagos que
-     * dependen del cliente, es una redirección al servicio que maneja el segmento
-     * de la URL que se encarga de los pagos.
+     * dependen del cliente, es una redirección al servicio que maneja el
+     * segmento de la URL que se encarga de los pagos.
      *
      * @param clientesId El ID del libro con respecto al cual se accede al
      * servicio.
@@ -165,17 +165,14 @@ public class ClienteResource {
         return PagoResource.class;
     }
 
-   
-    
-
-   /**
+    /**
      * Convierte una lista de entidades a DTO.
      *
      * Este método convierte una lista de objetos ClienteEntity a una lista de
      * objetos CliennnteDetailDTO (json)
      *
-     * @param entityList corresponde a la lista de clientes de tipo Entity
-     * que vamos a convertir a DTO.
+     * @param entityList corresponde a la lista de clientes de tipo Entity que
+     * vamos a convertir a DTO.
      * @return la lista de clientes en forma DTO (json)
      */
     private List<ClienteDetailDTO> listEntity2DetailDTO(List<ClienteEntity> entityList) {

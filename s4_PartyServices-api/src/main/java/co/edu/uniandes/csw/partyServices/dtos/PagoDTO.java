@@ -16,14 +16,25 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * Al serializarse como JSON esta clase implementa el siguiente modelo: <br>
  * <pre>
  *   {
- *      
+ *      "codigoSeguridadTarjeta": int,
+ * "empresa": string,
+ * "fechaExpiracionTarjetaCredito": string,
+ * "id": long,
+ * "nombreTarjeta": string,
+ * "numeroTarjetaCredito": long
  * }
  * </pre> Por ejemplo un pago se representa asi:<br>
  *
  * <pre>
  *
  *   {
- *      
+ * "codigoSeguridadTarjeta": 123,
+ * "empresa": "MasterCard",
+ * "fechaExpiracionTarjetaCredito": "11/21",
+ * "id": 2,
+ * "nombreTarjeta": "LAURA FABIO",
+ * "numeroTarjetaCredito": 5555555555554444
+ *
  * }
  *
  * </pre>
@@ -69,7 +80,7 @@ public class PagoDTO implements Serializable {
 
     /*
     * Relación a un CLIENTE
-    * dado que esta tiene cardinalidad 1.
+    * dado que ésta tiene cardinalidad 1.
      */
     private ClienteDTO cliente;
 
@@ -79,7 +90,7 @@ public class PagoDTO implements Serializable {
     public PagoDTO() {
     }
 
-     /**
+    /**
      * Constructor a partir de una entidad
      *
      * @param pagoEntity La entidad de la cual se construye el DTO
@@ -99,7 +110,7 @@ public class PagoDTO implements Serializable {
             }
         }
     }
-    
+
     /**
      * Convertir DTO a Entity
      *
@@ -120,7 +131,6 @@ public class PagoDTO implements Serializable {
         return pagoEntity;
     }
 
-
     /**
      * Devuelve el ID.
      *
@@ -129,7 +139,7 @@ public class PagoDTO implements Serializable {
     public Long getId() {
         return id;
     }
-    
+
     /**
      * Modifica el ID del pago.
      *
@@ -151,15 +161,14 @@ public class PagoDTO implements Serializable {
     /**
      * Modifica el usuario del pago.
      *
-     * @param pUsuario  the id to set
+     * @param pUsuario the id to set
      */
     public void setUsuario(String pUsuario) {
         this.usuario = pUsuario;
 
     }
 
-    
-/**
+    /**
      * Devuelve el numero de tarjeta del usuario.
      *
      * @return the card number
@@ -171,7 +180,7 @@ public class PagoDTO implements Serializable {
     /**
      * Modifica la tarjeta del pago.
      *
-     * @param numeroTarjetaCredito  the number to set
+     * @param numeroTarjetaCredito the number to set
      */
     public void setNumeroTarjetaCredito(Long numeroTarjetaCredito) {
         this.numeroTarjetaCredito = numeroTarjetaCredito;
@@ -189,7 +198,7 @@ public class PagoDTO implements Serializable {
     /**
      * Modifica el codigo de la tarjeta del pago.
      *
-     * @param codigoSeguridadTarjeta  the code to set
+     * @param codigoSeguridadTarjeta the code to set
      */
     public void setCodigoSeguridadTarjeta(Integer codigoSeguridadTarjeta) {
         this.codigoSeguridadTarjeta = codigoSeguridadTarjeta;
@@ -204,10 +213,10 @@ public class PagoDTO implements Serializable {
         return fechaExpiracionTarjetaCredito;
     }
 
-/**
+    /**
      * Modifica la fecha de expiracion de la tarjeat del pago.
      *
-     * @param fechaExpiracionTarjetaCredito  the date to set
+     * @param fechaExpiracionTarjetaCredito the date to set
      */
     public void setFechaExpiracionTarjetaCredito(String fechaExpiracionTarjetaCredito) {
         this.fechaExpiracionTarjetaCredito = fechaExpiracionTarjetaCredito;
@@ -225,7 +234,7 @@ public class PagoDTO implements Serializable {
     /**
      * Modifica el nombre de tarjeta del pago.
      *
-     * @param nombreTarjeta  the name to set
+     * @param nombreTarjeta the name to set
      */
     public void setNombreTarjeta(String nombreTarjeta) {
         this.nombreTarjeta = nombreTarjeta;
@@ -267,7 +276,6 @@ public class PagoDTO implements Serializable {
         this.cliente = cliente;
     }
 
-    
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
