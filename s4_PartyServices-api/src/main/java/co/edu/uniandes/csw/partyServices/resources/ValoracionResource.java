@@ -73,7 +73,7 @@ public class ValoracionResource {
      */
     @GET
     @Path("{valoracionesId: \\d+}")
-    public ValoracionDTO getValoracion(@PathParam("proveedorId") Long proveedorId, @PathParam("valoracionId") Long valoracionId) throws WebApplicationException {
+    public ValoracionDTO getValoracion(@PathParam("proveedorId") Long proveedorId, @PathParam("valoracionesId") Long valoracionId) throws WebApplicationException {
         LOGGER.log(Level.INFO, "ValoracionResource getValoracion: input: {0}", valoracionId);
         ValoracionEntity entity = valoracionLogic.getValoracion(proveedorId, valoracionId);
         if (entity == null) {
@@ -114,11 +114,9 @@ public class ValoracionResource {
      */
     @PUT
     @Path("{valoracionesId: \\d+}")
-    public ValoracionDTO updateValoracion(@PathParam("proveedorId") Long proveedorId, @PathParam("valoracionId") Long valoracionId, ValoracionDTO valoracion) throws BusinessLogicException {
+    public ValoracionDTO updateValoracion(@PathParam("proveedorId") Long proveedorId, @PathParam("valoracionesId") Long valoracionId, ValoracionDTO valoracion) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "ValoracionResource updateValoracion: input: proveedorId: {0} , valoracionId: {1} , valoracion:{2}", new Object[]{proveedorId, valoracionId, valoracion.toString()});
-        if (!valoracionId.equals(valoracion.getId())) {
-            throw new BusinessLogicException("Los ids de la valoracion no coinciden.");
-        }
+        
         ValoracionEntity entity = valoracionLogic.getValoracion(proveedorId, valoracionId);
         if (entity == null) {
             throw new WebApplicationException("El recurso /proveedores/" + proveedorId + "/valoraciones/" + valoracionId + " no existe.", 404);
@@ -140,8 +138,8 @@ public class ValoracionResource {
      * Error de lógica que se genera cuando no se encuentra la valoracion.
      */
     @DELETE
-    @Path("{valoracionId: \\d+}")
-    public void deleteValoracion(@PathParam("proveedorId") Long proveedorId, @PathParam("valoracionId") Long valoracionId) throws BusinessLogicException {
+    @Path("{valoracionesId: \\d+}")
+    public void deleteValoracion(@PathParam("proveedorId") Long proveedorId, @PathParam("valoracionesId") Long valoracionId) throws BusinessLogicException {
         ValoracionEntity entity = valoracionLogic.getValoracion(proveedorId, valoracionId);
         if (entity == null) {
             throw new WebApplicationException("El recurso /proveedores/" + proveedorId + "/valoraciones/" + valoracionId + " no existe.", 404);

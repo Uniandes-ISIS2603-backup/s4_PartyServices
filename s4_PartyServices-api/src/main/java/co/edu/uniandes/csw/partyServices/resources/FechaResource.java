@@ -35,9 +35,9 @@ public class FechaResource {
     
     @GET
     @Path("{id: \\d+}")
-    public FechaDTO getFechaId(@PathParam("dia") long dia) throws BusinessLogicException
+    public FechaDTO getFechaId(@PathParam("id") long id) throws BusinessLogicException
     {
-        return new FechaDTO(fechaLogic.getFechaID(dia));
+        return new FechaDTO(fechaLogic.getFechaID(id));
     }
     @GET
     @Path("{agenda: \\d+}/{fecha: [a-zA-Z][a-zA-Z]*}/{jornada: [a-zA-Z][a-zA-Z]*}")

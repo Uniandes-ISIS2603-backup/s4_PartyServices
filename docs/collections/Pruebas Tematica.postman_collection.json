@@ -1,0 +1,272 @@
+{
+	"info": {
+		"_postman_id": "24987a43-bbdc-4dfb-995b-a68abcb429e7",
+		"name": "Pruebas Tematica",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST Tematica",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6e65cefc-7986-4f0f-9e3b-1289521adbe8",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_nombre_proveedor\",data.nombre);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\":\"Matrimonio\",\n    \"servicio\":{}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/tematicas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"tematicas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Tematicas",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6bddb580-edec-4879-bbae-e9a8fe0e7f00",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/tematicas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"tematicas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Tematica ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d569102c-905a-4d50-bfe1-070504121fbe",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Genera el error esperado\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/tematicas/7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"tematicas",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Tematica inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e7a32df9-b44f-4d20-96a8-24215cc3eef3",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No encuentra la tematica ya que no existe\"] = responseCode.code === 404;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/tematicas/100",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"tematicas",
+						"100"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE Tematica",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1697c438-8814-4e57-ac2c-7c4775b0c7ab",
+						"type": "text/javascript",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Put\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\":\"Matrimonio_3\",\n    \"servicio\":{}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/tematicas/7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"tematicas",
+						"7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Tematica",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c48ce909-bff1-4ca1-b230-786ad8fcdeba",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/tematicas/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"tematicas",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Tematica inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fa4334b4-de56-49a0-9798-4e9c146055fd",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 404;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/tematicas/100",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"tematicas",
+						"100"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
