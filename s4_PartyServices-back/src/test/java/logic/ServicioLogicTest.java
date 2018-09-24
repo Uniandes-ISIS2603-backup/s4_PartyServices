@@ -167,7 +167,7 @@ public class ServicioLogicTest {
         Assert.assertEquals(pojoEntity.getTipo(), resp.getTipo());
         
     }
-    */
+    
     @Test
     public void updateServicioTest() throws BusinessLogicException 
     {
@@ -183,6 +183,7 @@ public class ServicioLogicTest {
         Assert.assertEquals(entity.getTipo(), result.getTipo());
         
     }
+    */
 
     /**
      * Prueba para eliminar un Servicio
