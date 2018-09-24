@@ -16,12 +16,13 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  */
 public class ProductoDTO implements Serializable
 {
-    private long id ;
+    private Long id ;
     private String nombre;
     private String tipoServicio ;
     private String duenio ;
     private int costo ;
     private int cantidad ;
+    private ProveedorDTO proveedor;
     
     public ProductoDTO()
     {
@@ -37,6 +38,7 @@ public class ProductoDTO implements Serializable
             this.duenio = productoEntity.getDuenio() ;
             this.costo = productoEntity.getCosto();
             this.cantidad = productoEntity.getCantidad() ;
+           this.proveedor =  new ProveedorDTO(productoEntity.getProveedor()) ;
   
         }
     }
@@ -50,11 +52,12 @@ public class ProductoDTO implements Serializable
         productoEntity.setDuenio(this.duenio);
         productoEntity.setCosto(this.costo);
         productoEntity.setCantidad(this.cantidad);
+        productoEntity.setProveedor(this.proveedor.toEntity());
         
         return productoEntity;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -93,9 +96,9 @@ public class ProductoDTO implements Serializable
     {
         this.tipoServicio = pTipoServicio ;
     }
-    public void setDuenio(String pDueño)
+    public void setDuenio(String pDuenio)
     {
-        this.duenio = pDueño;
+        this.duenio = pDuenio;
     }
     public void setCosto(int pCosto)
     {
@@ -106,9 +109,16 @@ public class ProductoDTO implements Serializable
     {
         this.cantidad = pCantidad ;
     }
+
+    public ProveedorDTO getProveedor() {
+        return proveedor;
+    }
+
+    public void setProveedor(ProveedorDTO proveedor) {
+        this.proveedor = proveedor;
+    }
     
    
-    
       @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);

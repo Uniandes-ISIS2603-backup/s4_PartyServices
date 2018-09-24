@@ -18,7 +18,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n     \"login\":\"Aquiseinsertaunlogin\",\n\n     \"contrasenia\":\"00000000\",\n\n     \"email\":\"unemailnotanlargo@cosas.com\",\n     \n     \n    \n     \"fechaNacimiento\":\"08/12/1999\"\n    \n}"
+					"raw": "{\n     \"login\":\"Aquiseinsertaalgo\",\n\n     \"contrasenia\":\"00000001\",\n\n     \"email\":\"unemailnotanalgo@cosas.com\",\n     \n     \n    \n     \"fechaNacimiento\":\"08/12/1996\"\n    \n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/s4_PartyServices-api/api/clientes",
@@ -204,7 +204,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n     \"login\":\"Aquiseinsertaunlogin\",\n\n     \"contrasenia\":\"00000000\",\n\n     \"email\":\"unemailnotanlargo@cosas.com\",\n     \n     \n    \n     \"fechaNacimiento\":\"08/12/1999\"\n    \n}"
+					"raw": "{\n     \"login\":\"Aquiseinsertaunlogun\",\n\n     \"contrasenia\":\"00000000\",\n\n     \"email\":\"unemailnotanlargo@cosas.com\"\n     \n     \n    \n     \n    \n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/s4_PartyServices-api/api/clientes",
@@ -235,7 +235,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n     \"login\":\"Aquiseinsertaunlogin\",\n\n     \"contrasenia\":\"00000000\",\n\n     \"email\":\"unemailnotanlargo@cosas.com\",\n     \n     \n    \n     \"fechaNacimiento\":\"08/12/1999\"\n    \n}"
+					"raw": "{\n     \"login\":\"Aquiseinsertaunlogin\",\n\n     \"contrasenia\":\"00000000\",\n\n     \"email\":\"unemailnotanlargo@cosas.com\",\n     \n     \n    \n     \"fechaNacimiento\":\"08/12/2019\"\n    \n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/s4_PartyServices-api/api/clientes",
@@ -266,7 +266,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n     \"login\":\"Aquiseinsertaunlogin\",\n\n     \"contrasenia\":\"00000000\",\n\n     \"email\":\"unemailnotanlargo@cosas.com\",\n     \n     \n    \n     \"fechaNacimiento\":\"08/12/1999\"\n    \n}"
+					"raw": "{\n     \"login\":\"Aquiseinsertaunlogen\",\n\n     \"contrasenia\":\"00000000\",\n\n     \"email\":\"unemailnotanlargo@cosas.com\",\n     \n     \n    \n     \"fechaNacimiento\":\"08/12/2017\"\n    \n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/s4_PartyServices-api/api/clientes",
@@ -286,7 +286,7 @@
 			"response": []
 		},
 		{
-			"name": "POST agregar Pagos",
+			"name": "POST agregar Cliente contraseña diferente a login",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -310,6 +310,101 @@
 						"s4_PartyServices-api",
 						"api",
 						"clientes"
+					]
+				},
+				"description": "Se bsuca probar el mensaje de error al provocar un Business Exception por no seguir una regla de negocio:\n\"Un cliente no puede registrar una misma contraseña como login\""
+			},
+			"response": []
+		},
+		{
+			"name": "POST agregar Cliente correo formato inaceptable",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n     \"login\":\"Aquiseinsertaunlogin\",\n\n     \"contrasenia\":\"00000000\",\n\n     \"email\":\"unemailnotanlargo@cosas.com\",\n     \n     \n    \n     \"fechaNacimiento\":\"08/12/1999\"\n    \n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes"
+					]
+				},
+				"description": "Se bsuca probar el mensaje de error al provocar un Business Exception por no seguir una regla de negocio:\n\"El cliente debe tener un correo aceptable\""
+			},
+			"response": []
+		},
+		{
+			"name": "POST agregar Cliente correo vacío",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n     \"login\":\"Aquiseinsertaunlogin\",\n\n     \"contrasenia\":\"00000000\",\n\n     \"email\":\"unemailnotanlargo@cosas.com\",\n     \n     \n    \n     \"fechaNacimiento\":\"08/12/1999\"\n    \n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes"
+					]
+				},
+				"description": "Se bsuca probar el mensaje de error al provocar un Business Exception por no seguir una regla de negocio:\n\"El cliente debe tener un correo no vacío\""
+			},
+			"response": []
+		},
+		{
+			"name": "POST agregar Pagos",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n\t\"usuario\":\"Aquiseinsertaunlogin\",\n\t\"numeroTarjetaCredito\":5555555555554444,\n\t\"codigoSeguridadTarjeta\":123,\n\t\"fechaExpiracionTarjetaCredito\":\"11/21\",\n\t\"nombreTarjeta\":\"LAURA FABIO\",\n\t\"empresa\":\"MasterCard\"\n\n\n\n     \n    \n\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/clientes/2/pagos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"2",
+						"pagos"
 					]
 				},
 				"description": "Se busca agregar a un único cliente de la base de datos, los pagos a través de PostMan."
@@ -360,10 +455,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"id\":23,\"tipo\":\"nov\"}"
+					"raw": "{\n\t\n\t\"usuario\":\"Aquiseinsertaunlogin\",\n\t\"numeroTarjetaCredito\":5555555555554444,\n\t\"codigoSeguridadTarjeta\":123,\n\t\"fechaExpiracionTarjetaCredito\":\"11/21\",\n\t\"nombreTarjeta\":\"LAURA JOSE\",\n\t\"empresa\":\"MasterCard\"\n\n\n\n     \n    \n\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/pagos/45",
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/clientes/2/pagos/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -372,8 +467,10 @@
 					"path": [
 						"s4_PartyServices-api",
 						"api",
+						"clientes",
+						"2",
 						"pagos",
-						"45"
+						"1"
 					]
 				},
 				"description": "Se busca modificar un pago de un único cliente de la base de datos a través de PostMan."
@@ -387,7 +484,7 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/pagos/45",
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/clientes/2",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -396,8 +493,8 @@
 					"path": [
 						"s4_PartyServices-api",
 						"api",
-						"pagos",
-						"45"
+						"clientes",
+						"2"
 					]
 				},
 				"description": "Se busca obtener un único cliente de la base de datos a través de PostMan."
@@ -435,7 +532,7 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/pagos/45",
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/clientes/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -444,8 +541,8 @@
 					"path": [
 						"s4_PartyServices-api",
 						"api",
-						"pagos",
-						"45"
+						"clientes",
+						"1"
 					]
 				},
 				"description": "Se busca eliminar un único cliente de la base de datos a través de PostMan"
@@ -459,7 +556,7 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/pagos/45",
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/api/clientes/2/pagos/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -468,8 +565,11 @@
 					"path": [
 						"s4_PartyServices-api",
 						"api",
+						"api",
+						"clientes",
+						"2",
 						"pagos",
-						"45"
+						"1"
 					]
 				},
 				"description": "Se busca eliminar un pago de un único cliente de la base de datos a través de PostMan"
@@ -496,7 +596,19 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": ""
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/clientes/2/pagos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"2",
+						"pagos"
+					]
 				},
 				"description": "Se busca obtener todos los pagos de un cliente en específico. Estos pagos se encuentran en la posición /pagos/ y hasta ahora se han creado 2. Si la anterior suposición no es cierta, intente crear pagos con la función \"POST agregar Pagos\"."
 			},
