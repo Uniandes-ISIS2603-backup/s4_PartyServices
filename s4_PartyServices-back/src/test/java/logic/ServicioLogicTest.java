@@ -8,6 +8,7 @@ package logic;
 import co.edu.uniandes.csw.partyServices.ejb.ServicioLogic;
 import co.edu.uniandes.csw.partyServices.entities.ProveedorEntity;
 import co.edu.uniandes.csw.partyServices.entities.ServicioEntity;
+import co.edu.uniandes.csw.partyServices.entities.TematicaEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.partyServices.persistence.ServicioPersistence;
 import java.util.ArrayList;
@@ -47,6 +48,11 @@ public class ServicioLogicTest {
     private UserTransaction utx;
 
     private List<ServicioEntity> data = new ArrayList<>();
+    
+    /**
+     * Lista que tiene los datos de prueba para las tematicas.
+     */
+    private List<TematicaEntity> dataTematica = new ArrayList<TematicaEntity>();
 
     /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
@@ -88,7 +94,7 @@ public class ServicioLogicTest {
      */
     private void clearData() {
         em.createQuery("delete from PrizeEntity").executeUpdate();
-        em.createQuery("delete from ProveedorEntity").executeUpdate();
+        em.createQuery("delete from BookEntity").executeUpdate();
         em.createQuery("delete from ServicioEntity").executeUpdate();
     }
 
@@ -105,15 +111,11 @@ public class ServicioLogicTest {
         }
         ServicioEntity servicio = data.get(2);
         ProveedorEntity entity = factory.manufacturePojo(ProveedorEntity.class);
-        
-        // -------------------------------------------------------------- ERROR ------------------------------------------------------------//
-        
-        //entity.getServicios().add(servicio);
-        
-        // -------------------------------------------------------------- ERROR ------------------------------------------------------------//
-        
+        // entity.getServicios().add(servicio);
         em.persist(entity);
         servicio.getProveedores().add(entity);
+
+        
     }
 
     /**
@@ -127,7 +129,6 @@ public class ServicioLogicTest {
         ServicioEntity entity = em.find(ServicioEntity.class, result.getId());
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getTipo(), entity.getTipo());
-        
     }
 
     /**
@@ -148,33 +149,20 @@ public class ServicioLogicTest {
         }
     }
 
-    /**
-     * Prueba para consultar un Servicio.
-     */
-    @Test
-    public void getServicioTest() {
-        ServicioEntity entity = data.get(0);
-        ServicioEntity resultEntity = servicioLogic.getServicio(entity.getId());
-        Assert.assertNotNull(resultEntity);
-        Assert.assertEquals(entity.getId(), resultEntity.getId());
-        Assert.assertEquals(entity.getTipo(), resultEntity.getTipo());
-        
-    }
+    
 
     /**
      * Prueba para actualizar un Servicio.
      */
+    
     @Test
-    public void updateServicioTest() {
+    public void updateServicioTest() throws BusinessLogicException {
+        
         ServicioEntity entity = data.get(0);
         ServicioEntity pojoEntity = factory.manufacturePojo(ServicioEntity.class);
-
         pojoEntity.setId(entity.getId());
-
         servicioLogic.updateServicio(pojoEntity.getId(), pojoEntity);
-
         ServicioEntity resp = em.find(ServicioEntity.class, entity.getId());
-
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
         Assert.assertEquals(pojoEntity.getTipo(), resp.getTipo());
         
@@ -183,24 +171,18 @@ public class ServicioLogicTest {
     /**
      * Prueba para eliminar un Servicio
      *
-     * @throws co.edu.uniandes.csw.proveedorstore.exceptions.BusinessLogicException
+     * @throws co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException
      */
     @Test
     public void deleteServicioTest() throws BusinessLogicException {
-        ServicioEntity entity = data.get(0);
-        servicioLogic.deleteServicio(entity.getId());
-        ServicioEntity deleted = em.find(ServicioEntity.class, entity.getId());
+        List<ServicioEntity> newEntity = servicioLogic.findAll();
+
+        servicioLogic.deleteServicio(newEntity.get(0).getId());
+        ServicioEntity deleted = em.find(ServicioEntity.class, newEntity.get(0).getId());
         Assert.assertNull(deleted);
+
     }
 
-    /**
-     * Prueba para eliminar un Servicio asociado a un proveedor
-     *
-     * @throws co.edu.uniandes.csw.proveedorstore.exceptions.BusinessLogicException
-     */
-    @Test(expected = BusinessLogicException.class)
-    public void deleteServicioConProveedorTest() throws BusinessLogicException {
-        servicioLogic.deleteServicio(data.get(2).getId());
-    }
+    
     
 }

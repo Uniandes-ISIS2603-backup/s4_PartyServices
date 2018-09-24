@@ -67,5 +67,16 @@ public class ServicioEntity extends BaseEntity implements Serializable {
         this.tematica = tematica;
     }
 
-    
+public void agregarProveedor(ProveedorEntity proveedor)
+    {
+        if(proveedores==null)
+        {
+            proveedores = new ArrayList<>();
+            proveedores.add(proveedor) ;
+        }
+        else
+        {
+            proveedores.add(proveedor) ;
+        }
+    }    
 }
