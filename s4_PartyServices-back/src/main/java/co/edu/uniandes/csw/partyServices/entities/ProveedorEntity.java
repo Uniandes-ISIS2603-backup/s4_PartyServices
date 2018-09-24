@@ -54,6 +54,8 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
     @PodamExclude
     @OneToMany(
             mappedBy = "proveedor",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
             fetch = FetchType.LAZY
     )
     Collection<ValoracionEntity> valoraciones;

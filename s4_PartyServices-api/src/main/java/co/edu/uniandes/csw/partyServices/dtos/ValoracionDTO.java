@@ -40,7 +40,7 @@ public class ValoracionDTO implements Serializable{
     private String comentario;
     private String nombreUsuario;
     
-    
+    private ProveedorDTO proveedor;
     /**
      * Constructor por defecto
      */
@@ -59,6 +59,11 @@ public class ValoracionDTO implements Serializable{
             this.puntaje = valoracionEntity.getPuntaje();
             this.comentario = valoracionEntity.getComentario();
             this.nombreUsuario = valoracionEntity.getNombreUsuario();
+            if (valoracionEntity.getProveedor() != null) {
+                this.proveedor = new ProveedorDTO(valoracionEntity.getProveedor());
+            } else {
+                this.proveedor = null;
+            }
         }
     }
     
@@ -135,6 +140,24 @@ public class ValoracionDTO implements Serializable{
     }
     
     /**
+     * Devuelve el proveedor asociado a esta valoracion.
+     *
+     * @return El proveedor
+     */
+    public ProveedorDTO getProveedor() {
+        return proveedor;
+    }
+
+    /**
+     * Modifica el proveedor asociado a esta valoracion.
+     *
+     * @param proveedor. El proveedor que se reemplazará
+     */
+    public void setProveedor(ProveedorDTO proveedor) {
+        this.proveedor = proveedor;
+    }
+    
+    /**
      * Convertir DTO a Entity
      *
      * @return Un Entity con los valores del DTO
@@ -145,6 +168,9 @@ public class ValoracionDTO implements Serializable{
         valoracionEntity.setPuntaje(this.puntaje);
         valoracionEntity.setComentario(this.comentario);
         valoracionEntity.setNombreUsuario(this.nombreUsuario);
+        if (this.proveedor != null) {
+            valoracionEntity.setProveedor(this.proveedor.toEntity());
+        }
         return valoracionEntity;
     }
     
