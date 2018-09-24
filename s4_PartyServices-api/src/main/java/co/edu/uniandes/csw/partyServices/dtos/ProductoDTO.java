@@ -52,7 +52,7 @@ public class ProductoDTO implements Serializable
         productoEntity.setDuenio(this.duenio);
         productoEntity.setCosto(this.costo);
         productoEntity.setCantidad(this.cantidad);
-       productoEntity.setProveedor(this.proveedor.toEntity());
+        productoEntity.setProveedor(this.proveedor.toEntity());
         
         return productoEntity;
     }
@@ -96,9 +96,9 @@ public class ProductoDTO implements Serializable
     {
         this.tipoServicio = pTipoServicio ;
     }
-    public void setDuenio(String pDueño)
+    public void setDuenio(String pDuenio)
     {
-        this.duenio = pDueño;
+        this.duenio = pDuenio;
     }
     public void setCosto(int pCosto)
     {

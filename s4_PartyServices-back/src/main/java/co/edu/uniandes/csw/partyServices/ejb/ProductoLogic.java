@@ -92,7 +92,9 @@ public class ProductoLogic {
 
         if (buscado == null) {
             throw new BusinessLogicException("No existen productos con el nombre solicitado");
-        } else if (buscado.getEventos().size() > 0) {
+        } 
+        else if (!buscado.getEventos().isEmpty()) 
+        {
             throw new BusinessLogicException("No es posible borrar el producto solicitado porque aun tiene eventos asociados");
         }
 

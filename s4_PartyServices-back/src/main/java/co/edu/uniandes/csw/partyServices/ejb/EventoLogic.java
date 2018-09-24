@@ -68,7 +68,7 @@ public class EventoLogic {
             throw new BusinessLogicException("El nombre no puede contener caracteres especiales");
         }
 
-        if (eventoEntity.getEstado().equals(ConstantesEvento.EN_PLANEACION) == false) 
+        if (!eventoEntity.getEstado().equals(ConstantesEvento.EN_PLANEACION)) 
         {
             throw new BusinessLogicException("Para crear un evento su estado inicial debe ser en planeacion");
         }

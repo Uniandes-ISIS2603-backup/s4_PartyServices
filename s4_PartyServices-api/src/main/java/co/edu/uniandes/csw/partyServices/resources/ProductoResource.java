@@ -49,9 +49,9 @@ public class ProductoResource
         ProductoDTO ret =  new ProductoDTO(  productoLogic.findByNombre(producto));
         LOGGER.log(Level.INFO, "Saliendo de obtener el producto por nombre");
         return ret;
-        
-       
+   
     }
+    
     @POST
     public ProductoDTO crearProducto(ProductoDTO pProducto) throws BusinessLogicException
     {
