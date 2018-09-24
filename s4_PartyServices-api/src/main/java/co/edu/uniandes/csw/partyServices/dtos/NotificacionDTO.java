@@ -14,13 +14,14 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author estudiante
  */
 public class NotificacionDTO {
-    private long id;
+    private Long id;
     private String mensaje;
     private String tipoDeAviso;
     
     
     public NotificacionDTO(NotificacionEntity notificacionEntity) {
         if (notificacionEntity != null) {
+            this.id = notificacionEntity.getId();
             this.mensaje = notificacionEntity.getMensaje();
             this.tipoDeAviso = notificacionEntity.getTipoDeAviso();
         }
@@ -32,16 +33,17 @@ public class NotificacionDTO {
     
      public NotificacionEntity toEntity() {
         NotificacionEntity notifEntity = new NotificacionEntity();
+        notifEntity.setId(this.id);
         notifEntity.setMensaje(this.getMensaje());
         notifEntity.setTipoDeAviso(this.getTipoDeAviso());
         return notifEntity;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
      
@@ -57,11 +59,6 @@ public class NotificacionDTO {
     public void setMensaje(String pMensaje)
     {
         this.mensaje = pMensaje;
-    }
-    
-    public void setID (Long pId)
-    {
-        this.id = pId;
     }
       public void setTipoDeAviso(String ptipoDeAviso)
     {
