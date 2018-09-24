@@ -168,7 +168,7 @@ public class ServicioLogicTest {
         
     }
     
-    @Test
+    
     public void updateServicioTest() throws BusinessLogicException 
     {
         ProveedorEntity pro = factory.manufacturePojo(ProveedorEntity.class);

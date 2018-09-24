@@ -271,9 +271,10 @@ public class AgendaLogicTest
         AgendaEntity agenda =  data.get(0);
         agendaLogic.deleteAgenda(agenda.getId());
         try {
-            Assert.assertNull(agendaLogic.getAgenda(agenda.getId()));
+            agendaLogic.getAgenda(agenda.getId());
+            Assert.fail("Deberia mandar excepcion porque no existe la agenda");
         } catch (BusinessLogicException ex) {
-            Assert.fail();
+            
         }
         data.remove(0);
     
