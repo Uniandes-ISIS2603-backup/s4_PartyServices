@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.partyServices.entities;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
@@ -32,7 +33,7 @@ public class EventoEntity  extends BaseEntity implements Serializable
     private FechaEntity fecha ;
     
     @PodamExclude
-    @ManyToOne()
+    @ManyToOne(cascade = CascadeType.ALL)
     private ClienteEntity cliente ;
  
     private double latitud ;

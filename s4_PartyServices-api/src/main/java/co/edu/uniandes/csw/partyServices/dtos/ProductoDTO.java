@@ -52,12 +52,12 @@ public class ProductoDTO implements Serializable
         productoEntity.setDuenio(this.duenio);
         productoEntity.setCosto(this.costo);
         productoEntity.setCantidad(this.cantidad);
-        productoEntity.setProveedor(this.proveedor.toEntity());
+       productoEntity.setProveedor(this.proveedor.toEntity());
         
         return productoEntity;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
