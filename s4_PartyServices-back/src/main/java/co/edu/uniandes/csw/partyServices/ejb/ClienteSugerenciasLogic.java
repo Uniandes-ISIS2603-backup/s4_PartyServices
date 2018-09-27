@@ -24,9 +24,9 @@ import javax.inject.Inject;
  * @author Jesús Orlando Cárcamo Posada
  */
 @Stateless
-public class ClienteSugerenciaLogic {
+public class ClienteSugerenciasLogic {
 
-    private static final Logger LOGGER = Logger.getLogger(ClienteSugerenciaLogic.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ClienteSugerenciasLogic.class.getName());
 
     @Inject
     private ClientePersistence clientePersistence; // Variable para acceder a la persistencia de la aplicación. Es una inyección de dependencias.
@@ -88,38 +88,13 @@ public class ClienteSugerenciaLogic {
         if (index >= 0) {
             return sugerencias.get(index);
         }
-        throw new BusinessLogicException("El libro no está asociado a la editorial");
-    }
-
-    /**
-     * Remplazar sugerencias de un cliente.
-     *
-     * @param sugerencias Lista de sugerencias que serán las del cliente.
-     * @param clientesId El id del cliente al que se le quiere actualizar las
-     * sugerencias.
-     * @return La lista de sugerencias actualizada.
-     */
-    public List<SugerenciaEntity> replaceSugerencias(Long clientesId, List<SugerenciaEntity> sugerencias) {
-        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el cliente con id = {0}", clientesId);
-        ClienteEntity clienteEntity = clientePersistence.find(clientesId);
-        List<SugerenciaEntity> sugerenciaList = sugerenciaPersistence.findAll();
-        for (SugerenciaEntity sugerencia : sugerenciaList) {
-            if (sugerencias.contains(sugerencia)) {
-                sugerencia.setCliente(clienteEntity);
-                sugerencia.setNombreUsuario(clienteEntity.getLogin());
-                sugerenciaPersistence.update(sugerencia);
-            } else if (sugerencia.getCliente() != null && sugerencia.getCliente().equals(clienteEntity)) {
-                sugerencia.setCliente(null);
-            }
-        }
-        LOGGER.log(Level.INFO, "Termina proceso de actualizar el cliente con id = {0}", clientesId);
-        return sugerencias;
+        throw new BusinessLogicException("La sugerencia no está asociada al cliente");
     }
 
     /**
      * Remueve la relación entre un cliente y sus sugerencias.
      *
-     * @param clientesId. El ID del cliente que tiene las sugerencias.
+     * @param clientesId. El ID del cliente que tiene las sugerencias a las que se quiere desasociar. 
      */
     public void removeSugerencias(Long clientesId){
         LOGGER.log(Level.INFO, "Inicia proceso de remover la relación de las sugerencia con el cliente cliente con id = {0}", clientesId);

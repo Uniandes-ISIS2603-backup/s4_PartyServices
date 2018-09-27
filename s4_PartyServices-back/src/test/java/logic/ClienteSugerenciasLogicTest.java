@@ -6,7 +6,7 @@
 package logic;
 
 import co.edu.uniandes.csw.partyServices.ejb.ClienteLogic;
-import co.edu.uniandes.csw.partyServices.ejb.ClienteSugerenciaLogic;
+import co.edu.uniandes.csw.partyServices.ejb.ClienteSugerenciasLogic;
 import co.edu.uniandes.csw.partyServices.ejb.SugerenciaLogic;
 import co.edu.uniandes.csw.partyServices.entities.ClienteEntity;
 import co.edu.uniandes.csw.partyServices.entities.SugerenciaEntity;
@@ -35,7 +35,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  * @author Jesús Orlando Cárcamo Posada
  */
 @RunWith(Arquillian.class)
-public class ClienteSugerenciaLogicTest {
+public class ClienteSugerenciasLogicTest {
     
     /**
      * Instancia de la clase PodamFactory que nos ayudará para crear datos aleatorios de las clases.
@@ -43,11 +43,11 @@ public class ClienteSugerenciaLogicTest {
     private PodamFactory factory;
     
     /**
-     * Inyección de la dependencia a la clase ClienteSugerenciaLogic cuyos métodos se
+     * Inyección de la dependencia a la clase ClienteSugerenciasLogic cuyos métodos se
  van a probar.
      */
     @Inject
-    private ClienteSugerenciaLogic clienteSugerenciaLogic;
+    private ClienteSugerenciasLogic clienteSugerenciaLogic;
     
     @Inject
     private ClienteLogic clienteLogic;
@@ -93,7 +93,7 @@ public class ClienteSugerenciaLogicTest {
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
                 .addPackage(ClienteEntity.class.getPackage())
-                .addPackage(ClienteSugerenciaLogic.class.getPackage())
+                .addPackage(ClienteSugerenciasLogic.class.getPackage())
                 .addPackage(ClientePersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
@@ -211,22 +211,6 @@ public class ClienteSugerenciaLogicTest {
     }
     
     /**
-     * Prueba para remplazar las instancias de sugerencias asociadas a una instancia
-     * de Cliente.
-     */
-    @Test
-    public void replaceSugerenciasTest() {
-        ClienteEntity entity = dataCliente.get(2);
-        List<SugerenciaEntity> list = dataSugerencia.subList(0, 1);
-        clienteSugerenciaLogic.replaceSugerencias(entity.getId(), list);
-
-        entity = clienteLogic.getCliente(entity.getId());
-        Assert.assertFalse(entity.getSugerencias().contains(dataSugerencia.get(2)));
-        Assert.assertTrue(entity.getSugerencias().contains(dataSugerencia.get(0)));
-        Assert.assertTrue(entity.getSugerencias().contains(dataSugerencia.get(1)));
-    }
-    
-    /**
      * Prueba para remover la relación entre un cliente y sus sugerencias.
      */
     @Test
@@ -237,6 +221,6 @@ public class ClienteSugerenciaLogicTest {
         SugerenciaEntity sugerenciaEntity = sugerenciaLogic.getSugerencia(dataSugerencia.get(2).getTematica().getId(), dataSugerencia.get(2).getId());
         
         Assert.assertNull(sugerenciaEntity.getCliente());
-        Assert.assertEquals(sugerenciaEntity.getNombreUsuario(),"Anónimo");
+        Assert.assertEquals("Anónimo", sugerenciaEntity.getNombreUsuario());
     }
 }

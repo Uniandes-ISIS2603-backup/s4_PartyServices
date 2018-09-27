@@ -164,6 +164,28 @@ public class ClienteResource {
         }
         return PagoResource.class;
     }
+    
+    /**
+     * Conexión con el servicio de sugerencias para un cliente.
+     * {@link EditorialBooksResource}
+     *
+     * Este método conecta la ruta de /clientes con las rutas de /sugerencias que
+     * dependen del cliente, es una redirección al servicio que maneja el
+     * segmento de la URL que se encarga de las sugerencias de un cliente.
+     *
+     * @param clientesId El ID del cliente con respecto al cual se
+     * accede al servicio.
+     * @return El servicio de sugerencias para este cliente en paricular.
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra el cliente.
+     */
+    @Path("{clientesId: \\d+}/tematicas")
+    public Class<ClienteSugerenciasResource> getClienteSugerenciaResource(@PathParam("clientesId") Long clientesId) {
+        if (clienteLogic.getCliente(clientesId) == null) {
+            throw new WebApplicationException("El recurso /clientes/" + clientesId + " no existe.", 404);
+        }
+        return ClienteSugerenciasResource.class;
+    }
 
     /**
      * Convierte una lista de entidades a DTO.

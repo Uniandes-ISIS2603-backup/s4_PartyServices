@@ -31,16 +31,16 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\":\"Matrimonio\",\n    \"servicio\":{}\n}"
+					"raw": "{\n    \"name\":\"Tematica1\",\n    \"servicio\":{}\n}"
 				},
 				"url": {
-					"raw": "http:/{{ip}}:{{puerto}}/s4_PartyServices-api/api/tematicas",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/tematicas",
+					"protocol": "http",
 					"host": [
-						"http:"
+						"{{ip}}"
 					],
-					"port": "",
+					"port": "{{puerto}}",
 					"path": [
-						"{{ip}}:{{puerto}}",
 						"s4_PartyServices-api",
 						"api",
 						"tematicas"
@@ -191,7 +191,7 @@
 			"response": []
 		},
 		{
-			"name": "Obtener una sugerencias de una tematica  ",
+			"name": "Obtener una sugerencia de una tematica  ",
 			"event": [
 				{
 					"listen": "test",
