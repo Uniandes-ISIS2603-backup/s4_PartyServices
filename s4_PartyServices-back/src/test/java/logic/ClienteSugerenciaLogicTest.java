@@ -5,7 +5,9 @@
  */
 package logic;
 
-import co.edu.uniandes.csw.partyServices.ejb.SugerenciaClienteLogic;
+import co.edu.uniandes.csw.partyServices.ejb.ClienteLogic;
+import co.edu.uniandes.csw.partyServices.ejb.ClienteSugerenciaLogic;
+import co.edu.uniandes.csw.partyServices.ejb.SugerenciaLogic;
 import co.edu.uniandes.csw.partyServices.entities.ClienteEntity;
 import co.edu.uniandes.csw.partyServices.entities.SugerenciaEntity;
 import co.edu.uniandes.csw.partyServices.entities.TematicaEntity;
@@ -33,7 +35,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  * @author Jesús Orlando Cárcamo Posada
  */
 @RunWith(Arquillian.class)
-public class SugerenciaClienteLogicTest {
+public class ClienteSugerenciaLogicTest {
     
     /**
      * Instancia de la clase PodamFactory que nos ayudará para crear datos aleatorios de las clases.
@@ -41,11 +43,17 @@ public class SugerenciaClienteLogicTest {
     private PodamFactory factory;
     
     /**
-     * Inyección de la dependencia a la clase SugerenciaClienteLogic cuyos métodos se
-     * van a probar.
+     * Inyección de la dependencia a la clase ClienteSugerenciaLogic cuyos métodos se
+ van a probar.
      */
     @Inject
-    private SugerenciaClienteLogic sugerenciaClienteLogic;
+    private ClienteSugerenciaLogic clienteSugerenciaLogic;
+    
+    @Inject
+    private ClienteLogic clienteLogic;
+    
+     @Inject
+    private SugerenciaLogic sugerenciaLogic;
     
     /**
      * Contexto de Persistencia que se va a utilizar para acceder a la Base de
@@ -85,7 +93,7 @@ public class SugerenciaClienteLogicTest {
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
                 .addPackage(ClienteEntity.class.getPackage())
-                .addPackage(SugerenciaClienteLogic.class.getPackage())
+                .addPackage(ClienteSugerenciaLogic.class.getPackage())
                 .addPackage(ClientePersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
@@ -152,57 +160,83 @@ public class SugerenciaClienteLogicTest {
      * Prueba para asociar una sugerencia a un cliente.
      */
     @Test
-    public void addClienteTest() {
+    public void addSugerenciaTest() {
         ClienteEntity clienteEntity = dataCliente.get(0);
         SugerenciaEntity sugerenciaEntity = dataSugerencia.get(0);
-        ClienteEntity response = sugerenciaClienteLogic.addCliente(dataTematica.get(0).getId(), sugerenciaEntity.getId(), clienteEntity.getId());
+        SugerenciaEntity response = clienteSugerenciaLogic.addSugerencia(dataTematica.get(0).getId(), sugerenciaEntity.getId(), clienteEntity.getId());
 
         Assert.assertNotNull(response);
-        Assert.assertEquals(clienteEntity.getId(), response.getId());
+        Assert.assertEquals(sugerenciaEntity.getId(), response.getId());
     }
     
     /**
-     * Prueba para consultar un cliente de una sugerencia.
+     * Prueba para obtener una colección de instancias de Sugerencias asociadas a una
+     * instancia de Cliente.
      */
     @Test
-    public void getClienteTest() {
-        SugerenciaEntity entity = dataSugerencia.get(2);
-        ClienteEntity resultEntity = sugerenciaClienteLogic.getCliente(dataTematica.get(2).getId(), entity.getId());
-        
-        Assert.assertNotNull(resultEntity);
-        Assert.assertEquals(entity.getCliente().getId(), resultEntity.getId());
+    public void getSugerenciasTest() {
+        List<SugerenciaEntity> list = clienteSugerenciaLogic.getSugerencias(dataCliente.get(2).getId());
+
+        Assert.assertEquals(1, list.size());
     }
     
     /**
-     * Prueba para remplazar el cliente de una sugerencia.
-     */
-    @Test
-    public void replaceAuthorTest() {
-        ClienteEntity clienteEntity = dataCliente.get(2);
-        ClienteEntity newClienteEntity = sugerenciaClienteLogic.replaceCliente(dataTematica.get(2).getId(), dataSugerencia.get(2).getId(), clienteEntity.getId());
-        
-        Assert.assertEquals(clienteEntity,newClienteEntity);
-    }
-    
-    /**
-     * Prueba para desasociar un cliente de una sugerencia.
+     * Prueba para obtener una instancia de sugrencia asociada a una instancia
+     * Cliente.
      *
      * @throws BusinessLogicException
      */
     @Test
-    public void removeClienteTest() throws BusinessLogicException {
-        sugerenciaClienteLogic.removeCliente(dataTematica.get(2).getId(), dataSugerencia.get(2).getId());
-        Assert.assertNull(sugerenciaClienteLogic.getCliente(dataTematica.get(2).getId(), dataSugerencia.get(2).getId()));
+    public void getSugerenciaTest() throws BusinessLogicException {
+        ClienteEntity entity = dataCliente.get(2);
+        SugerenciaEntity sugerenciaEntity = dataSugerencia.get(2);
+        SugerenciaEntity response = clienteSugerenciaLogic.getSugerencia(sugerenciaEntity.getTematica().getId(), sugerenciaEntity.getId(), entity.getId());
+
+        Assert.assertEquals(sugerenciaEntity.getId(), response.getId());
+        Assert.assertEquals(sugerenciaEntity.getComentario(), response.getComentario());
+        Assert.assertEquals(sugerenciaEntity.getNombreUsuario(), response.getNombreUsuario());
     }
     
     /**
-     * Prueba para desasociar un cliente a una sugerencia existente sin cliente.
+     * Prueba para obtener una instancia de Sugerencias asociada a una instancia
+     * Cliente que no le pertenece.
      *
      * @throws BusinessLogicException
      */
     @Test(expected = BusinessLogicException.class)
-    public void removeClienteInexistenteTest() throws BusinessLogicException {
+    public void getSugerenciaNoAsociadaTest() throws BusinessLogicException {
+        ClienteEntity entity = dataCliente.get(0);
+        SugerenciaEntity sugerenciaEntity = dataSugerencia.get(1);
+        clienteSugerenciaLogic.getSugerencia(sugerenciaEntity.getTematica().getId(), sugerenciaEntity.getId(), entity.getId());
+    }
     
-        sugerenciaClienteLogic.removeCliente(dataTematica.get(0).getId(),dataSugerencia.get(0).getId());
+    /**
+     * Prueba para remplazar las instancias de sugerencias asociadas a una instancia
+     * de Cliente.
+     */
+    @Test
+    public void replaceSugerenciasTest() {
+        ClienteEntity entity = dataCliente.get(2);
+        List<SugerenciaEntity> list = dataSugerencia.subList(0, 1);
+        clienteSugerenciaLogic.replaceSugerencias(entity.getId(), list);
+
+        entity = clienteLogic.getCliente(entity.getId());
+        Assert.assertFalse(entity.getSugerencias().contains(dataSugerencia.get(2)));
+        Assert.assertTrue(entity.getSugerencias().contains(dataSugerencia.get(0)));
+        Assert.assertTrue(entity.getSugerencias().contains(dataSugerencia.get(1)));
+    }
+    
+    /**
+     * Prueba para remover la relación entre un cliente y sus sugerencias.
+     */
+    @Test
+    public void removeSugerenciasTest() {
+        ClienteEntity entity = dataCliente.get(2);
+        clienteSugerenciaLogic.removeSugerencias(entity.getId());
+        
+        SugerenciaEntity sugerenciaEntity = sugerenciaLogic.getSugerencia(dataSugerencia.get(2).getTematica().getId(), dataSugerencia.get(2).getId());
+        
+        Assert.assertNull(sugerenciaEntity.getCliente());
+        Assert.assertEquals(sugerenciaEntity.getNombreUsuario(),"Anónimo");
     }
 }

@@ -147,6 +147,28 @@ public class SugerenciaResource {
     }
     
     /**
+     * Conexión con el servicio de clientes para una sugerencia.
+     * {@link SugerenciaClienteResource}
+     *
+     * Este método conecta la ruta de /sugerencias con las rutas de /clientes que
+     * dependen de la sugerencia, es una redirección al servicio que maneja el
+     * segmento de la URL que se encarga del cliente de la sugerencia.
+     *
+     * @param sugerenciasId El ID de la sugerencia con respecto a la cual se accede al
+     * servicio.
+     * @return El servicio de cliente para esta sugerencia en paricular.
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no existe la sugerencia.
+     */
+   /* @Path("{tematicasId: \\d+}/{sugerenciasId: \\d+}/cliente")
+    public Class<SugerenciaClienteResource> getSugerenciaClienteResource(@PathParam("prizesId") Long prizesId) {
+        if (prizeLogic.getPrize(prizesId) == null) {
+            throw new WebApplicationException("El recurso /prizes/" + prizesId + " no existe.", 404);
+        }
+        return PrizeAuthorResource.class;
+    }*/
+    
+    /**
      * Lista de entidades a DTO.
      *
      * Este método convierte una lista de objetos SugerenciaEntity a una lista de
