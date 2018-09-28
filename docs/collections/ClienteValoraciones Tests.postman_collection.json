@@ -1,0 +1,555 @@
+{
+	"info": {
+		"_postman_id": "0c7aaf2e-efa8-43fe-bb7a-05e5cf27ad5d",
+		"name": "ClienteValoraciones Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear un proveedor ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eee19a9f-baae-4cbb-9748-7f6dbcb2acf7",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_proveedorValoracion_Cliente\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\":\"Jesus\",\n    \"contrasenia\":\"123456789\",\n    \"calificacion\":10,\n    \"agenda\":{}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s4_PartyServices-api/api/proveedor",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"proveedor"
+					]
+				},
+				"description": "Crea una nuevo proveedor con un nombre, una contraseña, una calificacion y una agenda asociada. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crearle una valoración a un proveedor ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ba99979b-ea3f-4853-a517-09815b662e58",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_valoracion_Cliente\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"puntaje\":10,\n\t\"comentario\":\"Muy buen servicio! Así se hace\",\n\t\"nombreUsuario\":\"Cesar\"\n\t\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/proveedor/{{new_id_proveedorValoracion_Cliente}}/valoraciones",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"proveedor",
+						"{{new_id_proveedorValoracion_Cliente}}",
+						"valoraciones"
+					]
+				},
+				"description": "Crea una nueva valoracion. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crearle una valoracion a un proveedor2 ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bc1f3e9a-f4f3-4613-8a2a-5d8d7afb622d",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_valoracion_Cliente2\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"comentario\":\"Pastel de arequipe el mejor!\",\n    \"nombreUsuario\":\"JoCarcamo\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/proveedor/{{new_id_proveedorValoracion_Cliente}}/valoraciones",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"proveedor",
+						"{{new_id_proveedorValoracion_Cliente}}",
+						"valoraciones"
+					]
+				},
+				"description": "Crea una nueva valoracion. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un cliente ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c8e0d4e5-4004-422c-9100-7a51cf3d1b84",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_ClienteValoracion\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n     \"login\":\"CesarRojo123\",\n     \"contrasenia\":\"00000001\",\n     \"email\":\"unemailnotanalgo@cosas.com\",\n     \"fechaNacimiento\":\"15/02/2000\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes"
+					]
+				},
+				"description": "Crea una nuevo cliente con un nombre, una contraseña, un correo y una fecha de nacimiento. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Agregarle una valoracion a un cliente ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e9b76351-dc3d-4ac6-beab-81871addfd96",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{new_id_ClienteValoracion}}/proveedor/{{new_id_proveedorValoracion_Cliente}}/valoraciones/{{new_id_valoracion_Cliente}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"{{new_id_ClienteValoracion}}",
+						"proveedor",
+						"{{new_id_proveedorValoracion_Cliente}}",
+						"valoraciones",
+						"{{new_id_valoracion_Cliente}}"
+					]
+				},
+				"description": "Asocia una valoracion a un cliente en la aplicación. \r\n\r\nSe envía el Id del cliente y el de la valoracion a asociar en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Agregar una valoracion que no existe a un cliente ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "860e1d64-c763-49bb-8752-c6a978511cd0",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No agrega una valoracion con un id que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /valoraciones/0 no existe.\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{new_id_ClienteValoracion}}/proveedor/{{new_id_proveedorValoracion_Cliente}}/valoraciones/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"{{new_id_ClienteValoracion}}",
+						"proveedor",
+						"{{new_id_proveedorValoracion_Cliente}}",
+						"valoraciones",
+						"0"
+					]
+				},
+				"description": "Asocia una valoracion que no existe a un cliente en la aplicación. \r\n\r\nSe envía el Id del cliente y el de la valoracion a asociar en la URL de la petición.\r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /valoraciones/0 no existe.\".\r\n\r\n**Código HTTP esperado: 404**"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener las valoraciones de un cliente ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "aaa5cac6-7cb6-47aa-9cee-d3d2a9d10dc9",
+						"type": "text/javascript",
+						"exec": [
+							"var data= JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get all\"] = responseCode.code === 200;",
+							"tests[\"Cantidad de valoraciones del cliente\"] = data.length >= 0;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{new_id_ClienteValoracion}}/proveedor/todos/valoraciones",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"{{new_id_ClienteValoracion}}",
+						"proveedor",
+						"todos",
+						"valoraciones"
+					]
+				},
+				"description": "Consulta las valoraciones de un cliente en la aplicación. \r\nLa petición no tiene cuerpo.\r\n\r\nSe envía el Id del cliente a consultar en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener una valoracion de un cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eb5201f8-e084-4a67-a336-861c386fef34",
+						"type": "text/javascript",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{new_id_ClienteValoracion}}/proveedor/{{new_id_proveedorValoracion_Cliente}}/valoraciones/{{new_id_valoracion_Cliente}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"{{new_id_ClienteValoracion}}",
+						"proveedor",
+						"{{new_id_proveedorValoracion_Cliente}}",
+						"valoraciones",
+						"{{new_id_valoracion_Cliente}}"
+					]
+				},
+				"description": "Consulta una valoracion de un cliente en la aplicación. \r\nLa petición no tiene cuerpo.\r\n\r\nSe envía el Id del cliente, del proveedor que peretenece la valoracion y de la valoracion a consultar en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener una valoracion no asociada de un cliente ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6fbec05d-37d6-4dee-bfd9-f7a13585d661",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No se puede obtener una sugerencia que no esta asociada\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"La valoracion no está asociada al cliente\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{new_id_ClienteValoracion}}/proveedor/{{new_id_proveedorValoracion_Cliente}}/valoraciones/{{new_id_valoracion_Cliente2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"{{new_id_ClienteValoracion}}",
+						"proveedor",
+						"{{new_id_proveedorValoracion_Cliente}}",
+						"valoraciones",
+						"{{new_id_valoracion_Cliente2}}"
+					]
+				},
+				"description": "Consulta una valoracion que no esta asociada a un cliente en la aplicación.  \r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"La valoracion no está asociada al cliente\".\r\n\r\n**Código http esperado: 412**"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener una valoracion que no existe de un cliente ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d75feb7f-ea6d-4c74-af2e-060b428cf23f",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No se puede obtener una valoracion que no existe\"] = responseCode.code === 404;",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{new_id_ClienteValoracion}}/proveedor/{{new_id_proveedorValoracion_Cliente}}/valoraciones/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"{{new_id_ClienteValoracion}}",
+						"proveedor",
+						"{{new_id_proveedorValoracion_Cliente}}",
+						"valoraciones",
+						"0"
+					]
+				},
+				"description": "Consulta una valoracion que no existe de un cliente en la aplicación.  \r\n\r\nPara la prueba se verifica que se genera el error.\r\n\r\n**Código http esperado: 404**"
+			},
+			"response": []
+		},
+		{
+			"name": "Remover la asociacion de las valoraciones de un cliente ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "da77ebf3-c047-49d4-935f-f4cfaf5050dd",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{new_id_ClienteValoracion}}/proveedor/todos/valoraciones",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"{{new_id_ClienteValoracion}}",
+						"proveedor",
+						"todos",
+						"valoraciones"
+					]
+				},
+				"description": "Remover la asociacion de las valoraciones de un cliente en la aplicación. \r\nLa petición no tiene cuerpo.\r\n\r\nSe envía el Id del cliente a al que se le desasociaran las valoraciones en la URL de la petición.\r\n\r\n**Código http esperado: 204**"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener una valoracion de un proveedor a la que se le eliminó el cliente ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bc8bb376-0623-4c8f-a3e0-dcff1ef6d05e",
+						"type": "text/javascript",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"no genera error en el Get\"] = responseCode.code === 200;",
+							"pm.test(\"El nombre del usuario se cambió correctamente\", function () { ",
+							"    pm.response.to.not.be.error; ",
+							"    pm.response.to.have.jsonBody(\"Anonimo\") });"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"comentario\":\"Pastel de arequipe el mejor!\",\n    \"nombreUsuario\":\"Cesar\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/proveedor/{{new_id_proveedorValoracion_Cliente}}/valoraciones/{{new_id_valoracion_Cliente}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"proveedor",
+						"{{new_id_proveedorValoracion_Cliente}}",
+						"valoraciones",
+						"{{new_id_valoracion_Cliente}}"
+					]
+				},
+				"description": "Consulta una valoracion de un proveedor en la aplicación. \r\nLa petición no tiene cuerpo.\r\n\r\nSe envía el Id del proveedor y de la valoracion a consultar en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		}
+	]
+}

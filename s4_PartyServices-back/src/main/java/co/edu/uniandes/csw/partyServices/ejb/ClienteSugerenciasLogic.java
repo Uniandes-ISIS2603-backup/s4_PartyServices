@@ -76,7 +76,7 @@ public class ClienteSugerenciasLogic {
      * @param tematicasId. El ID de la temática de la cual hace parte la
      * sugerencia.
      * @return La sugerencia del cliente solicitada.
-     * @throws BusinessLogicException Si la sugerencia no se encuentra en el
+     * @throws BusinessLogicException Si la sugerencia no se encuentra asociada al
      * cliente.
      */
     public SugerenciaEntity getSugerencia(Long tematicasId, Long sugerenciasId, Long clientesId) throws BusinessLogicException {
@@ -97,14 +97,14 @@ public class ClienteSugerenciasLogic {
      * @param clientesId. El ID del cliente que tiene las sugerencias a las que se quiere desasociar. 
      */
     public void removeSugerencias(Long clientesId){
-        LOGGER.log(Level.INFO, "Inicia proceso de remover la relación de las sugerencia con el cliente cliente con id = {0}", clientesId);
+        LOGGER.log(Level.INFO, "Inicia proceso de remover la relación de las sugerencias con el cliente con id = {0}", clientesId);
 
         ClienteEntity clienteEntity = clientePersistence.find(clientesId);
         List<SugerenciaEntity> sugerenciaList = sugerenciaPersistence.findAll();
         for (SugerenciaEntity sugerencia : sugerenciaList) {
             if (sugerencia.getCliente() != null && sugerencia.getCliente().equals(clienteEntity)) {
                 sugerencia.setCliente(null);
-                sugerencia.setNombreUsuario("Anónimo");
+                sugerencia.setNombreUsuario("Anonimo");
                 sugerenciaPersistence.update(sugerencia);
             }
         }

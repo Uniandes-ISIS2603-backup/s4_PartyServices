@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "322586e5-1932-46db-8db7-b57a202ad2f4",
-		"name": "ClienteSugerencia Tests",
+		"name": "ClienteSugerencias Tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -184,7 +184,8 @@
 						"api",
 						"clientes"
 					]
-				}
+				},
+				"description": "Crea una nuevo cliente con un nombre, una contraseña, un correo y una fecha de nacimiento. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
 			},
 			"response": []
 		},
@@ -457,7 +458,7 @@
 			"response": []
 		},
 		{
-			"name": "Remover la asociacion de las sugerencias de un cliente Copy",
+			"name": "Remover la asociacion de las sugerencias de un cliente",
 			"event": [
 				{
 					"listen": "test",
@@ -499,12 +500,12 @@
 			"response": []
 		},
 		{
-			"name": "Obtener una sugerencia de una tematica  a la que se le eliminó el cliente Copy",
+			"name": "Obtener una sugerencia de una tematica  a la que se le eliminó el cliente ",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "dca1ec9e-316b-4d62-91c3-2541b2543f9c",
+						"id": "bc8bb376-0623-4c8f-a3e0-dcff1ef6d05e",
 						"type": "text/javascript",
 						"exec": [
 							"console.log(responseBody);",
@@ -512,7 +513,7 @@
 							"tests[\"no genera error en el Get\"] = responseCode.code === 200;",
 							"pm.test(\"El nombre del usuario se cambió correctamente\", function () { ",
 							"    pm.response.to.not.be.error; ",
-							"    pm.response.to.have.jsonBody(\"Anónimo\") });"
+							"    pm.response.to.have.jsonBody(\"Anonimo\") });"
 						]
 					}
 				}

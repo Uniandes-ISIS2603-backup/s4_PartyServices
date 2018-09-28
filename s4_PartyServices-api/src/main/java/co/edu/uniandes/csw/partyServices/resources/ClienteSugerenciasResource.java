@@ -26,7 +26,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.WebApplicationException;
 
 /**
- * Clase que implementa el recurso "tematicas/{id}/sugerencias/{id}/cliente".
+ * Clase que implementa el recurso "cliente/{id}tematicas/{id}/sugerencias/{id}".
  *
  * @author Jesús Orlando Cárcamo Posada
  */
@@ -37,7 +37,7 @@ public class ClienteSugerenciasResource {
     private static final Logger LOGGER = Logger.getLogger(ClienteSugerenciasResource.class.getName());
 
     @Inject
-    private ClienteSugerenciasLogic clienteSugerenciaLogic; //Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
+    private ClienteSugerenciasLogic clienteSugerenciasLogic; //Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
 
     @Inject
     private SugerenciaLogic sugerenciaLogic; //Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
@@ -62,7 +62,7 @@ public class ClienteSugerenciasResource {
         if (sugerenciaLogic.getSugerencia(tematicasId, sugerenciasId) == null) {
             throw new WebApplicationException("El recurso /sugerencias/" + sugerenciasId + " no existe.", 404);
         }
-        SugerenciaDTO sugerenciaDTO = new SugerenciaDTO(clienteSugerenciaLogic.addSugerencia(tematicasId, sugerenciasId, clientesId));
+        SugerenciaDTO sugerenciaDTO = new SugerenciaDTO(clienteSugerenciasLogic.addSugerencia(tematicasId, sugerenciasId, clientesId));
         LOGGER.log(Level.INFO, "ClienteSugerenciaResource addSugerencia: output: {0}", sugerenciaDTO.toString());
         return sugerenciaDTO;
     }
@@ -79,7 +79,7 @@ public class ClienteSugerenciasResource {
     @Path("todas/sugerencias")
     public List<SugerenciaDTO> getSugerencias(@PathParam("clientesId") Long clientesId) {
         LOGGER.log(Level.INFO, "ClienteSugerenciaResource getSugerencias: input: {0}", clientesId);
-        List<SugerenciaDTO> listaDTOs = sugerenciaListEntity2DTO(clienteSugerenciaLogic.getSugerencias(clientesId));
+        List<SugerenciaDTO> listaDTOs = sugerenciaListEntity2DTO(clienteSugerenciasLogic.getSugerencias(clientesId));
         LOGGER.log(Level.INFO, "ClienteSugerenciaResource getSugerencias: output: {0}", listaDTOs.toString());
         return listaDTOs;
     }
@@ -93,7 +93,7 @@ public class ClienteSugerenciasResource {
      * ser una cadena de dígitos.
      * @param tematicasId. Identificador de la temática de la cual hace parte la sugerencia. Este debe
      * ser una cadena de dígitos.
-     * @return JSON {@link SugerenciaDTO} - La sugerencia buscado
+     * @return JSON {@link SugerenciaDTO} - La sugerencia buscada
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra la sugerencia.
      * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
@@ -107,7 +107,7 @@ public class ClienteSugerenciasResource {
         if (sugerenciaLogic.getSugerencia(tematicasId, sugerenciasId) == null) {
             throw new WebApplicationException("El recurso /clientes/" + clientesId + "/tematicas/" + tematicasId + "/sugerencias/"+ sugerenciasId + " no existe.", 404);
         }
-        SugerenciaDTO sugerenciaDTO = new SugerenciaDTO(clienteSugerenciaLogic.getSugerencia(tematicasId, sugerenciasId, clientesId));
+        SugerenciaDTO sugerenciaDTO = new SugerenciaDTO(clienteSugerenciasLogic.getSugerencia(tematicasId, sugerenciasId, clientesId));
         LOGGER.log(Level.INFO, "ClienteSugerenciaResource getSugerencia: output: {0}", sugerenciaDTO.toString());
         return sugerenciaDTO;
     }
@@ -121,7 +121,7 @@ public class ClienteSugerenciasResource {
     @Path("todas/sugerencias")
     public void removeSugerencias(@PathParam("clientesId") Long clientesId){
         LOGGER.log(Level.INFO, "ClienteSugerenciaResource removeSugerencias: input: clientesId: {0}", clientesId);
-        clienteSugerenciaLogic.removeSugerencias(clientesId);
+        clienteSugerenciasLogic.removeSugerencias(clientesId);
         LOGGER.log(Level.INFO, "ClienteSugerenciaResource removeSugerencias: output: clientesId: {0}", clientesId);
     }
     
