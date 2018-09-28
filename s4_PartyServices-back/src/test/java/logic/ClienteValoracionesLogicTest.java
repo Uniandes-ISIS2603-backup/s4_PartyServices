@@ -12,6 +12,7 @@ import co.edu.uniandes.csw.partyServices.entities.ProveedorEntity;
 import co.edu.uniandes.csw.partyServices.entities.ValoracionEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.partyServices.persistence.ClientePersistence;
+import co.edu.uniandes.csw.partyServices.persistence.ValoracionPersistence;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -39,7 +40,7 @@ public class ClienteValoracionesLogicTest {
     /**
      * Instancia de la clase PodamFactory que nos ayudará para crear datos aleatorios de las clases.
      */
-    private PodamFactory factory;
+    private PodamFactory factory = new PodamFactoryImpl();;
     
     /**
      * Inyección de la dependencia a la clase ClienteValoracionesLogic cuyos métodos se
@@ -50,6 +51,12 @@ public class ClienteValoracionesLogicTest {
     
     @Inject
     private ValoracionLogic valoracionLogic;
+    
+    @Inject 
+    private ValoracionPersistence valoracionPersistence;
+    
+    @Inject 
+    private ClientePersistence clientePersistence;
     
     /**
      * Contexto de Persistencia que se va a utilizar para acceder a la Base de
@@ -129,12 +136,13 @@ public class ClienteValoracionesLogicTest {
      * pruebas.
      */
     private void insertData() {
-        factory = new PodamFactoryImpl();
+    
         for (int i = 0; i < 3; i++) {
             ValoracionEntity valoracion = factory.manufacturePojo(ValoracionEntity.class);
             ProveedorEntity proveedor = factory.manufacturePojo(ProveedorEntity.class);
 
             valoracion.setProveedor(proveedor);
+            proveedor.setValoraciones(new ArrayList<ValoracionEntity>());
             proveedor.getValoraciones().add(valoracion);
 
             em.persist(proveedor);
@@ -159,7 +167,8 @@ public class ClienteValoracionesLogicTest {
     public void addValoracionTest() {
         ClienteEntity clienteEntity = dataCliente.get(0);
         ValoracionEntity valoracionEntity = dataValoracion.get(0);
-        ValoracionEntity response = clienteValoracionesLogic.addValoracion(dataProveedor.get(0).getId(), valoracionEntity.getId(), clienteEntity.getId());
+        
+        ValoracionEntity response = clienteValoracionesLogic.addValoracion(valoracionEntity.getProveedor().getId(), valoracionEntity.getId(), clienteEntity.getId());
 
         Assert.assertNotNull(response);
         Assert.assertEquals(valoracionEntity.getId(), response.getId());
@@ -171,7 +180,9 @@ public class ClienteValoracionesLogicTest {
      */
     @Test
     public void getValoracionesTest() {
-        List<ValoracionEntity> list = clienteValoracionesLogic.getValoraciones(dataCliente.get(2).getId());
+        ClienteEntity clienteEntity = dataCliente.get(2);
+        
+        List<ValoracionEntity> list = clienteValoracionesLogic.getValoraciones(clienteEntity.getId());
 
         Assert.assertEquals(1, list.size());
     }
@@ -184,9 +195,10 @@ public class ClienteValoracionesLogicTest {
      */
     @Test
     public void getValoracionTest() throws BusinessLogicException {
-        ClienteEntity entity = dataCliente.get(2);
+        ClienteEntity clienteEntity = dataCliente.get(2);
         ValoracionEntity valoracionEntity = dataValoracion.get(2);
-        ValoracionEntity response = clienteValoracionesLogic.getValoracion(valoracionEntity.getProveedor().getId(), valoracionEntity.getId(), entity.getId());
+
+        ValoracionEntity response = clienteValoracionesLogic.getValoracion(valoracionEntity.getProveedor().getId(), valoracionEntity.getId(), clienteEntity.getId());
 
         Assert.assertEquals(valoracionEntity.getId(), response.getId());
         Assert.assertEquals(valoracionEntity.getComentario(), response.getComentario());
@@ -202,9 +214,10 @@ public class ClienteValoracionesLogicTest {
      */
     @Test(expected = BusinessLogicException.class)
     public void getValoracionNoAsociadaTest() throws BusinessLogicException {
-        ClienteEntity entity = dataCliente.get(0);
+        ClienteEntity clienteEntity = dataCliente.get(0);
         ValoracionEntity valoracionEntity = dataValoracion.get(1);
-        clienteValoracionesLogic.getValoracion(valoracionEntity.getProveedor().getId(), valoracionEntity.getId(), entity.getId());
+        
+        clienteValoracionesLogic.getValoracion(valoracionEntity.getProveedor().getId(), valoracionEntity.getId(), clienteEntity.getId());
     }
     
     /**
@@ -212,12 +225,14 @@ public class ClienteValoracionesLogicTest {
      */
     @Test
     public void removeSugerenciasTest() {
-        ClienteEntity entity = dataCliente.get(2);
-        clienteValoracionesLogic.removeValoraciones(entity.getId());
+       ClienteEntity clienteEntity = dataCliente.get(2);
+       ValoracionEntity valoracionEntity = dataValoracion.get(2);
 
-        ValoracionEntity valoracionEntity = valoracionLogic.getValoracion(dataValoracion.get(2).getProveedor().getId(), dataValoracion.get(2).getId());
+        clienteValoracionesLogic.removeValoraciones(clienteEntity.getId());
 
-        Assert.assertNull(valoracionEntity.getCliente());
-        Assert.assertEquals("Anonimo", valoracionEntity.getNombreUsuario());
+        ValoracionEntity resultado = valoracionLogic.getValoracion(valoracionEntity.getProveedor().getId(), valoracionEntity.getId());
+
+        Assert.assertNull(resultado.getCliente());
+        Assert.assertEquals("Anonimo", resultado.getNombreUsuario());
     }
 }
