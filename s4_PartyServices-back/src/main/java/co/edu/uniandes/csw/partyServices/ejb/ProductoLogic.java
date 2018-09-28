@@ -9,6 +9,7 @@ import co.edu.uniandes.csw.partyServices.entities.ProductoEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.partyServices.persistence.ProductoPersistence;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -126,5 +127,9 @@ public class ProductoLogic {
     {
         return persistence.findByName(pNombre) ;
         
+    }
+    public List<ProductoEntity> findAll()
+    {
+        return persistence.findAll() ;
     }
 }
