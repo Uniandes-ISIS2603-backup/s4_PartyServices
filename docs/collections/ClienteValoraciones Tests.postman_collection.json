@@ -34,12 +34,12 @@
 					"raw": "{\n    \"nombre\":\"Jesus\",\n    \"contrasenia\":\"123456789\",\n    \"calificacion\":10,\n    \"agenda\":{}\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/proveedor",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/proveedor",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
