@@ -13,8 +13,8 @@
     },
     {
       "key": "new_nombre_producto",
-      "value": null,
-      "enabled": true
+      "value": "bombasRojas",
+      "enabled": false
     },
     {
       "key": "ip",
@@ -37,13 +37,15 @@
     {
       "key": "new_nombre_evento",
       "value": "",
-      "type": "text",
-      "description": "",
-      "enabled": true
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "enabled": false
     }
   ],
   "name": "My Workspace Globals",
   "_postman_variable_scope": "globals",
-  "_postman_exported_at": "2018-09-28T22:32:35.022Z",
+  "_postman_exported_at": "2018-09-28T23:16:29.776Z",
   "_postman_exported_using": "Postman/6.3.0"
 }
