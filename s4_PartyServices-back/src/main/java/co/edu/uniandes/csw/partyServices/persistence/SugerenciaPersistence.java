@@ -105,4 +105,17 @@ public class SugerenciaPersistence {
         return sugerencia;
     }   
     
+    /**
+     * Devuelve todos las sugerencias de la base de datos.
+     *
+     * @return una lista con todas las sugerencias que encuentre en la base de datos,
+     * "select u from SugerenciaEntity u" es como un "select * from SugerenciaEntity;" -
+     * "SELECT * FROM table_name" en SQL.
+     */
+    public List<SugerenciaEntity> findAll() {
+        LOGGER.log(Level.INFO, "Consultando todas las sugerencias");
+        TypedQuery query = em.createQuery("select u from SugerenciaEntity u", SugerenciaEntity.class);
+        return query.getResultList();
+    }
+    
 }
