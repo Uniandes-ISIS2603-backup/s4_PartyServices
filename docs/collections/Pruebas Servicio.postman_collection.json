@@ -11,11 +11,11 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "003b7e97-831b-438f-b8ee-433f421710bc",
+						"id": "37c4fada-4eee-4195-94cd-44947d6d8226",
 						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
-							"postman.setGlobalVariable(\"new_nombre_proveedor\",data.nombre);",
+							"postman.setGlobalVariable(\"new_id_e\",data.id);",
 							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
 						]
 					}
@@ -31,15 +31,15 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"tematica\":{\"nombre\":\"Matrimonio\"},\n    \"tipo\":\"Drama\",\n    \"proveedor\":{\"nombre\":\"pepe\",\"contraseña\":\"pepeelmasgrande\",\"calificacion\":0,\"agenda\":{}}\n}"
+					"raw": "{\n\t\"tematica\":{\"nombre\":\"Matrimonio\"},\n    \"tipo\":\"Prueba1\",\n    \"proveedor\":{\"nombre\":\"pepe\",\"contraseña\":\"pepeelmasgrande\",\"calificacion\":0,\"agenda\":{}}\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/servicio",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/servicio",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -70,12 +70,12 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/servicio",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/servicio",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -106,17 +106,17 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/servicio/4",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/servicio/{{new_id_e}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
 						"servicio",
-						"4"
+						"{{new_id_e}}"
 					]
 				}
 			},
@@ -142,17 +142,17 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/servicio/100",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/servicio/0",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
 						"servicio",
-						"100"
+						"0"
 					]
 				}
 			},
@@ -177,17 +177,17 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/servicio/2",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/servicio/{{new_id_e}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
 						"servicio",
-						"2"
+						"{{new_id_e}}"
 					]
 				}
 			},
@@ -212,17 +212,17 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/servicio/100",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/servicio/0",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
 						"servicio",
-						"100"
+						"0"
 					]
 				}
 			},
@@ -257,12 +257,12 @@
 					"raw": "{\n\t\"tematica\":{\"nombre\":\"Matrimonio_2\"},\n    \"tipo\":\"Drama\",\n    \"proveedor\":{\"nombre\":\"pepe\",\"contraseña\":\"pepeelmasgrande\",\"calificacion\":0,\"agenda\":{}}\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/servicio/3",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/servicio/3",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
