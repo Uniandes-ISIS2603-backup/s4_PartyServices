@@ -1,0 +1,51 @@
+{
+  "id": "87678c8b-49b1-4d5b-8f28-5d73cfd29224",
+  "values": [
+    {
+      "key": "new_nombre_proveedor",
+      "value": null,
+      "enabled": false
+    },
+    {
+      "key": "new_id_proveedor",
+      "value": "6",
+      "enabled": false
+    },
+    {
+      "key": "new_nombre_producto",
+      "value": "bombasRojas",
+      "enabled": false
+    },
+    {
+      "key": "ip",
+      "value": "localhost",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "enabled": true
+    },
+    {
+      "key": "puerto",
+      "value": "8080",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "enabled": true
+    },
+    {
+      "key": "new_nombre_evento",
+      "value": "",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "enabled": false
+    }
+  ],
+  "name": "My Workspace Globals",
+  "_postman_variable_scope": "globals",
+  "_postman_exported_at": "2018-09-28T23:16:29.776Z",
+  "_postman_exported_using": "Postman/6.3.0"
+}
