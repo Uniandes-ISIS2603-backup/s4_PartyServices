@@ -35,7 +35,7 @@ public class ValoracionPersistenceTest {
     /**
      * Instancia de la clase PodamFactory que nos ayudará para crear datos aleatorios de las clases.
      */
-    PodamFactory factory = new PodamFactoryImpl();;
+    PodamFactory factory = new PodamFactoryImpl();
     
     /**
      * Inyección de la dependencia a la clase ValoracionPersistence cuyos métodos

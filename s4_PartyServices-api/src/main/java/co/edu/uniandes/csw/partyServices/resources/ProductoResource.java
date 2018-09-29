@@ -9,6 +9,8 @@ import co.edu.uniandes.csw.partyServices.dtos.ProductoDTO;
 import co.edu.uniandes.csw.partyServices.ejb.ProductoLogic;
 import co.edu.uniandes.csw.partyServices.entities.ProductoEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
@@ -38,6 +40,20 @@ public class ProductoResource
     @Inject
     private ProductoLogic productoLogic;
 
+    
+    @GET
+    public List<ProductoDTO> getProductos()
+    {
+        List<ProductoDTO> listaProductos = new ArrayList<>() ;
+         LOGGER.info("ProductoResource getProductos: input: void");
+        for(ProductoEntity produc : productoLogic.findAll())
+        {
+            listaProductos.add(new ProductoDTO(produc)) ;
+        }
+        LOGGER.log(Level.INFO, "ProductoResource getBooks: output: {0}", listaProductos.toString());
+        return listaProductos;
+    }
+    
     
     
      @GET

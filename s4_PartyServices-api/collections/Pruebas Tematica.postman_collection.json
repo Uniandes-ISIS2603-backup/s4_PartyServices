@@ -11,11 +11,11 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "6e65cefc-7986-4f0f-9e3b-1289521adbe8",
+						"id": "70184e36-7d1d-4a0f-ba99-b7ea21f5c35d",
 						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
-							"postman.setGlobalVariable(\"new_nombre_proveedor\",data.nombre);",
+							"postman.setGlobalVariable(\"new_id_p\",data.id);",
 							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
 						]
 					}
@@ -31,15 +31,15 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"nombre\":\"Matrimonio\",\n    \"servicio\":{}\n}"
+					"raw": "{\n    \"nombre\":\"Motos\",\n    \"servicio\":{}\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/tematicas",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/tematicas",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -68,12 +68,12 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/tematicas",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/tematicas",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -102,17 +102,17 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/tematicas/7",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/tematicas/{{new_id_p}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
 						"tematicas",
-						"7"
+						"{{new_id_p}}"
 					]
 				}
 			},
@@ -137,17 +137,17 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/tematicas/100",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/tematicas/0",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
 						"tematicas",
-						"100"
+						"0"
 					]
 				}
 			},
@@ -182,17 +182,17 @@
 					"raw": "{\n    \"nombre\":\"Matrimonio_3\",\n    \"servicio\":{}\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/tematicas/7",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/tematicas/{{new_id_p}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
 						"tematicas",
-						"7"
+						"{{new_id_p}}"
 					]
 				}
 			},
@@ -217,17 +217,17 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/tematicas/4",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/tematicas/{{new_id_p}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
 						"tematicas",
-						"4"
+						"{{new_id_p}}"
 					]
 				}
 			},
@@ -252,21 +252,43 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/tematicas/100",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/tematicas/0",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
 						"tematicas",
-						"100"
+						"0"
 					]
 				}
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "4a18bf8f-e20f-4e2e-8b5b-0e9f3f30ac94",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "6f4c8713-3e2c-40d9-b34a-508a326692c3",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }

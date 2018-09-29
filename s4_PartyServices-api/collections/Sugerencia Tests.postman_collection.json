@@ -31,21 +31,22 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\":\"Matrimonio\",\n    \"servicio\":{}\n}"
+					"raw": "{\n    \"name\":\"Tematica1\",\n    \"servicio\":{}\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/tematicas",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/tematicas",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
 						"tematicas"
 					]
-				}
+				},
+				"description": "Crea una nueva temática con un nombre y una lista de servicios asociada. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
 			},
 			"response": []
 		},
@@ -78,12 +79,12 @@
 					"raw": "{\n    \"comentario\":\"Pastel de arequipe el mejor!\",\n    \"nombreUsuario\":\"Cesar\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/tematicas/{{new_id_tematicaSugerencia}}/sugerencias",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/tematicas/{{new_id_tematicaSugerencia}}/sugerencias",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -91,7 +92,8 @@
 						"{{new_id_tematicaSugerencia}}",
 						"sugerencias"
 					]
-				}
+				},
+				"description": "Crea una nueva sugerencia. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
 			},
 			"response": []
 		},
@@ -123,12 +125,12 @@
 					"raw": "{\n    \"comentario\":\"Pastel de arequipe el mejor!\",\n    \"nombreUsuario\":\"Cesar\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/tematicas/0/sugerencias",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/tematicas/0/sugerencias",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -136,7 +138,8 @@
 						"0",
 						"sugerencias"
 					]
-				}
+				},
+				"description": "Crea un nueva nueva sugerencia pero con una temática que no existe. Verifica que se genera el error y el mensaje \"El recurso /tematicas/0/sugerencias no existe\".\n\n**Código HTTP esperado: 404**"
 			},
 			"response": []
 		},
@@ -169,12 +172,12 @@
 					"raw": "{\n    \"comentario\":\"Pastel de arequipe el mejor!\",\n    \"nombreUsuario\":\"Cesar\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/tematicas/{{new_id_tematicaSugerencia}}/sugerencias",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/tematicas/{{new_id_tematicaSugerencia}}/sugerencias",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -182,12 +185,13 @@
 						"{{new_id_tematicaSugerencia}}",
 						"sugerencias"
 					]
-				}
+				},
+				"description": "Consulta las sugerencias de una temática en la aplicación. \r\nLa petición no tiene cuerpo.\r\n\r\nSe envía el Id de la temática a consultar en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
 			},
 			"response": []
 		},
 		{
-			"name": "Obtener una sugerencias de una tematica  ",
+			"name": "Obtener una sugerencia de una tematica  ",
 			"event": [
 				{
 					"listen": "test",
@@ -215,12 +219,12 @@
 					"raw": "{\n    \"comentario\":\"Pastel de arequipe el mejor!\",\n    \"nombreUsuario\":\"Cesar\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/tematicas/{{new_id_tematicaSugerencia}}/sugerencias/{{new_id_sugerencia}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/tematicas/{{new_id_tematicaSugerencia}}/sugerencias/{{new_id_sugerencia}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -229,7 +233,8 @@
 						"sugerencias",
 						"{{new_id_sugerencia}}"
 					]
-				}
+				},
+				"description": "Consulta una sugerencia de una temática en la aplicación. \r\nLa petición no tiene cuerpo.\r\n\r\nSe envía el Id de la temática y de la sugerencia a consultar en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
 			},
 			"response": []
 		},
@@ -262,12 +267,12 @@
 					"raw": "{\n    \"comentario\":\"Pastel de arequipe el mejor! y también globos azules\",\n    \"nombreUsuario\":\"Cesar\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/tematicas/{{new_id_tematicaSugerencia}}/sugerencias/{{new_id_sugerencia}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/tematicas/{{new_id_tematicaSugerencia}}/sugerencias/{{new_id_sugerencia}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -276,7 +281,8 @@
 						"sugerencias",
 						"{{new_id_sugerencia}}"
 					]
-				}
+				},
+				"description": "Actualiza una sugerencia a una temática existente. Se envían los Ids de las entidades asociar en la URL de la petición.\n\n**Código http esperado: 200**"
 			},
 			"response": []
 		},
@@ -309,12 +315,12 @@
 					"raw": "{\n    \"comentario\":\"Pastel de arequipe el mejor! Y también globos azules\",\n    \"nombreUsuario\":\"Cesar\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/tematicas/{{new_id_tematicaSugerencia}}/sugerencias/0",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/tematicas/{{new_id_tematicaSugerencia}}/sugerencias/0",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -323,7 +329,8 @@
 						"sugerencias",
 						"0"
 					]
-				}
+				},
+				"description": "Asocia una sugerencia que no existe a una temática. \r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /tematicas/0 no existe.\".\r\n\r\n**Código HTTP esperado: 404**"
 			},
 			"response": []
 		},
@@ -355,12 +362,12 @@
 					"raw": "{\n    \"comentario\":\"Pastel de arequipe el mejor! Y también globos azules\",\n    \"nombreUsuario\":\"Cesar\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/tematicas/0/sugerencias/{{new_id_sugerencia}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/tematicas/0/sugerencias/{{new_id_sugerencia}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -369,7 +376,8 @@
 						"sugerencias",
 						"{{new_id_sugerencia}}"
 					]
-				}
+				},
+				"description": "Asocia una sugerencia a una temática que no existe.\r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /tematicas/0 no existe.\".\r\n\r\n**Código HTTP esperado: 404**"
 			},
 			"response": []
 		},
@@ -400,12 +408,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/tematicas/{{new_id_tematicaSugerencia}}/sugerencias/{{new_id_sugerencia}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/tematicas/{{new_id_tematicaSugerencia}}/sugerencias/{{new_id_sugerencia}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -414,7 +422,8 @@
 						"sugerencias",
 						"{{new_id_sugerencia}}"
 					]
-				}
+				},
+				"description": "Borra una sugerencia asociada a una temática. Se envían los ids de la sugerencia y la temática creados anteriormente.\n\n**Código HTTP esperado: 204**"
 			},
 			"response": []
 		},
@@ -447,12 +456,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/tematicas/{{new_id_tematicaSugerencia}}/sugerencias/0",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/tematicas/{{new_id_tematicaSugerencia}}/sugerencias/0",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -461,7 +470,8 @@
 						"sugerencias",
 						"0"
 					]
-				}
+				},
+				"description": "Borra una sugerencia que no existe en la aplicación.  \r\n\r\nPara la prueba se verifica que se genera el error.\r\n\r\n**Código http esperado: 404**"
 			},
 			"response": []
 		},
@@ -493,12 +503,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/tematicas/0/sugerencias/{{new_id_sugerencia}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/tematicas/0/sugerencias/{{new_id_sugerencia}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -507,7 +517,8 @@
 						"sugerencias",
 						"{{new_id_sugerencia}}"
 					]
-				}
+				},
+				"description": "Borra una sugerencia a una temática que no existe en la aplicación.  \r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /tematicas/0/sugerencias no existe.\".\r\n\r\n**Código http esperado: 404**"
 			},
 			"response": []
 		},
@@ -538,21 +549,44 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/tematicas/{{new_id_tematicaSugerencia}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/tematicas/{{new_id_tematicaSugerencia}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
 						"tematicas",
 						"{{new_id_tematicaSugerencia}}"
 					]
-				}
+				},
+				"description": "Borra una temática. Se envía el id de la temática creado anteriormente.\n\n**Código HTTP esperado: 204**"
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "9814a154-98fd-443c-a052-1ac9d8f4fe02",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "c4f2e5c6-1da2-4e7b-a89d-21bebf659702",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }
