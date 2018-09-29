@@ -7,6 +7,20 @@
 	"item": [
 		{
 			"name": "CREAR PROVEEDOR",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2c84de10-696a-46b4-a829-88ceb3d7944f",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"idProveedor\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [
@@ -17,15 +31,15 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"nombre\":\"pepe\",\n\t\"contrasenia\":\"pepeelmasgrande\",\n\t\"calificacion\":0\n}"
+					"raw": "{\n\t\"nombre\":\"pedro\",\n\t\"contrasenia\":\"pepeelmasgrande\",\n\t\"calificacion\":0\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/proveedor",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/proveedor",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -37,6 +51,20 @@
 		},
 		{
 			"name": "POST AGENDA",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "86ee7c77-e9ed-4dec-9f94-fc9bcc0d6715",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"idAgendaCreada\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [
@@ -47,20 +75,20 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"fechaPenitencia\":1539147600000,\n\t\"jornadaLunesND\":\"Ninguna\",\n\t\"jornadaMartesND\":\"Tarde\",\n\t\"jornadaMiercolesND\":\"Ninguna\",\n\t\"jornadaSabadoND\":\"Ninguna\",\n\t\"jornadaDomingoND\":\"Ninguna\",\n\t\"jornadaJuevesND\":\"Ninguna\",\n\t\"jornadaViernesND\":\"Ninguna\"\n\t\n}"
+					"raw": "{\n\t\"fechaPenitencia\":\"2018-10-10T00:00:00-00:00\",\n\t\"jornadaLunesND\":\"Ninguna\",\n\t\"jornadaMartesND\":\"Tarde\",\n\t\"jornadaMiercolesND\":\"Ninguna\",\n\t\"jornadaSabadoND\":\"Ninguna\",\n\t\"jornadaDomingoND\":\"Ninguna\",\n\t\"jornadaJuevesND\":\"Ninguna\",\n\t\"jornadaViernesND\":\"Ninguna\"\n\t\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/agenda/1",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/agenda/{{idProveedor}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
 						"agenda",
-						"1"
+						"{{idProveedor}}"
 					]
 				}
 			},
@@ -68,22 +96,35 @@
 		},
 		{
 			"name": "GET AGENDA",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "436970fc-642f-4145-a04d-5bbb9ac7a7e6",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/agenda/10",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/agenda/{{idAgendaCreada}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
 						"agenda",
-						"10"
+						"{{idAgendaCreada}}"
 					]
 				}
 			},
@@ -91,22 +132,34 @@
 		},
 		{
 			"name": "DELETE AGENDA",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "54e2b16d-6056-48d4-a487-dff69a142869",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/agenda/7",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/agenda/{{idAgendaCreada}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
 						"agenda",
-						"7"
+						"{{idAgendaCreada}}"
 					]
 				}
 			},
@@ -114,6 +167,19 @@
 		},
 		{
 			"name": "PUT AGENDA",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b6bf9fb4-544e-430f-b9c5-b78ef76c6eee",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [
@@ -127,12 +193,12 @@
 					"raw": "{\n\t\"fechaPenitencia\":1539147600000,\n\t\"jornadaLunesND\":\"Ninguna\",\n\t\"jornadaMartesND\":\"Tarde\",\n\t\"jornadaMiercolesND\":\"Ninguna\",\n\t\"jornadaSabadoND\":\"Tarde\",\n\t\"jornadaDomingoND\":\"Ninguna\",\n\t\"jornadaJuevesND\":\"Ninguna\",\n\t\"jornadaViernesND\":\"Ninguna\"\n\t\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/agenda",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/agenda",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -144,6 +210,20 @@
 		},
 		{
 			"name": "POST FECHA",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "79b06819-0e67-4a14-ab97-286cf489ece6",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"idFechaCreada\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [
@@ -154,20 +234,20 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"dia\":\"2018-10-10T00:00:00-00:00\",\n\t\"jornada\":\"Tarde\"\n}"
+					"raw": "{\n\t\"dia\":\"2018-10-10T00:00:00-00:00\",\n\t\"jornada\":\"Tarde\",\n\t\"id\":17\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/fecha/13",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/fecha/{{idAgendaCreada}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
 						"fecha",
-						"13"
+						"{{idAgendaCreada}}"
 					]
 				}
 			},
@@ -175,22 +255,34 @@
 		},
 		{
 			"name": "GET FECHA",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "86955fe7-f3e2-49a0-91e0-19f250ece246",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/fecha/1",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/fecha/{{idFechaCreada}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
 						"fecha",
-						"1"
+						"{{idFechaCreada}}"
 					]
 				}
 			},
@@ -203,17 +295,17 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/fecha/1",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/fecha/{{idFechaCreada}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
 						"fecha",
-						"1"
+						"{{idFechaCreada}}"
 					]
 				}
 			},
@@ -221,6 +313,19 @@
 		},
 		{
 			"name": "PUT FECHA",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c7cc8f13-65c8-4315-9418-331f8305a2e3",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests[\"no genera error en el put\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [
@@ -231,15 +336,15 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"dia\":\"2018-10-10T00:00:00-00:00\",\n\t\"jornada\":\"Noche\",\n\t\"id\":\"7\"\n}"
+					"raw": "{\n\t\"dia\":\"2018-10-10T00:00:00-00:00\",\n\t\"jornada\":\"Noche\",\n\t\"id\":\"10\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/fecha",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/fecha",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
