@@ -31,7 +31,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\":\"Fiestaaa!\",\n    \"servicio\":{}\n}"
+					"raw": "{\n    \"name\":\"Metalera\",\n    \"servicio\":{}\n}"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/tematicas",
@@ -170,7 +170,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n     \"login\":\"joCarcamo1523\",\n     \"contrasenia\":\"00000001\",\n     \"email\":\"unemailnotanalgo@cosas.com\",\n     \"fechaNacimiento\":\"15/02/2000\"\n}"
+					"raw": "{\n     \"login\":\"joCarcamo152321\",\n     \"contrasenia\":\"00000001\",\n     \"email\":\"unemailnotanalgoo@cosas.com\",\n     \"fechaNacimiento\":\"15/02/2000\"\n}"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes",
@@ -531,7 +531,7 @@
 					"raw": "{\n    \"comentario\":\"Pastel de arequipe el mejor!\",\n    \"nombreUsuario\":\"Cesar\"\n}"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/tematicas/{{new_id_tematicaSugerencia_Cliente}}/sugerencias/{{new_id_tematicaSugerencia_Cliente}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/tematicas/{{new_id_tematicaSugerencia_Cliente}}/sugerencias/{{new_id_sugerencia_Cliente}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -543,7 +543,7 @@
 						"tematicas",
 						"{{new_id_tematicaSugerencia_Cliente}}",
 						"sugerencias",
-						"{{new_id_tematicaSugerencia_Cliente}}"
+						"{{new_id_sugerencia_Cliente}}"
 					]
 				},
 				"description": "Consulta una sugerencia de una temática en la aplicación. \r\nLa petición no tiene cuerpo.\r\n\r\nSe envía el Id de la temática y de la sugerencia a consultar en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
