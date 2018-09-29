@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "869b5fa2-3e46-4494-882f-2d3ce1b19450",
+		"_postman_id": "ec6e681a-46c0-432d-9c11-ae0dbd27daae",
 		"name": "Notificacion Tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -34,12 +34,12 @@
 					"raw": "{\n\t\"mensaje\":\"Se ha agregado un nuevo evento\",\n    \"tipoDeAviso\":\"Aviso\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/notificacion",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/notificacion",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -77,12 +77,12 @@
 					"raw": "{\n    \"tipoDeAviso\":\"Aviso\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/notificacion",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/notificacion",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -120,12 +120,12 @@
 					"raw": "{\n\t\"mensaje\":\"Se ha agregado un nuevo evento\"\n    \n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/notificacion",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/notificacion",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -164,12 +164,12 @@
 					"raw": "{\n\t\"mensaje\":\"Se ha agregado un nuevo evento\",\n    \"tipoDeAviso\":\"Aviso\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/notificacion",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/notificacion",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -208,12 +208,12 @@
 					"raw": "{\n\t\"mensaje\":\"Se ha agregado un nuevo evento\",\n    \"tipoDeAviso\":\"Aviso\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/notificacion/{{new_id_notificacion}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/notificacion/{{new_id_notificacion}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -252,12 +252,12 @@
 					"raw": "{\n\t\"mensaje\":\"Se ha agregado un nuevo evento\",\n    \"tipoDeAviso\":\"Aviso\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/notificacion/0",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/notificacion/0",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -296,12 +296,12 @@
 					"raw": "{\n\t\"mensaje\":\"Se ha agregado un nuevo evento\",\n    \"tipoDeAviso\":\"Aviso\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/notificacion/0",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/notificacion/0",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -341,12 +341,12 @@
 					"raw": "{\n\t\"mensaje\":\"Se ha agregado un nuevo evento para la fecha indicada\",\n    \"tipoDeAviso\":\"Aviso\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/notificacion/{{new_id_notificacion}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/notificacion/{{new_id_notificacion}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -385,12 +385,12 @@
 					"raw": "{\n    \"tipoDeAviso\":\"Aviso\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/notificacion/{{new_id_notificacion}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/notificacion/{{new_id_notificacion}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -429,12 +429,12 @@
 					"raw": "{\n\t\"mensaje\":\"Se ha agregado un nuevo evento para la fecha indicada\"\n\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/notificacion/{{new_id_notificacion}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/notificacion/{{new_id_notificacion}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -472,12 +472,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/notificacion/{{new_id_notificacion}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/notificacion/{{new_id_notificacion}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -516,12 +516,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/notificacion/0",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/notificacion/0",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",

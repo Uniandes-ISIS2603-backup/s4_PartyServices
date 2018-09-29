@@ -59,7 +59,7 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
             orphanRemoval = true,
             fetch = FetchType.LAZY
     )
-    Collection<ValoracionEntity> valoraciones;
+    Collection<ValoracionEntity> valoraciones ;
     
     public String getNombre() {
         return nombre;

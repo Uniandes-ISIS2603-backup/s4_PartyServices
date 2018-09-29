@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "cab34e8f-89a3-4ba0-a8cf-29505480a7d3",
+		"_postman_id": "bf071e48-ce57-4d6e-ad6a-4c7a1da883d8",
 		"name": "Proveedor Tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -34,12 +34,12 @@
 					"raw": "{\n    \"nombre\":\"Gabriel\",\n    \"contrasenia\":\"123456789\",\n    \"calificacion\":10,\n    \"agenda\":{}\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/proveedor",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/proveedor",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -77,12 +77,12 @@
 					"raw": "{\n    \"nombre\":\"Gabriel\",\n    \"contrasenia\":\"123456789\",\n    \"calificacion\":10,\n    \"agenda\":{}\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/proveedor",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/proveedor",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -120,12 +120,12 @@
 					"raw": "{\n    \"nombre\":\"Gabriel_S\",\n    \"calificacion\":10,\n    \"agenda\":{}\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/proveedor",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/proveedor",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -163,12 +163,12 @@
 					"raw": "{\n    \"nombre\":\"Gabriel_S2\",\n\t\"contrasenia\":\"123\",\n    \"calificacion\":10,\n    \"agenda\":{}\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/proveedor",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/proveedor",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -206,12 +206,12 @@
 					"raw": "{\n    \"nombre\":\"Gabriel_S3\",\n    \"contrasenia\":\"Gabriel_S3\",\n    \"calificacion\":10,\n    \"agenda\":{}\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/proveedor",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/proveedor",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -240,14 +240,17 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/proveedor",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/proveedor",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -276,14 +279,17 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/proveedor/{{new_id_proveedor}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/proveedor/{{new_id_proveedor}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -312,14 +318,17 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/proveedor/0",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/proveedor/0",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -358,12 +367,12 @@
 					"raw": "{\n    \"nombre\":\"Gabriel\",\n    \"contrasenia\":\"123456789\",\n    \"calificacion\":10,\n    \"agenda\":{}\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/proveedor/0",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/proveedor/0",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -403,12 +412,12 @@
 					"raw": "{\n    \"nombre\":\"Gabriel_2\",\n    \"contrasenia\":\"123456789\",\n    \"calificacion\":7,\n    \"agenda\":{}\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/proveedor/{{new_id_proveedor}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/proveedor/{{new_id_proveedor}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -447,12 +456,12 @@
 					"raw": "{\n    \"nombre\":\"Gabriel\",\n    \"contrasenia\":\"\",\n    \"calificacion\":10,\n    \"agenda\":{}\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/proveedor/{{new_id_proveedor}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/proveedor/{{new_id_proveedor}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -491,12 +500,12 @@
 					"raw": "{\n    \"nombre\":\"Gabriel\",\n    \"contrasenia\":\"asd\",\n    \"calificacion\":10,\n    \"agenda\":{}\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/proveedor/{{new_id_proveedor}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/proveedor/{{new_id_proveedor}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -524,14 +533,17 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/proveedor/{{new_id_proveedor}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/proveedor/{{new_id_proveedor}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -560,14 +572,17 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/proveedor/0",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/proveedor/0",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -577,6 +592,42 @@
 				}
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "6957e387-10b9-458f-8a42-61c5e3878a54",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "36499ac2-2924-424f-8178-2b5ef1793ab3",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "0485c7eb-a824-48fa-ab42-4d7a971bda2d",
+			"key": "puerto",
+			"value": "8080",
+			"type": "string"
+		},
+		{
+			"id": "dfa46ba3-d57e-44c6-ae3d-2fae64f80564",
+			"key": "ip",
+			"value": "localhost",
+			"type": "string"
 		}
 	]
 }

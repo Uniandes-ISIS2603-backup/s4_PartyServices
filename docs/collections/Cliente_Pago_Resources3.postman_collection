@@ -1,13 +1,27 @@
 {
 	"info": {
-		"_postman_id": "2918da21-65d7-4fdf-a522-d74fa74ff256",
+		"_postman_id": "dabb66f6-2264-45a5-a752-f397a79ff03a",
 		"name": "Cliente_Pago_Resources",
-		"description": "Colleción de las pruebas CRUD de los recursos clientes y pagos.",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"description": "Colección de las pruebas CRUD de los recursos clientes y pagos. Aparte de reglas de negocio de estas mismas.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "POST agregar Cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bbcc2e36-e2d5-4681-a928-4b98be11b4a3",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_cliente\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [
@@ -18,27 +32,29 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n     \"login\":\"Aquiseinsertaalgo\",\n\n     \"contrasenia\":\"00000001\",\n\n     \"email\":\"unemailnotanalgo@cosas.com\",\n     \n     \n    \n     \"fechaNacimiento\":\"08/12/1996\"\n    \n}"
+					"raw": "{\n     \"login\":\"AquiseinsertOOOO\",\n\n     \"contrasenia\":\"00000001\",\n\n     \"email\":\"unemailnotanalgo@cosas.com\",\n     \n     \n    \n     \"fechaNacimiento\":\"08/12/1996\"\n    \n}"
 				},
-				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/clientes",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"s4_PartyServices-api",
-						"api",
-						"clientes"
-					]
-				},
+				"url": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes",
 				"description": "Se busca agregar un único cliente a la base de datos a través de PostMan."
 			},
 			"response": []
 		},
 		{
 			"name": "POST agregar Cliente con login repetido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "44c51575-bba4-41e0-af39-db9265d7475d",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No crea con el mismo login\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has('Ya existe un cliente con el login');",
+							""
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [
@@ -51,25 +67,27 @@
 					"mode": "raw",
 					"raw": "{\n     \"login\":\"Aquiseinsertaunlogin\",\n\n     \"contrasenia\":\"00000000\",\n\n     \"email\":\"unemailnotanlargo@cosas.com\",\n     \n     \n    \n     \"fechaNacimiento\":\"08/12/1999\"\n    \n}"
 				},
-				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/clientes",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"s4_PartyServices-api",
-						"api",
-						"clientes"
-					]
-				},
+				"url": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes",
 				"description": "Se bsuca probar el mensaje de error al provocar un Business Exception por no seguir una regla de negocio:\n\"El login no puede repetirse entre usuarios\""
 			},
 			"response": []
 		},
 		{
 			"name": "POST agregar Cliente con login null",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "27e6f411-4e4c-4d42-bcd3-d218a66ae09a",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No null\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has('El login no puede ser vacio o nulo, por favor');",
+							""
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [
@@ -82,25 +100,27 @@
 					"mode": "raw",
 					"raw": "{\n     \n\n     \"contrasenia\":\"00000000\",\n\n     \"email\":\"unemailnotanlargo@cosas.com\",\n     \n     \n    \n     \"fechaNacimiento\":\"08/12/1999\"\n    \n}"
 				},
-				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/clientes",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"s4_PartyServices-api",
-						"api",
-						"clientes"
-					]
-				},
+				"url": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes",
 				"description": "Se bsuca probar el mensaje de error al provocar un Business Exception por no seguir una regla de negocio:\n\"Un login no puede ser null\""
 			},
 			"response": []
 		},
 		{
 			"name": "POST agregar Cliente con login vacío ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4769f09a-165f-4ebd-b267-1e53e92c8cc9",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No vacio\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has('El login no puede ser vacio o nulo, por favor');",
+							""
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [
@@ -113,25 +133,27 @@
 					"mode": "raw",
 					"raw": "{\n     \"login\":\"\",\n\n     \"contrasenia\":\"00000000\",\n\n     \"email\":\"unemailnotanlargo@cosas.com\",\n     \n     \n    \n     \"fechaNacimiento\":\"08/12/1999\"\n    \n}"
 				},
-				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/clientes",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"s4_PartyServices-api",
-						"api",
-						"clientes"
-					]
-				},
+				"url": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes",
 				"description": "Se bsuca probar el mensaje de error al provocar un Business Exception por no seguir una regla de negocio:\n\"Un login no puede ser vacío\""
 			},
 			"response": []
 		},
 		{
 			"name": "POST agregar Cliente con login caracteres especiales",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2fe18d99-fb43-404f-85cb-6d071abde326",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No caracterres especiales\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has('El formato del login no es valido:');",
+							""
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [
@@ -144,25 +166,27 @@
 					"mode": "raw",
 					"raw": "{\n     \"login\":\"-@{{{{{{{{{{{{{{{\",\n\n     \"contrasenia\":\"00000000\",\n\n     \"email\":\"unemailnotanlargo@cosas.com\",\n     \n     \n    \n     \"fechaNacimiento\":\"08/12/1999\"\n    \n}"
 				},
-				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/clientes",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"s4_PartyServices-api",
-						"api",
-						"clientes"
-					]
-				},
+				"url": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes",
 				"description": "Se bsuca probar el mensaje de error al provocar un Business Exception por no seguir una regla de negocio:\n\"Un login no puede tener caracteres especiales\""
 			},
 			"response": []
 		},
 		{
 			"name": "POST agregar Cliente con longitud irregular",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "14300f71-98a6-42c2-aea3-e9eff35c9709",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No longitud excedida\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has('El formato del login no es valido:');",
+							""
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [
@@ -175,25 +199,26 @@
 					"mode": "raw",
 					"raw": "{\n     \"login\":\"Aquiseinsertaunloginaaaaaaaaaaaaaaaaa\",\n\n     \"contrasenia\":\"00000000\",\n\n     \"email\":\"unemailnotanlargo@cosas.com\",\n     \n     \n    \n     \"fechaNacimiento\":\"08/12/1999\"\n    \n}"
 				},
-				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/clientes",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"s4_PartyServices-api",
-						"api",
-						"clientes"
-					]
-				},
+				"url": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes",
 				"description": "Se bsuca probar el mensaje de error al provocar un Business Exception por no seguir una regla de negocio:\n\"Un login debe tener una longitud dentre 8 y 20 caracteres\""
 			},
 			"response": []
 		},
 		{
 			"name": "POST agregar Cliente con fecha null",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6c01e8d4-4dc3-4bff-8571-d7c1149aa03f",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No fecha null\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has('La fecha de nacimiento no puede ser nula')"
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [
@@ -206,25 +231,26 @@
 					"mode": "raw",
 					"raw": "{\n     \"login\":\"Aquiseinsertaunlogun\",\n\n     \"contrasenia\":\"00000000\",\n\n     \"email\":\"unemailnotanlargo@cosas.com\"\n     \n     \n    \n     \n    \n}"
 				},
-				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/clientes",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"s4_PartyServices-api",
-						"api",
-						"clientes"
-					]
-				},
+				"url": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes",
 				"description": "Se bsuca probar el mensaje de error al provocar un Business Exception por no seguir una regla de negocio:\n\"La fecha de nacimiento no puede ser nula\""
 			},
 			"response": []
 		},
 		{
 			"name": "POST agregar Cliente con fecha posterior",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "31074ca1-2014-4c8e-aeff-1d3138ad436b",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No fecha posterior\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has('La fecha de nacimiento es superior a la actual')"
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [
@@ -235,27 +261,28 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n     \"login\":\"Aquiseinsertaunlogin\",\n\n     \"contrasenia\":\"00000000\",\n\n     \"email\":\"unemailnotanlargo@cosas.com\",\n     \n     \n    \n     \"fechaNacimiento\":\"08/12/2019\"\n    \n}"
+					"raw": "{\n     \n     \"login\":\"Aquiseinsertooooo\",\n\n     \"contrasenia\":\"00000000\",\n\n     \"email\":\"unemailnotanlargo@cosas.com\",\n     \n     \n    \n     \"fechaNacimiento\":\"08/12/2019\"\n    \n}"
 				},
-				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/clientes",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"s4_PartyServices-api",
-						"api",
-						"clientes"
-					]
-				},
+				"url": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes",
 				"description": "Se bsuca probar el mensaje de error al provocar un Business Exception por no seguir una regla de negocio:\n\"La fecha de nacimiento no puede ser posterior a la fecha actual\""
 			},
 			"response": []
 		},
 		{
 			"name": "POST agregar Cliente con edad suficiente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4ccfe212-f50c-434e-b48d-df20dc58af25",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No edad suficiente\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has('Un usuario menor de edad')"
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [
@@ -268,25 +295,26 @@
 					"mode": "raw",
 					"raw": "{\n     \"login\":\"Aquiseinsertaunlogen\",\n\n     \"contrasenia\":\"00000000\",\n\n     \"email\":\"unemailnotanlargo@cosas.com\",\n     \n     \n    \n     \"fechaNacimiento\":\"08/12/2017\"\n    \n}"
 				},
-				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/clientes",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"s4_PartyServices-api",
-						"api",
-						"clientes"
-					]
-				},
+				"url": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes",
 				"description": "Se bsuca probar el mensaje de error al provocar un Business Exception por no seguir una regla de negocio:\n\"Un cliente no puede registrarse is no tiene edad para hacerlo, es decir, si tiene 5 años por ejemplo\""
 			},
 			"response": []
 		},
 		{
 			"name": "POST agregar Cliente contraseña diferente a login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b80094e8-9933-4c9d-8027-040d32f2ef95",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No contraseña igual\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has('La contraseña no puede ser igual al login')"
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [
@@ -297,27 +325,28 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n     \"login\":\"Aquiseinsertaunlogin\",\n\n     \"contrasenia\":\"00000000\",\n\n     \"email\":\"unemailnotanlargo@cosas.com\",\n     \n     \n    \n     \"fechaNacimiento\":\"08/12/1999\"\n    \n}"
+					"raw": "{\n     \"login\":\"00000000\",\n\n     \"contrasenia\":\"00000000\",\n\n     \"email\":\"unemailnotanlargo@cosas.com\",\n     \n     \n    \n     \"fechaNacimiento\":\"08/12/1999\"\n    \n}"
 				},
-				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/clientes",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"s4_PartyServices-api",
-						"api",
-						"clientes"
-					]
-				},
+				"url": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes",
 				"description": "Se bsuca probar el mensaje de error al provocar un Business Exception por no seguir una regla de negocio:\n\"Un cliente no puede registrar una misma contraseña como login\""
 			},
 			"response": []
 		},
 		{
 			"name": "POST agregar Cliente correo formato inaceptable",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c89a19a8-11a7-4845-9e69-7199554a5433",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No correo mal\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has('El correo no sigue el formato: debe ser de máximo 8 caracteres y contener solo números o letras')"
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [
@@ -328,27 +357,28 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n     \"login\":\"Aquiseinsertaunlogin\",\n\n     \"contrasenia\":\"00000000\",\n\n     \"email\":\"unemailnotanlargo@cosas.com\",\n     \n     \n    \n     \"fechaNacimiento\":\"08/12/1999\"\n    \n}"
+					"raw": "{\n     \"login\":\"Aquiseinsertiiiio\",\n\n     \"contrasenia\":\"00000000\",\n\n     \"email\":\"*unemailnotanlargo@a.com\",\n     \n     \n    \n     \"fechaNacimiento\":\"08/12/1999\"\n    \n}"
 				},
-				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/clientes",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"s4_PartyServices-api",
-						"api",
-						"clientes"
-					]
-				},
+				"url": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes",
 				"description": "Se bsuca probar el mensaje de error al provocar un Business Exception por no seguir una regla de negocio:\n\"El cliente debe tener un correo aceptable\""
 			},
 			"response": []
 		},
 		{
 			"name": "POST agregar Cliente correo vacío",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "69c830fc-97f8-4c16-b93b-0878204b4a9c",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No correo vacio\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has('El correo no sigue el formato: debe ser de máximo 8 caracteres y contener solo números o letras')"
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [
@@ -359,27 +389,29 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n     \"login\":\"Aquiseinsertaunlogin\",\n\n     \"contrasenia\":\"00000000\",\n\n     \"email\":\"unemailnotanlargo@cosas.com\",\n     \n     \n    \n     \"fechaNacimiento\":\"08/12/1999\"\n    \n}"
+					"raw": "{\n     \"login\":\"Aquiseinsertakkkkk\",\n\n     \"contrasenia\":\"00000000\",\n\n     \"email\":\"\",\n     \n     \n    \n     \"fechaNacimiento\":\"08/12/1999\"\n    \n}"
 				},
-				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/clientes",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"s4_PartyServices-api",
-						"api",
-						"clientes"
-					]
-				},
+				"url": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes",
 				"description": "Se bsuca probar el mensaje de error al provocar un Business Exception por no seguir una regla de negocio:\n\"El cliente debe tener un correo no vacío\""
 			},
 			"response": []
 		},
 		{
 			"name": "POST agregar Pagos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "40ce27ee-9a19-4e84-81c8-1b7178e453c8",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_pago\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [
@@ -392,27 +424,59 @@
 					"mode": "raw",
 					"raw": "{\n\t\n\t\"usuario\":\"Aquiseinsertaunlogin\",\n\t\"numeroTarjetaCredito\":5555555555554444,\n\t\"codigoSeguridadTarjeta\":123,\n\t\"fechaExpiracionTarjetaCredito\":\"11/21\",\n\t\"nombreTarjeta\":\"LAURA FABIO\",\n\t\"empresa\":\"MasterCard\"\n\n\n\n     \n    \n\n}"
 				},
-				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/clientes/2/pagos",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"s4_PartyServices-api",
-						"api",
-						"clientes",
-						"2",
-						"pagos"
-					]
-				},
+				"url": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{new_id_cliente}}/pagos",
 				"description": "Se busca agregar a un único cliente de la base de datos, los pagos a través de PostMan."
 			},
 			"response": []
 		},
 		{
+			"name": "POST agregar pago a un cliente que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a891020d-8b9a-41ab-a556-b5ded8b4b123",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No se puede asociar un pago a un cliente que no existe.\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n\t\"usuario\":\"Aquiseinsertaunlogin\",\n\t\"numeroTarjetaCredito\":5555555555554444,\n\t\"codigoSeguridadTarjeta\":123,\n\t\"fechaExpiracionTarjetaCredito\":\"11/21\",\n\t\"nombreTarjeta\":\"LAURA FABIO\",\n\t\"empresa\":\"MasterCard\"\n\n\n\n     \n    \n\n}"
+				},
+				"url": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/99909098878900000/pagos",
+				"description": "Se busca agregar a un cliente inexistente en la base de datos, los pagos a través de PostMan."
+			},
+			"response": []
+		},
+		{
 			"name": "PUT modificar Cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "55461c96-370e-4e7b-8b72-2ccee7a0d406",
+						"type": "text/javascript",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Put\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [
@@ -423,28 +487,29 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"id\":23,\"tipo\":\"nov\"}"
+					"raw": "{\n\t\"login\":\"Aquiseinsertaalgo\",\n\n     \"contrasenia\":\"00005001\",\n\n     \"email\":\"unemailnotanalgo@cosas.com\",\n     \n     \n    \n     \"fechaNacimiento\":\"08/12/1996\"\n}"
 				},
-				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/pagos/45",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"s4_PartyServices-api",
-						"api",
-						"pagos",
-						"45"
-					]
-				},
+				"url": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{new_id_cliente}}",
 				"description": "Se busca modificar un único cliente de la base de datos a través de PostMan."
 			},
 			"response": []
 		},
 		{
 			"name": "PUT modificar Pago",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "48926cd5-535f-4d1e-89c3-a1ce4437a3d2",
+						"type": "text/javascript",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Put\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [
@@ -457,159 +522,295 @@
 					"mode": "raw",
 					"raw": "{\n\t\n\t\"usuario\":\"Aquiseinsertaunlogin\",\n\t\"numeroTarjetaCredito\":5555555555554444,\n\t\"codigoSeguridadTarjeta\":123,\n\t\"fechaExpiracionTarjetaCredito\":\"11/21\",\n\t\"nombreTarjeta\":\"LAURA JOSE\",\n\t\"empresa\":\"MasterCard\"\n\n\n\n     \n    \n\n}"
 				},
-				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/clientes/2/pagos/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"s4_PartyServices-api",
-						"api",
-						"clientes",
-						"2",
-						"pagos",
-						"1"
-					]
-				},
+				"url": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{new_id_cliente}}/pagos/{{new_id_pago}}",
 				"description": "Se busca modificar un pago de un único cliente de la base de datos a través de PostMan."
 			},
 			"response": []
 		},
 		{
+			"name": "PUT modificar pago que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "95ea2451-6efb-4624-9bab-69ac7c045b9b",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No se puede editar un pago que no existe.\"] = responseCode.code === 404;",
+							"let idCliente = pm.variables.get(\"new_id_cliente\");",
+							"",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has('El recurso /clientes/'+idCliente+'/pagos/989778990966988 no existe.');"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n\t\"usuario\":\"Aquiseinsertaunlogin\",\n\t\"numeroTarjetaCredito\":5555555555554444,\n\t\"codigoSeguridadTarjeta\":123,\n\t\"fechaExpiracionTarjetaCredito\":\"11/21\",\n\t\"nombreTarjeta\":\"LAURA JOSE\",\n\t\"empresa\":\"MasterCard\"\n\n\n\n     \n    \n\n}"
+				},
+				"url": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{new_id_cliente}}/pagos/989778990966988",
+				"description": "Se busca modificar un pago que no existe de un único cliente de la base de datos a través de PostMan."
+			},
+			"response": []
+		},
+		{
+			"name": "PUT modificar pago de cliente que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d9c3bbe6-a88c-498a-8478-ab18b8a31081",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No se puede editar un pago que no existe.\"] = responseCode.code === 404;",
+							"let idCliente = pm.variables.get(\"new_id_cliente\");",
+							"",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has('El recurso /clientes/8888888860/pagos no existe.');"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n\t\"usuario\":\"Aquiseinsertaunlogin\",\n\t\"numeroTarjetaCredito\":5555555555554444,\n\t\"codigoSeguridadTarjeta\":123,\n\t\"fechaExpiracionTarjetaCredito\":\"11/21\",\n\t\"nombreTarjeta\":\"LAURA JOSE\",\n\t\"empresa\":\"MasterCard\"\n\n\n\n     \n    \n\n}"
+				},
+				"url": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/8888888860/pagos/{{new_id_pago}}",
+				"description": "Se busca modificar un pago que de un cliente que no existe a través de PostMan."
+			},
+			"response": []
+		},
+		{
 			"name": "GET obtener Cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "787449c7-0755-46b9-b1d7-72a6d58cbd76",
+						"type": "text/javascript",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
-				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/clientes/2",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"s4_PartyServices-api",
-						"api",
-						"clientes",
-						"2"
-					]
+				"body": {
+					"mode": "raw",
+					"raw": ""
 				},
+				"url": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{new_id_cliente}}",
 				"description": "Se busca obtener un único cliente de la base de datos a través de PostMan."
 			},
 			"response": []
 		},
 		{
 			"name": "GET obtener Pago",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "46e05d1c-256c-4602-bc57-0f7e95ef4b61",
+						"type": "text/javascript",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
-				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/pagos/45",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"s4_PartyServices-api",
-						"api",
-						"pagos",
-						"45"
-					]
+				"body": {
+					"mode": "raw",
+					"raw": ""
 				},
+				"url": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{new_id_cliente}}/pagos/{{new_id_pago}}",
 				"description": "Se busca obtener un único cliente de la base de datos a través de PostMan."
 			},
 			"response": []
 		},
 		{
 			"name": "DELETE borrar Cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b3a3a3fc-ac0e-4924-9848-d99b64c90163",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"no genera error en el Delete\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"body": {},
-				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/clientes/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"s4_PartyServices-api",
-						"api",
-						"clientes",
-						"1"
-					]
+				"body": {
+					"mode": "raw",
+					"raw": ""
 				},
+				"url": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{new_id_cliente}}",
 				"description": "Se busca eliminar un único cliente de la base de datos a través de PostMan"
 			},
 			"response": []
 		},
 		{
-			"name": "DELETE borrar Pago",
+			"name": "DELETE borrar cliente que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7ca8b489-ee5d-4062-b659-dfa0edce1815",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No se puede borrar un cliente que no existe.\"] = responseCode.code === 404;",
+							"let id = pm.variables.get(\"new_id_cliente\");",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /clientes/0009989099075776769/ no existe.\");"
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"body": {},
-				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/api/clientes/2/pagos/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"s4_PartyServices-api",
-						"api",
-						"api",
-						"clientes",
-						"2",
-						"pagos",
-						"1"
-					]
+				"body": {
+					"mode": "raw",
+					"raw": ""
 				},
+				"url": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/0009989099075776769",
+				"description": "Se busca eliminar un cliente inexistente a través de PostMan"
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE borrar Pago",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c9b9d164-a6c8-4d58-a75d-2c559fb3bdb5",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"no genera error en el Delete\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/api/clientes/{{new_id_cliente}}/pagos/{{new_id_pago}}",
 				"description": "Se busca eliminar un pago de un único cliente de la base de datos a través de PostMan"
 			},
 			"response": []
 		},
 		{
+			"name": "DELETE borrar Pago que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d1c20123-c231-42ce-a06b-db2c594d887e",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No se puede borrar un pago que no existe.\"] = responseCode.code === 404;",
+							"let id = pm.variables.get(\"new_id_cliente\");",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /clientes/\"+id+\"/pagos/89898989869 no existe.\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{new_id_cliente}}/pagos/89898989869",
+				"description": "Se busca eliminar un pago que no existe a través de PostMan"
+			},
+			"response": []
+		},
+		{
 			"name": "GET obtener todos los Clientes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8a5b73df-c661-4c41-a878-bb5417176a66",
+						"type": "text/javascript",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
-				"url": {
+				"body": {
+					"mode": "raw",
 					"raw": ""
 				},
+				"url": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes",
 				"description": "Se busca obtener todos los clientes creados hasta ahora (2). Estos se encuentran en la dirección /clientes/. Si los clientes se encunetran vacíos, por favor ejecute la función \"POST agregar Cliente\" antes."
 			},
 			"response": []
 		},
 		{
 			"name": "GET obtener todos los Pagos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1958f47b-f222-4ae7-876b-e1824f8dbbcc",
+						"type": "text/javascript",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
-				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/clientes/2/pagos",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"s4_PartyServices-api",
-						"api",
-						"clientes",
-						"2",
-						"pagos"
-					]
+				"body": {
+					"mode": "raw",
+					"raw": ""
 				},
+				"url": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{new_id_cliente}}/pagos",
 				"description": "Se busca obtener todos los pagos de un cliente en específico. Estos pagos se encuentran en la posición /pagos/ y hasta ahora se han creado 2. Si la anterior suposición no es cierta, intente crear pagos con la función \"POST agregar Pagos\"."
 			},
 			"response": []
@@ -635,6 +836,20 @@
 					""
 				]
 			}
+		}
+	],
+	"variable": [
+		{
+			"id": "46dfb218-95da-4010-87cc-ef824e11cb14",
+			"key": "puerto",
+			"value": "8080",
+			"type": "string"
+		},
+		{
+			"id": "62df470f-5f37-462f-ae4b-ef50fb20ac40",
+			"key": "ip",
+			"value": "localhost",
+			"type": "string"
 		}
 	]
 }

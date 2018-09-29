@@ -34,18 +34,19 @@
 					"raw": "{\n    \"nombre\":\"Jesus\",\n    \"contrasenia\":\"987654321\",\n    \"calificacion\":10,\n    \"agenda\":{}\n    \n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/proveedor",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/proveedor",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
 						"proveedor"
 					]
-				}
+				},
+				"description": "Crea un nuevo proveedor con un nombre, una contraseña, una calificacion y una agenda asociada. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
 			},
 			"response": []
 		},
@@ -78,12 +79,12 @@
 					"raw": "{\n\t\"puntaje\":10,\n\t\"comentario\":\"Muy buen servicio! Así se hace\",\n\t\"nombreUsuario\":\"Cesar\"\n\t\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/proveedor/{{new_id_proveedorValoracion}}/valoraciones",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/proveedor/{{new_id_proveedorValoracion}}/valoraciones",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -91,7 +92,8 @@
 						"{{new_id_proveedorValoracion}}",
 						"valoraciones"
 					]
-				}
+				},
+				"description": "Crea una nueva valoracion. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
 			},
 			"response": []
 		},
@@ -123,12 +125,12 @@
 					"raw": "{\n\t\"puntaje\":10,\n\t\"comentario\":\"Muy buen servicio!\",\n\t\"nombreUsuario\":\"Cesar\"\n\t\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/proveedor/0/valoraciones",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/proveedor/0/valoraciones",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -136,7 +138,8 @@
 						"0",
 						"valoraciones"
 					]
-				}
+				},
+				"description": "Crea un nueva nueva valroacion pero con un proveedor que no existe. Verifica que se genera el error y el mensaje \"El recurso /proveedor/0/valoraciones no existe\".\n\n**Código HTTP esperado: 404**"
 			},
 			"response": []
 		},
@@ -169,12 +172,12 @@
 					"raw": "{\n\t\n\t\"nombre\":\"hola3\",\n\t\"contrasenia\":\"12345678\",\n\t\"calificacion\":9\n\t\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/proveedor/{{new_id_proveedorValoracion}}/valoraciones",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/proveedor/{{new_id_proveedorValoracion}}/valoraciones",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -182,7 +185,8 @@
 						"{{new_id_proveedorValoracion}}",
 						"valoraciones"
 					]
-				}
+				},
+				"description": "Consulta las valoraciones de un proveedor en la aplicación. \r\nLa petición no tiene cuerpo.\r\n\r\nSe envía el Id del proveedor a consultar en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
 			},
 			"response": []
 		},
@@ -215,12 +219,12 @@
 					"raw": "{\n\t\n\t\"nombre\":\"hola3\",\n\t\"contrasenia\":\"12345678\",\n\t\"calificacion\":9\n\t\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/proveedor/{{new_id_proveedorValoracion}}/valoraciones/{{new_id_valoracion}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/proveedor/{{new_id_proveedorValoracion}}/valoraciones/{{new_id_valoracion}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -229,7 +233,8 @@
 						"valoraciones",
 						"{{new_id_valoracion}}"
 					]
-				}
+				},
+				"description": "Consulta una valoracion de un proveedor en la aplicación. \r\nLa petición no tiene cuerpo.\r\n\r\nSe envía el Id del proveedor y de la valoracion a consultar en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
 			},
 			"response": []
 		},
@@ -262,12 +267,12 @@
 					"raw": "{\n\t\"puntaje\":8,\n\t\"comentario\":\"Muy buen servicio! Pero faltó un poco de calidad en las sillas\",\n\t\"nombreUsuario\":\"Cesar\"\n\t\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/proveedor/{{new_id_proveedorValoracion}}/valoraciones/{{new_id_valoracion}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/proveedor/{{new_id_proveedorValoracion}}/valoraciones/{{new_id_valoracion}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -276,7 +281,8 @@
 						"valoraciones",
 						"{{new_id_valoracion}}"
 					]
-				}
+				},
+				"description": "Actualiza una valoracion a un proveedor existente. Se envían los Ids de las entidades asociar en la URL de la petición.\n\n**Código http esperado: 200**"
 			},
 			"response": []
 		},
@@ -309,12 +315,12 @@
 					"raw": "{\n\t\n\t\"puntaje\":7,\n\t\"comentario\":\"Muy buen servicio! Pero faltó un poco de calidad en las sillas\",\n\t\"nombreUsuario\":\"Cesar\"\n\t\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/proveedor/{{new_id_proveedorValoracion}}/valoraciones/0",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/proveedor/{{new_id_proveedorValoracion}}/valoraciones/0",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -323,7 +329,8 @@
 						"valoraciones",
 						"0"
 					]
-				}
+				},
+				"description": "Asocia una valoracion que no existe a un proveedor. \r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /proveedor/0 no existe.\".\r\n\r\n**Código HTTP esperado: 404**"
 			},
 			"response": []
 		},
@@ -355,12 +362,12 @@
 					"raw": "{\n\t\n\t\"puntaje\":6,\n\t\"comentario\":\"Muy buen servicio! Pero faltó un poco de calidad en las sillas\",\n\t\"nombreUsuario\":\"Cesar\"\n\t\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/proveedor/0/valoraciones/{{new_id_valoracion}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/proveedor/0/valoraciones/{{new_id_valoracion}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -369,7 +376,8 @@
 						"valoraciones",
 						"{{new_id_valoracion}}"
 					]
-				}
+				},
+				"description": "Asocia una valoracion a un proveedor que no existe.\r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /proveedor/0 no existe.\".\r\n\r\n**Código HTTP esperado: 404**"
 			},
 			"response": []
 		},
@@ -392,12 +400,12 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/proveedor/{{new_id_proveedorValoracion}}/valoraciones/{{new_id_valoracion}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/proveedor/{{new_id_proveedorValoracion}}/valoraciones/{{new_id_valoracion}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -406,7 +414,8 @@
 						"valoraciones",
 						"{{new_id_valoracion}}"
 					]
-				}
+				},
+				"description": "Borra una valoracion asociada a un proveedor. Se envían los ids de la valroacion y el proveedor creados anteriormente.\n\n**Código HTTP esperado: 204**"
 			},
 			"response": []
 		},
@@ -431,12 +440,12 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/proveedor/{{new_id_proveedorValoracion}}/valoraciones/0",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/proveedor/{{new_id_proveedorValoracion}}/valoraciones/0",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -445,7 +454,8 @@
 						"valoraciones",
 						"0"
 					]
-				}
+				},
+				"description": "Borra una valoracion que no existe en la aplicación.  \r\n\r\nPara la prueba se verifica que se genera el error.\r\n\r\n**Código http esperado: 404**"
 			},
 			"response": []
 		},
@@ -469,12 +479,12 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/proveedor/0/valoraciones/{{new_id_valoracion}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/proveedor/0/valoraciones/{{new_id_valoracion}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -483,7 +493,8 @@
 						"valoraciones",
 						"{{new_id_valoracion}}"
 					]
-				}
+				},
+				"description": "Borra una valoracion a un proveedor que no existe en la aplicación.  \r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /proveedor/0/valoraciones no existe.\".\r\n\r\n**Código http esperado: 404**"
 			},
 			"response": []
 		},
@@ -506,19 +517,20 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/proveedor/{{new_id_proveedorValoracion}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/proveedor/{{new_id_proveedorValoracion}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
 						"proveedor",
 						"{{new_id_proveedorValoracion}}"
 					]
-				}
+				},
+				"description": "Borra un proveedor. Se envía el id del proveedor creado anteriormente.\n\n**Código HTTP esperado: 204**"
 			},
 			"response": []
 		}

@@ -1,69 +1,26 @@
 {
 	"info": {
-		"_postman_id": "c2991f65-69c7-492e-b1df-be0e8dbd4a74",
+		"_postman_id": "7157a1b1-5c79-4f18-b44f-13bfc910066b",
 		"name": "Pruebas de Evento y Producto",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Put Evento",
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"cliente\": {\n        \"contrasenia\": \"00000000\",\n        \"email\": \"unemailnotanlargo@cosas.com\",\n        \"fechaNacimiento\": \"08/12/1999\",\n        \"id\": 2,\n        \"login\": \"Aquiseinsertaunlogin\"\n    },\n    \"estado\": \"Cancelado\",\n    \"fecha\": {\n        \"agenda\": {\n            \"id\": 0\n        },\n        \"dia\": \"2018-10-09T00:00:00-05:00\",\n        \"id\": 4,\n        \"jornada\": \"Tarde\"\n    },\n    \"id\": 2,\n    \"latitud\": 4.570868,\n    \"longitud\": -70.853233,\n    \"nombre\": \"FiestaPaula\"\n}"
-				},
-				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/evento/FiestaPaula",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"s4_PartyServices-api",
-						"api",
-						"evento",
-						"FiestaPaula"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get Evento",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/evento/FiestaPaula",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"s4_PartyServices-api",
-						"api",
-						"evento",
-						"FiestaPaula"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Post Producto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "be6634d8-cb53-48e5-93c1-0deec4805841",
+						"type": "text/javascript",
+						"exec": [
+							"var data =JSON.parse(responseBody) ;",
+							"postman.setGlobalVariable(\"new_nombre_producto\",data.nombre);",
+							"tests[\"No genera error en el post\"] = responseCode.code == 200 ;"
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [
@@ -77,12 +34,12 @@
 					"raw": "{\n\t\n\t\"nombre\":\"bombasRojas\",\n\t\"tipoServicio\":\"decoracion\",\n\t\"duenio\":\"bombas fantasia\",\n\t \"costo\":\"10000\" ,\n\t \"cantidad\":\"200\",\n\t \"proveedor\":{\"nombre\":\"pepe\", \"contrasenia\": \"pepeelmasgrande\", \"calificacion\":0 ,\"agenda\":{}}\n \n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/producto",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/producto",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
@@ -93,26 +50,44 @@
 			"response": []
 		},
 		{
-			"name": "Delete Producto",
+			"name": "Post Evento",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5bd5f474-96e7-4d9b-b5a6-3117eea3c431",
+						"type": "text/javascript",
+						"exec": [
+							"var data =JSON.parse(responseBody) ;",
+							"postman.setGlobalVariable(\"new_nombre_evento\",data.nombre);",
+							"tests[\"No genera error en el post\"] = responseCode.code == 200 ;"
+						]
+					}
+				}
+			],
 			"request": {
-				"method": "DELETE",
-				"header": [],
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": ""
+					"raw": "{\"nombre\":\"FiestaPaula\",\n \"estado\":\"En planeacion\",\n \"fecha\":{\n    \"agenda\": {\n        \"id\": 13,\n        \"jornadaDomingoND\": \"Ninguna\",\n        \"jornadaJuevesND\": \"Ninguna\",\n        \"jornadaLunesND\": \"Ninguna\",\n        \"jornadaMartesND\": \"Tarde\",\n        \"jornadaMiercolesND\": \"Ninguna\",\n        \"jornadaSabadoND\": \"Ninguna\",\n        \"jornadaViernesND\": \"Ninguna\",\n        \"proveedorDTO\": {}\n    },\n    \"dia\": \"2018-10-09T00:00:00-05:00\",\n    \"id\": 4,\n    \"jornada\": \"Tarde\"\n},\n \"latitud\":\"4.570868\",\n \"longitud\":\"-70.853233\",\n \"cliente\":{\"login\":\"Aquiseinsertaunlogin\",\"contrasenia\":\"00000000\",\"email\":\"unemailnotanlargo@cosas.com\",\"fechaNacimiento\":\"08/12/1999\"}\n\t\t\t\t\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/producto/bombasRojas",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/evento",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
-						"producto",
-						"bombasRojas"
+						"evento"
 					]
 				}
 			},
@@ -128,17 +103,43 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/producto/bombasRojas",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/producto/{{new_nombre_producto}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
 						"producto",
-						"bombasRojas"
+						"{{new_nombre_producto}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Evento",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/evento/{{new_nombre_evento}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"evento",
+						"{{new_nombre_evento}}"
 					]
 				}
 			},
@@ -159,17 +160,132 @@
 					"raw": "{\"nombre\":\"bombas\",\n \"tipoServicio\":\"decoracion\",\n \"dueño\":\"bombas fantasia\",\n \"costo\":\"10000\" ,\n \"cantidad\":\"2\",\n \"proveedor\":{\"nombre\":\"pepe\", \"contrasenia\": \"pepeelmasgrande\", \"calificacion\":0 ,\"agenda\":{}}\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/producto/bombasRojas",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/producto/{{new_nombre_producto}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
 						"producto",
-						"bombasRojas"
+						"{{new_nombre_producto}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put Evento",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"cliente\": {\n        \"contrasenia\": \"00000000\",\n        \"email\": \"unemailnotanlargo@cosas.com\",\n        \"fechaNacimiento\": \"08/12/1999\",\n        \"id\": 2,\n        \"login\": \"Aquiseinsertaunlogin\"\n    },\n    \"estado\": \"Cancelado\",\n    \"fecha\": {\n        \"agenda\": {\n            \"id\": 0\n        },\n        \"dia\": \"2018-10-09T00:00:00-05:00\",\n        \"id\": 4,\n        \"jornada\": \"Tarde\"\n    },\n    \"id\": 2,\n    \"latitud\": 4.570868,\n    \"longitud\": -70.853233,\n    \"nombre\": \"FiestaPaula\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/evento/{{new_nombre_evento}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"evento",
+						"{{new_nombre_evento}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Productos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "509d1816-9376-412a-bac2-5c290ea7d401",
+						"type": "text/javascript",
+						"exec": [
+							"var data =JSON.parse(responseBody) ;",
+							"tests[\"No genera error en el get\"] = responseCode.code == 200 ;",
+							"tests[\"Producto count\"] = data.length > 0 ;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/producto",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"producto"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get eventos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/evento",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"evento"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Producto",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/producto/{{new_nombre_producto}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"producto",
+						"{{new_nombre_producto}}"
 					]
 				}
 			},
@@ -190,47 +306,17 @@
 					"raw": "{\n    \"cliente\": {\n        \"contrasenia\": \"00000000\",\n        \"email\": \"unemailnotanlargo@cosas.com\",\n        \"fechaNacimiento\": \"08/12/1999\",\n        \"id\": 2,\n        \"login\": \"Aquiseinsertaunlogin\"\n    },\n    \"estado\": \"En planeacion\",\n    \"fecha\": {\n        \"agenda\": {\n            \"id\": 0\n        },\n        \"dia\": \"2018-10-09T00:00:00-05:00\",\n        \"id\": 4,\n        \"jornada\": \"Tarde\"\n    },\n    \"id\": 2,\n    \"latitud\": 4.570868,\n    \"longitud\": -70.853233,\n    \"nombre\": \"Fiesta Paula\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/evento/FiestaPaula",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/evento/{{new_nombre_evento}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s4_PartyServices-api",
 						"api",
 						"evento",
-						"FiestaPaula"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Post Evento",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"nombre\":\"FiestaPaula\",\n \"estado\":\"En planeacion\",\n \"fecha\":{\n    \"agenda\": {\n        \"id\": 13,\n        \"jornadaDomingoND\": \"Ninguna\",\n        \"jornadaJuevesND\": \"Ninguna\",\n        \"jornadaLunesND\": \"Ninguna\",\n        \"jornadaMartesND\": \"Tarde\",\n        \"jornadaMiercolesND\": \"Ninguna\",\n        \"jornadaSabadoND\": \"Ninguna\",\n        \"jornadaViernesND\": \"Ninguna\",\n        \"proveedorDTO\": {}\n    },\n    \"dia\": \"2018-10-09T00:00:00-05:00\",\n    \"id\": 4,\n    \"jornada\": \"Tarde\"\n},\n \"latitud\":\"4.570868\",\n \"longitud\":\"-70.853233\",\n \"cliente\":{\"login\":\"Aquiseinsertaunlogin\",\"contrasenia\":\"00000000\",\"email\":\"unemailnotanlargo@cosas.com\",\"fechaNacimiento\":\"08/12/1999\"}\n\t\t\t\t\n}"
-				},
-				"url": {
-					"raw": "http://localhost:8080/s4_PartyServices-api/api/evento",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"s4_PartyServices-api",
-						"api",
-						"evento"
+						"{{new_nombre_evento}}"
 					]
 				}
 			},

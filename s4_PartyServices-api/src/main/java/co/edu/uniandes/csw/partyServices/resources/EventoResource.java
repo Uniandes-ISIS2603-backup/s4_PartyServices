@@ -10,6 +10,8 @@ import co.edu.uniandes.csw.partyServices.dtos.EventoDetailDTO;
 import co.edu.uniandes.csw.partyServices.ejb.EventoLogic;
 import co.edu.uniandes.csw.partyServices.entities.EventoEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
@@ -39,6 +41,21 @@ public class EventoResource {
     @Inject
     private EventoLogic eventoLogic;
 
+    
+    
+    @GET
+    public List<EventoDetailDTO> getEventos()
+    {
+        List<EventoDetailDTO> listaEventos = new ArrayList<>() ;
+         LOGGER.info("EventoResource getEventos: input: void");
+        for(EventoEntity even : eventoLogic.findAll())
+        {
+            listaEventos.add(new EventoDetailDTO(even)) ;
+        }
+        LOGGER.log(Level.INFO, "ProductoResource getBooks: output: {0}", listaEventos.toString());
+        return listaEventos;
+    }
+    
     
     
     
