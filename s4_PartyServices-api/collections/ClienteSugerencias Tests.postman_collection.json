@@ -1,0 +1,576 @@
+{
+	"info": {
+		"_postman_id": "322586e5-1932-46db-8db7-b57a202ad2f4",
+		"name": "ClienteSugerencias Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear una tematica ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9b49e6c9-18dd-4014-a3ee-09bc49e1cf88",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_tematicaSugerencia_Cliente\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"Metalera\",\n    \"servicio\":{}\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/tematicas",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"tematicas"
+					]
+				},
+				"description": "Crea una nueva temática con un nombre y una lista de servicios asociada. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crearle una sugerencia a una tematica ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a7431cc1-8789-4460-8f97-2769b6d31103",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_sugerencia_Cliente\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"comentario\":\"Pastel de arequipe el mejor!\",\n    \"nombreUsuario\":\"Cesar\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/tematicas/{{new_id_tematicaSugerencia_Cliente}}/sugerencias",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"tematicas",
+						"{{new_id_tematicaSugerencia_Cliente}}",
+						"sugerencias"
+					]
+				},
+				"description": "Crea una nueva sugerencia. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crearle una sugerencia a una tematica  2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "30102d19-2409-4b8e-94b8-8c469c41c7d8",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_sugerencia_Cliente2\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"comentario\":\"Pastel de arequipe el mejor!\",\n    \"nombreUsuario\":\"JoCarcamo\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/tematicas/{{new_id_tematicaSugerencia_Cliente}}/sugerencias",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"tematicas",
+						"{{new_id_tematicaSugerencia_Cliente}}",
+						"sugerencias"
+					]
+				},
+				"description": "Crea una nueva sugerencia. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c997b559-9104-4709-9709-26653dad4602",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_ClienteSugerencia\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n     \"login\":\"joCarcamo152321\",\n     \"contrasenia\":\"00000001\",\n     \"email\":\"unemailnotanalgoo@cosas.com\",\n     \"fechaNacimiento\":\"15/02/2000\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes"
+					]
+				},
+				"description": "Crea una nuevo cliente con un nombre, una contraseña, un correo y una fecha de nacimiento. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Agregarle una sugerencia a un cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e9b76351-dc3d-4ac6-beab-81871addfd96",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{new_id_ClienteSugerencia}}/tematicas/{{new_id_tematicaSugerencia_Cliente}}/sugerencias/{{new_id_sugerencia_Cliente}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"{{new_id_ClienteSugerencia}}",
+						"tematicas",
+						"{{new_id_tematicaSugerencia_Cliente}}",
+						"sugerencias",
+						"{{new_id_sugerencia_Cliente}}"
+					]
+				},
+				"description": "Asocia una sugerencia a un cliente en la aplicación. \r\n\r\nSe envía el Id del cliente y el de la sugerencia a asociar en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Agregar una sugerencia que no existe a un cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "df1c6254-cf0e-4639-a726-0406a876fd50",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No agrega una sugerencia con un id que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /sugerencias/0 no existe.\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{new_id_ClienteSugerencia}}/tematicas/{{new_id_tematicaSugerencia_Cliente}}/sugerencias/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"{{new_id_ClienteSugerencia}}",
+						"tematicas",
+						"{{new_id_tematicaSugerencia_Cliente}}",
+						"sugerencias",
+						"0"
+					]
+				},
+				"description": "Asocia una sugerencia que no existe a un cliente en la aplicación. \r\n\r\nSe envía el Id del cliente y el de la sugerencia a asociar en la URL de la petición.\r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /sugerencias/0 no existe.\".\r\n\r\n**Código HTTP esperado: 404**"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener las sugerencias de un cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d948df91-d9aa-43f7-a547-ef80315eba63",
+						"type": "text/javascript",
+						"exec": [
+							"var data= JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get all\"] = responseCode.code === 200;",
+							"tests[\"Cantidad de sugerencias del cliente\"] = data.length >= 0;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{new_id_ClienteSugerencia}}/tematicas/todas/sugerencias",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"{{new_id_ClienteSugerencia}}",
+						"tematicas",
+						"todas",
+						"sugerencias"
+					]
+				},
+				"description": "Consulta las sugerencias de un cliente en la aplicación. \r\nLa petición no tiene cuerpo.\r\n\r\nSe envía el Id del cliente a consultar en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener una sugerencia de un cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eb5201f8-e084-4a67-a336-861c386fef34",
+						"type": "text/javascript",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{new_id_ClienteSugerencia}}/tematicas/{{new_id_tematicaSugerencia_Cliente}}/sugerencias/{{new_id_sugerencia_Cliente}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"{{new_id_ClienteSugerencia}}",
+						"tematicas",
+						"{{new_id_tematicaSugerencia_Cliente}}",
+						"sugerencias",
+						"{{new_id_sugerencia_Cliente}}"
+					]
+				},
+				"description": "Consulta una sugerencia de un cliente en la aplicación. \r\nLa petición no tiene cuerpo.\r\n\r\nSe envía el Id del cliente, de la temática que peretenece la sugerencia y de la sugerencia a consultar en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener una sugerencia no asociada de un cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "54d4117f-126a-482e-bfaf-49e8f3881d66",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No se puede obtener una sugerencia que no esta asociada\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"La sugerencia no está asociada al cliente\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{new_id_ClienteSugerencia}}/tematicas/{{new_id_tematicaSugerencia_Cliente}}/sugerencias/{{new_id_sugerencia_Cliente2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"{{new_id_ClienteSugerencia}}",
+						"tematicas",
+						"{{new_id_tematicaSugerencia_Cliente}}",
+						"sugerencias",
+						"{{new_id_sugerencia_Cliente2}}"
+					]
+				},
+				"description": "Consulta una sugerencia que no esta asociada a un cliente en la aplicación.  \r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"La sugerencia no está asociada al cliente\".\r\n\r\n**Código http esperado: 412**"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener una sugerencia que no existe de un cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d84b988c-e2ae-4046-951e-9145a07b8a4e",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No se puede obtener una sugerencia que no existe\"] = responseCode.code === 404;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{new_id_ClienteSugerencia}}/tematicas/{{new_id_tematicaSugerencia_Cliente}}/sugerencias/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"{{new_id_ClienteSugerencia}}",
+						"tematicas",
+						"{{new_id_tematicaSugerencia_Cliente}}",
+						"sugerencias",
+						"0"
+					]
+				},
+				"description": "Consulta una sugerencia que no existe de un cliente en la aplicación.  \r\n\r\nPara la prueba se verifica que se genera el error.\r\n\r\n**Código http esperado: 404**"
+			},
+			"response": []
+		},
+		{
+			"name": "Remover la asociacion de las sugerencias de un cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "da77ebf3-c047-49d4-935f-f4cfaf5050dd",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{new_id_ClienteSugerencia}}/tematicas/todas/sugerencias",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"{{new_id_ClienteSugerencia}}",
+						"tematicas",
+						"todas",
+						"sugerencias"
+					]
+				},
+				"description": "Remover la asociacion de las sugerencias de un cliente en la aplicación. \r\nLa petición no tiene cuerpo.\r\n\r\nSe envía el Id del cliente a al que se le desasociaran las sugerencias en la URL de la petición.\r\n\r\n**Código http esperado: 204**"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener una sugerencia de una tematica  a la que se le eliminó el cliente ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bc8bb376-0623-4c8f-a3e0-dcff1ef6d05e",
+						"type": "text/javascript",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"no genera error en el Get\"] = responseCode.code === 200;",
+							"pm.test(\"El nombre del usuario se cambió correctamente\", function () { ",
+							"    pm.response.to.not.be.error; ",
+							"    pm.response.to.have.jsonBody(\"Anonimo\") });"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"comentario\":\"Pastel de arequipe el mejor!\",\n    \"nombreUsuario\":\"Cesar\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/tematicas/{{new_id_tematicaSugerencia_Cliente}}/sugerencias/{{new_id_sugerencia_Cliente}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"tematicas",
+						"{{new_id_tematicaSugerencia_Cliente}}",
+						"sugerencias",
+						"{{new_id_sugerencia_Cliente}}"
+					]
+				},
+				"description": "Consulta una sugerencia de una temática en la aplicación. \r\nLa petición no tiene cuerpo.\r\n\r\nSe envía el Id de la temática y de la sugerencia a consultar en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "4a18bf8f-e20f-4e2e-8b5b-0e9f3f30ac94",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "6f4c8713-3e2c-40d9-b34a-508a326692c3",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
