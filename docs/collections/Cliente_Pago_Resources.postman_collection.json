@@ -435,11 +435,11 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "a891020d-8b9a-41ab-a556-b5ded8b4b123",
+						"id": "5f97d655-750f-4cca-a13a-b2db9d3462a9",
 						"type": "text/javascript",
 						"exec": [
 							"tests[\"No se puede asociar un pago a un cliente que no existe.\"] = responseCode.code === 404;",
-							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso\");"
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /clientes/0/pagos no existe.\");"
 						]
 					}
 				}
@@ -456,7 +456,7 @@
 					"mode": "raw",
 					"raw": "{\n\t\n\t\"usuario\":\"Aquiseinsertaunlogin\",\n\t\"numeroTarjetaCredito\":5555555555554444,\n\t\"codigoSeguridadTarjeta\":123,\n\t\"fechaExpiracionTarjetaCredito\":\"11/21\",\n\t\"nombreTarjeta\":\"LAURA FABIO\",\n\t\"empresa\":\"MasterCard\"\n\n\n\n     \n    \n\n}"
 				},
-				"url": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/99909098878900000/pagos",
+				"url": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/0/pagos",
 				"description": "Se busca agregar a un cliente inexistente en la base de datos, los pagos a través de PostMan."
 			},
 			"response": []
@@ -533,13 +533,13 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "95ea2451-6efb-4624-9bab-69ac7c045b9b",
+						"id": "6d9aff60-56c7-40ec-b581-65f03b4750f4",
 						"type": "text/javascript",
 						"exec": [
 							"tests[\"No se puede editar un pago que no existe.\"] = responseCode.code === 404;",
 							"let idCliente = pm.variables.get(\"new_id_cliente\");",
 							"",
-							"tests[\"Mensaje correcto de error\"] = responseBody.has('El recurso /clientes/'+idCliente+'/pagos/989778990966988 no existe.');"
+							"tests[\"Mensaje correcto de error\"] = responseBody.has('El recurso /clientes/'+idCliente+'/pagos/0 no existe.');"
 						]
 					}
 				}
@@ -556,7 +556,7 @@
 					"mode": "raw",
 					"raw": "{\n\t\n\t\"usuario\":\"Aquiseinsertaunlogin\",\n\t\"numeroTarjetaCredito\":5555555555554444,\n\t\"codigoSeguridadTarjeta\":123,\n\t\"fechaExpiracionTarjetaCredito\":\"11/21\",\n\t\"nombreTarjeta\":\"LAURA JOSE\",\n\t\"empresa\":\"MasterCard\"\n\n\n\n     \n    \n\n}"
 				},
-				"url": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{new_id_cliente}}/pagos/989778990966988",
+				"url": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{new_id_cliente}}/pagos/0",
 				"description": "Se busca modificar un pago que no existe de un único cliente de la base de datos a través de PostMan."
 			},
 			"response": []
@@ -567,13 +567,13 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "d9c3bbe6-a88c-498a-8478-ab18b8a31081",
+						"id": "c00bfe9e-382a-4c7f-ae62-209983adde3a",
 						"type": "text/javascript",
 						"exec": [
 							"tests[\"No se puede editar un pago que no existe.\"] = responseCode.code === 404;",
 							"let idCliente = pm.variables.get(\"new_id_cliente\");",
 							"",
-							"tests[\"Mensaje correcto de error\"] = responseBody.has('El recurso /clientes/8888888860/pagos no existe.');"
+							"tests[\"Mensaje correcto de error\"] = responseBody.has('El recurso /clientes/0/pagos no existe.');"
 						]
 					}
 				}
@@ -590,7 +590,7 @@
 					"mode": "raw",
 					"raw": "{\n\t\n\t\"usuario\":\"Aquiseinsertaunlogin\",\n\t\"numeroTarjetaCredito\":5555555555554444,\n\t\"codigoSeguridadTarjeta\":123,\n\t\"fechaExpiracionTarjetaCredito\":\"11/21\",\n\t\"nombreTarjeta\":\"LAURA JOSE\",\n\t\"empresa\":\"MasterCard\"\n\n\n\n     \n    \n\n}"
 				},
-				"url": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/8888888860/pagos/{{new_id_pago}}",
+				"url": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/0/pagos/{{new_id_pago}}",
 				"description": "Se busca modificar un pago que de un cliente que no existe a través de PostMan."
 			},
 			"response": []
@@ -624,6 +624,33 @@
 			"response": []
 		},
 		{
+			"name": "GET obtener cliente que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4308a0ae-e08b-41bc-8d0f-6992c8f39eac",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No consulta con id que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /clientes/0 no existe.\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/0",
+				"description": "Se busca obtener un cliente que no existe en la base de datos. A través de postaman se mostraran los errores."
+			},
+			"response": []
+		},
+		{
 			"name": "GET obtener Pago",
 			"event": [
 				{
@@ -648,6 +675,33 @@
 				},
 				"url": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{new_id_cliente}}/pagos/{{new_id_pago}}",
 				"description": "Se busca obtener un único cliente de la base de datos a través de PostMan."
+			},
+			"response": []
+		},
+		{
+			"name": "GET obtener pago que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "873aeab1-3d47-4b21-a563-461257292bb1",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No consulta con id que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /clientes/10/pagos/0 no existe\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{new_id_cliente}}/pagos/0",
+				"description": "Se busca obtener un pago inexistente en la base de datos. En postman se mostrara un mensaje de error de acuerdo a esto."
 			},
 			"response": []
 		},
@@ -683,12 +737,11 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "7ca8b489-ee5d-4062-b659-dfa0edce1815",
+						"id": "8dbc0787-1692-4108-946f-868e95bf9f54",
 						"type": "text/javascript",
 						"exec": [
 							"tests[\"No se puede borrar un cliente que no existe.\"] = responseCode.code === 404;",
-							"let id = pm.variables.get(\"new_id_cliente\");",
-							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /clientes/0009989099075776769/ no existe.\");"
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /clientes/0 no existe.\");"
 						]
 					}
 				}
@@ -700,7 +753,7 @@
 					"mode": "raw",
 					"raw": ""
 				},
-				"url": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/0009989099075776769",
+				"url": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/0",
 				"description": "Se busca eliminar un cliente inexistente a través de PostMan"
 			},
 			"response": []
@@ -737,12 +790,12 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "d1c20123-c231-42ce-a06b-db2c594d887e",
+						"id": "5cbb90aa-a07a-495b-9157-bfada986da30",
 						"type": "text/javascript",
 						"exec": [
 							"tests[\"No se puede borrar un pago que no existe.\"] = responseCode.code === 404;",
 							"let id = pm.variables.get(\"new_id_cliente\");",
-							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /clientes/\"+id+\"/pagos/89898989869 no existe.\");"
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /clientes/\"+id+\"/pagos/0 no existe.\");"
 						]
 					}
 				}
@@ -754,7 +807,7 @@
 					"mode": "raw",
 					"raw": ""
 				},
-				"url": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{new_id_cliente}}/pagos/89898989869",
+				"url": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{new_id_cliente}}/pagos/0",
 				"description": "Se busca eliminar un pago que no existe a través de PostMan"
 			},
 			"response": []
@@ -765,12 +818,13 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "8a5b73df-c661-4c41-a878-bb5417176a66",
+						"id": "38d42704-3cee-418b-9b7d-e15c64025026",
 						"type": "text/javascript",
 						"exec": [
 							"console.log(responseBody);",
 							"var data = JSON.parse(responseBody);",
-							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;",
+							"tests[\"clientes count\"] = data.length > 1;"
 						]
 					}
 				}
@@ -793,12 +847,13 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "1958f47b-f222-4ae7-876b-e1824f8dbbcc",
+						"id": "e0b1d093-76c1-443f-a9ef-7528d4df296d",
 						"type": "text/javascript",
 						"exec": [
 							"console.log(responseBody);",
 							"var data = JSON.parse(responseBody);",
-							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;",
+							"tests[\"pagos count\"] = data.length >= 0;"
 						]
 					}
 				}
@@ -840,13 +895,13 @@
 	],
 	"variable": [
 		{
-			"id": "46dfb218-95da-4010-87cc-ef824e11cb14",
+			"id": "d715c018-254b-4e1b-b453-d324995b995d",
 			"key": "puerto",
 			"value": "8080",
 			"type": "string"
 		},
 		{
-			"id": "62df470f-5f37-462f-ae4b-ef50fb20ac40",
+			"id": "bd566fbf-3fca-454e-a081-5316f6216425",
 			"key": "ip",
 			"value": "localhost",
 			"type": "string"
