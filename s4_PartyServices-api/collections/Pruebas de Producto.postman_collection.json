@@ -1,0 +1,197 @@
+{
+	"info": {
+		"_postman_id": "b75d6f25-fa9d-4988-a435-3a34c6cd1730",
+		"name": "Pruebas de Producto",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Post Producto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "be6634d8-cb53-48e5-93c1-0deec4805841",
+						"type": "text/javascript",
+						"exec": [
+							"var data =JSON.parse(responseBody) ;",
+							"postman.setGlobalVariable(\"new_nombre_producto\",data.nombre);",
+							"tests[\"No genera error en el post\"] = responseCode.code == 200 ;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n\t\"nombre\":\"bombasRojas\",\n\t\"tipoServicio\":\"decoracion\",\n\t\"duenio\":\"bombas fantasia\",\n\t \"costo\":\"10000\" ,\n\t \"cantidad\":\"200\",\n\t \"proveedor\":{\"nombre\":\"pepe\", \"contrasenia\": \"pepeelmasgrande\", \"calificacion\":0 ,\"agenda\":{}}\n \n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/producto",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"producto"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Producto",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/producto/{{new_nombre_producto}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"producto",
+						"{{new_nombre_producto}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put Producto",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"nombre\":\"bombas\",\n \"tipoServicio\":\"decoracion\",\n \"dueño\":\"bombas fantasia\",\n \"costo\":\"10000\" ,\n \"cantidad\":\"2\",\n \"proveedor\":{\"nombre\":\"pepe\", \"contrasenia\": \"pepeelmasgrande\", \"calificacion\":0 ,\"agenda\":{}}\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/producto/{{new_nombre_producto}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"producto",
+						"{{new_nombre_producto}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Productos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "509d1816-9376-412a-bac2-5c290ea7d401",
+						"type": "text/javascript",
+						"exec": [
+							"var data =JSON.parse(responseBody) ;",
+							"tests[\"No genera error en el get\"] = responseCode.code == 200 ;",
+							"tests[\"Producto count\"] = data.length > 0 ;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/producto",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"producto"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Producto",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/producto/{{new_nombre_producto}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"producto",
+						"{{new_nombre_producto}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "2372f3d7-1a3f-43b3-b90d-2699e44b6654",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "20dccfa4-d16f-43b0-bb1c-affa25010bd7",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
