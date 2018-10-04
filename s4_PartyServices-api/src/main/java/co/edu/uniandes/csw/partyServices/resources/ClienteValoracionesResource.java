@@ -62,7 +62,7 @@ public class ClienteValoracionesResource {
             throw new WebApplicationException("El recurso /valoraciones/" + valoracionId + " no existe.", 404);
         }
         ValoracionDTO valoracionDTO = new ValoracionDTO(clienteValoracionesLogic.addValoracion(proveedorId, valoracionId, clientesId));
-        LOGGER.log(Level.INFO, "ClienteValoracionesResource addValoracion: output: {0}", valoracionDTO.toString());
+        LOGGER.log(Level.INFO, "ClienteValoracionesResource addValoracion: output: {0}", valoracionDTO);
         return valoracionDTO;
     }
     
@@ -79,7 +79,7 @@ public class ClienteValoracionesResource {
     public List<ValoracionDTO> getValoraciones(@PathParam("clientesId") Long clientesId) {
         LOGGER.log(Level.INFO, "ClienteValoracionesResource getValoraciones: input: {0}", clientesId);
         List<ValoracionDTO> listaDTOs = valoracionListEntity2DTO(clienteValoracionesLogic.getValoraciones(clientesId));
-        LOGGER.log(Level.INFO, "ClienteValoracionesResource getValoraciones: output: {0}", listaDTOs.toString());
+        LOGGER.log(Level.INFO, "ClienteValoracionesResource getValoraciones: output: {0}", listaDTOs);
         return listaDTOs;
     }
     
@@ -107,7 +107,7 @@ public class ClienteValoracionesResource {
             throw new WebApplicationException("El recurso /clientes/" + clientesId + "/proveedor/" + proveedorId + "/valoraciones/"+ valoracionId + " no existe.", 404);
         }
         ValoracionDTO valoracionDTO = new ValoracionDTO(clienteValoracionesLogic.getValoracion(proveedorId, valoracionId, clientesId));
-        LOGGER.log(Level.INFO, "\"ClienteValoracionesResource getValoracion: output: {0}", valoracionDTO.toString());
+        LOGGER.log(Level.INFO, "\"ClienteValoracionesResource getValoracion: output: {0}", valoracionDTO);
         return valoracionDTO;
     }
     
