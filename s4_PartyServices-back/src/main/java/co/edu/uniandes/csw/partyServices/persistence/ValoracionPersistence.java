@@ -88,21 +88,17 @@ public class ValoracionPersistence {
      * valroaciones devuelve siempre la primera que encuentra.
      */
     public ValoracionEntity find(Long proveedorId, Long valoracionId) {
-        LOGGER.log(Level.INFO, "Consultando la valoracion con id = {0} del proveedor con id = " + proveedorId, valoracionId);
+        LOGGER.log(Level.INFO, "Consultando la valoracion con id = {0} del proveedor con id = {1}", new Object[]{valoracionId, proveedorId});
 
         TypedQuery<ValoracionEntity> q = em.createQuery("select p from ValoracionEntity p where (p.proveedor.id = :proveedorId) and (p.id = :valoracionId)", ValoracionEntity.class);
         q.setParameter("proveedorId", proveedorId);
         q.setParameter("valoracionId", valoracionId);
         List<ValoracionEntity> results = q.getResultList();
         ValoracionEntity valoracion = null;
-        if (results == null) {
-            valoracion = null;
-        } else if (results.isEmpty()) {
-            valoracion = null;
-        } else if (results.size() >= 1) {
+        if (!results.isEmpty()) {
             valoracion = results.get(0);
         }
-        LOGGER.log(Level.INFO, "Saliendo de consultar la valoracion con id = {0} del proveedor con id = " + proveedorId, valoracionId);
+        LOGGER.log(Level.INFO, "Saliendo de consultar la valoracion con id = {0} del proveedor con id = {1}", new Object[]{valoracionId, proveedorId});
         return valoracion;
     }
 
@@ -117,8 +113,7 @@ public class ValoracionPersistence {
         LOGGER.log(Level.INFO, "Consultando todos las valoraciones");
 
         TypedQuery query = em.createQuery("select u from ValoracionEntity u", ValoracionEntity.class);
-        List<ValoracionEntity> respuesta = query.getResultList();
-        return respuesta;
+        return query.getResultList();
 
     }
 

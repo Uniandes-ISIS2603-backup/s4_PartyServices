@@ -20,35 +20,36 @@ import javax.persistence.TypedQuery;
  */
 @Stateless
 public class SugerenciaPersistence {
-    
+
     private static final Logger LOGGER = Logger.getLogger(SugerenciaPersistence.class.getName());
-    
-    @PersistenceContext(unitName="LosMasmelosPU")
+
+    @PersistenceContext(unitName = "LosMasmelosPU")
     protected EntityManager em;
-    
+
     /**
      * Método para persistir la entidad en la base de datos.
-     * 
-     * @param sugerenciaEntity objeto sugerencia que se creará en la base de datos.
+     *
+     * @param sugerenciaEntity objeto sugerencia que se creará en la base de
+     * datos.
      * @return devuelve la entidad creada con un id dado por la base de datos.
      */
-    public SugerenciaEntity create(SugerenciaEntity sugerenciaEntity){
+    public SugerenciaEntity create(SugerenciaEntity sugerenciaEntity) {
         LOGGER.log(Level.INFO, "Creando una sugerencia nueva");
         em.persist(sugerenciaEntity);
         LOGGER.log(Level.INFO, "Sugerencia creada");
         return sugerenciaEntity;
     }
-    
+
     /**
      * Actualiza una sugerencia.
      *
      * @param sugerenciaEntity: la sugerencia que viene con los nuevos cambios.
-     * Por ejemplo el comentario pudo cambiar. En ese caso, se haria uso del método
-     * update.
+     * Por ejemplo el comentario pudo cambiar. En ese caso, se haria uso del
+     * método update.
      * @return una sugerencia con los cambios aplicados.
      */
     public SugerenciaEntity update(SugerenciaEntity sugerenciaEntity) {
-        
+
         /* Note que hacemos uso de un método propio del EntityManager llamado merge() que recibe como argumento
         la editorial con los cambios, esto es similar a 
         "UPDATE table_name SET column1 = value1, column2 = value2, ... WHERE condition;" en SQL.
@@ -56,7 +57,7 @@ public class SugerenciaPersistence {
         LOGGER.log(Level.INFO, "Actualizando sugerencia con id = {0}", sugerenciaEntity.getId());
         return em.merge(sugerenciaEntity);
     }
-    
+
     /**
      *
      * Borra una sugerencia de la base de datos recibiendo como argumento el id
@@ -73,49 +74,46 @@ public class SugerenciaPersistence {
          Es similar a "delete from EditorialEntity where id=id;" - "DELETE FROM table_name WHERE condition;" en SQL.*/
         em.remove(entity);
         LOGGER.log(Level.INFO, "Saliendo de borrar la sugerencia con id = {0}", sugerenciasId);
-        
+
     }
-    
+
     /**
      * Buscar una sugerencia
      *
-     * Busca si hay alguna sugerencia asociada a una tematica y con un ID específico.
+     * Busca si hay alguna sugerencia asociada a una tematica y con un ID
+     * específico.
      *
      * @param tematicasId El ID de la tematica con respecto a la cual se busca.
      * @param sugerenciasId El ID de la sugerencia buscada.
-     * @return La sugerenica encontrada o null. Nota: Si existe una o más sugerencias
-     * devuelve siempre la primera que encuentra.
+     * @return La sugerenica encontrada o null. Nota: Si existe una o más
+     * sugerencias devuelve siempre la primera que encuentra.
      */
     public SugerenciaEntity find(Long tematicasId, Long sugerenciasId) {
-        
-        LOGGER.log(Level.INFO, "Consultando la sugerencia con id = {0} de la temática con id = " + tematicasId, sugerenciasId);
+
+        LOGGER.log(Level.INFO, "Consultando la sugerencia con id = {0} de la temática con id = {1}", new Object[]{sugerenciasId, tematicasId});
         TypedQuery<SugerenciaEntity> q = em.createQuery("select p from SugerenciaEntity p where (p.tematica.id = :tematicasid) and (p.id = :sugerenciasId)", SugerenciaEntity.class);
         q.setParameter("tematicasid", tematicasId);
         q.setParameter("sugerenciasId", sugerenciasId);
         List<SugerenciaEntity> results = q.getResultList();
         SugerenciaEntity sugerencia = null;
-        if (results == null) {
-            sugerencia = null;
-        } else if (results.isEmpty()) {
-            sugerencia = null;
-        } else if (results.size() >= 1) {
+        if (!results.isEmpty()) {
             sugerencia = results.get(0);
         }
         LOGGER.log(Level.INFO, "Saliendo de consultar la sugerencia con id = {0} de la temática con id =" + tematicasId, sugerenciasId);
         return sugerencia;
-    }   
-    
+    }
+
     /**
      * Devuelve todos las sugerencias de la base de datos.
      *
-     * @return una lista con todas las sugerencias que encuentre en la base de datos,
-     * "select u from SugerenciaEntity u" es como un "select * from SugerenciaEntity;" -
-     * "SELECT * FROM table_name" en SQL.
+     * @return una lista con todas las sugerencias que encuentre en la base de
+     * datos, "select u from SugerenciaEntity u" es como un "select * from
+     * SugerenciaEntity;" - "SELECT * FROM table_name" en SQL.
      */
     public List<SugerenciaEntity> findAll() {
         LOGGER.log(Level.INFO, "Consultando todas las sugerencias");
         TypedQuery query = em.createQuery("select u from SugerenciaEntity u", SugerenciaEntity.class);
         return query.getResultList();
     }
-    
+
 }

@@ -17,26 +17,25 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 public class SugerenciaEntity extends BaseEntity implements Serializable {
 
-    
     private String comentario;
-    
+
     private String nombreUsuario;
-    
+
     @PodamExclude
     @ManyToOne
     private ClienteEntity cliente;
-    
+
     @PodamExclude
     @ManyToOne
     private TematicaEntity tematica;
 
     /**
-     * Constructor por defecto de una Sugerencia.
+     * Constructor por defecto de una SugerenciaEntity.
      */
-    public SugerenciaEntity(){
-        
+    public SugerenciaEntity() {
+        //Constructor por defecto de una SugerenciaEntity.
     }
-    
+
     /**
      * Devuelve el comentario de la sugerencia.
      *
@@ -54,7 +53,7 @@ public class SugerenciaEntity extends BaseEntity implements Serializable {
     public void setComentario(String comentario) {
         this.comentario = comentario;
     }
-    
+
     /**
      * Devuelve el nombre del usuario asignado a la sugerencia.
      *
@@ -63,7 +62,7 @@ public class SugerenciaEntity extends BaseEntity implements Serializable {
     public String getNombreUsuario() {
         return nombreUsuario;
     }
-    
+
     /**
      * Modifica el nombre del usuario asignado a la sugerencia.
      *
@@ -72,10 +71,10 @@ public class SugerenciaEntity extends BaseEntity implements Serializable {
     public void setNombreUsuario(String nombreUsuario) {
         this.nombreUsuario = nombreUsuario;
     }
-    
+
     /**
      * Devuelve el usuario asignado a la sugerencia.
-     * 
+     *
      * @return cliente. El cliente asignado a la sugerencia.
      */
     public ClienteEntity getCliente() {
@@ -84,7 +83,7 @@ public class SugerenciaEntity extends BaseEntity implements Serializable {
 
     /**
      * Modifica el usuario asignado a la sugerencia.
-     * 
+     *
      * @param cliente. El nuevo cliente que se reemplazará.
      */
     public void setCliente(ClienteEntity cliente) {
@@ -93,7 +92,7 @@ public class SugerenciaEntity extends BaseEntity implements Serializable {
 
     /**
      * Devuelve la temática de la que hace parte la sugerencia.
-     * 
+     *
      * @return tematica. La temática de la sugerencia.
      */
     public TematicaEntity getTematica() {
@@ -102,12 +101,11 @@ public class SugerenciaEntity extends BaseEntity implements Serializable {
 
     /**
      * Modifica la temática de la que hace parte la sugerencia.
-     * 
+     *
      * @param tematica. La nueva temática de la que hará parte la sugerencia.
      */
     public void setTematica(TematicaEntity tematica) {
         this.tematica = tematica;
     }
-    
-    
+
 }

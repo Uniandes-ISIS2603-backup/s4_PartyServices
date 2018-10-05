@@ -12,69 +12,36 @@ import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
- * @author  Jesús Orlando Cárcamo Posada
+ * @author Jesús Orlando Cárcamo Posada
  */
 @Entity
-public class ValoracionEntity extends BaseEntity implements Serializable{
-    
-    private Integer puntaje;
-    
+public class ValoracionEntity extends BaseEntity implements Serializable {
+
     private String comentario;
-    
+
+    private Integer puntaje;
+
     private String nombreUsuario;
-    
+
     @PodamExclude
     @ManyToOne
     private ClienteEntity cliente;
-    
+
     @PodamExclude
     @ManyToOne
     private ProveedorEntity proveedor;
-    
-    public ValoracionEntity()
-    {
-        
-    }
 
-    public ClienteEntity getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(ClienteEntity cliente) {
-        this.cliente = cliente;
-    }
-
-    public ProveedorEntity getProveedor() {
-        return proveedor;
-    }
-
-    public void setProveedor(ProveedorEntity proveedor) {
-        this.proveedor = proveedor;
-    }
-  
     /**
-     * Devuelve el puntaje de la valoracion.
-     * 
-     * @return puntaje.
+     * Constructor por defecto para crear una ValoracionEntity
      */
-    public Integer getPuntaje(){
-        return puntaje;
+    public ValoracionEntity() {
+        //Constructor por defecto para crear una ValoracionEntity
     }
-    
-    /**
-     * Modifica el puntaje de la valoracion.
-     *
-     * @param puntaje the puntaje to set
-     */
-    public void setPuntaje(Integer puntaje){
-        this.puntaje = puntaje;
-    }
-    
-    
+
     /**
      * Devuelve el comentario de la valoracion.
      *
-     * @return comentario
+     * @return comentario. El comentario hecho por un usuario de la valoracion.
      */
     public String getComentario() {
         return comentario;
@@ -83,27 +50,83 @@ public class ValoracionEntity extends BaseEntity implements Serializable{
     /**
      * Modifica el comentario de la valoracion.
      *
-     * @param comentario the comentario to set
+     * @param pComentario. El nuevo comentario que se le asiganará a la
+     * valoracion.
      */
-    public void setComentario(String comentario) {
-        this.comentario = comentario;
+    public void setComentario(String pComentario) {
+        comentario = pComentario;
     }
-    
+
     /**
-     * Devuelve el nombre del usuario de la valoracion.
+     * Devuelve el puntaje de la valoracion.
      *
-     * @return nombreUsuario.
+     * @return puntaje. El puntaje dado en la valoracion.
+     */
+    public Integer getPuntaje() {
+        return puntaje;
+    }
+
+    /**
+     * Modifica el puntaje de la valoracion.
+     *
+     * @param pPuntaje. El nuevo puntaje de la valoración.
+     */
+    public void setPuntaje(Integer pPuntaje) {
+        puntaje = pPuntaje;
+    }
+
+    /**
+     * Devuelve el nombre del usuario que creó la valoración.
+     *
+     * @return nombreUsuario. El nombre del usuario que creó la valroación.
      */
     public String getNombreUsuario() {
         return nombreUsuario;
     }
 
     /**
-     * Modifica el nombre del usuario de la valoracion.
+     * Modifica el nombre del usuario asociado a la valoración.
      *
-     * @param nombreUsuario el nuevo nombre del usuario que se reemplazará.
+     * @param nombreUsuario. El nuevo nombre del usuario que se reemplazará.
      */
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
+    public void setNombreUsuario(String pNombreUsuario) {
+        nombreUsuario = pNombreUsuario;
+    }
+
+    /**
+     * Devuelve el usuario asociado a la valoración. Null si la valoración no
+     * tiene usuario.
+     *
+     * @return cliente. La entidad de cliente asociado a la valoración.
+     */
+    public ClienteEntity getCliente() {
+        return cliente;
+    }
+
+    /**
+     * Modifica el cliente asociado a la valoración.
+     *
+     * @param pCliente. El nuevo cliente que será dueño de la valoración.
+     */
+    public void setCliente(ClienteEntity pCliente) {
+        cliente = pCliente;
+    }
+
+    /**
+     * Devuelve el proveedor al cual se le hizo la valoración.
+     *
+     * @return proveedor. El proveedor que tiene esta valroación.
+     */
+    public ProveedorEntity getProveedor() {
+        return proveedor;
+    }
+
+    /**
+     * Modifica el proveedor de esta valroación.
+     *
+     * @param pProveedor. El nuevo proveedor que será dueño de la valroación.
+     */
+    public void setProveedor(ProveedorEntity pProveedor) {
+        proveedor = pProveedor;
     }
 }
