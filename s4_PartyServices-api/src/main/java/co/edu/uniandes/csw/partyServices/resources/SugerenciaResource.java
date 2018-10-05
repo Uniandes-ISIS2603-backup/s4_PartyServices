@@ -26,49 +26,60 @@ import javax.inject.Inject;
 import javax.ws.rs.WebApplicationException;
 
 /**
- *Clase que implementa el recurso "Sugerencias"
- * @author Jesús Orlnado Cárcamo Posada
+ * Clase que implementa el recurso "Sugerencias"
+ *
+ * @author Jesús Orlando Cárcamo Posada
  */
 @Produces("application/json")
 @Consumes("application/json")
 @RequestScoped
 public class SugerenciaResource {
-    
+
     private static final Logger LOGGER = Logger.getLogger(SugerenciaResource.class.getName());
-    
+
     @Inject
     private SugerenciaLogic sugerenciaLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
-    
+
+    private static final String RECURSO_TEMATICAS = "El recurso /tematicas/";
+
+    private static final String RECURSO_SUGERENCIAS = "/sugerencias/";
+
+    private static final String NO_EXISTE = " no existe.";
+
     /**
-     * Crea una nueva sugerencia con la informacion que se recibe en el cuerpo de la
-     * petición y se regresa un objeto identico con un id auto-generado por la
-     * base de datos.
+     * Crea una nueva sugerencia con la informacion que se recibe en el cuerpo
+     * de la petición y se regresa un objeto identico con un id auto-generado
+     * por la base de datos.
      *
-     * @param tematicasId El ID de la temática de la cual se le agrega la sugerencia.
-     * @param sugerencia {@link SugerenciaDTO} - La sugerencia que se desea guardar.
-     * @return JSON {@link SugerenciaDTO} - La sugerencia guardada con el atributo id
-     * autogenerado.
+     * @param tematicasId El ID de la temática de la cual se le agrega la
+     * sugerencia.
+     * @param sugerencia {@link SugerenciaDTO} - La sugerencia que se desea
+     * guardar.
+     * @return JSON {@link SugerenciaDTO} - La sugerencia guardada con el
+     * atributo id autogenerado.
      * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
-     * Error de lógica que se genera si el texto de la sugerencia excede el límite establecido (20000 caracteres).
+     * Error de lógica que se genera si el texto de la sugerencia excede el
+     * límite establecido (20000 caracteres).
      */
     @POST
-    public SugerenciaDTO createSugerencia(@PathParam("tematicasId") Long tematicasId, SugerenciaDTO sugerencia) throws BusinessLogicException{
-        LOGGER.log(Level.INFO, "SugerenciaResource createSugerencia: input: {0}", sugerencia.toString());
+    public SugerenciaDTO createSugerencia(@PathParam("tematicasId") Long tematicasId, SugerenciaDTO sugerencia) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "SugerenciaResource createSugerencia: input: {0}", sugerencia);
         SugerenciaDTO nuevaSugerenciaDTO = new SugerenciaDTO(sugerenciaLogic.createSugerencia(tematicasId, sugerencia.toEntity()));
-        LOGGER.log(Level.INFO, "SugerenciaResource createSugerencia: output: {0}", nuevaSugerenciaDTO.toString());
+        LOGGER.log(Level.INFO, "SugerenciaResource createSugerencia: output: {0}", nuevaSugerenciaDTO);
         return nuevaSugerenciaDTO;
     }
-      
+
     /**
-     * Busca y devuelve la sugerencia con el ID recibido en la URL, relativa a una
-     * temática.
+     * Busca y devuelve la sugerencia con el ID recibido en la URL, relativa a
+     * una temática.
      *
-     * @param tematicasId El ID de la temática de la cual se buscan las sugerencias.
+     * @param tematicasId El ID de la temática de la cual se buscan las
+     * sugerencias.
      * @param sugerenciasId El ID de la sugerencia que se busca.
      * @return {@link SugerenciaDTO} - La sugerencia encontrada en la temática.
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-     * Error de lógica que se genera cuando no se encuentra la temática.
-     * Error de lógica que se genera cuando no se encuentra la sugerencia.
+     * Error de lógica que se genera cuando no se encuentra la temática. Error
+     * de lógica que se genera cuando no se encuentra la sugerencia.
      */
     @GET
     @Path("{sugerenciasId: \\d+}")
@@ -76,60 +87,66 @@ public class SugerenciaResource {
         LOGGER.log(Level.INFO, "SugerenciaResource getSugerencia: input: {0}", sugerenciasId);
         SugerenciaEntity entity = sugerenciaLogic.getSugerencia(tematicasId, sugerenciasId);
         if (entity == null) {
-            throw new WebApplicationException("El recurso /tematicas/" + tematicasId + "/sugerencias/" + sugerenciasId + " no existe.", 404);
+            throw new WebApplicationException(RECURSO_TEMATICAS + tematicasId + RECURSO_SUGERENCIAS + sugerenciasId + NO_EXISTE, 404);
         }
         SugerenciaDTO sugerenciaDTO = new SugerenciaDTO(entity);
-        LOGGER.log(Level.INFO, "SugerenciaResource getSugerencia: output: {0}", sugerenciaDTO.toString());
+        LOGGER.log(Level.INFO, "SugerenciaResource getSugerencia: output: {0}", sugerenciaDTO);
         return sugerenciaDTO;
     }
-      
+
     /**
      * Busca y devuelve todas las sugerencias que existen en una temática.
      *
-     * @param tematicasId El ID de la temática de la cual se buscan las sugerencias.
-     * @return JSONArray {@link SugerenciaDTO} - Las sugerencias encontradas en e la
-     * temática. Si no hay ninguna retorna una lista vacía.
+     * @param tematicasId El ID de la temática de la cual se buscan las
+     * sugerencias.
+     * @return JSONArray {@link SugerenciaDTO} - Las sugerencias encontradas en
+     * e la temática. Si no hay ninguna retorna una lista vacía.
      */
     @GET
     public List<SugerenciaDTO> getSugerencias(@PathParam("tematicasId") Long tematicasId) {
         LOGGER.log(Level.INFO, "SugerenciaResource getSugerencias: input: {0}", tematicasId);
         List<SugerenciaDTO> listaDTOs = listEntity2DTO(sugerenciaLogic.getSugerencias(tematicasId));
-        LOGGER.log(Level.INFO, "SugerenciaResource getSugerencias: output: {0}", listaDTOs.toString());
+        LOGGER.log(Level.INFO, "SugerenciaResource getSugerencias: output: {0}", listaDTOs);
         return listaDTOs;
     }
-     
+
     /**
-     * Actualiza una sugerencia con la informacion que se recibe en el cuerpo de la
-     * petición y se regresa el objeto actualizado.
+     * Actualiza una sugerencia con la informacion que se recibe en el cuerpo de
+     * la petición y se regresa el objeto actualizado.
      *
-     * @param tematicasId El ID de la temática de la cual se guarda la sugerencia.
+     * @param tematicasId El ID de la temática de la cual se guarda la
+     * sugerencia.
      * @param sugerenciasId El ID de la sugerencia que se va a actualizar.
-     * @param sugerencia {@link SugerenciaDTO} - La sugerencia que se desea guardar.
+     * @param sugerencia {@link SugerenciaDTO} - La sugerencia que se desea
+     * guardar.
      * @return JSON {@link SugerenciaTO} - La sugerencia actualizada.
      * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
-     * Error de lógica que se genera cuando los caracteres de la sugerencia exceden el límite permitido (20000) o el sugerenciasId y el ID de la sugerencia no coinciden.
+     * Error de lógica que se genera cuando los caracteres de la sugerencia
+     * exceden el límite permitido (20000) o el sugerenciasId y el ID de la
+     * sugerencia no coinciden.
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra la sugerencia.
      */
     @PUT
     @Path("{sugerenciasId: \\d+}")
     public SugerenciaDTO updateSugerencia(@PathParam("tematicasId") Long tematicasId, @PathParam("sugerenciasId") Long sugerenciasId, SugerenciaDTO sugerencia) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "SugerenciaResource updateSugerencia: input: tematicasId: {0} , sugerenciasId: {1} , sugerencia:{2}", new Object[]{tematicasId, sugerenciasId, sugerencia.toString()});
-        
+        LOGGER.log(Level.INFO, "SugerenciaResource updateSugerencia: input: tematicasId: {0} , sugerenciasId: {1} , sugerencia:{2}", new Object[]{tematicasId, sugerenciasId, sugerencia});
+
         SugerenciaEntity entity = sugerenciaLogic.getSugerencia(tematicasId, sugerenciasId);
         if (entity == null) {
-            throw new WebApplicationException("El recurso /tematicas/" + tematicasId + "/sugerencias/" + sugerenciasId + " no existe.", 404);
+            throw new WebApplicationException(RECURSO_TEMATICAS + tematicasId + RECURSO_SUGERENCIAS + sugerenciasId + NO_EXISTE, 404);
 
         }
         SugerenciaDTO sugerenciaDTO = new SugerenciaDTO(sugerenciaLogic.updateSugerencia(tematicasId, sugerencia.toEntity()));
-        LOGGER.log(Level.INFO, "SugerenciaResource updateSugerencia: output:{0}", sugerenciaDTO.toString());
+        LOGGER.log(Level.INFO, "SugerenciaResource updateSugerencia: output:{0}", sugerenciaDTO);
         return sugerenciaDTO;
     }
-    
+
     /**
      * Borra la sugerencia con el id asociado recibido en la URL.
      *
-     * @param tematicasId El ID de la temática de la cual se va a eliminar la sugerencia.
+     * @param tematicasId El ID de la temática de la cual se va a eliminar la
+     * sugerencia.
      * @param sugerenciasId El ID de la sugerencia que se va a eliminar.
      * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
      * Error de lógica que se genera cuando no se puede eliminar la reseña.
@@ -141,19 +158,19 @@ public class SugerenciaResource {
     public void deleteSugerencia(@PathParam("tematicasId") Long tematicasId, @PathParam("sugerenciasId") Long sugerenciasId) throws BusinessLogicException {
         SugerenciaEntity entity = sugerenciaLogic.getSugerencia(tematicasId, sugerenciasId);
         if (entity == null) {
-            throw new WebApplicationException("El recurso /tematicas/" + tematicasId + "/sugerencias/" + sugerenciasId + " no existe.", 404);
+            throw new WebApplicationException(RECURSO_TEMATICAS + tematicasId + RECURSO_SUGERENCIAS + sugerenciasId + NO_EXISTE, 404);
         }
         sugerenciaLogic.deleteSugerencia(tematicasId, sugerenciasId);
     }
-    
+
     /**
      * Lista de entidades a DTO.
      *
-     * Este método convierte una lista de objetos SugerenciaEntity a una lista de
-     * objetos SugerenciaTO (json)
+     * Este método convierte una lista de objetos SugerenciaEntity a una lista
+     * de objetos SugerenciaTO (json)
      *
-     * @param entityList corresponde a la lista de sugerencias de tipo Entity que
-     * vamos a convertir a DTO.
+     * @param entityList corresponde a la lista de sugerencias de tipo Entity
+     * que vamos a convertir a DTO.
      * @return la lista de sugerencias en forma DTO (json)
      */
     private List<SugerenciaDTO> listEntity2DTO(List<SugerenciaEntity> entityList) {
@@ -163,5 +180,5 @@ public class SugerenciaResource {
         }
         return list;
     }
-    
+
 }
