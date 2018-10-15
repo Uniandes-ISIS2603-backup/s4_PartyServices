@@ -31,7 +31,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"nombre\":\"pedro\",\n\t\"contrasenia\":\"pepeelmasgrande\",\n\t\"calificacion\":0\n}"
+					"raw": "{\n\t\"nombre\":\"pedro perez\",\n\t\"contrasenia\":\"pepeelmasgrande\",\n\t\"calificacion\":0\n}"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/proveedor",
@@ -75,7 +75,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"fechaPenitencia\":\"2018-10-10T00:00:00-00:00\",\n\t\"jornadaLunesND\":\"Ninguna\",\n\t\"jornadaMartesND\":\"Tarde\",\n\t\"jornadaMiercolesND\":\"Ninguna\",\n\t\"jornadaSabadoND\":\"Ninguna\",\n\t\"jornadaDomingoND\":\"Ninguna\",\n\t\"jornadaJuevesND\":\"Ninguna\",\n\t\"jornadaViernesND\":\"Ninguna\"\n\t\n}"
+					"raw": "{\n\t\"fechaPenitencia\":\"2018-11-10T00:00:00-00:00\",\n\t\"jornadaLunesND\":\"Ninguna\",\n\t\"jornadaMartesND\":\"Tarde\",\n\t\"jornadaMiercolesND\":\"Ninguna\",\n\t\"jornadaSabadoND\":\"Ninguna\",\n\t\"jornadaDomingoND\":\"Ninguna\",\n\t\"jornadaJuevesND\":\"Ninguna\",\n\t\"jornadaViernesND\":\"Ninguna\"\n\t\n}"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/agenda/{{idProveedor}}",
@@ -111,41 +111,6 @@
 			],
 			"request": {
 				"method": "GET",
-				"header": [],
-				"body": {},
-				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/agenda/{{idAgendaCreada}}",
-					"protocol": "http",
-					"host": [
-						"{{ip}}"
-					],
-					"port": "{{puerto}}",
-					"path": [
-						"s4_PartyServices-api",
-						"api",
-						"agenda",
-						"{{idAgendaCreada}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "DELETE AGENDA",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "54e2b16d-6056-48d4-a487-dff69a142869",
-						"type": "text/javascript",
-						"exec": [
-							""
-						]
-					}
-				}
-			],
-			"request": {
-				"method": "DELETE",
 				"header": [],
 				"body": {},
 				"url": {
@@ -214,11 +179,13 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "79b06819-0e67-4a14-ab97-286cf489ece6",
+						"id": "1df349c3-ad81-451e-9bdc-9814e452dfce",
 						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
-							"postman.setGlobalVariable(\"idFechaCreada\",data.id);",
+							"postman.setGlobalVariable(\"diaFechaCreada\",data.dia);",
+							"postman.setGlobalVariable(\"jornadaFechaCreada\",data.jornada);",
+							"postman.setGlobalVariable(\"agendaFechaCreada\",data.agenda.id);",
 							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
 						]
 					}
@@ -234,7 +201,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"dia\":\"2018-10-10T00:00:00-00:00\",\n\t\"jornada\":\"Tarde\",\n\t\"id\":17\n}"
+					"raw": "{\n\t\"dia\":\"2018-11-11T00:00:00-00:00\",\n\t\"jornada\":\"Tarde\"\n}"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/fecha/{{idAgendaCreada}}",
@@ -254,15 +221,17 @@
 			"response": []
 		},
 		{
-			"name": "GET FECHA",
+			"name": "GET FECHA POR DIA  ,JORNADA Y AGENDA",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "86955fe7-f3e2-49a0-91e0-19f250ece246",
+						"id": "4af51865-67fd-42bf-ba63-9be1caef9ec1",
 						"type": "text/javascript",
 						"exec": [
-							""
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"idFechaCreada\",data.id);",
+							"tests[\"no genera error en el Get\"] = responseCode.code === 200;"
 						]
 					}
 				}
@@ -272,7 +241,7 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/fecha/{{idFechaCreada}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/fecha/{{agendaFechaCreada}}/{{diaFechaCreada}}/{{jornadaFechaCreada}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -282,16 +251,30 @@
 						"s4_PartyServices-api",
 						"api",
 						"fecha",
-						"{{idFechaCreada}}"
+						"{{agendaFechaCreada}}",
+						"{{diaFechaCreada}}",
+						"{{jornadaFechaCreada}}"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "DELETE FECHA",
+			"name": "GET FECHA",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6c65dd3d-48d5-4bc5-90cc-6dc758f4fd0e",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"no genera error en el Get\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
 			"request": {
-				"method": "DELETE",
+				"method": "GET",
 				"header": [],
 				"body": {},
 				"url": {
@@ -349,6 +332,100 @@
 						"s4_PartyServices-api",
 						"api",
 						"fecha"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET FECHAS DE UNA AGENDA",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a5fbb592-6a5b-4314-9ba1-ef5ec9a67e9a",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"no genera error en el Get\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/fecha/idAgenda/{{idAgendaCreada}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"fecha",
+						"idAgenda",
+						"{{idAgendaCreada}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE FECHA",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/fecha/{{idFechaCreada}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"fecha",
+						"{{idFechaCreada}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE AGENDA",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "54e2b16d-6056-48d4-a487-dff69a142869",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/agenda/{{idAgendaCreada}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"agenda",
+						"{{idAgendaCreada}}"
 					]
 				}
 			},
