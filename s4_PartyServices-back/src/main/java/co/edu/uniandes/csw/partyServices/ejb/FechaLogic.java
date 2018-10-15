@@ -14,6 +14,7 @@ import co.edu.uniandes.csw.partyServices.util.ConstantesJornada;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
@@ -88,6 +89,13 @@ public class FechaLogic {
         }
         return fecha;
     }
+    
+    public List<FechaEntity> getFechasDeAgenda(long idAgenda) throws BusinessLogicException
+    {
+        LOGGER.log(Level.INFO,"Entrando a optener fechas con agenda:  {0}", idAgenda);
+        return  fechaPersistence.getFechasDeAgenda(idAgenda);
+    }
+    
     
     public FechaEntity updateFecha(FechaEntity fechaEntity) throws BusinessLogicException
     {

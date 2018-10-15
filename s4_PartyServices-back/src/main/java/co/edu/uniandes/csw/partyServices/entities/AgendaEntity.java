@@ -14,6 +14,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
@@ -27,6 +29,7 @@ public class AgendaEntity extends BaseEntity implements Serializable{
     /**
      * DD:MM:AAAA
      */
+    @Temporal(TemporalType.DATE)
     private Date fechaPenitencia;
 
     
