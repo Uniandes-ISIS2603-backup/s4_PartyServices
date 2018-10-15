@@ -21,20 +21,33 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 /**
- *
- * @author estudiante
+ *Logica de fecha
+ * @author Nicolas Hernandez
  */
 @Stateless
 public class FechaLogic {
     
     private static final Logger LOGGER =Logger.getLogger(FechaLogic.class.getName());
     
+    /**
+     * Persistencia de fecha
+     */
     @Inject
     private FechaPersistence fechaPersistence;
     
+    /**
+     * Persistencia de agenda
+     */
     @Inject
     private AgendaPersistence agendaPersistence;
     
+    /**
+     * Crear una fecha
+     * @param agendaId id de la agenda de la fecha
+     * @param fechaEntity la fecha a crear
+     * @return la fecha creada
+     * @throws BusinessLogicException si la fecha no cumple con las reglas de negocio 
+     */
     public FechaEntity createFecha(long agendaId, FechaEntity fechaEntity) throws BusinessLogicException
     {
         //Verificacion regla de negocio de las jornadas
@@ -68,6 +81,14 @@ public class FechaLogic {
         return fechaPersistence.create(fechaEntity);
     }
     
+    /**
+     * Obtener una fecha por agenda, dia y jornada. Obtiene la fecha de una agenda de una jornada y dia especifico
+     * @param dia dia de la fecha
+     * @param idAgenda agenda de la fecha
+     * @param jornada jornada de la fecha
+     * @return la fecha que cumple con los criterios de busqueda
+     * @throws BusinessLogicException si se incumple reglas de negocio o no existe la fecha
+     */
     public FechaEntity getFechaPorDiaAgendaJornada(Date dia, long idAgenda, String jornada) throws BusinessLogicException
     {
         LOGGER.log(Level.INFO,"Entrando a optener fecha {0}", dia);
@@ -79,6 +100,12 @@ public class FechaLogic {
         return fecha;
     }
     
+    /**
+     * Obtener fecha por id. Obtiene la fecha por su id
+     * @param idFecha id de la fecha
+     * @return la fecha buscada
+     * @throws BusinessLogicException si se incumple alguna regla de negocio o no existe la fecha 
+     */
     public FechaEntity getFechaID(long idFecha) throws BusinessLogicException
     {
         LOGGER.log(Level.INFO,"Entrando a optener fecha {0}", idFecha);
@@ -90,13 +117,24 @@ public class FechaLogic {
         return fecha;
     }
     
+    /**
+     * Obtener fechas de una agenda. Obtiene las fechas de la agenda
+     * @param idAgenda id de la agenda 
+     * @return las fechas de la agenda
+     * @throws BusinessLogicException si se incumple regla de negocio
+     */
     public List<FechaEntity> getFechasDeAgenda(long idAgenda) throws BusinessLogicException
     {
         LOGGER.log(Level.INFO,"Entrando a optener fechas con agenda:  {0}", idAgenda);
         return  fechaPersistence.getFechasDeAgenda(idAgenda);
     }
     
-    
+    /**
+     * Actualizar fecha. Actualiza una fecha
+     * @param fechaEntity la fecha a actualizar
+     * @return la fecha actualizada
+     * @throws BusinessLogicException si la fecha no cumple con las reglas de negocio 
+     */
     public FechaEntity updateFecha(FechaEntity fechaEntity) throws BusinessLogicException
     {
         //Verificacion regla de negocio de las jornadas
@@ -109,6 +147,11 @@ public class FechaLogic {
         return fechaPersistence.update(fechaEntity);
     }
     
+    /**
+     * Eliminar fecha. Elimina una fecha
+     * @param fechaId el id de la fecha a eliminar
+     * @throws BusinessLogicException si se incumple reglas de negocio
+     */
     public void deleteFecha(long fechaId) throws BusinessLogicException
     {
         FechaEntity fecha =fechaPersistence.find(fechaId);
