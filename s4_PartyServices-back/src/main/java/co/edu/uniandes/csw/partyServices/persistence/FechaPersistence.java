@@ -94,6 +94,15 @@ public class FechaPersistence {
         LOGGER.log(Level.INFO, "Saliendo de borrar la fecha con id = {0}", fechaId);
     }
     
+    public List<FechaEntity> getFechasDeAgenda(long idAgenda)
+    {
+        LOGGER.log(Level.INFO, "Consultando todas las fechas de la agenda con id = {0}",idAgenda);
+        // Se crea un query para buscar todas las fechas en la base de datos que sean de la agenda.
+        TypedQuery query = em.createQuery("select u from FechaEntity u where u.agenda.id = :idAgenda", FechaEntity.class);
+        query = query.setParameter("idAgenda", idAgenda);
+        return query.getResultList();
+    }
+    
     
     /**
      * Busca si hay alguna fecha con el dia, agenda y fecha que se envía de argumento

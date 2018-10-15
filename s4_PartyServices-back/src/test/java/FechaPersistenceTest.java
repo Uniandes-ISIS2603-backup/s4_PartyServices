@@ -165,11 +165,38 @@ public class FechaPersistenceTest {
             Assert.assertEquals(fechaEntity.getAgenda().getId(), agenda.getId());
             Assert.assertEquals(fecha.getJornada(), fechaEntity.getJornada());
         } catch (RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException | SystemException | NotSupportedException ex) {
-            Logger.getLogger(FechaPersistenceTest.class.getName()).log(Level.SEVERE, null, ex);
+            Assert.fail("No deberia mandar excepcion");
         }
     }
     @Test
     public void findAllFechasTest(){
         Assert.assertEquals(3, fechaPersistence.findAll().size());
+    }
+    
+    @Test
+    public void getFechasDeAgendaTest()
+    {
+        try {
+            AgendaEntity agenda=new AgendaEntity();
+            utx.begin();
+            em.persist(agenda);
+            utx.commit();
+            PodamFactory factory = new PodamFactoryImpl();
+            FechaEntity fecha1= factory.manufacturePojo(FechaEntity.class);
+            fecha1.setAgenda(agenda);
+            FechaEntity fecha2= factory.manufacturePojo(FechaEntity.class);
+            fecha2.setAgenda(agenda);
+            FechaEntity fecha3= factory.manufacturePojo(FechaEntity.class);
+            fecha3.setAgenda(agenda);
+            
+            utx.begin();
+            em.persist(fecha1);
+            em.persist(fecha2);
+            em.persist(fecha3);
+            utx.commit();
+            Assert.assertEquals(fechaPersistence.getFechasDeAgenda(agenda.getId()).size(), 3);
+        } catch (NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
+            Assert.fail("No deberia mandar excepcion");
+        }
     }
 }
