@@ -148,9 +148,6 @@ public class AgendaEntity extends BaseEntity implements Serializable{
         return proveedor;
     }
     
-    public void setProveeedor(ProveedorEntity proveedor)
-    {
-        this.proveedor=proveedor;
-    }
+   
     
 }

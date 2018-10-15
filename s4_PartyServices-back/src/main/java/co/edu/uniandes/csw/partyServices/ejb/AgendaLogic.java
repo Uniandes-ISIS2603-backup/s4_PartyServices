@@ -37,7 +37,7 @@ public class AgendaLogic {
         ProveedorEntity proveedor = proveedorPersistence.find(proveedorId);
         if(proveedor==null)
             throw new BusinessLogicException("No existe el proveedor de la agenda que desea ingresar");
-        agendaEntity.setProveeedor(proveedor);
+        agendaEntity.setProveedor(proveedor);
         
         //Verificacion que no existan agendas con proveedores iguales
         for (ProveedorEntity proveedorEntity : proveedorPersistence.findAll()) {
@@ -64,7 +64,7 @@ public class AgendaLogic {
     public AgendaEntity getAgendaByProveedor(long idProveedor) throws BusinessLogicException
     {
         for (ProveedorEntity proveedorEntity : proveedorPersistence.findAll()) {
-            if(proveedorEntity!=null && proveedorEntity.getAgenda()!=null)
+            if(proveedorEntity!=null && proveedorEntity.getAgenda()!=null && proveedorEntity.getAgenda().getId() == idProveedor)
                 return proveedorEntity.getAgenda();
         }
         throw new BusinessLogicException("No existe una agenda para el proveedor");
@@ -78,9 +78,8 @@ public class AgendaLogic {
         verificarContenidoAgenda(agendaEntity);
         
         
-        AgendaEntity agenda= agendaPersistence.update(agendaEntity);
+        return agendaPersistence.update(agendaEntity);
         
-        return agenda;
     } 
     public void deleteAgenda(long agendaId)
     {

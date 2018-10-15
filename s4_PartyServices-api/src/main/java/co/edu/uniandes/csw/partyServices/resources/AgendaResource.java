@@ -79,7 +79,7 @@ public class AgendaResource {
     @Path("{proveedor: \\d+}")
     public AgendaDTO agregarAgenda(@PathParam("proveedor") long proveedor,AgendaDTO agenda) throws BusinessLogicException
     {
-        LOGGER.log(Level.INFO, "AgendaResource agregarAgenda:", agenda.getId());
+        LOGGER.log(Level.INFO, "AgendaResource agregarAgenda: {0}", agenda.getId());
         return new AgendaDetailDTO(agendaLogic.createAgenda(proveedor, agenda.toEntity()));
     }
     
@@ -92,7 +92,7 @@ public class AgendaResource {
     @PUT 
     public AgendaDTO actualizarAgenda(AgendaDTO agenda) throws BusinessLogicException
     {
-        LOGGER.log(Level.INFO, "AgendaResource actualizarAgenda:", agenda.getId());
+        LOGGER.log(Level.INFO, "AgendaResource actualizarAgenda: {0}", agenda.getId());
         return new AgendaDTO(agendaLogic.updateAgenda(agenda.toEntity()));
     }
     /**
@@ -103,7 +103,7 @@ public class AgendaResource {
     @Path("{id: \\d+}")
     public void eliminarAgenda(@PathParam("id") long id)
     {
-        LOGGER.log(Level.INFO, "AgendaResource eliminarAgenda:", id);
+        LOGGER.log(Level.INFO, "AgendaResource eliminarAgenda: {0}", id);
         
         agendaLogic.deleteAgenda(id);
     }
