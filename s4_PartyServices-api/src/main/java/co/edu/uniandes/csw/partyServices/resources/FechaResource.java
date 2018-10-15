@@ -24,7 +24,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 /**
- *
+ *Resource de fecha
  * @author estudiante
  */
 @Path("fecha")
@@ -33,15 +33,31 @@ import javax.ws.rs.Produces;
 @RequestScoped
 public class FechaResource {
     
+    /**
+     * Logica de la fecha
+     */
     @Inject
     private FechaLogic fechaLogic;
     
+    /**
+     * Obtener fecha por id. Obtiene la fecha por su id
+     * @param id id de la fecha
+     * @return la fecha a buscar
+     * @throws BusinessLogicException si se incumple alguna regla de negocio 
+     */
     @GET
     @Path("{id: \\d+}")
     public FechaDTO getFechaId(@PathParam("id") long id) throws BusinessLogicException
     {
         return new FechaDetailDTO(fechaLogic.getFechaID(id));
     }
+    
+    /**
+     * Obtener fechas de una agenda. Obtiene las fechas deuna agenda
+     * @param id id de la agenda
+     * @return el arreglo de las fechas que pertenecen a la agenda
+     * @throws BusinessLogicException si se incumplen reglas de negocio
+     */
     @GET
     @Path("idAgenda/{agenda: \\d+}")
     public FechaDTO[] getFechasDeAgenda(@PathParam("agenda") long id) throws BusinessLogicException
@@ -55,6 +71,15 @@ public class FechaResource {
         }
         return respuesta;
     }
+    
+    /**
+     * Obtener fecha por su agenda, fecha y jornada. Busca la fecha que cumpla con los criterios mencionados
+     * @param agenda agenda de la fecha
+     * @param fecha dia de la fecha
+     * @param jornada jornada de la fecha
+     * @return la fecha que se busca
+     * @throws BusinessLogicException si se invalida alguna regla de negocio 
+     */
     @GET
     @Path("{agenda: \\d+}/{fecha}/{jornada: [a-zA-Z][a-zA-Z]*}")
    
@@ -73,6 +98,13 @@ public class FechaResource {
         return new FechaDetailDTO(fechaLogic.getFechaPorDiaAgendaJornada(fechaDate,agenda,jornada));
     }
     
+    /**
+     * Anadir una fecha. Crea una fecha en la base de datos
+     * @param agenda agenda de la fecha
+     * @param fecha fecha a agregar
+     * @return la fecha agregada
+     * @throws BusinessLogicException si se incumple alguna regla de negocio 
+     */
     @POST
     @Path("{agenda: \\d+}")
     public FechaDetailDTO anadirFecha( @PathParam("agenda") long agenda,FechaDTO fecha) throws BusinessLogicException
@@ -80,11 +112,24 @@ public class FechaResource {
         FechaEntity fechaNueva = fechaLogic.createFecha(agenda, fecha.toEntity());
         return new FechaDetailDTO(fechaNueva);
     }
+    
+    /**
+     * Actualizar una fecha. Actualiza la fecha
+     * @param fecha fecha a actualizar
+     * @return la fecha actualizada
+     * @throws BusinessLogicException si la fecha a actualizar no cumple con las reglas de negocio 
+     */
     @PUT
     public FechaDetailDTO actualizarFecha(FechaDTO fecha) throws BusinessLogicException
     {
         return new FechaDetailDTO(fechaLogic.updateFecha(fecha.toEntity()));
     }
+    
+    /**
+     * Eliminar una fecha. Elimina la fecha de la base de datos
+     * @param id id de la fecha a eliminar
+     * @throws BusinessLogicException si se incumple alguna regla de negocio
+     */
     @DELETE
     @Path("{id: \\d+}")
     public void eliminarFecha(@PathParam("id") long id) throws BusinessLogicException
