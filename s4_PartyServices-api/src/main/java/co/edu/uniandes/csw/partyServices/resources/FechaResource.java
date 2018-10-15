@@ -6,7 +6,9 @@
 package co.edu.uniandes.csw.partyServices.resources;
 
 import co.edu.uniandes.csw.partyServices.dtos.FechaDTO;
+import co.edu.uniandes.csw.partyServices.dtos.FechaDetailDTO;
 import co.edu.uniandes.csw.partyServices.ejb.FechaLogic;
+import co.edu.uniandes.csw.partyServices.entities.FechaEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
 import java.util.Date;
 import javax.enterprise.context.RequestScoped;
@@ -37,30 +39,37 @@ public class FechaResource {
     @Path("{id: \\d+}")
     public FechaDTO getFechaId(@PathParam("id") long id) throws BusinessLogicException
     {
-        return new FechaDTO(fechaLogic.getFechaID(id));
+        return new FechaDetailDTO(fechaLogic.getFechaID(id));
     }
     @GET
-    @Path("{agenda: \\d+}/{fecha: [a-zA-Z][a-zA-Z]*}/{jornada: [a-zA-Z][a-zA-Z]*}")
+    @Path("{agenda: \\d+}/{fecha}/{jornada: [a-zA-Z][a-zA-Z]*}")
    
     public FechaDTO getFechaAgendaDiaJornada(
             @PathParam("agenda") long agenda,
             @PathParam("fecha")String fecha,
             @PathParam("jornada")String jornada) throws BusinessLogicException
     {
-        Date dia =new Date(fecha);
-        return new FechaDTO(fechaLogic.getFechaPorDiaAgendaJornada(dia,agenda,jornada));
+        String[] splitFechaYHora=fecha.split("T");
+        String[] splitFecha =splitFechaYHora[0].split("-");
+        int anio=Integer.parseInt(splitFecha[0]);
+        int mes=Integer.parseInt(splitFecha[1]);
+        int dia= Integer.parseInt(splitFecha[2]);
+       
+        Date fechaDate=new Date(anio-1900, mes-1, dia);
+        return new FechaDetailDTO(fechaLogic.getFechaPorDiaAgendaJornada(fechaDate,agenda,jornada));
     }
     
     @POST
     @Path("{agenda: \\d+}")
-    public FechaDTO anadirFecha( @PathParam("agenda") long agenda,FechaDTO fecha) throws BusinessLogicException
+    public FechaDetailDTO anadirFecha( @PathParam("agenda") long agenda,FechaDTO fecha) throws BusinessLogicException
     {
-        return new FechaDTO(fechaLogic.createFecha(agenda, fecha.toEntity()));
+        FechaEntity fechaNueva = fechaLogic.createFecha(agenda, fecha.toEntity());
+        return new FechaDetailDTO(fechaNueva);
     }
     @PUT
-    public FechaDTO actualizarFecha(FechaDTO fecha) throws BusinessLogicException
+    public FechaDetailDTO actualizarFecha(FechaDTO fecha) throws BusinessLogicException
     {
-        return new FechaDTO(fechaLogic.updateFecha(fecha.toEntity()));
+        return new FechaDetailDTO(fechaLogic.updateFecha(fecha.toEntity()));
     }
     @DELETE
     @Path("{id: \\d+}")

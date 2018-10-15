@@ -21,8 +21,9 @@ public class FechaDTO implements Serializable{
     
     private Date dia;
     private String jornada;
-    private Long id;
+    private long id;
     private AgendaDTO agenda;
+    
     public FechaDTO()
     {
         
@@ -39,12 +40,13 @@ public class FechaDTO implements Serializable{
         }
     }
 
-    public Long getId() 
+    public long getId() 
     {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) 
+    {
         this.id = id;
     }
     

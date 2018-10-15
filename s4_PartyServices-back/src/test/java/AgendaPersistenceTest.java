@@ -126,7 +126,9 @@ public class AgendaPersistenceTest {
         AgendaEntity resultado = agendaPersistence.create(agendaEntity);
         Assert.assertNotNull( resultado);
         AgendaEntity agendaEntityEncontrada= em.find(AgendaEntity.class,resultado.getId());
-        Assert.assertEquals(agendaEntity.getFechaPenitencia(), agendaEntityEncontrada.getFechaPenitencia());
+        Assert.assertEquals(agendaEntity.getFechaPenitencia().getDate(), agendaEntityEncontrada.getFechaPenitencia().getDate());
+        Assert.assertEquals(agendaEntity.getFechaPenitencia().getMonth(), agendaEntityEncontrada.getFechaPenitencia().getMonth());
+        Assert.assertEquals(agendaEntity.getFechaPenitencia().getYear(), agendaEntityEncontrada.getFechaPenitencia().getYear());
     }
     
     @Test
