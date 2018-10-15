@@ -10,6 +10,7 @@ import co.edu.uniandes.csw.partyServices.dtos.FechaDetailDTO;
 import co.edu.uniandes.csw.partyServices.ejb.FechaLogic;
 import co.edu.uniandes.csw.partyServices.entities.FechaEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
+import java.util.Collection;
 import java.util.Date;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -40,6 +41,19 @@ public class FechaResource {
     public FechaDTO getFechaId(@PathParam("id") long id) throws BusinessLogicException
     {
         return new FechaDetailDTO(fechaLogic.getFechaID(id));
+    }
+    @GET
+    @Path("idAgenda/{agenda: \\d+}")
+    public FechaDTO[] getFechasDeAgenda(@PathParam("agenda") long id) throws BusinessLogicException
+    {
+        Collection<FechaEntity> fechas =fechaLogic.getFechasDeAgenda(id);
+        FechaDTO[] respuesta= new FechaDTO[fechas.size()];
+        int i=0;
+        for (FechaEntity fecha : fechas) {
+            respuesta[i]=new FechaDTO(fecha);
+            i++;
+        }
+        return respuesta;
     }
     @GET
     @Path("{agenda: \\d+}/{fecha}/{jornada: [a-zA-Z][a-zA-Z]*}")
