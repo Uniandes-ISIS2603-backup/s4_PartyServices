@@ -13,17 +13,27 @@ import java.util.List;
 
 /**
  *
- * @author estudiante
+ * @author Nicolas Hernandez
  */
 public class AgendaDetailDTO extends AgendaDTO implements Serializable{
     
+    /**
+     * Las fechas ocupadas de la agenda
+     */
     private List<FechaDTO>fechasOcupadas;
     
+    /**
+     * Constructor por defecto
+     */
     public AgendaDetailDTO()
     {
         super();
     }
     
+    /**
+     * Constructor con base de una entidad de agenda
+     * @param agendaEntity la entidad de agenda
+     */
     public AgendaDetailDTO(AgendaEntity agendaEntity)
     {
         super(agendaEntity);
@@ -35,6 +45,10 @@ public class AgendaDetailDTO extends AgendaDTO implements Serializable{
         }
     }
     
+    /**
+     * Covertir a entidad. COnvirete a entidad
+     * @return la entidad de agenda
+     */
     @Override
     public AgendaEntity toEntity()
     {
@@ -49,10 +63,18 @@ public class AgendaDetailDTO extends AgendaDTO implements Serializable{
         return agendaEntity;
     }
 
+    /**
+     * Obtiene las fechas ocupada
+     * @return las fechas ocupadas
+     */
     public List<FechaDTO> getFechasOcupadas() {
         return fechasOcupadas;
     }
 
+    /**
+     * Cambia las fechas ocupadas
+     * @param fechasOcupadas las fechas ocupadas
+     */
     public void setFechasOcupadas(List<FechaDTO> fechasOcupadas) {
         this.fechasOcupadas = fechasOcupadas;
     }

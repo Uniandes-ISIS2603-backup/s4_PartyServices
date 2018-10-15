@@ -1,20 +1,12 @@
 
 import co.edu.uniandes.csw.partyServices.entities.AgendaEntity;
-import co.edu.uniandes.csw.partyServices.entities.ProveedorEntity;
 import co.edu.uniandes.csw.partyServices.persistence.AgendaPersistence;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.HeuristicMixedException;
-import javax.transaction.HeuristicRollbackException;
-import javax.transaction.NotSupportedException;
-import javax.transaction.RollbackException;
-import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -53,7 +45,7 @@ public class AgendaPersistenceTest {
     UserTransaction utx;
     
     
-    private List<AgendaEntity> data = new ArrayList<AgendaEntity>();
+    private List<AgendaEntity> data = new ArrayList<>();
     
      /**
      *
