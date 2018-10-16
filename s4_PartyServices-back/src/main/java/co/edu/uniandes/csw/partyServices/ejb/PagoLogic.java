@@ -73,11 +73,11 @@ public class PagoLogic {
         ClienteEntity entity = persistenceCliente.find(clienteId);
 
         //debe tener un numero valido
-        if (!validarNumero(pagoEntity.getNumeroTarjetaCreditoEntity())) {
+        if (!validarNumero(pagoEntity.getNumeroTarjetaCredito())) {
             throw new BusinessLogicException("El número de la tarjeta no es valido");
         }
         //la empresa debe ser coherente con el numero de tarjeta
-        if (!validarEmpresaCorrecta(pagoEntity.getNumeroTarjetaCreditoEntity(), pagoEntity.getEmpresaEntity())) {
+        if (!validarEmpresaCorrecta(pagoEntity.getNumeroTarjetaCredito(), pagoEntity.getEmpresa())) {
             throw new BusinessLogicException("En número no coincide con la empresa");
         }
 
@@ -85,7 +85,7 @@ public class PagoLogic {
         String formatoNombre = "^[A-Z\\s]+$";
         Pattern patternNombre = Pattern.compile(formatoNombre);
 
-        Matcher matchNombre = patternNombre.matcher(pagoEntity.getNombreTarjetaEntity());
+        Matcher matchNombre = patternNombre.matcher(pagoEntity.getNombreTarjeta());
         if (!matchNombre.matches()) {
             throw new BusinessLogicException("El nombre en la tarjeta no sigue un formatoValido");
         }
@@ -93,7 +93,7 @@ public class PagoLogic {
         //el codigo de seguridad debe ser de los sgts digitos
         String formatoCodigoSeguridad = "[0-9]{3,4}";
         Pattern codigoPattern = Pattern.compile(formatoCodigoSeguridad);
-        String codigoString = pagoEntity.getCodigoSeguridadTarjetaEntity().toString();
+        String codigoString = pagoEntity.getCodigoSeguridadTarjeta().toString();
 
         Matcher codigoMatcher = codigoPattern.matcher(codigoString);
         if (!codigoMatcher.matches()) {
@@ -110,7 +110,7 @@ public class PagoLogic {
         Date aniosVencimiento = calendario.getTime();
         try {
 
-            Date fechaExpiracionTarjeta = formato.parse(pagoEntity.getFechaExpiracionTarjetaCreditoEntity());
+            Date fechaExpiracionTarjeta = formato.parse(pagoEntity.getFechaExpiracionTarjetaCredito());
             if (fechaExpiracionTarjeta.compareTo(fechaActual) < 0) {
                 throw new BusinessLogicException("La tarjeta de crédito se encuentra vencida");
             }
@@ -120,7 +120,7 @@ public class PagoLogic {
         } catch (ParseException ex) {
             throw new BusinessLogicException("La fecha de expiracion no cumple el formato: " + ex);
         }
-        pagoEntity.setClienteEntity(entity);
+        pagoEntity.setCliente(entity);
         LOGGER.log(Level.INFO, "Termina proceso de creación del pago");
 
         return persistence.create(pagoEntity);
@@ -166,7 +166,7 @@ public class PagoLogic {
     public PagoEntity updatePago(Long clientesId, PagoEntity pagoEntity) {
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar el pago con id = {0} del cliente con id = {1}", new Object[]{pagoEntity.getId(), clientesId});
         ClienteEntity entity = persistenceCliente.find(clientesId);
-        pagoEntity.setClienteEntity(entity);
+        pagoEntity.setCliente(entity);
         persistence.update(pagoEntity);
         LOGGER.log(Level.INFO, "Termina proceso de actualizar el pago con id = {0} del cliente con id = {1}", new Object[]{pagoEntity.getId(), clientesId});
         return pagoEntity;

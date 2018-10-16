@@ -69,7 +69,7 @@ public class PagoEntity extends BaseEntity implements Serializable {
      * Método que retorna el nombre de usuario de su cliente
      * @return usuario del cliente quien contiene este pago
      */
-    public String getUsuarioEntity() {
+    public String getUsuario() {
         return usuario;
     }
 
@@ -77,7 +77,7 @@ public class PagoEntity extends BaseEntity implements Serializable {
      * Método que edita al usuario
      * @param pUsuario 
      */
-    public void setUsuarioEntity(String pUsuario) {
+    public void setUsuario(String pUsuario) {
         this.usuario = pUsuario;
     }
  
@@ -85,7 +85,7 @@ public class PagoEntity extends BaseEntity implements Serializable {
      * Método que retorna el número de la tarjeta
      * @return el número de la tarjeta
      */
-    public Long getNumeroTarjetaCreditoEntity() {
+    public Long getNumeroTarjetaCredito() {
         return numeroTarjetaCredito;
     }
 
@@ -93,7 +93,7 @@ public class PagoEntity extends BaseEntity implements Serializable {
      * Método que edita a la tarjeta de crédito
      * @param pNumeroTarjetaCredito 
      */
-    public void setNumeroTarjetaCreditoEntity(Long pNumeroTarjetaCredito) {
+    public void setNumeroTarjetaCredito(Long pNumeroTarjetaCredito) {
         this.numeroTarjetaCredito = pNumeroTarjetaCredito;
     }
 
@@ -101,7 +101,7 @@ public class PagoEntity extends BaseEntity implements Serializable {
      * Método que retorna el código de seguridad
      * @return código de seguridad de la tarjeta
      */
-    public Integer getCodigoSeguridadTarjetaEntity() {
+    public Integer getCodigoSeguridadTarjeta() {
         return codigoSeguridadTarjeta;
     }
 
@@ -109,7 +109,7 @@ public class PagoEntity extends BaseEntity implements Serializable {
      * Método que edita el código de seguridad
      * @param pCodigoSeguridadTarjeta 
      */
-    public void setCodigoSeguridadTarjetaEntity(Integer pCodigoSeguridadTarjeta) {
+    public void setCodigoSeguridadTarjeta(Integer pCodigoSeguridadTarjeta) {
         this.codigoSeguridadTarjeta = pCodigoSeguridadTarjeta;
     }
 
@@ -117,7 +117,7 @@ public class PagoEntity extends BaseEntity implements Serializable {
      * Método que retorna la fecha de expiracion
      * @return fecha en que la tarjeta expira
      */
-    public String getFechaExpiracionTarjetaCreditoEntity() {
+    public String getFechaExpiracionTarjetaCredito() {
         return fechaExpiracionTarjetaCredito;
     }
 
@@ -125,7 +125,7 @@ public class PagoEntity extends BaseEntity implements Serializable {
      * Método que edita la fecha de expiración
      * @param pFechaExpiracionTarjetaCredito 
      */
-    public void setFechaExpiracionTarjetaCreditoEntity(String pFechaExpiracionTarjetaCredito) {
+    public void setFechaExpiracionTarjetaCredito(String pFechaExpiracionTarjetaCredito) {
         this.fechaExpiracionTarjetaCredito = pFechaExpiracionTarjetaCredito;
     }
 
@@ -133,7 +133,7 @@ public class PagoEntity extends BaseEntity implements Serializable {
      * Método que retorno el nombre del dueño
      * @return nombre del dueño de la tarjeta
      */
-    public String getNombreTarjetaEntity() {
+    public String getNombreTarjeta() {
         return nombreTarjeta;
     }
 
@@ -141,7 +141,7 @@ public class PagoEntity extends BaseEntity implements Serializable {
      * Método que edita el nombre de la tarjeta
      * @param pNombreTarjeta 
      */
-    public void setNombreTarjetaEntity(String pNombreTarjeta) {
+    public void setNombreTarjeta(String pNombreTarjeta) {
         this.nombreTarjeta = pNombreTarjeta;
     }
 
@@ -149,7 +149,7 @@ public class PagoEntity extends BaseEntity implements Serializable {
      * Método que retorno la empresa
      * @return la empresa de la tarjeta de crédito
      */
-    public String getEmpresaEntity() {
+    public String getEmpresa() {
         return empresa;
     }
 
@@ -157,7 +157,7 @@ public class PagoEntity extends BaseEntity implements Serializable {
      * Método que edita la empresa bancaria de la tarjeta
      * @param pEmpresa 
      */
-    public void setEmpresaEntity(String pEmpresa) {
+    public void setEmpresa(String pEmpresa) {
         this.empresa = pEmpresa;
     }
 
@@ -165,7 +165,7 @@ public class PagoEntity extends BaseEntity implements Serializable {
      * Método que retorno el cliente
      * @return cliente que contiene este pago
      */
-    public ClienteEntity getClienteEntity() {
+    public ClienteEntity getCliente() {
         return cliente;
     }
 
@@ -173,7 +173,7 @@ public class PagoEntity extends BaseEntity implements Serializable {
      * Método que edita el cliente al que le pertenece este pago
      * @param cliente 
      */
-    public void setClienteEntity(ClienteEntity cliente) {
+    public void setCliente(ClienteEntity cliente) {
         this.cliente = cliente;
     }
 

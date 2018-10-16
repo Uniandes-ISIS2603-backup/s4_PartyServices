@@ -98,13 +98,13 @@ public class PagoDTO implements Serializable {
     public PagoDTO(PagoEntity pagoEntity) {
         if (pagoEntity != null) {
             this.id = pagoEntity.getId();
-            this.codigoSeguridadTarjeta = pagoEntity.getCodigoSeguridadTarjetaEntity();
-            this.empresa = pagoEntity.getEmpresaEntity();
-            this.fechaExpiracionTarjetaCredito = pagoEntity.getFechaExpiracionTarjetaCreditoEntity();
-            this.nombreTarjeta = pagoEntity.getNombreTarjetaEntity();
-            this.numeroTarjetaCredito = pagoEntity.getNumeroTarjetaCreditoEntity();
-            if (pagoEntity.getClienteEntity() != null) {
-                this.cliente = new ClienteDTO(pagoEntity.getClienteEntity());
+            this.codigoSeguridadTarjeta = pagoEntity.getCodigoSeguridadTarjeta();
+            this.empresa = pagoEntity.getEmpresa();
+            this.fechaExpiracionTarjetaCredito = pagoEntity.getFechaExpiracionTarjetaCredito();
+            this.nombreTarjeta = pagoEntity.getNombreTarjeta();
+            this.numeroTarjetaCredito = pagoEntity.getNumeroTarjetaCredito();
+            if (pagoEntity.getCliente() != null) {
+                this.cliente = new ClienteDTO(pagoEntity.getCliente());
             } else {
                 this.cliente = null;
             }
@@ -119,13 +119,13 @@ public class PagoDTO implements Serializable {
     public PagoEntity toEntity() {
         PagoEntity pagoEntity = new PagoEntity();
         pagoEntity.setId(this.id);
-        pagoEntity.setCodigoSeguridadTarjetaEntity(this.codigoSeguridadTarjeta);
-        pagoEntity.setEmpresaEntity(this.empresa);
-        pagoEntity.setFechaExpiracionTarjetaCreditoEntity(this.fechaExpiracionTarjetaCredito);
-        pagoEntity.setNombreTarjetaEntity(this.nombreTarjeta);
-        pagoEntity.setNumeroTarjetaCreditoEntity(this.numeroTarjetaCredito);
+        pagoEntity.setCodigoSeguridadTarjeta(this.codigoSeguridadTarjeta);
+        pagoEntity.setEmpresa(this.empresa);
+        pagoEntity.setFechaExpiracionTarjetaCredito(this.fechaExpiracionTarjetaCredito);
+        pagoEntity.setNombreTarjeta(this.nombreTarjeta);
+        pagoEntity.setNumeroTarjetaCredito(this.numeroTarjetaCredito);
         if (this.cliente != null) {
-            pagoEntity.setClienteEntity(this.cliente.toEntity());
+            pagoEntity.setCliente(this.cliente.toEntity());
         }
 
         return pagoEntity;
