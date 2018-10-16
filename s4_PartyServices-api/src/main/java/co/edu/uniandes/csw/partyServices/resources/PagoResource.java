@@ -144,7 +144,7 @@ public class PagoResource {
      */
     @DELETE
     @Path("{pagosId: \\d+}")
-    public void deleteReview(@PathParam("clientesId") Long clientesId, @PathParam("pagosId") Long pagosId) throws BusinessLogicException {
+    public void deletePago(@PathParam("clientesId") Long clientesId, @PathParam("pagosId") Long pagosId) throws BusinessLogicException {
         PagoEntity entity = pagoLogic.getPago(clientesId, pagosId);
         if (entity == null) {
             throw new WebApplicationException("El recurso /clientes/" + clientesId + "/pagos/" + pagosId + " no existe.", 404);
