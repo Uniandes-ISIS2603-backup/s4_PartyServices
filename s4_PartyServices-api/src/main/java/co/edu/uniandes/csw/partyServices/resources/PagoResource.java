@@ -33,6 +33,13 @@ public class PagoResource {
 
     @Inject
     private PagoLogic pagoLogic;
+    
+    private static final String RECURSO_CLIENTES = "El recurso /clientes/";
+
+    private static final String RECURSO_PAGO = "/pagos/";
+
+    private static final String NO_EXISTE = " no existe.";
+
 
     /**
      * Crea una nuevo pago con la informacion que se recibe en el cuerpo de la
@@ -48,9 +55,9 @@ public class PagoResource {
      */
     @POST
     public PagoDTO createPago(@PathParam("clientesId") Long pagosId, PagoDTO pago) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Resource create: input: {0}", pago.toString());
+        LOGGER.log(Level.INFO, "PagoResource createPago: input: {0}", pago);
         PagoDTO nuevoDTO = new PagoDTO(pagoLogic.createPago(pagosId, pago.toEntity()));
-        LOGGER.log(Level.INFO, "Resource create: output: {0}", nuevoDTO.toString());
+        LOGGER.log(Level.INFO, "PagoResource createPago: output: {0}", nuevoDTO);
         return nuevoDTO;
     }
 
@@ -63,9 +70,9 @@ public class PagoResource {
      */
     @GET
     public List<PagoDTO> getPagos(@PathParam("clientesId") Long clientesId) {
-        LOGGER.log(Level.INFO, "Resource get: input: {0}", clientesId);
+        LOGGER.log(Level.INFO, "PagoResource getPagos: input: {0}", clientesId);
         List<PagoDTO> listaDTOs = listEntity2DTO(pagoLogic.getPagos(clientesId));
-        LOGGER.log(Level.INFO, "Resource get: output: {0}", listaDTOs.toString());
+        LOGGER.log(Level.INFO, "PagoResource getPagos: output: {0}", listaDTOs);
         return listaDTOs;
     }
 
@@ -84,14 +91,14 @@ public class PagoResource {
     @GET
     @Path("{pagosId: \\d+}")
     public PagoDTO getPago(@PathParam("clientesId") Long clientesId, @PathParam("pagosId") Long pagosId) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Resource get: input: {0}", pagosId);
+        LOGGER.log(Level.INFO, "PagoResource getPago: input: id : {0}", pagosId);
         PagoEntity entity = pagoLogic.getPago(clientesId, pagosId);
         if (entity == null) {
-            throw new WebApplicationException("El recurso /clientes/" + clientesId + "/pagos/" + pagosId + " no existe.", 404);
+            throw new WebApplicationException(RECURSO_CLIENTES + clientesId + RECURSO_PAGO + pagosId + NO_EXISTE, 404);
         }
-        PagoDTO reviewDTO = new PagoDTO(entity);
-        LOGGER.log(Level.INFO, "Resource get: output: {0}", reviewDTO.toString());
-        return reviewDTO;
+        PagoDTO pagoDTO = new PagoDTO(entity);
+        LOGGER.log(Level.INFO, "PagoResource getPago: output: cliente: {0}", pagoDTO);
+        return pagoDTO;
     }
 
     /**
@@ -110,7 +117,7 @@ public class PagoResource {
     @PUT
     @Path("{pagosId: \\d+}")
     public PagoDTO updatePago(@PathParam("clientesId") Long clientesId, @PathParam("pagosId") Long pagosId, PagoDTO pago) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Resource update: input: clientesId: {0} , pagosId: {1} , pago:{2}", new Object[]{clientesId, pagosId, pago.toString()});
+        LOGGER.log(Level.INFO, "Resource update: input: clientesId: {0} , pagosId: {1} , pago:{2}", new Object[]{clientesId, pagosId, pago});
         if (pagosId.equals(pago.getId())) {
             throw new BusinessLogicException("Los ids del pago no coinciden.");
         }
@@ -119,9 +126,9 @@ public class PagoResource {
             throw new WebApplicationException("El recurso /clientes/" + clientesId + "/pagos/" + pagosId + " no existe.", 404);
 
         }
-        PagoDTO DTO = new PagoDTO(pagoLogic.updatePago(clientesId, pago.toEntity()));
-        LOGGER.log(Level.INFO, "Resource update: output:{0}", DTO.toString());
-        return DTO;
+        PagoDTO pagoDTO = new PagoDTO(pagoLogic.updatePago(clientesId, pago.toEntity()));
+        LOGGER.log(Level.INFO, "Resource update: output:{0}", pagoDTO);
+        return pagoDTO;
 
     }
 
@@ -156,7 +163,7 @@ public class PagoResource {
      * @return la lista de pagos en forma DTO (json)
      */
     private List<PagoDTO> listEntity2DTO(List<PagoEntity> entityList) {
-        List<PagoDTO> list = new ArrayList<PagoDTO>();
+        List<PagoDTO> list = new ArrayList<>();
         for (PagoEntity entity : entityList) {
             list.add(new PagoDTO(entity));
         }
