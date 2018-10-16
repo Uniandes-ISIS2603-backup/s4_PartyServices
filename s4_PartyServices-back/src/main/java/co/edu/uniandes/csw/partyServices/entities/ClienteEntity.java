@@ -49,7 +49,7 @@ public class ClienteEntity extends BaseEntity implements Serializable {
             cascade = CascadeType.ALL,
             orphanRemoval = true,
             fetch = FetchType.LAZY)
-    List<EventoEntity> eventos;
+    private List<EventoEntity> eventos;
 
     /*
     *relacion uno a mucho hacia notificaciones
@@ -59,7 +59,7 @@ public class ClienteEntity extends BaseEntity implements Serializable {
             cascade = CascadeType.ALL,
             orphanRemoval = true,
             fetch = FetchType.LAZY)
-    List<NotificacionEntity> notificaciones;
+    private List<NotificacionEntity> notificaciones;
 
     /*
     *relacion uno a mucho hacia sugerencias
@@ -67,7 +67,7 @@ public class ClienteEntity extends BaseEntity implements Serializable {
     @PodamExclude
     @OneToMany(mappedBy = "cliente",
             fetch = FetchType.LAZY)
-    List<SugerenciaEntity> sugerencias;
+    private List<SugerenciaEntity> sugerencias;
 
     /*
     *relacion uno a mucho hacia valoraciones
@@ -75,7 +75,7 @@ public class ClienteEntity extends BaseEntity implements Serializable {
     @PodamExclude
     @OneToMany(mappedBy = "cliente",
             fetch = FetchType.LAZY)
-    List<ValoracionEntity> valoraciones;
+    private List<ValoracionEntity> valoraciones;
 
     /*
     *relacion uno a mucho hacia pagos
@@ -85,10 +85,14 @@ public class ClienteEntity extends BaseEntity implements Serializable {
             cascade = CascadeType.ALL,
             orphanRemoval = true,
             fetch = FetchType.LAZY)
-    List<PagoEntity> pagos;
+    private List<PagoEntity> pagos;
 
+    /**
+     * constructor base de la clase
+     */
     public ClienteEntity() {
 
+        //constructor base del clienteEntity
     }
 
     /**
