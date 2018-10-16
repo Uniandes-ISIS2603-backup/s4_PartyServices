@@ -107,14 +107,14 @@ public class PagoLogic {
         //la mayoria de las empresas ofrecen una fecha de expiración entre 1 y 5 años. Se asigna 10 para eliminar toda
         //posibilidad
         calendario.add(Calendar.YEAR, 10);
-        Date añosVencimiento = calendario.getTime();
+        Date aniosVencimiento = calendario.getTime();
         try {
 
             Date fechaExpiracionTarjeta = formato.parse(pagoEntity.getFechaExpiracionTarjetaCredito());
             if (fechaExpiracionTarjeta.compareTo(fechaActual) < 0) {
                 throw new BusinessLogicException("La tarjeta de crédito se encuentra vencida");
             }
-            if (fechaExpiracionTarjeta.compareTo(añosVencimiento) > 0) {
+            if (fechaExpiracionTarjeta.compareTo(aniosVencimiento) > 0) {
                 throw new BusinessLogicException("La fecha de expiración futura no es valida");
             }
         } catch (ParseException ex) {
@@ -149,7 +149,7 @@ public class PagoLogic {
      *
      */
     public PagoEntity getPago(Long clienteid, Long id) {
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar el pago con id = {0} del libro con id = " + clienteid, id);
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar el pago con id = {0} del cliente con id = {1}", new Object[]{id, clienteid});
 
         return persistence.find(clienteid, id);
     }
@@ -164,11 +164,11 @@ public class PagoLogic {
      *
      */
     public PagoEntity updatePago(Long clientesId, PagoEntity pagoEntity) {
-        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el pago con id = {0} del cliente con id = " + clientesId, pagoEntity.getId());
+        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el pago con id = {0} del cliente con id = {1}", new Object[]{pagoEntity.getId(), clientesId});
         ClienteEntity entity = persistenceCliente.find(clientesId);
         pagoEntity.setCliente(entity);
         persistence.update(pagoEntity);
-        LOGGER.log(Level.INFO, "Termina proceso de actualizar el pago con id = {0} del cliente con id = " + clientesId, pagoEntity.getId());
+        LOGGER.log(Level.INFO, "Termina proceso de actualizar el pago con id = {0} del cliente con id = {1}", new Object[]{pagoEntity.getId(), clientesId});
         return pagoEntity;
     }
 
@@ -181,13 +181,13 @@ public class PagoLogic {
      *
      */
     public void deletePago(Long clientesId, Long pagosId) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de borrar el pago con id = {0} del libro con id = " + clientesId, pagosId);
+        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el pago con id = {0} del cliente con id = {1}", new Object[]{pagosId, clientesId});
         PagoEntity old = getPago(clientesId, pagosId);
         if (old == null) {
             throw new BusinessLogicException("El pago con id = " + pagosId + " no esta asociado a el cliente con id = " + clientesId);
         }
         persistence.delete(old.getId());
-        LOGGER.log(Level.INFO, "Termina proceso de borrar el pago con id = {0} del cliente con id = " + clientesId, pagosId);
+        LOGGER.log(Level.INFO, "Termina proceso de actualizar el pago con id = {0} del cliente con id = {1}", new Object[]{pagosId, clientesId});
     }
 
     /**
@@ -199,7 +199,8 @@ public class PagoLogic {
      */
     public boolean validarNumero(Long numero1) {
         String numero = numero1.toString();
-        int s1 = 0, s2 = 0;
+        int s1 = 0;
+        int s2 = 0;
         String reversa = new StringBuffer(numero).reverse().toString();
         for (int i = 0; i < reversa.length(); i++) {
             int digito = Character.digit(reversa.charAt(i), 10);
@@ -212,7 +213,6 @@ public class PagoLogic {
                 }
             }
         }
-        System.out.println("La tarjeta es:");
         return (s1 + s2) % 10 == 0;
     }
 

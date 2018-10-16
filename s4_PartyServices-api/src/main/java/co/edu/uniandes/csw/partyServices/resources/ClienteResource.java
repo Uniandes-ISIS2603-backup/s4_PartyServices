@@ -32,6 +32,10 @@ public class ClienteResource {
     @Inject
     private ClienteLogic clienteLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
 
+    private static final String RECURSO_CLIENTE = "El recurso /clientes/";
+
+
+    private static final String NO_EXISTE = " no existe.";
     /**
      * Crea un nuevo cliente con la informacion que se recibe en el cuerpo de la
      * petición y se regresa un objeto identico con un id auto-generado por la
@@ -45,7 +49,7 @@ public class ClienteResource {
      */
     @POST
     public ClienteDTO createCliente(ClienteDTO cliente) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Resource create: input: {0}", cliente.toString());
+        LOGGER.log(Level.INFO, "ClienteResource createSugerencia: input: {0}", cliente);
 
         // Convierte el DTO (json) en un objeto Entity para ser manejado por la lógica.
         ClienteEntity entity = cliente.toEntity();
@@ -54,7 +58,7 @@ public class ClienteResource {
         // Como debe retornar un DTO (json) se invoca el constructor del DTO con argumento el entity nuevo
         ClienteDTO nuevoDTO = new ClienteDTO(nuevoEntity);
 
-        LOGGER.log(Level.INFO, "Resource create: output: {0}", nuevoDTO.toString());
+        LOGGER.log(Level.INFO, "ClienteResource createSugerencia: input: {0}", nuevoDTO);
         return nuevoDTO;
     }
 
@@ -66,9 +70,9 @@ public class ClienteResource {
      */
     @GET
     public List<ClienteDetailDTO> getClientes() {
-        LOGGER.info("BookResource getBooks: input: void");
+        LOGGER.info("ClienteResource getClientes: input: void");
         List<ClienteDetailDTO> listaCliente = listEntity2DetailDTO(clienteLogic.getClientes());
-        LOGGER.log(Level.INFO, "BookResource getBooks: output: {0}", listaCliente.toString());
+        LOGGER.log(Level.INFO, "ClienteResource getClientes: output: {0}", listaCliente);
         return listaCliente;
     }
 
@@ -84,13 +88,13 @@ public class ClienteResource {
     @GET
     @Path("{clientesId: \\d+}")
     public ClienteDetailDTO getCliente(@PathParam("clientesId") Long clientesId) {
-        LOGGER.log(Level.INFO, "Resource get: input: {0}", clientesId);
+        LOGGER.log(Level.INFO, "ClienteResource getCliente: input: {0}", clientesId);
         ClienteEntity entity = clienteLogic.getCliente(clientesId);
         if (entity == null) {
-            throw new WebApplicationException("El recurso /clientes/" + clientesId + " no existe.", 404);
+            throw new WebApplicationException(RECURSO_CLIENTE + clientesId + NO_EXISTE, 404);
         }
         ClienteDetailDTO detailDTO = new ClienteDetailDTO(entity);
-        LOGGER.log(Level.INFO, "Resource get: output: {0}", detailDTO.toString());
+        LOGGER.log(Level.INFO, "ClienteResource getCliente: output: {0}", detailDTO);
         return detailDTO;
     }
 
@@ -111,13 +115,13 @@ public class ClienteResource {
     @PUT
     @Path("{clientesId: \\d+}")
     public ClienteDetailDTO updateCliente(@PathParam("clientesId") Long clientesId, ClienteDTO cliente) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Resource update: input: id: {0} , cliente: {1}", new Object[]{clientesId, cliente.toString()});
+        LOGGER.log(Level.INFO, "ClienteResource updateCliente: input: id: {0} , cliente: {1}", new Object[]{clientesId, cliente});
         cliente.setId(clientesId);
         if (clienteLogic.getCliente(clientesId) == null) {
             throw new WebApplicationException("El recurso /clientes/" + clientesId + " no existe.", 404);
         }
         ClienteDetailDTO detailDTO = new ClienteDetailDTO(clienteLogic.updateCliente(clientesId, cliente.toEntity()));
-        LOGGER.log(Level.INFO, "Resource update: output: {0}", detailDTO.toString());
+        LOGGER.log(Level.INFO, "ClienteResource updateCliente: output: cliente :{0}", detailDTO);
         return detailDTO;
     }
 
@@ -135,13 +139,13 @@ public class ClienteResource {
     @DELETE
     @Path("{clientesId: \\d+}")
     public void deleteCliente(@PathParam("clientesId") Long clientesId) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Resource delete: input: {0}", clientesId);
+        LOGGER.log(Level.INFO, "ClienteResource deleteCliente: input: id :{0}", clientesId);
         ClienteEntity entity = clienteLogic.getCliente(clientesId);
         if (entity == null) {
             throw new WebApplicationException("El recurso /clientes/" + clientesId + " no existe.", 404);
         }
         clienteLogic.deleteCliente(clientesId);
-        LOGGER.info("Resource delete: output: void");
+        LOGGER.info("ClienteResource deleteCliente: output: void");
     }
 
     /**

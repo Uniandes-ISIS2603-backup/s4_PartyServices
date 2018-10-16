@@ -85,11 +85,7 @@ public class PagoPersistence {
         q.setParameter("pagosId", pagosId);
         List<PagoEntity> results = q.getResultList();
         PagoEntity review = null;
-        if (results == null) {
-            review = null;
-        } else if (results.isEmpty()) {
-            review = null;
-        } else if (results.size() >= 1) {
+        if (!results.isEmpty()) {
             review = results.get(0);
         }
         LOGGER.log(Level.INFO, "Saliendo de consultar el review con id = {0} del libro con id =");
@@ -139,7 +135,7 @@ public class PagoPersistence {
      * @return result La entidad resultante de la busqueda
      */
     public PagoEntity findByUsuario(String pUsuario) {
-        LOGGER.log(Level.INFO, "Se consulta por el nombre ", pUsuario);
+        LOGGER.log(Level.INFO, "Consultando el pago por el cliente con usuario = {0} ", pUsuario);
         TypedQuery query = em.createQuery("Select e From PagoEntity e where e.usuario = :usuario", PagoEntity.class);
 
         query = query.setParameter("usuario", pUsuario);
@@ -153,7 +149,7 @@ public class PagoPersistence {
         } else {
             result = sameName.get(0);
         }
-        LOGGER.log(Level.INFO, "Se han consultado todos los pagos por el nombre ", pUsuario);
+        LOGGER.log(Level.INFO, "Se han consultado el pago por el cliente con usuario = {0} ", pUsuario);
         return result;
 
     }
