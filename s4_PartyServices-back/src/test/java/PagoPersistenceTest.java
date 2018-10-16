@@ -121,7 +121,7 @@ public class PagoPersistenceTest {
         for (int i = 0; i < 3; i++) {
             PagoEntity entity = factory.manufacturePojo(PagoEntity.class);
             if (i == 0) {
-                entity.setCliente(dataCliente.get(0));
+                entity.setClienteEntity(dataCliente.get(0));
             }
             em.persist(entity);
             data.add(entity);
@@ -141,10 +141,10 @@ public class PagoPersistenceTest {
 
         PagoEntity entity = em.find(PagoEntity.class, resultadoEntity.getId());
 
-        Assert.assertEquals(nuevaEntidad.getUsuario(), entity.getUsuario());
-        Assert.assertEquals(nuevaEntidad.getCodigoSeguridadTarjeta(), entity.getCodigoSeguridadTarjeta());
-        Assert.assertEquals(nuevaEntidad.getEmpresa(), entity.getEmpresa());
-        Assert.assertEquals(nuevaEntidad.getFechaExpiracionTarjetaCredito(), entity.getFechaExpiracionTarjetaCredito());
+        Assert.assertEquals(nuevaEntidad.getUsuarioEntity(), entity.getUsuarioEntity());
+        Assert.assertEquals(nuevaEntidad.getCodigoSeguridadTarjetaEntity(), entity.getCodigoSeguridadTarjetaEntity());
+        Assert.assertEquals(nuevaEntidad.getEmpresaEntity(), entity.getEmpresaEntity());
+        Assert.assertEquals(nuevaEntidad.getFechaExpiracionTarjetaCreditoEntity(), entity.getFechaExpiracionTarjetaCreditoEntity());
 
     }
 
@@ -156,12 +156,12 @@ public class PagoPersistenceTest {
         PagoEntity entidad = data.get(0);
         PagoEntity nuevaEntidad = pagoPersistence.find(dataCliente.get(0).getId(), entidad.getId());
         Assert.assertNotNull(nuevaEntidad);
-        Assert.assertEquals(entidad.getEmpresa(), nuevaEntidad.getEmpresa());
-        Assert.assertEquals(entidad.getNombreTarjeta(), nuevaEntidad.getNombreTarjeta());
-        Assert.assertEquals(entidad.getNumeroTarjetaCredito(), nuevaEntidad.getNumeroTarjetaCredito());
-        Assert.assertEquals(entidad.getUsuario(), nuevaEntidad.getUsuario());
-        Assert.assertEquals(entidad.getCodigoSeguridadTarjeta(), nuevaEntidad.getCodigoSeguridadTarjeta());
-        Assert.assertEquals(entidad.getFechaExpiracionTarjetaCredito(), nuevaEntidad.getFechaExpiracionTarjetaCredito());
+        Assert.assertEquals(entidad.getEmpresaEntity(), nuevaEntidad.getEmpresaEntity());
+        Assert.assertEquals(entidad.getNombreTarjetaEntity(), nuevaEntidad.getNombreTarjetaEntity());
+        Assert.assertEquals(entidad.getNumeroTarjetaCreditoEntity(), nuevaEntidad.getNumeroTarjetaCreditoEntity());
+        Assert.assertEquals(entidad.getUsuarioEntity(), nuevaEntidad.getUsuarioEntity());
+        Assert.assertEquals(entidad.getCodigoSeguridadTarjetaEntity(), nuevaEntidad.getCodigoSeguridadTarjetaEntity());
+        Assert.assertEquals(entidad.getFechaExpiracionTarjetaCreditoEntity(), nuevaEntidad.getFechaExpiracionTarjetaCreditoEntity());
     }
 
     /**
@@ -210,12 +210,12 @@ public class PagoPersistenceTest {
 
         PagoEntity resp = em.find(PagoEntity.class, entidadPago.getId());
 
-        Assert.assertEquals(nuevaEntidadPago.getEmpresa(), resp.getEmpresa());
-        Assert.assertEquals(nuevaEntidadPago.getNombreTarjeta(), resp.getNombreTarjeta());
-        Assert.assertEquals(nuevaEntidadPago.getNumeroTarjetaCredito(), resp.getNumeroTarjetaCredito());
-        Assert.assertEquals(nuevaEntidadPago.getUsuario(), resp.getUsuario());
-        Assert.assertEquals(nuevaEntidadPago.getCodigoSeguridadTarjeta(), resp.getCodigoSeguridadTarjeta());
-        Assert.assertEquals(nuevaEntidadPago.getFechaExpiracionTarjetaCredito(), resp.getFechaExpiracionTarjetaCredito());
+        Assert.assertEquals(nuevaEntidadPago.getEmpresaEntity(), resp.getEmpresaEntity());
+        Assert.assertEquals(nuevaEntidadPago.getNombreTarjetaEntity(), resp.getNombreTarjetaEntity());
+        Assert.assertEquals(nuevaEntidadPago.getNumeroTarjetaCreditoEntity(), resp.getNumeroTarjetaCreditoEntity());
+        Assert.assertEquals(nuevaEntidadPago.getUsuarioEntity(), resp.getUsuarioEntity());
+        Assert.assertEquals(nuevaEntidadPago.getCodigoSeguridadTarjetaEntity(), resp.getCodigoSeguridadTarjetaEntity());
+        Assert.assertEquals(nuevaEntidadPago.getFechaExpiracionTarjetaCreditoEntity(), resp.getFechaExpiracionTarjetaCreditoEntity());
 
     }
 
@@ -225,9 +225,9 @@ public class PagoPersistenceTest {
     @Test
     public void FindPagoByUsuarioTest() {
         PagoEntity entity = data.get(0);
-        PagoEntity newEntity = pagoPersistence.findByUsuario(entity.getUsuario());
+        PagoEntity newEntity = pagoPersistence.findByUsuario(entity.getUsuarioEntity());
         Assert.assertNotNull(newEntity);
-        Assert.assertEquals(entity.getUsuario(), newEntity.getUsuario());
+        Assert.assertEquals(entity.getUsuarioEntity(), newEntity.getUsuarioEntity());
     }
 
 }
