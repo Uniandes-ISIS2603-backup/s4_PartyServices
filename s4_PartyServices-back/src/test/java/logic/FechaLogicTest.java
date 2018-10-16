@@ -56,7 +56,7 @@ public class FechaLogicTest {
     @Inject
     private UserTransaction utx;
     
-    private List<FechaEntity> data = new ArrayList<FechaEntity>();
+    private List<FechaEntity> data = new ArrayList<>();
    
     /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
@@ -281,4 +281,30 @@ public class FechaLogicTest {
         }
     }
     
+    @Test
+    public void getFechasDeAgendaTest()
+    {
+        try {
+            AgendaEntity agendaDuena=new AgendaEntity();
+            utx.begin();
+            em.persist(agendaDuena);
+            utx.commit();
+            
+            FechaEntity fechaIngreso1= factory.manufacturePojo(FechaEntity.class);
+            fechaIngreso1.setAgenda(agendaDuena);
+            FechaEntity fechaIngreso2= factory.manufacturePojo(FechaEntity.class);
+            fechaIngreso2.setAgenda(agendaDuena);
+            FechaEntity fechaIngreso3= factory.manufacturePojo(FechaEntity.class);
+            fechaIngreso3.setAgenda(agendaDuena);
+            
+            utx.begin();
+            em.persist(fechaIngreso1);
+            em.persist(fechaIngreso2);
+            em.persist(fechaIngreso3);
+            utx.commit();
+            Assert.assertEquals(3, fechaLogic.getFechasDeAgenda(agendaDuena.getId()).size());
+        } catch (BusinessLogicException|NotSupportedException | SystemException | RollbackException | HeuristicMixedException | HeuristicRollbackException | SecurityException | IllegalStateException ex) {
+            Assert.fail("No deberia mandar excepcion");
+        } 
+    }
 }
