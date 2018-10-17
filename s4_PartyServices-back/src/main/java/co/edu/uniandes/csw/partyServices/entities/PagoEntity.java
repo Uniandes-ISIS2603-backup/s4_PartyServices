@@ -34,6 +34,7 @@ public class PagoEntity extends BaseEntity implements Serializable {
      */
     private Integer codigoSeguridadTarjeta;
 
+    
     /*
     *fecha de expiracion d ela tarjeta
      */
@@ -56,134 +57,126 @@ public class PagoEntity extends BaseEntity implements Serializable {
     @ManyToOne(cascade = CascadeType.PERSIST)
     private ClienteEntity cliente;
 
+    /**
+     * Constructor por defecto
+     */
     public PagoEntity() {
 
+        //constructor por defecto
     }
 
     /**
-     * Devuelve el cliente de la reseña.
-     *
-     * @return the name
-     */
-    public ClienteEntity getCliente() {
-        return cliente;
-    }
-
-    /**
-     * Modifica el cliente asociado a este libro
-     *
-     * @param pCliente El nuevo cliente
-     */
-    public void setCliente(ClienteEntity pCliente) {
-        this.cliente = pCliente;
-    }
-
-    /**
-     * Devuelve el login del cliente.
-     *
-     * @return the user
+     * Método que retorna el nombre de usuario de su cliente
+     * @return usuario del cliente quien contiene este pago
      */
     public String getUsuario() {
         return usuario;
     }
 
     /**
-     * Modifica el usuario
-     *
-     * @param pUsuario El nuevo user
+     * Método que edita al usuario
+     * @param pUsuario 
      */
     public void setUsuario(String pUsuario) {
         this.usuario = pUsuario;
     }
-
+ 
     /**
-     * Devuelve la tarjeta del cliente.
-     *
-     * @return the number
+     * Método que retorna el número de la tarjeta
+     * @return el número de la tarjeta
      */
     public Long getNumeroTarjetaCredito() {
         return numeroTarjetaCredito;
     }
 
     /**
-     * Modifica el numero de tarjeta
-     *
-     * @param numeroTarjetaCredito El nuevo numero
+     * Método que edita a la tarjeta de crédito
+     * @param pNumeroTarjetaCredito 
      */
-    public void setNumeroTarjetaCredito(Long numeroTarjetaCredito) {
-        this.numeroTarjetaCredito = numeroTarjetaCredito;
+    public void setNumeroTarjetaCredito(Long pNumeroTarjetaCredito) {
+        this.numeroTarjetaCredito = pNumeroTarjetaCredito;
     }
 
     /**
-     * Devuelve el codigo de seguridad de a tarjeta.
-     *
-     * @return the code
+     * Método que retorna el código de seguridad
+     * @return código de seguridad de la tarjeta
      */
     public Integer getCodigoSeguridadTarjeta() {
         return codigoSeguridadTarjeta;
     }
 
     /**
-     * Modifica el codigo de tarjeta
-     *
-     * @param codigoSeguridadTarjeta El nuevo codigo
+     * Método que edita el código de seguridad
+     * @param pCodigoSeguridadTarjeta 
      */
-    public void setCodigoSeguridadTarjeta(Integer codigoSeguridadTarjeta) {
-        this.codigoSeguridadTarjeta = codigoSeguridadTarjeta;
+    public void setCodigoSeguridadTarjeta(Integer pCodigoSeguridadTarjeta) {
+        this.codigoSeguridadTarjeta = pCodigoSeguridadTarjeta;
     }
 
     /**
-     * Devuelve la fecah de expiracion de la tarjeta
-     *
-     * @return the date
+     * Método que retorna la fecha de expiracion
+     * @return fecha en que la tarjeta expira
      */
     public String getFechaExpiracionTarjetaCredito() {
         return fechaExpiracionTarjetaCredito;
     }
 
     /**
-     * Modifica la fecha de expiración
-     *
-     * @param fechaExpiracionTarjetaCredito El nuevo date
+     * Método que edita la fecha de expiración
+     * @param pFechaExpiracionTarjetaCredito 
      */
-    public void setFechaExpiracionTarjetaCredito(String fechaExpiracionTarjetaCredito) {
-        this.fechaExpiracionTarjetaCredito = fechaExpiracionTarjetaCredito;
+    public void setFechaExpiracionTarjetaCredito(String pFechaExpiracionTarjetaCredito) {
+        this.fechaExpiracionTarjetaCredito = pFechaExpiracionTarjetaCredito;
     }
 
     /**
-     * Devuelve el nombre en la tarjeta
-     *
-     * @return the name
+     * Método que retorno el nombre del dueño
+     * @return nombre del dueño de la tarjeta
      */
     public String getNombreTarjeta() {
         return nombreTarjeta;
     }
 
     /**
-     * Modifica el nombre de tarjeta
-     *
-     * @param nombreTarjeta El nuevo nombre
+     * Método que edita el nombre de la tarjeta
+     * @param pNombreTarjeta 
      */
-    public void setNombreTarjeta(String nombreTarjeta) {
-        this.nombreTarjeta = nombreTarjeta;
+    public void setNombreTarjeta(String pNombreTarjeta) {
+        this.nombreTarjeta = pNombreTarjeta;
     }
 
     /**
-     * Devuelve la empresa de la tarjeta
-     *
-     * @return the bank
+     * Método que retorno la empresa
+     * @return la empresa de la tarjeta de crédito
      */
     public String getEmpresa() {
         return empresa;
     }
 
     /**
-     * Modifica la empresa d ela tarjeta
-     *
-     * @param empresa El nuevo bank
+     * Método que edita la empresa bancaria de la tarjeta
+     * @param pEmpresa 
      */
-    public void setEmpresa(String empresa) {
-        this.empresa = empresa;
+    public void setEmpresa(String pEmpresa) {
+        this.empresa = pEmpresa;
     }
+
+    /**
+     * Método que retorno el cliente
+     * @return cliente que contiene este pago
+     */
+    public ClienteEntity getCliente() {
+        return cliente;
+    }
+
+    /**
+     * Método que edita el cliente al que le pertenece este pago
+     * @param cliente 
+     */
+    public void setCliente(ClienteEntity cliente) {
+        this.cliente = cliente;
+    }
+
+   
 
 }
