@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -12,39 +13,77 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  *
- * @author estudiante
+ * @author Andres
  */
-public class ProductoDTO implements Serializable
-{
-    private Long id ;
+public class ProductoDTO implements Serializable {
+
+    /**
+     * Id del producto
+     */
+    private Long id;
+
+    /**
+     * Nombre del producto
+     */
     private String nombre;
-    private String tipoServicio ;
-    private String duenio ;
-    private int costo ;
-    private int cantidad ;
+
+    /**
+     * Tipo de servicio al que pertenece el producto
+     */
+    private String tipoServicio;
+
+    /**
+     * Nombre del dueño del producto
+     */
+    private String duenio;
+
+    /**
+     * Costo del producto
+     */
+    private int costo;
+
+    /**
+     * Cantidad disponible del producto
+     */
+    private int cantidad;
+
+    /**
+     * Proveedor dueño del producto
+     */
     private ProveedorDTO proveedor;
-    
-    public ProductoDTO()
-    {
-        
+
+    /**
+     * Constructor por defecto
+     */
+    public ProductoDTO() {
+
     }
-    public ProductoDTO(ProductoEntity productoEntity) 
-    {
-        if (productoEntity != null) 
-        {
+
+    /**
+     * Conviertir Entity a DTO (Crea un nuevo DTO con los valores que recibe en
+     * la entidad que viene de argumento.
+     *
+     * @param productoEntity Es la entidad que se va a convertir a DTO
+     */
+    public ProductoDTO(ProductoEntity productoEntity) {
+        if (productoEntity != null) {
             this.id = productoEntity.getId();
             this.nombre = productoEntity.getNombre();
             this.tipoServicio = productoEntity.getTipoServicio();
-            this.duenio = productoEntity.getDuenio() ;
+            this.duenio = productoEntity.getDuenio();
             this.costo = productoEntity.getCosto();
-            this.cantidad = productoEntity.getCantidad() ;
-           this.proveedor =  new ProveedorDTO(productoEntity.getProveedor()) ;
-  
+            this.cantidad = productoEntity.getCantidad();
+            this.proveedor = new ProveedorDTO(productoEntity.getProveedor());
+
         }
     }
-    
-      public ProductoEntity toEntity() 
-      {
+
+    /**
+     * Convierte el DTO actual a un entity
+     *
+     * @return un objeto Entity de producto
+     */
+    public ProductoEntity toEntity() {
         ProductoEntity productoEntity = new ProductoEntity();
         productoEntity.setId(this.getId());
         productoEntity.setNombre(this.getNombre());
@@ -53,76 +92,144 @@ public class ProductoDTO implements Serializable
         productoEntity.setCosto(this.costo);
         productoEntity.setCantidad(this.cantidad);
         productoEntity.setProveedor(this.proveedor.toEntity());
-        
+
         return productoEntity;
     }
 
+    /**
+     * Retorna el id del producto
+     *
+     * @return id
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * Modifica el id del producto
+     *
+     * @param id
+     */
     public void setId(long id) {
         this.id = id;
     }
-    
-    public String getNombre()
-    {
-        return nombre ;
+
+    /**
+     * Retorna el nombre del producto
+     *
+     * @return nombre
+     */
+    public String getNombre() {
+        return nombre;
     }
-    public String getTipoServicio()
-    {
-        return tipoServicio ;
+
+    /**
+     * Modifica el nombre del producto
+     *
+     * @param pNombre
+     */
+    public void setNombre(String pNombre) {
+        this.nombre = pNombre;
     }
-    public String getDuenio()
-    {
-        return duenio ;
+
+    /**
+     * Retorna el tipo de servicio del producto
+     *
+     * @return tipoServicio
+     */
+    public String getTipoServicio() {
+        return tipoServicio;
     }
-    public int getCosto()
-    {
-        return costo ;
+
+    /**
+     * Modifica el tipo de servicio del producto
+     *
+     * @param pTipoServicio
+     */
+    public void setTipoServicio(String pTipoServicio) {
+        this.tipoServicio = pTipoServicio;
     }
-    public int getCantidad()
-    {
-        return cantidad ;
+
+    /**
+     * Retorna el nombre del dueño del producto
+     *
+     * @return duenio
+     */
+    public String getDuenio() {
+        return duenio;
     }
-    
-    
-    public void setNombre(String pNombre)
-    {
-        this.nombre = pNombre ;
-    }
-    
-    public void setTipoServicio(String pTipoServicio)
-    {
-        this.tipoServicio = pTipoServicio ;
-    }
-    public void setDuenio(String pDuenio)
-    {
+
+    /**
+     * Modifica el nombre del dueño del producto
+     *
+     * @param pDuenio
+     */
+    public void setDuenio(String pDuenio) {
         this.duenio = pDuenio;
     }
-    public void setCosto(int pCosto)
-    {
-        this.costo = pCosto ;
+
+    /**
+     * Retorna el costo del producto
+     *
+     * @return costo
+     */
+    public int getCosto() {
+        return costo;
     }
 
-    public void setCantidad(int pCantidad)
-    {
-        this.cantidad = pCantidad ;
+    /**
+     * Modifica el costo de un producto
+     *
+     * @param pCosto
+     */
+    public void setCosto(int pCosto) {
+        this.costo = pCosto;
     }
 
+    /**
+     * Retorna la cantidad disponible del producto
+     *
+     * @return cantidad
+     */
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    /**
+     * Modifica la cantidad actual de productos disponibles
+     *
+     * @param pCantidad
+     */
+    public void setCantidad(int pCantidad) {
+        this.cantidad = pCantidad;
+    }
+
+    /**
+     * Retorna el proveedor dueño del producto
+     *
+     * @return proveedor
+     */
     public ProveedorDTO getProveedor() {
         return proveedor;
     }
 
+    /**
+     * Modifica el proveedor del producto
+     *
+     * @param proveedor
+     */
     public void setProveedor(ProveedorDTO proveedor) {
         this.proveedor = proveedor;
     }
-    
-   
-      @Override
+
+    /**
+     * Metodo ToString
+     *
+     * @return
+     */
+    @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
-    
-    
+
 }
