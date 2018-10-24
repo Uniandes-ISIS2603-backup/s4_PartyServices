@@ -25,22 +25,44 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  */
 /**
  *
- * @author estudiante
+ * @author Andres
  */
 @RunWith(Arquillian.class)
 public class ProductoPersistenceTest {
 
+    /**
+     * Inyección de la dependencia a la clase ProductoPersistence cuyos métodos
+     * se van a probar.
+     */
     @Inject
     private ProductoPersistence productoPersistence;
 
+    /**
+     * Contexto de Persistencia que se va a utilizar para acceder a la Base de
+     * datos por fuera de los métodos que se están probando.
+     */
     @PersistenceContext
     private EntityManager em;
 
+    /**
+     * Variable para martcar las transacciones del em anterior cuando se
+     * crean/borran datos para las pruebas.
+     */
     @Inject
     UserTransaction utx;
 
+    /**
+     * Lista que tiene los datos de prueba para los prodcutos.
+     */
     private List<ProductoEntity> data = new ArrayList<ProductoEntity>();
 
+    /**
+     *
+     * @return Devuelve el jar que Arquillian va a desplegar en el Glassfish
+     * embebido. El jar contiene las clases de producto, el descriptor de la
+     * base de datos y el archivo beans.xml para resolver la inyección de
+     * dependencias.
+     */
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
@@ -50,6 +72,9 @@ public class ProductoPersistenceTest {
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
 
+    /**
+     * Configuración inicial de la prueba.
+     */
     @Before
     public void configTest() {
         try {
@@ -68,10 +93,17 @@ public class ProductoPersistenceTest {
         }
     }
 
+    /**
+     * Limpia las tablas que están implicadas en la prueba.
+     */
     private void clearData() {
         em.createQuery("delete from ProductoEntity").executeUpdate();
     }
 
+    /**
+     * Inserta los datos iniciales para el correcto funcionamiento de las
+     * pruebas.
+     */
     private void insertData() {
         PodamFactory factory = new PodamFactoryImpl();
         for (int i = 0; i < 3; i++) {
@@ -84,6 +116,9 @@ public class ProductoPersistenceTest {
         }
     }
 
+    /**
+     * Prueba para crear un producto
+     */
     @Test
     public void createProductoTest() {
         PodamFactory factory = new PodamFactoryImpl();
@@ -97,6 +132,9 @@ public class ProductoPersistenceTest {
         Assert.assertEquals(newEntity.getNombre(), entity.getNombre());
     }
 
+    /**
+     * Prueba para eliminar un producto
+     */
     @Test
     public void deleteProductoTest() {
         ProductoEntity entity = data.get(0);
@@ -106,6 +144,9 @@ public class ProductoPersistenceTest {
 
     }
 
+    /**
+     * Prueba para encontrar un producto por su nombre
+     */
     @Test
     public void FindProductoByNameTest() {
         ProductoEntity entity = data.get(0);
@@ -120,8 +161,10 @@ public class ProductoPersistenceTest {
         Assert.assertNull(newEntity);
 
     }
-    
 
+    /**
+     * Prueba para actualizar producto
+     */
     @Test
     public void updateProductoTest() {
         ProductoEntity entity = data.get(0);
@@ -141,7 +184,6 @@ public class ProductoPersistenceTest {
         Assert.assertEquals(newEntity.getCosto(), resp.getCosto());
         Assert.assertEquals(newEntity.getCantidad(), resp.getCantidad());
         Assert.assertEquals(newEntity.getEventos(), resp.getEventos());
-       
 
     }
 

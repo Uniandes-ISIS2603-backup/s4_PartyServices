@@ -6,8 +6,8 @@
 package co.edu.uniandes.csw.partyServices.util;
 
 /**
- *
- * @author estudiante
+ * Clase que maneja las constantes utilizadas en el atributo "estado" de la clase Evento
+ * @author Andres
  */
 public class ConstantesEvento {
 
