@@ -164,6 +164,7 @@ public class PagoLogicTest {
 
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getEmpresa(), entity.getEmpresa());
+                Assert.assertEquals(newEntity.getCliente(), entity.getCliente());
         Assert.assertEquals(newEntity.getUsuario(), entity.getUsuario());
         Assert.assertEquals(newEntity.getCodigoSeguridadTarjeta(), entity.getCodigoSeguridadTarjeta());
         Assert.assertEquals(newEntity.getNumeroTarjetaCredito(), entity.getNumeroTarjetaCredito());
@@ -213,6 +214,8 @@ public class PagoLogicTest {
         Assert.assertEquals(entity.getId(), resultEntity.getId());
         Assert.assertEquals(entity.getId(), resultEntity.getId());
         Assert.assertEquals(entity.getEmpresa(), resultEntity.getEmpresa());
+                Assert.assertEquals(entity.getCliente(), resultEntity.getCliente());
+
         Assert.assertEquals(entity.getUsuario(), resultEntity.getUsuario());
         Assert.assertEquals(entity.getCodigoSeguridadTarjeta(), resultEntity.getCodigoSeguridadTarjeta());
         Assert.assertEquals(entity.getNumeroTarjetaCredito(), resultEntity.getNumeroTarjetaCredito());

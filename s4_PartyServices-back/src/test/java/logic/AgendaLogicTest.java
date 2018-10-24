@@ -7,7 +7,6 @@ package logic;
 
 import co.edu.uniandes.csw.partyServices.ejb.AgendaLogic;
 import co.edu.uniandes.csw.partyServices.entities.AgendaEntity;
-import co.edu.uniandes.csw.partyServices.entities.FechaEntity;
 import co.edu.uniandes.csw.partyServices.entities.ProveedorEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.partyServices.persistence.AgendaPersistence;
@@ -261,7 +260,7 @@ public class AgendaLogicTest
             try {
                 Assert.assertNotNull(agendaLogic.getAgenda(agendaEntity.getId()));
             } catch (BusinessLogicException ex) {
-                Assert.fail();
+                Assert.fail(ex.getMessage()+"No deberia mandar ecepcion");
             }
         }
     }

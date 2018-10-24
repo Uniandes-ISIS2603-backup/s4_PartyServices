@@ -16,8 +16,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 /**
- *
- * @author estudiante
+ *Persistencia de fecha
+ * @author Nicolas Hernandez
  */
 @Stateless
 public class FechaPersistence {
@@ -92,6 +92,20 @@ public class FechaPersistence {
         FechaEntity entity = em.find(FechaEntity.class, fechaId);
         em.remove(entity);
         LOGGER.log(Level.INFO, "Saliendo de borrar la fecha con id = {0}", fechaId);
+    }
+    
+    /**
+     * Obtiene todas las fechas de una agenda especificada
+     * @param idAgenda id de la agenda
+     * @return la lista de las fechas 
+     */
+    public List<FechaEntity> getFechasDeAgenda(long idAgenda)
+    {
+        LOGGER.log(Level.INFO, "Consultando todas las fechas de la agenda con id = {0}",idAgenda);
+        // Se crea un query para buscar todas las fechas en la base de datos que sean de la agenda.
+        TypedQuery query = em.createQuery("select u from FechaEntity u where u.agenda.id = :idAgenda", FechaEntity.class);
+        query = query.setParameter("idAgenda", idAgenda);
+        return query.getResultList();
     }
     
     

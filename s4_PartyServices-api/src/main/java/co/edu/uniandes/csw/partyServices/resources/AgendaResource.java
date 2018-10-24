@@ -23,7 +23,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 /**
- *
+ *Recurso de agenda
  * @author n.hernandezs
  */
 @Path("agenda")
@@ -34,9 +34,18 @@ public class AgendaResource {
     
     private static final Logger LOGGER = Logger.getLogger(AgendaResource.class.getName());
     
+    /**
+     * Logica de agenda
+     */
     @Inject
     private AgendaLogic agendaLogic;
     
+    /**
+     * Obtener agenda. Obtiene la agenda por su respectivo id
+     * @param id de la agenda
+     * @return la agenda a buscar
+     * @throws BusinessLogicException si se incumple alguna regla de negocio
+     */
     @GET 
     @Path("{id: \\d+}")
     public AgendaDTO obtenerAgenda(@PathParam("id") long id) throws BusinessLogicException
@@ -44,6 +53,13 @@ public class AgendaResource {
         LOGGER.log(Level.INFO, "AgendaResource obtenerAgenda: input: {0}", id);
         return new AgendaDetailDTO(agendaLogic.getAgenda(id));
     }
+    
+    /**
+     * Obtener agenda por proveedor. Obtiene la agenda por el id del proveedor
+     * @param id del proveedor
+     * @return la agenda que se esta buscando
+     * @throws BusinessLogicException si se incumple alguna regla de negocio
+     */
     @GET 
     @Path("proveedor/{id: \\d+}")
     public AgendaDTO obtenerAgendaPorProveedor(@PathParam("id") long id) throws BusinessLogicException
@@ -52,25 +68,42 @@ public class AgendaResource {
         return new AgendaDetailDTO(agendaLogic.getAgendaByProveedor(id));
     }
     
+    /**
+     * Agregar agenda. Agrega una agenda a la base de datos
+     * @param proveedor el proveedor duenio de la agenda
+     * @param agenda la agenda que se va a crear
+     * @return la agenda creada
+     * @throws BusinessLogicException si la agenda no cumple con las reglas de negocio 
+     */
     @POST 
     @Path("{proveedor: \\d+}")
     public AgendaDTO agregarAgenda(@PathParam("proveedor") long proveedor,AgendaDTO agenda) throws BusinessLogicException
     {
-        LOGGER.log(Level.INFO, "AgendaResource agregarAgenda:", agenda.getId());
+        LOGGER.log(Level.INFO, "AgendaResource agregarAgenda: {0}", agenda.getId());
         return new AgendaDetailDTO(agendaLogic.createAgenda(proveedor, agenda.toEntity()));
     }
     
+    /**
+     * Actualizar agenda. Actualiza la agenda
+     * @param agenda la agenda a actualizar
+     * @return la agenda actualizada
+     * @throws BusinessLogicException si la agenda a actualizar incumple con alguna regla de negocio
+     */
     @PUT 
     public AgendaDTO actualizarAgenda(AgendaDTO agenda) throws BusinessLogicException
     {
-        LOGGER.log(Level.INFO, "AgendaResource actualizarAgenda:", agenda.getId());
+        LOGGER.log(Level.INFO, "AgendaResource actualizarAgenda: {0}", agenda.getId());
         return new AgendaDTO(agendaLogic.updateAgenda(agenda.toEntity()));
     }
+    /**
+     * Eliminar agenda. Elimina una agenda por su id
+     * @param id de la agenda a eliminar
+     */
     @DELETE 
     @Path("{id: \\d+}")
     public void eliminarAgenda(@PathParam("id") long id)
     {
-        LOGGER.log(Level.INFO, "AgendaResource eliminarAgenda:", id);
+        LOGGER.log(Level.INFO, "AgendaResource eliminarAgenda: {0}", id);
         
         agendaLogic.deleteAgenda(id);
     }

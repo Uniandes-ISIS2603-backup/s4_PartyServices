@@ -19,16 +19,24 @@ import javax.inject.Inject;
 
 /**
  *
- * @author estudiante
+ * @author Andres
  */
 @Stateless
 public class ProductoLogic {
 
     private static final Logger LOGGER = Logger.getLogger(ProductoLogic.class.getName());
 
+    /**
+     * Persistencia de producto
+     */
     @Inject
     private ProductoPersistence persistence;
 
+    /**
+     * obtener un producto por nombre
+     * @param pNombre nombre del producto que se quiere consultar
+     * @return ptoducto con el nombre solicitado
+     */
     public ProductoEntity getProducto(String pNombre) {
         LOGGER.log(Level.INFO, "Inicia proceso de consultar el producto por nombre");
         ProductoEntity productoEntity = persistence.findByName(pNombre);
@@ -40,6 +48,12 @@ public class ProductoLogic {
 
     }
 
+    /**
+     * Crear un producto
+     * @param productoEntity producto que se quiere crear
+     * @return el producto creado y validado
+     * @throws BusinessLogicException si no se cumplen las reglase de negocio
+     */
     public ProductoEntity createProducto(ProductoEntity productoEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de creación del producto");
 
@@ -82,10 +96,20 @@ public class ProductoLogic {
 
     }
 
+    /**
+     * Valida que el nombre del producto no sea nulo ni este vacio
+     * @param pNombre nombre a validar
+     * @return true si cumple con los requisitos, false de lo contrario
+     */
     public boolean validateNombre(String pNombre) {
         return !(pNombre == null || pNombre.isEmpty());
     }
 
+    /**
+     * Elimina un producto
+     * @param pNombre nombre del producto que se quiere eliminar
+     * @throws BusinessLogicException si las reglas de negocio no se cumplen
+     */
     public void deleteProducto(String pNombre) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de eliminación del producto");
 
@@ -105,6 +129,13 @@ public class ProductoLogic {
 
     }
 
+    /**
+     * Actualiza un producto
+     * @param pNombre nombre del producto que se quiere actualizar
+     * @param pProductoEntity objeto con la informacion nueva 
+     * @return el producto actualizado
+     * @throws BusinessLogicException si las reglas de nogcio no se cumplen
+     */
     public ProductoEntity updateProducto(String pNombre, ProductoEntity pProductoEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Comienza proceso de actualizacion del producto");
 
@@ -117,17 +148,32 @@ public class ProductoLogic {
         return newEntity;
     }
 
+    /**
+     * Valida si el nombre del producto no contiene caracteres espceiales 
+     * @param nombre nombre a verfificar
+     * @return true si cumple con los requisitos, false de lo contrario
+     */
     private boolean validateNombreCaracteres(String nombre) {
         Pattern pat = Pattern.compile("[a-zA-Z]");
         Matcher mat = pat.matcher(nombre);
         return (mat.matches());
     }
 
+    /**
+     * Encuentra un producto por su nombre
+     * @param pNombre nombre del producto a consultar
+     * @return producto 
+     */
     public ProductoEntity findByNombre(String pNombre) 
     {
         return persistence.findByName(pNombre) ;
         
     }
+    
+    /**
+     * Consulta todos los productos
+     * @return una lista con todos los productos 
+     */
     public List<ProductoEntity> findAll()
     {
         return persistence.findAll() ;

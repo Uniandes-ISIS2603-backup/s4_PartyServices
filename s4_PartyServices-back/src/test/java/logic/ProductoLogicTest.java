@@ -30,26 +30,51 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
  *
- * @author estudiante
+ * @author Andres
  */
 @RunWith(Arquillian.class)
 public class ProductoLogicTest {
 
+    /**
+     * Instancia de la clase PodamFactory que nos ayudará para crear datos
+     * aleatorios de las clases.
+     */
     private PodamFactory factory = new PodamFactoryImpl();
 
+     /**
+     * Inyección de la dependencia a la clase ProductoLogic cuyos métodos se van a
+     * probar.
+     */
     @Inject
     private ProductoLogic productoLogic;
 
+    /**
+     * Contexto de Persistencia que se va a utilizar para acceder a la Base de
+     * datos por fuera de los métodos que se están probando.
+     */
     @PersistenceContext
     private EntityManager em;
 
+    /**
+     * Variable para marcar las transacciones del em anterior cuando se
+     * crean/borran datos para las pruebas.
+     */
     @Inject
     private UserTransaction utx;
 
+    /**
+     * Lista que contiene los datos de prueba para los productos
+     */
     private List<ProductoEntity> data = new ArrayList<ProductoEntity>();
 
+    /**
+     * Lista que contiene los datos de prueba para los eventos
+     */
     private List<EventoEntity> eventoData = new ArrayList();
 
+    /**
+     * Lista que contiene los datos de prueba para los proveedores
+     */
     private List<ProveedorEntity> proveedorData = new ArrayList();
 
     /**
@@ -123,7 +148,10 @@ public class ProductoLogicTest {
         em.persist(proveedor);
         data.get(1).setProveedor(proveedor);
     }
-
+/**
+ * Prueba para crear producto sin errores 
+ * @throws BusinessLogicException 
+ */
     @Test
     public void createProductoTest() throws BusinessLogicException {
         ProductoEntity newEntity = factory.manufacturePojo(ProductoEntity.class);
@@ -136,7 +164,10 @@ public class ProductoLogicTest {
         Assert.assertNotNull(result);
 
     }
-
+/**
+ *  Prueba que funcione la restriccion de que un producto no se pueda crear con un nombre vacio
+ * @throws BusinessLogicException 
+ */
     @Test(expected = BusinessLogicException.class)
     public void createProductoNombreInvalidoTest() throws BusinessLogicException 
     {
@@ -149,7 +180,11 @@ public class ProductoLogicTest {
         ProductoEntity result = productoLogic.createProducto(newEntity);
 
     }
-
+/**
+ *  Prueba que funcione la restriccion de que un producto no se pueda crear si ya esxiste alguno
+ * con el mismo nombre
+ * @throws BusinessLogicException 
+ */
     @Test(expected = BusinessLogicException.class)
     public void createProductoNombreExistenteTest() throws BusinessLogicException 
     {
@@ -174,6 +209,11 @@ public class ProductoLogicTest {
         
     }
 
+    /**
+     *  Prueba que funcione la restriccion de que un producto no se pueda crear si su nombre no cumple con la cantidad
+     * necesaria de numero de caracteres
+     * @throws BusinessLogicException 
+     */
     @Test(expected = BusinessLogicException.class)
     public void createProductoNombreNumerosDeCaracteresTest() throws BusinessLogicException 
     {
@@ -198,7 +238,10 @@ public class ProductoLogicTest {
         ProductoEntity result = productoLogic.createProducto(newEntity);
     }
     
-
+/**
+ *  Prueba que funcione la restriccion de que un producto no se pueda crear si no tiene un proveedor o dueño
+ * @throws BusinessLogicException 
+ */
     @Test(expected = BusinessLogicException.class)
     public void createProductoDuenioInvalidoTest() throws BusinessLogicException 
     {
@@ -211,6 +254,10 @@ public class ProductoLogicTest {
         ProductoEntity result = productoLogic.createProducto(newEntity);
     }
 
+    /**
+     *  Prueba que funcione la restriccion de que un producto no pueda tener un costo invalido
+     * @throws BusinessLogicException 
+     */
     @Test(expected = BusinessLogicException.class)
     public void createProductoCostoInvalidoTest() throws BusinessLogicException 
     {
@@ -223,6 +270,10 @@ public class ProductoLogicTest {
         ProductoEntity result = productoLogic.createProducto(newEntity);
     }
 
+    /**
+     *  Prueba que funcione la restriccion de que un producto no pueda tener una cantidad invalida
+     * @throws BusinessLogicException 
+     */
     @Test(expected = BusinessLogicException.class)
     public void createProductoCantidadInvalidoTest() throws BusinessLogicException 
     {
@@ -236,6 +287,11 @@ public class ProductoLogicTest {
     }
 
 
+    /**
+     *  Prueba que funcione la restriccion de que un producto no tenga mas numero de eventos 
+     * que cantdad del producto
+     * @throws BusinessLogicException 
+     */
     @Test(expected = BusinessLogicException.class)
     public void createProductoCantidadDeEventosInvalidosTest() throws BusinessLogicException 
     {
@@ -247,7 +303,10 @@ public class ProductoLogicTest {
         newEntity.setCantidad(0);
         ProductoEntity result = productoLogic.createProducto(newEntity);
     }
-
+/**
+ * Prueba para eliminar un producto
+ * @throws BusinessLogicException 
+ */
     @Test
     public void deleteProductoTest() throws BusinessLogicException {
         ProductoEntity entity = data.get(1);
@@ -256,12 +315,20 @@ public class ProductoLogicTest {
         Assert.assertNull(deleted);
     }
 
+    /**
+     * Prueba para eliminar producto que aun tiene eventos asignados
+     * @throws BusinessLogicException 
+     */
     @Test(expected = BusinessLogicException.class)
     public void deleteProductoConEventosTest() throws BusinessLogicException {
         ProductoEntity entity = data.get(0);
         productoLogic.deleteProducto(entity.getNombre());
     }
 
+    /**
+     * Prueba para actualizar un producto
+     * @throws BusinessLogicException 
+     */
     @Test
     public void updateProductoTest() throws BusinessLogicException {
         int num = 10;
@@ -276,6 +343,10 @@ public class ProductoLogicTest {
 
     }
 
+    /**
+     * Prueba para actualizar un producto con un nombre invalido
+     * @throws BusinessLogicException 
+     */
     @Test(expected = BusinessLogicException.class)
     public void updateProductoNombreInvalidoTest() throws BusinessLogicException {
         ProductoEntity entity = data.get(0);

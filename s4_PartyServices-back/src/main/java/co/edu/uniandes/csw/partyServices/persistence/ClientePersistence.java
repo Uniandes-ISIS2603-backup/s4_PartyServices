@@ -125,7 +125,7 @@ public class ClientePersistence {
      * existe alguno devuelve el primero.
      */
     public ClienteEntity findByLogin(String login) {
-        LOGGER.log(Level.INFO, "Se consulta por el nombre ", login);
+        LOGGER.log(Level.INFO, "Se consulta el cliente con usuario = {0}  ", login);
         TypedQuery query = em.createQuery("Select e From ClienteEntity e where e.login = :login", ClienteEntity.class);
 
         query = query.setParameter("login", login);
@@ -139,7 +139,7 @@ public class ClientePersistence {
         } else {
             result = sameName.get(0);
         }
-        LOGGER.log(Level.INFO, "Se han consultado todos los clientes por el nombre ", login);
+        LOGGER.log(Level.INFO, "Se han consultado el cliente con usuario = {0}  ", login);
         return result;
 
     }

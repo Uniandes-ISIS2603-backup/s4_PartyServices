@@ -65,13 +65,13 @@ public class ClienteLogic {
         try {
 
             Date fechaClienteNacimiento = format.parse(clienteEntity.getFechaNacimiento());
-            int añosPermitidos = Period.between(fechaClienteNacimiento.toInstant().atZone(defaultZoneId).toLocalDate(), fechaAhora.toInstant().atZone(defaultZoneId).toLocalDate()).getYears();
+            int aniosPermitidos = Period.between(fechaClienteNacimiento.toInstant().atZone(defaultZoneId).toLocalDate(), fechaAhora.toInstant().atZone(defaultZoneId).toLocalDate()).getYears();
 
             if (fechaClienteNacimiento.compareTo(fechaAhora) > 0) {
                 LOGGER.log(Level.INFO, "Hubo un error con la fecha, no puede ser posterior a la fecha actual.");
 
                 throw new BusinessLogicException("La fecha de nacimiento es superior a la actual");
-            } else if (añosPermitidos < 18) {
+            } else if (aniosPermitidos < 18) {
                 LOGGER.log(Level.INFO, "Hubo un error con la edad, no puede ser menor a la requerida.");
 
                 throw new BusinessLogicException("Un usuario menor de edad permitida no puede organizar una fiesta");
@@ -135,14 +135,14 @@ public class ClienteLogic {
      */
     public ClienteEntity updateCliente(Long clienteId, ClienteEntity clienteEntity) throws BusinessLogicException {
 
-        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el cliente con id = {0}", clienteEntity.getId());
+        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el cliente con id = {0}", clienteId);
 
         if (!validaciones(clienteEntity)) {
             throw new BusinessLogicException("No se pudo validar una regla de negocio");
         }
         ClienteEntity newEntity = persistence.update(clienteEntity);
 
-        LOGGER.log(Level.INFO, "Termina proceso de actualizar el cliente con id = {0}", clienteEntity.getId());
+        LOGGER.log(Level.INFO, "Termina proceso de actualizar el cliente con id = {0}", clienteId);
         return newEntity;
     }
 
