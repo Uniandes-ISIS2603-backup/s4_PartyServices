@@ -5,11 +5,16 @@
  */
 package co.edu.uniandes.csw.partyServices.resources;
 
+import co.edu.uniandes.csw.partyServices.dtos.EventoDetailDTO;
 import co.edu.uniandes.csw.partyServices.dtos.FechaDTO;
 import co.edu.uniandes.csw.partyServices.dtos.FechaDetailDTO;
+import co.edu.uniandes.csw.partyServices.ejb.EventoLogic;
+import co.edu.uniandes.csw.partyServices.ejb.FechaEventoLogic;
 import co.edu.uniandes.csw.partyServices.ejb.FechaLogic;
+import co.edu.uniandes.csw.partyServices.entities.EventoEntity;
 import co.edu.uniandes.csw.partyServices.entities.FechaEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import javax.enterprise.context.RequestScoped;
@@ -22,6 +27,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 
 /**
  *Resource de fecha
@@ -38,6 +44,13 @@ public class FechaResource {
      */
     @Inject
     private FechaLogic fechaLogic;
+    
+    @Inject
+    private FechaEventoLogic fechaEventoLogic;
+    
+    @Inject 
+    private EventoLogic eventoLogic;
+    
     
     /**
      * Obtener fecha por id. Obtiene la fecha por su id
@@ -137,5 +150,54 @@ public class FechaResource {
         fechaLogic.deleteFecha(id);
     }
    
+    
+//    public Class<FechaEventoResource> getFechaEventoResource(@PathParam("idFecha") long idFecha) throws BusinessLogicException{
+//        if (fechaLogic.getFechaID(idFecha) == null) {
+//            throw new WebApplicationException("El recurso /fecha/" + idFecha + " no existe.", 404);
+//        }
+//        return FechaEventoResource.class;
+//    }
+    
+    
+    
+    @PUT
+    @Path("{idFecha: \\d+}/eventos")
+    public Collection<EventoDetailDTO> actualizarEventosDeFecha(@PathParam("idFecha") long idFecha, Collection<EventoDetailDTO> eventos)
+    {
+        //Verifica que los eventos si existan
+        for (EventoDetailDTO evento : eventos) {
+            if(eventoLogic.getEvento(evento.getNombre())==null)
+                throw new WebApplicationException("El recurso /evento/" + evento.getId() + " no existe.", 404);
+           
+        }
+        return collectionEntityAEventoDTO(fechaEventoLogic.remplazarEventos(idFecha, collectionEventoDTOaEntity(eventos)));
+    
+    }
+    
+    @GET
+    @Path("{idFecha: \\d+}/eventos")
+    public Collection<EventoDetailDTO> obtenerEventosDeFecha(@PathParam("idFecha") long idFecha)
+    {
+       
+        return collectionEntityAEventoDTO(fechaEventoLogic.obtenerEventos(idFecha));
+    
+    }
+    
+    public Collection<EventoEntity> collectionEventoDTOaEntity(Collection<EventoDetailDTO> eventos){
+        Collection<EventoEntity> lista= new ArrayList<>();
+        for (EventoDetailDTO evento : eventos) {
+            lista.add(evento.toEntity());
+        }
+        return lista;
+    }
+    
+    public Collection<EventoDetailDTO> collectionEntityAEventoDTO(Collection<EventoEntity> eventos){
+        Collection<EventoDetailDTO> lista= new ArrayList<>();
+        for (EventoEntity evento : eventos) {
+            lista.add(new EventoDetailDTO(evento));
+        }
+        return lista;
+    }
+    
     
 }

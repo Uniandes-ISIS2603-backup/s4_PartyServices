@@ -39,8 +39,8 @@ public class EventoEntity  extends BaseEntity implements Serializable
      * Atributo que representa la relacion muchos a uno con la clase FechaEntity
      */
     @PodamExclude
-    @ManyToOne()
-    private FechaEntity fecha ;
+    @ManyToMany
+    private Collection<FechaEntity> fechas ;
     
     /**
      * Atributo que representa la relacion muchos a uno con la clase ClienteEntity
@@ -118,16 +118,16 @@ public class EventoEntity  extends BaseEntity implements Serializable
      * Metodo que retorna la fecha del evento
      * @return fecha
      */
-    public FechaEntity getFecha() {
-        return fecha;
+    public Collection<FechaEntity> getFechas() {
+        return fechas;
     }
 
     /**
      * Metodo que modifica la fecha del evento
-     * @param fecha 
+     * @param fechas 
      */
-    public void setFecha(FechaEntity fecha) {
-        this.fecha = fecha;
+    public void setFechas(Collection<FechaEntity> fechas) {
+        this.fechas = fechas;
     }
 
     /**
