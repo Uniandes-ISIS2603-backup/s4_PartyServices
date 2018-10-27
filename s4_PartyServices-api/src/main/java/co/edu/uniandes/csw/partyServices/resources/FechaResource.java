@@ -160,6 +160,27 @@ public class FechaResource {
     
     
     
+    @POST
+    @Path("{idFecha: \\d+}/eventos/{idEvento: \\d+}")
+    public EventoDetailDTO addEvento(@PathParam("idFecha") long idFecha, @PathParam("idEvento") long idEvento) throws BusinessLogicException {
+        if (fechaLogic.getFechaID(idFecha) == null) {
+            throw new WebApplicationException("La fecha no existe.", 404);
+        }
+        EventoDetailDTO detailDTO = new EventoDetailDTO(fechaEventoLogic.anadirEvento(idFecha, idEvento));
+        return detailDTO;
+    }
+    
+    
+    @DELETE
+    @Path("{idFecha: \\d+}/eventos/{idEvento: \\d+}")
+    public void deleteEvento(@PathParam("idFecha") long idFecha, @PathParam("idEvento") long idEvento) throws BusinessLogicException {
+        if (fechaLogic.getFechaID(idFecha) == null) {
+            throw new WebApplicationException("La fecha no existe.", 404);
+        }
+        fechaEventoLogic.eliminarEvento(idFecha, idEvento);
+    }
+    
+    
     @PUT
     @Path("{idFecha: \\d+}/eventos")
     public Collection<EventoDetailDTO> actualizarEventosDeFecha(@PathParam("idFecha") long idFecha, Collection<EventoDetailDTO> eventos)

@@ -27,6 +27,13 @@ public class FechaEventoLogic {
     @Inject
     private EventoPersistence eventoPersistence;
     
+    public EventoEntity anadirEvento(long fechaId, long eventoId){
+        FechaEntity fechaEntity = fechaPersistence.find(fechaId);
+        EventoEntity eventoEntity = eventoPersistence.find(eventoId);
+        eventoEntity.getFechas().add(fechaEntity);
+        return eventoPersistence.find(eventoId);
+    }
+    
     
     public Collection<EventoEntity> remplazarEventos(long idFecha, Collection<EventoEntity> eventos)
     {
@@ -37,6 +44,8 @@ public class FechaEventoLogic {
             if(eventos.contains(eventosEntity)){
                 if(!eventosEntity.getFechas().contains(fecha))
                     eventosEntity.getFechas().add(fecha);
+                else 
+                    eventosEntity.getFechas().remove(fecha);
             }
         }
         return fechaPersistence.find(idFecha).getEventos();
@@ -47,5 +56,10 @@ public class FechaEventoLogic {
         return fechaPersistence.find(idFecha).getEventos();
     }
 
+    public void eliminarEvento(long fechaId, long eventoId){
+        FechaEntity fechaEntity = fechaPersistence.find(fechaId);
+        EventoEntity eventoEntity = eventoPersistence.find(eventoId);
+        eventoEntity.getFechas().remove(fechaEntity);
+    }
     
 }
