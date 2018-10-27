@@ -159,7 +159,13 @@ public class FechaResource {
 //    }
     
     
-    
+    /**
+     * Anade un evento a una fecha
+     * @param idFecha fecha de la agenda
+     * @param idEvento evento a anadir
+     * @return el evento anadido
+     * @throws BusinessLogicException si no existe la fecha o el evento
+     */
     @POST
     @Path("{idFecha: \\d+}/eventos/{idEvento: \\d+}")
     public EventoDetailDTO addEvento(@PathParam("idFecha") long idFecha, @PathParam("idEvento") long idEvento) throws BusinessLogicException {
@@ -170,7 +176,12 @@ public class FechaResource {
         return detailDTO;
     }
     
-    
+    /**
+     * Elimina el evento de una fecha
+     * @param idFecha fecha a la cual se eliminara su evento
+     * @param idEvento evento a eliminar
+     * @throws BusinessLogicException Si la fecha no existe
+     */
     @DELETE
     @Path("{idFecha: \\d+}/eventos/{idEvento: \\d+}")
     public void deleteEvento(@PathParam("idFecha") long idFecha, @PathParam("idEvento") long idEvento) throws BusinessLogicException {
@@ -180,7 +191,12 @@ public class FechaResource {
         fechaEventoLogic.eliminarEvento(idFecha, idEvento);
     }
     
-    
+    /**
+     * Actualiza los evento de una fecha
+     * @param idFecha fecha a la cual se actualizaran sus eventos
+     * @param eventos eventos de la fecha a actualizar
+     * @return los eventos de la fecha
+     */
     @PUT
     @Path("{idFecha: \\d+}/eventos")
     public Collection<EventoDetailDTO> actualizarEventosDeFecha(@PathParam("idFecha") long idFecha, Collection<EventoDetailDTO> eventos)
@@ -195,6 +211,11 @@ public class FechaResource {
     
     }
     
+    /**
+     * Obtiene los eventos de una fecha
+     * @param idFecha fecha de la cual se van a obtener los eventos
+     * @return los eventos de la fecha
+     */
     @GET
     @Path("{idFecha: \\d+}/eventos")
     public Collection<EventoDetailDTO> obtenerEventosDeFecha(@PathParam("idFecha") long idFecha)
@@ -204,6 +225,11 @@ public class FechaResource {
     
     }
     
+    /**
+     * Convierte de DTO a entidad
+     * @param eventos una coleccion de eventosDTO
+     * @return una coleeciion de eventoEntities
+     */
     public Collection<EventoEntity> collectionEventoDTOaEntity(Collection<EventoDetailDTO> eventos){
         Collection<EventoEntity> lista= new ArrayList<>();
         for (EventoDetailDTO evento : eventos) {
@@ -212,6 +238,11 @@ public class FechaResource {
         return lista;
     }
     
+    /**
+     * Convierte de Entitiyes a DTOs
+     * @param eventos una coleccion de eventoEntitites
+     * @return una coleccion de eventosDTO
+     */
     public Collection<EventoDetailDTO> collectionEntityAEventoDTO(Collection<EventoEntity> eventos){
         Collection<EventoDetailDTO> lista= new ArrayList<>();
         for (EventoEntity evento : eventos) {
