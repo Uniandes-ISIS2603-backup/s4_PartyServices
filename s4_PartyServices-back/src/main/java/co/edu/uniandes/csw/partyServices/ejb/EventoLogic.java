@@ -83,9 +83,9 @@ public class EventoLogic {
             throw new BusinessLogicException("Para crear un evento su estado inicial debe ser en planeacion");
         }
 
-        if (eventoEntity.getFecha() == null) {
-            throw new BusinessLogicException("El evento debe tener una fecha");
-        }
+//        if (eventoEntity.getFechas() == null) {
+//            throw new BusinessLogicException("El evento debe tener una fecha");
+//        }
 
         if (eventoEntity.getProductos() == null) {
             eventoEntity.setProductos(new ArrayList<>());
