@@ -165,7 +165,7 @@ public class EventoLogicTest {
     public void createEventoTest() throws BusinessLogicException {
         EventoEntity newEntity = factory.manufacturePojo(EventoEntity.class);
         newEntity.setCliente(clienteData.get(0));
-        newEntity.setFecha(fechaData.get(0));
+        //newEntity.setFechas(fechaData.get(0));
         newEntity.setEstado("En planeacion");
         newEntity.setProductos(productoData);
         newEntity.setLatitud(4.570868);
@@ -203,7 +203,7 @@ public class EventoLogicTest {
         FechaEntity fech = factory.manufacturePojo(FechaEntity.class);
         newEntity.setNombre("");
         newEntity.setCliente(cli);
-        newEntity.setFecha(fech);
+//        newEntity.setFecha(fech);
         newEntity.setEstado("En planeacion");
         newEntity.setProductos(productoData);
         newEntity.setLatitud(4.570868);
@@ -221,7 +221,7 @@ public class EventoLogicTest {
         ClienteEntity cli = factory.manufacturePojo(ClienteEntity.class);
         FechaEntity fech = factory.manufacturePojo(FechaEntity.class);
         newEntity.setCliente(cli);
-        newEntity.setFecha(fech);
+//        newEntity.setFecha(fech);
         newEntity.setEstado("En planeacion");
         newEntity.setProductos(productoData);
         newEntity.setLatitud(4.570868);
@@ -240,7 +240,7 @@ public class EventoLogicTest {
         FechaEntity fech = factory.manufacturePojo(FechaEntity.class);
         newEntity.setNombre("An");
         newEntity.setCliente(cli);
-        newEntity.setFecha(fech);
+//        newEntity.setFecha(fech);
         newEntity.setEstado("En planeacion");
         newEntity.setProductos(productoData);
         newEntity.setLatitud(4.570868);
@@ -258,7 +258,7 @@ public class EventoLogicTest {
         ClienteEntity cli = factory.manufacturePojo(ClienteEntity.class);
         FechaEntity fech = factory.manufacturePojo(FechaEntity.class);
         newEntity.setCliente(cli);
-        newEntity.setFecha(fech);
+//        newEntity.setFecha(fech);
         newEntity.setEstado("Planeado");
         newEntity.setProductos(productoData);
         newEntity.setLatitud(4.570868);
@@ -275,7 +275,7 @@ public class EventoLogicTest {
         EventoEntity newEntity = factory.manufacturePojo(EventoEntity.class);
         ClienteEntity cli = factory.manufacturePojo(ClienteEntity.class);
         newEntity.setCliente(cli);
-        newEntity.setFecha(null);
+//        newEntity.setFecha(null);
         newEntity.setEstado("En planeacion");
         newEntity.setProductos(productoData);
         newEntity.setLatitud(4.570868);
@@ -293,7 +293,7 @@ public class EventoLogicTest {
         ClienteEntity cli = factory.manufacturePojo(ClienteEntity.class);
         FechaEntity fech = factory.manufacturePojo(FechaEntity.class);
         newEntity.setCliente(cli);
-        newEntity.setFecha(fech);
+//        newEntity.setFecha(fech);
         newEntity.setProductos(null);
         newEntity.setEstado("En planeacion");
         newEntity.setProductos(productoData);
@@ -312,7 +312,7 @@ public class EventoLogicTest {
         ClienteEntity cli = factory.manufacturePojo(ClienteEntity.class);
         FechaEntity fech = factory.manufacturePojo(FechaEntity.class);
         newEntity.setCliente(cli);
-        newEntity.setFecha(fech);
+//        newEntity.setFecha(fech);
         newEntity.setProductos(null);
         newEntity.setEstado("En planeacion");
         newEntity.setProductos(productoData);

@@ -181,17 +181,17 @@ public class PagoLogic {
      *
      */
     public void deletePago(Long clientesId, Long pagosId) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el pago con id = {0} del cliente con id = {1}", new Object[]{pagosId, clientesId});
+        LOGGER.log(Level.INFO, "Inicia proceso de borrar el pago con id = {0} del cliente con id = {1}", new Object[]{pagosId, clientesId});
         PagoEntity old = getPago(clientesId, pagosId);
         if (old == null) {
             throw new BusinessLogicException("El pago con id = " + pagosId + " no esta asociado a el cliente con id = " + clientesId);
         }
         persistence.delete(old.getId());
-        LOGGER.log(Level.INFO, "Termina proceso de actualizar el pago con id = {0} del cliente con id = {1}", new Object[]{pagosId, clientesId});
+        LOGGER.log(Level.INFO, "Termina proceso de borrar el pago con id = {0} del cliente con id = {1}", new Object[]{pagosId, clientesId});
     }
 
     /**
-     * VALIDA un numero de tarjeta de crédito usando el algoritmo de Luhn,
+     * Valida un numero de tarjeta de crédito usando el algoritmo de Luhn,
      * acreditado al inicio.
      *
      * @param numero1 el número de tarjeta del cliente
@@ -217,7 +217,7 @@ public class PagoLogic {
     }
 
     /**
-     * VALIDA un numero de tarjeta de crédito con su empresa
+     * Valida un numero de tarjeta de crédito con su empresa
      *
      * @param numero numero de credito
      * @param empresa empresa bancaria asociada a la tarjeta

@@ -11,6 +11,7 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -47,9 +48,8 @@ public class FechaEntity extends BaseEntity implements Serializable {
      * Eventos de la fecha
      */
     @PodamExclude
-    @OneToMany(
-            mappedBy="fecha",
-            fetch= FetchType.LAZY
+    @ManyToMany(
+            mappedBy="fechas"
     )
     private Collection<EventoEntity> eventos;
   

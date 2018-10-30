@@ -49,7 +49,7 @@ public class ClienteResource {
      */
     @POST
     public ClienteDTO createCliente(ClienteDTO cliente) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "ClienteResource createSugerencia: input: {0}", cliente);
+        LOGGER.log(Level.INFO, "ClienteResource createCliente: input: {0}", cliente);
 
         // Convierte el DTO (json) en un objeto Entity para ser manejado por la lógica.
         ClienteEntity entity = cliente.toEntity();
@@ -58,7 +58,7 @@ public class ClienteResource {
         // Como debe retornar un DTO (json) se invoca el constructor del DTO con argumento el entity nuevo
         ClienteDTO nuevoDTO = new ClienteDTO(nuevoEntity);
 
-        LOGGER.log(Level.INFO, "ClienteResource createSugerencia: input: {0}", nuevoDTO);
+        LOGGER.log(Level.INFO, "ClienteResource createCliente: input: {0}", nuevoDTO);
         return nuevoDTO;
     }
 
