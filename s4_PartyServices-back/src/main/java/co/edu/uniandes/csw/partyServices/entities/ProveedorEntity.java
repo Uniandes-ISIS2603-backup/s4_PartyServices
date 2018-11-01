@@ -24,7 +24,10 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
     private final static long serialVersionUID = 1L ;
     
     @PodamExclude
-    @OneToOne()
+    @OneToOne(
+    mappedBy = "proveedor",
+            fetch = FetchType.LAZY
+    )
     private AgendaEntity agenda;
     
     private String nombre;

@@ -20,8 +20,7 @@ public class ProveedorDTO implements Serializable{
   private String nombre ;
   private String contrasenia ;
   private Double calificacion;
-  private AgendaDTO agenda;
- 
+  
 
   
   public ProveedorDTO(){
@@ -34,9 +33,8 @@ public ProveedorDTO(ProveedorEntity provEntity) {
             this.nombre = provEntity.getNombre();
             this.contrasenia = provEntity.getContrasenia();
             this.calificacion = provEntity.getCalificacion();
-            if(provEntity.getAgenda()!=null){
-            this.agenda = new AgendaDTO (provEntity.getAgenda());
-            }
+            
+            
         }
     }
 
@@ -52,9 +50,7 @@ public ProveedorDTO(ProveedorEntity provEntity) {
         proveedorEntity.setNombre(this.getNombre());
         proveedorEntity.setContrasenia(this.getContrasenia());
         proveedorEntity.setCalificacion(this.calificacion);
-        if(this.agenda!=null){
-        proveedorEntity.setAgenda(this.agenda.toEntity());
-        }
+        
         return proveedorEntity;
     }
     
@@ -91,6 +87,7 @@ public void setId(Long pid)
 {
     this.id = pid ;
 }
+
 
 
   @Override
