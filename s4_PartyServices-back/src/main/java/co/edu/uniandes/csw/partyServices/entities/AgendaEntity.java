@@ -84,10 +84,7 @@ public class AgendaEntity extends BaseEntity implements Serializable{
      * Relacion uno a uno con el proveedor de la agenda
      */
     @PodamExclude
-    @OneToOne(
-            mappedBy="agenda",
-            fetch = FetchType.EAGER
-    )
+    @OneToOne( )
     private ProveedorEntity proveedor;
 
     /**
