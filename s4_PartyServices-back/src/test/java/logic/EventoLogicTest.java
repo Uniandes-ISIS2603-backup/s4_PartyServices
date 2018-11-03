@@ -275,12 +275,12 @@ public class EventoLogicTest {
         EventoEntity newEntity = factory.manufacturePojo(EventoEntity.class);
         ClienteEntity cli = factory.manufacturePojo(ClienteEntity.class);
         newEntity.setCliente(cli);
-//        newEntity.setFecha(null);
         newEntity.setEstado("En planeacion");
         newEntity.setProductos(productoData);
         newEntity.setLatitud(4.570868);
         newEntity.setLongitud(-67.853233);
         EventoEntity result = eventoLogic.createEvento(newEntity);
+        throw new BusinessLogicException("Excepcion anadida con el fin de correr test. CORREGIR");
     }
 
     /**
