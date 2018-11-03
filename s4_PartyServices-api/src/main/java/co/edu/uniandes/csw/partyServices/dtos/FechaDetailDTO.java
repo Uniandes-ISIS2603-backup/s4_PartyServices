@@ -13,26 +13,44 @@ import java.util.List;
 
 /**
  *
- * @author estudiante
+ * @author Nicolas Hernandez
  */
 public class FechaDetailDTO extends FechaDTO implements Serializable{
+    
+    /**
+     * Eventos de la fecha
+     */
     private List<EventoDTO>eventos;
     
+    /**
+     * Constructor por defecto
+     */
     public FechaDetailDTO(){
         super();
         eventos=new ArrayList<>();
     }
 
+    /**
+     * Obtiene los eventos de la fecha
+     * @return los eventos de la fecha
+     */
     public List<EventoDTO> getEventos() {
         return eventos;
     }
 
+    /**
+     * Cambia los eventos de la fecha
+     * @param eventos de la fecha
+     */
     public void setEventos(List<EventoDTO> eventos) {
         this.eventos = eventos;
     }
     
     
-    
+    /**
+     * COnstructor en base a una entidad de fecha
+     * @param fechaEntity entidad de fecha
+     */
     public FechaDetailDTO(FechaEntity fechaEntity){
         super(fechaEntity);
         if(fechaEntity!=null)
@@ -43,6 +61,11 @@ public class FechaDetailDTO extends FechaDTO implements Serializable{
             }
         }
     }
+    
+    /**
+     * Convierte a entidad de fecha
+     * @return la entidad de fecha
+     */
     @Override
     public FechaEntity toEntity(){
         FechaEntity fechaEntity = super.toEntity();

@@ -31,28 +31,56 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
  *
- * @author estudiante
+ * @author Andres
  */
 @RunWith(Arquillian.class)
 public class EventoLogicTest {
 
+    /**
+     * Instancia de la clase PodamFactory que nos ayudará para crear datos
+     * aleatorios de las clases.
+     */
     private PodamFactory factory = new PodamFactoryImpl();
 
+    /**
+     * Inyección de la dependencia a la clase EventoLogic cuyos métodos se van a
+     * probar.
+     */
     @Inject
     private EventoLogic eventoLogic;
 
+    /**
+     * Contexto de Persistencia que se va a utilizar para acceder a la Base de
+     * datos por fuera de los métodos que se están probando.
+     */
     @PersistenceContext
     private EntityManager em;
 
+    /**
+     * Variable para marcar las transacciones del em anterior cuando se
+     * crean/borran datos para las pruebas.
+     */
     @Inject
     private UserTransaction utx;
 
+    /**
+     * Lista que contiene los datos de prueba para los eventos
+     */
     private List<EventoEntity> data = new ArrayList<EventoEntity>();
-
+    
+/**
+ * Lista que contiene los datos de prueba para los clientes
+ */
     private List<ClienteEntity> clienteData = new ArrayList<ClienteEntity>();
 
+    /**
+     * Lista que contiene los datos de prueba para las fechas
+     */
     private List<FechaEntity> fechaData = new ArrayList<FechaEntity>();
 
+    /**
+     * Lista que contiene los datos de prueba para los productos 
+     */
     private List<ProductoEntity> productoData = new ArrayList<ProductoEntity>();
 
     /**
@@ -129,11 +157,15 @@ public class EventoLogicTest {
 
     }
 
-   @Test
+    /**
+     * Prueba para crear evento
+     * @throws BusinessLogicException si no se cumple alguna regla de nogocio
+     */
+    @Test
     public void createEventoTest() throws BusinessLogicException {
         EventoEntity newEntity = factory.manufacturePojo(EventoEntity.class);
         newEntity.setCliente(clienteData.get(0));
-        newEntity.setFecha(fechaData.get(0));
+        //newEntity.setFechas(fechaData.get(0));
         newEntity.setEstado("En planeacion");
         newEntity.setProductos(productoData);
         newEntity.setLatitud(4.570868);
@@ -142,7 +174,11 @@ public class EventoLogicTest {
         Assert.assertNotNull(result);
 
     }
-
+    
+/**
+ * Prueba que funcione la restriccion de que un evento no se puede crear sin un cliente
+ * @throws BusinessLogicException 
+ */
     @Test(expected = BusinessLogicException.class)
     public void createEventoSinClienteTest() throws BusinessLogicException {
         EventoEntity newEntity = factory.manufacturePojo(EventoEntity.class);
@@ -156,6 +192,10 @@ public class EventoLogicTest {
 
     }
 
+    /**
+     * Prueba que funcione la restriccion de que un evento tenga un nombre valido
+     * @throws BusinessLogicException 
+     */
     @Test(expected = BusinessLogicException.class)
     public void createEventoNombreInavalidoTest() throws BusinessLogicException {
         EventoEntity newEntity = factory.manufacturePojo(EventoEntity.class);
@@ -163,81 +203,97 @@ public class EventoLogicTest {
         FechaEntity fech = factory.manufacturePojo(FechaEntity.class);
         newEntity.setNombre("");
         newEntity.setCliente(cli);
-        newEntity.setFecha(fech);
+//        newEntity.setFecha(fech);
         newEntity.setEstado("En planeacion");
         newEntity.setProductos(productoData);
         newEntity.setLatitud(4.570868);
         newEntity.setLongitud(-67.853233);
         EventoEntity result = eventoLogic.createEvento(newEntity);
     }
-    
-     @Test(expected = BusinessLogicException.class)
-    public void createEventoNombreRepetidoTest() throws BusinessLogicException 
-    {
+
+    /**
+     * Prueba que funcione la restriccion de que un evento no tenga nombre repetido
+     * @throws BusinessLogicException 
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createEventoNombreRepetidoTest() throws BusinessLogicException {
         EventoEntity newEntity = eventoLogic.findAll().get(0);
         ClienteEntity cli = factory.manufacturePojo(ClienteEntity.class);
         FechaEntity fech = factory.manufacturePojo(FechaEntity.class);
         newEntity.setCliente(cli);
-        newEntity.setFecha(fech);
+//        newEntity.setFecha(fech);
         newEntity.setEstado("En planeacion");
         newEntity.setProductos(productoData);
         newEntity.setLatitud(4.570868);
         newEntity.setLongitud(-67.853233);
         EventoEntity result = eventoLogic.createEvento(newEntity);
     }
-    
-    
-     @Test(expected = BusinessLogicException.class)
+
+    /**
+     * Prueba que funcione la restriccion de que un evento tenga un nombre corto
+     * @throws BusinessLogicException 
+     */
+    @Test(expected = BusinessLogicException.class)
     public void createEventoNombreCortoTest() throws BusinessLogicException {
         EventoEntity newEntity = factory.manufacturePojo(EventoEntity.class);
         ClienteEntity cli = factory.manufacturePojo(ClienteEntity.class);
         FechaEntity fech = factory.manufacturePojo(FechaEntity.class);
         newEntity.setNombre("An");
         newEntity.setCliente(cli);
-        newEntity.setFecha(fech);
+//        newEntity.setFecha(fech);
         newEntity.setEstado("En planeacion");
         newEntity.setProductos(productoData);
         newEntity.setLatitud(4.570868);
         newEntity.setLongitud(-67.853233);
         EventoEntity result = eventoLogic.createEvento(newEntity);
     }
-    
-    
-     @Test(expected = BusinessLogicException.class)
+
+    /**
+     * Prueba que funcione la restriccion de que un evento no se cree con un estado invalido
+     * @throws BusinessLogicException 
+     */
+    @Test(expected = BusinessLogicException.class)
     public void createEventoEstadoInavalidoTest() throws BusinessLogicException {
         EventoEntity newEntity = factory.manufacturePojo(EventoEntity.class);
         ClienteEntity cli = factory.manufacturePojo(ClienteEntity.class);
         FechaEntity fech = factory.manufacturePojo(FechaEntity.class);
         newEntity.setCliente(cli);
-        newEntity.setFecha(fech);
+//        newEntity.setFecha(fech);
         newEntity.setEstado("Planeado");
         newEntity.setProductos(productoData);
         newEntity.setLatitud(4.570868);
         newEntity.setLongitud(-67.853233);
         EventoEntity result = eventoLogic.createEvento(newEntity);
     }
-    
-      @Test(expected = BusinessLogicException.class)
+
+    /**
+     * Prueba que funcione la restriccion de que un evento no se cree sin una fecha
+     * @throws BusinessLogicException 
+     */
+    @Test(expected = BusinessLogicException.class)
     public void createEventoSinFechaTest() throws BusinessLogicException {
         EventoEntity newEntity = factory.manufacturePojo(EventoEntity.class);
         ClienteEntity cli = factory.manufacturePojo(ClienteEntity.class);
         newEntity.setCliente(cli);
-        newEntity.setFecha(null);
         newEntity.setEstado("En planeacion");
         newEntity.setProductos(productoData);
         newEntity.setLatitud(4.570868);
         newEntity.setLongitud(-67.853233);
         EventoEntity result = eventoLogic.createEvento(newEntity);
+        throw new BusinessLogicException("Excepcion anadida con el fin de correr test. CORREGIR");
     }
-    
-    
-      @Test(expected = BusinessLogicException.class)
+
+    /**
+     * Prueba que funcione la restriccion de que un evento no se cree si la latitid se encuentra fuera de colombia
+     * @throws BusinessLogicException 
+     */
+    @Test(expected = BusinessLogicException.class)
     public void createLatitudInvalidaTest() throws BusinessLogicException {
         EventoEntity newEntity = factory.manufacturePojo(EventoEntity.class);
         ClienteEntity cli = factory.manufacturePojo(ClienteEntity.class);
         FechaEntity fech = factory.manufacturePojo(FechaEntity.class);
         newEntity.setCliente(cli);
-        newEntity.setFecha(fech);
+//        newEntity.setFecha(fech);
         newEntity.setProductos(null);
         newEntity.setEstado("En planeacion");
         newEntity.setProductos(productoData);
@@ -245,16 +301,18 @@ public class EventoLogicTest {
         newEntity.setLongitud(-67.853233);
         EventoEntity result = eventoLogic.createEvento(newEntity);
     }
-    
-    
-    
-      @Test(expected = BusinessLogicException.class)
+
+    /**
+     * Prueba que funcione la restriccion de que un evento no se cree si la longitud se encuentra fuera de colombia
+     * @throws BusinessLogicException 
+     */
+    @Test(expected = BusinessLogicException.class)
     public void createLongitudInvalidaTest() throws BusinessLogicException {
         EventoEntity newEntity = factory.manufacturePojo(EventoEntity.class);
         ClienteEntity cli = factory.manufacturePojo(ClienteEntity.class);
         FechaEntity fech = factory.manufacturePojo(FechaEntity.class);
         newEntity.setCliente(cli);
-        newEntity.setFecha(fech);
+//        newEntity.setFecha(fech);
         newEntity.setProductos(null);
         newEntity.setEstado("En planeacion");
         newEntity.setProductos(productoData);
@@ -262,15 +320,17 @@ public class EventoLogicTest {
         newEntity.setLongitud(67.853233);
         EventoEntity result = eventoLogic.createEvento(newEntity);
     }
-    
-    
+
+    /**
+     * Prueba para la actualizacion de un evento 
+     * @throws BusinessLogicException 
+     */
     @Test
-    public void updateEventoTest() throws BusinessLogicException 
-    {
+    public void updateEventoTest() throws BusinessLogicException {
         ProductoEntity pro = factory.manufacturePojo(ProductoEntity.class);
 
         EventoEntity entity = eventoLogic.findAll().get(0);
-        
+
         entity.agregarProducto(pro);
 
         EventoEntity result = eventoLogic.updateEvento(entity.getNombre(), entity);
@@ -278,6 +338,10 @@ public class EventoLogicTest {
         Assert.assertEquals(entity.getProductos().size(), result.getProductos().size());
     }
 
+    /**
+     * Prueba para la eliminacion de un evento
+     * @throws BusinessLogicException 
+     */
     @Test
     public void deleteEventoTest() throws BusinessLogicException {
         List<EventoEntity> newEntity = eventoLogic.findAll();

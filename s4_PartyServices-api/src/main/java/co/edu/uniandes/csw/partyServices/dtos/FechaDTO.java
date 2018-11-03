@@ -19,14 +19,38 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  */
 public class FechaDTO implements Serializable{
     
+    /**
+     * Dia de la fecha
+     */
     private Date dia;
+    
+    /**
+     * Jorndada de la fecha
+     */
     private String jornada;
-    private Long id;
+    
+    /**
+     * Id de la fecha
+     */
+    private long id;
+    
+    /**
+     * Agenda de la fecha
+     */
     private AgendaDTO agenda;
+    
+    /**
+     * Constructor por defecto
+     */
     public FechaDTO()
     {
         
     }
+    
+    /**
+     * Constructor con base en una entidad de fecha
+     * @param fechaEntity la entidad de fecha
+     */
     public FechaDTO(FechaEntity fechaEntity)
     {
         if(fechaEntity!=null)
@@ -39,46 +63,90 @@ public class FechaDTO implements Serializable{
         }
     }
 
-    public Long getId() 
+    /**
+     * Obtiene el id de la fecha
+     * @return el id de la fecha
+     */
+    public long getId() 
     {
         return id;
     }
 
-    public void setId(Long id) {
+    /**
+     * Cambia el id de la fecha
+     * @param id el id de la fecha
+     */
+    public void setId(long id) 
+    {
         this.id = id;
     }
     
+    /**
+     * Obtiene el dia de la fecha
+     * @return el dia de la fecha
+     */
     public Date getDia()
     {
         return dia;
     }
+    
+    /**
+     * Obtiene la jornada de la fecha
+     * @return la jornada de la fecha
+     */
     public String getJornada()
     {
         return jornada;
     }
+    
+    /**
+     * Cambia el dia de la fecha
+     * @param dia el dia de la fecha
+     */
     public void setDia(Date dia)
     {
         this.dia=dia;
     }
+    
+    /**
+     * Cambia la jornada de la fecha
+     * @param jornada la jornada de la fecha
+     */
     public void setJornada(String jornada)
     {
         this.jornada=jornada;
     }
 
+    /**
+     * Obtiene la agenda de la fecha
+     * @return la agenda de la fecha
+     */
     public AgendaDTO getAgenda() {
         return agenda;
     }
 
+    /**
+     * Cambia la agenda de la fecha
+     * @param agenda agenda de la fecha
+     */
     public void setAgenda(AgendaDTO agenda) {
         this.agenda = agenda;
     }
     
-    
+    /**
+     * To string
+     * @return representacion a String
+     */
     @Override
     public String toString() 
     {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
+    
+    /**
+     * Convierte la fecha a entidad
+     * @return la entidad de la fecha
+     */
     public FechaEntity toEntity()
     {
         FechaEntity fechaEntity = new FechaEntity();
@@ -86,6 +154,5 @@ public class FechaDTO implements Serializable{
         fechaEntity.setId(this.id);
         fechaEntity.setJornada(this.jornada);
         return fechaEntity;
-        
     }
 }

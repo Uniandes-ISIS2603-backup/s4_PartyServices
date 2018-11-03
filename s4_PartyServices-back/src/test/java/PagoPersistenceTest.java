@@ -144,6 +144,7 @@ public class PagoPersistenceTest {
         Assert.assertEquals(nuevaEntidad.getUsuario(), entity.getUsuario());
         Assert.assertEquals(nuevaEntidad.getCodigoSeguridadTarjeta(), entity.getCodigoSeguridadTarjeta());
         Assert.assertEquals(nuevaEntidad.getEmpresa(), entity.getEmpresa());
+        Assert.assertEquals(nuevaEntidad.getCliente(), entity.getCliente());
         Assert.assertEquals(nuevaEntidad.getFechaExpiracionTarjetaCredito(), entity.getFechaExpiracionTarjetaCredito());
 
     }
@@ -157,6 +158,7 @@ public class PagoPersistenceTest {
         PagoEntity nuevaEntidad = pagoPersistence.find(dataCliente.get(0).getId(), entidad.getId());
         Assert.assertNotNull(nuevaEntidad);
         Assert.assertEquals(entidad.getEmpresa(), nuevaEntidad.getEmpresa());
+        Assert.assertEquals(entidad.getCliente(), nuevaEntidad.getCliente());
         Assert.assertEquals(entidad.getNombreTarjeta(), nuevaEntidad.getNombreTarjeta());
         Assert.assertEquals(entidad.getNumeroTarjetaCredito(), nuevaEntidad.getNumeroTarjetaCredito());
         Assert.assertEquals(entidad.getUsuario(), nuevaEntidad.getUsuario());
@@ -211,6 +213,7 @@ public class PagoPersistenceTest {
         PagoEntity resp = em.find(PagoEntity.class, entidadPago.getId());
 
         Assert.assertEquals(nuevaEntidadPago.getEmpresa(), resp.getEmpresa());
+        Assert.assertEquals(nuevaEntidadPago.getCliente(), resp.getCliente());
         Assert.assertEquals(nuevaEntidadPago.getNombreTarjeta(), resp.getNombreTarjeta());
         Assert.assertEquals(nuevaEntidadPago.getNumeroTarjetaCredito(), resp.getNumeroTarjetaCredito());
         Assert.assertEquals(nuevaEntidadPago.getUsuario(), resp.getUsuario());

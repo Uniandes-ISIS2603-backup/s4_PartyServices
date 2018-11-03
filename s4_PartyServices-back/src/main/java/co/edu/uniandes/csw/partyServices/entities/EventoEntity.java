@@ -19,88 +19,169 @@ import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
- * @author estudiante
+ * @author Andres
  */
 @Entity
 public class EventoEntity  extends BaseEntity implements Serializable
 {    
+    /**
+     * Atributo que representa el nombre de un evento
+     */    
     private String nombre ;
     
+    /**
+     * Atributo que representa el estado de un evento, solo puede tomar los valores:
+     *   "En planeacion" ,  "Planeado" ,  "En proceso",  "Cancelado",  "Terminado"
+     */
     private String estado ;
     
+    /**
+     * Atributo que representa la relacion muchos a uno con la clase FechaEntity
+     */
     @PodamExclude
-    @ManyToOne()
-    private FechaEntity fecha ;
+    @ManyToMany
+    private Collection<FechaEntity> fechas ;
     
+    /**
+     * Atributo que representa la relacion muchos a uno con la clase ClienteEntity
+     */
     @PodamExclude
     @ManyToOne(cascade = CascadeType.ALL)
     private ClienteEntity cliente ;
  
+     /**
+     * Atributo que representa la latitud de un evento, necesario para determinar su ubicación
+     */
     private double latitud ;
     
+    /**
+     * Atributo que representa la longitud de un evento, necesario para determinar su ubicación
+     */    
     private double longitud ;
     
+    
+    /**
+     * Atributo que representa la relacion muchos a muchos con la clase ProductoEntity
+     */
     @PodamExclude    
     @ManyToMany(
     mappedBy = "eventos" ,
     fetch = FetchType.LAZY
     )
-    Collection<ProductoEntity> productos ;
+    private Collection<ProductoEntity> productos ;
     
+    
+    /**
+     * Atributo que representa la relacion uno a muchos con la clase NotificacionEntity
+     */
     @PodamExclude
     @OneToMany(
     mappedBy = "evento",
     fetch = FetchType.LAZY)
-    Collection<NotificacionEntity> notificaciones ;
+    private Collection<NotificacionEntity> notificaciones ;
 
+    /**
+     * Metodo que retorna el nombre del evento
+     * @return nombre
+     */
     public String getNombre() {
         return nombre;
     }
 
+    /**
+     * Metodo que modifica el nombre del evento
+     * @param nombre 
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
     
     
+    /**
+     * Metodo que retorna el estado del evento
+     * @return estado
+     */
     public String getEstado() {
         return estado;
     }
 
+    /**
+     * Metodo que modifica el estado del evento
+     * @param estado 
+     */
     public void setEstado(String estado) {
         this.estado = estado;
     }
 
-    public FechaEntity getFecha() {
-        return fecha;
+    
+    /**
+     * Metodo que retorna la fecha del evento
+     * @return fecha
+     */
+    public Collection<FechaEntity> getFechas() {
+        return fechas;
     }
 
-    public void setFecha(FechaEntity fecha) {
-        this.fecha = fecha;
+    /**
+     * Metodo que modifica la fecha del evento
+     * @param fechas 
+     */
+    public void setFechas(Collection<FechaEntity> fechas) {
+        this.fechas = fechas;
     }
 
+    /**
+     * Metodo que retorna el cliente del evento
+     * @return cliente
+     */
     public ClienteEntity getCliente() {
         return cliente;
     }
 
+    /**
+     * Metodo que modifica el cliente del evento
+     * @param cliente 
+     */
     public void setCliente(ClienteEntity cliente) {
         this.cliente = cliente;
     }
 
+    /**
+     * Metodo que retorna las notificaciones del evento
+     * @return notificaciones
+     */
     public Collection<NotificacionEntity> getNotificaciones() {
         return notificaciones;
     }
 
+    /**
+     * Metodo que modifica el listado de notificaciones del evento
+     * @param notificaciones 
+     */
     public void setNotificaciones(Collection<NotificacionEntity> notificaciones) {
         this.notificaciones = notificaciones;
     }
     
+    /**
+     * Metodo que retorna los productos del evento
+     * @return productos
+     */
     public Collection<ProductoEntity> getProductos() {
         return productos;
     }
 
+    /**
+     * Metodo que modifica la lista de productos del evento
+     * @param productos 
+     */
     public void setProductos(Collection<ProductoEntity> productos) {
         this.productos = productos;
     }
+    
+    /**
+     * Metodo que agrega un producto al listado de productos
+     * @param producto 
+     */
     public void agregarProducto(ProductoEntity producto)
     {
         if(productos==null)
@@ -114,18 +195,34 @@ public class EventoEntity  extends BaseEntity implements Serializable
         }
     }
 
+    /**
+     * Metodo que retorna la latitud del evento
+     * @return latitud
+     */
     public double getLatitud() {
         return latitud;
     }
 
+    /**
+     * Metodo que modifica la latitud del evento
+     * @param latitud 
+     */
     public void setLatitud(double latitud) {
         this.latitud = latitud;
     }
 
+    /**
+     * Metodo que retorna la longitud del evento
+     * @return longitud
+     */
     public double getLongitud() {
         return longitud;
     }
 
+    /**
+     * Metodo que modifica la longitud del evento
+     * @param longitud 
+     */
     public void setLongitud(double longitud) {
         this.longitud = longitud;
     }
