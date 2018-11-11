@@ -5,26 +5,28 @@
  */
 package co.edu.uniandes.csw.partyServices.entities;
 
+
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  * Clase que representa un cliente en la persistencia y permite su serialización
  *
- * @author Elias Negrete
+ * @author Elias Negrete, Jesús Orlando Cárcamo Posada
  */
 @Entity
 public class ClienteEntity extends BaseEntity implements Serializable {
 
     /*
-    *login del cliente
+    *nombreUsuario del cliente
      */
-    private String login;
+    private String nombreUsuario;
 
     /*
     *contraseña del cliente
@@ -42,7 +44,7 @@ public class ClienteEntity extends BaseEntity implements Serializable {
     private String fechaNacimiento;
 
     /*
-    *relacion uno a mucho hacia eventos
+    *relacion uno a muchos hacia eventos
      */
     @PodamExclude
     @OneToMany(mappedBy = "cliente",
@@ -52,7 +54,7 @@ public class ClienteEntity extends BaseEntity implements Serializable {
     private List<EventoEntity> eventos;
 
     /*
-    *relacion uno a mucho hacia notificaciones
+    *relacion uno a muchos hacia notificaciones
      */
     @PodamExclude
     @OneToMany(mappedBy = "cliente",
@@ -62,7 +64,7 @@ public class ClienteEntity extends BaseEntity implements Serializable {
     private List<NotificacionEntity> notificaciones;
 
     /*
-    *relacion uno a mucho hacia sugerencias
+    *relacion uno a muchos hacia sugerencias
      */
     @PodamExclude
     @OneToMany(mappedBy = "cliente",
@@ -70,7 +72,7 @@ public class ClienteEntity extends BaseEntity implements Serializable {
     private List<SugerenciaEntity> sugerencias;
 
     /*
-    *relacion uno a mucho hacia valoraciones
+    *relacion uno a muchos hacia valoraciones
      */
     @PodamExclude
     @OneToMany(mappedBy = "cliente",
@@ -78,7 +80,7 @@ public class ClienteEntity extends BaseEntity implements Serializable {
     private List<ValoracionEntity> valoraciones;
 
     /*
-    *relacion uno a mucho hacia pagos
+    *relacion uno a muchos hacia pagos
      */
     @PodamExclude
     @OneToMany(mappedBy = "cliente",
@@ -86,6 +88,13 @@ public class ClienteEntity extends BaseEntity implements Serializable {
             orphanRemoval = true,
             fetch = FetchType.LAZY)
     private List<PagoEntity> pagos;
+    
+    @PodamExclude
+    @OneToOne(
+    mappedBy = "cliente",
+            fetch = FetchType.LAZY
+    )
+    private TarjetaCreditoEntity tarjetaCredito;
 
     /**
      * constructor base de la clase
@@ -114,12 +123,12 @@ public class ClienteEntity extends BaseEntity implements Serializable {
     }
 
     /**
-     * Devuelve la login de un cliente
+     * Devuelve la nombreUsuario de un cliente
      *
      * @return the user
      */
-    public String getLogin() {
-        return login;
+    public String getNombreUsuario() {
+        return nombreUsuario;
     }
 
     /**
@@ -141,12 +150,12 @@ public class ClienteEntity extends BaseEntity implements Serializable {
     }
 
     /**
-     * Modifica la login de un cliente
+     * Modifica la nombreUsuario de un cliente
      *
      * @param user the user to set
      */
-    public void setLogin(String user) {
-        this.login = user;
+    public void setNombreUsuario(String user) {
+        this.nombreUsuario = user;
     }
 
     /**
@@ -256,4 +265,14 @@ public class ClienteEntity extends BaseEntity implements Serializable {
     public void setFechaNacimiento(String fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
+
+    public TarjetaCreditoEntity getTarjetaCredito() {
+        return tarjetaCredito;
+    }
+
+    public void setTarjetaCredito(TarjetaCreditoEntity tarjetaCredito) {
+        this.tarjetaCredito = tarjetaCredito;
+    }
+    
+    
 }

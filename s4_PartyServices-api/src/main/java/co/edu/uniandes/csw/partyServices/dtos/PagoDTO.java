@@ -49,40 +49,20 @@ public class PagoDTO implements Serializable {
     private Long id;
 
     /*
-    * usuario al que pertenece el pago 
+    * fecha del pago.
      */
-    private String usuario;
+    private String fecha;
 
     /*
-    * numero del tarjeta de credito 
+    * valor del pago.
      */
-    private Long numeroTarjetaCredito;
+    private Integer valor;
 
     /*
-    * codigo de seguridad 
+    * Relación a un evento
+    dado que esta tiene cardinalidad 1.
      */
-    private Integer codigoSeguridadTarjeta;
-
-    /*
-    * fecha de expiracion de la tarjeta 
-     */
-    private String fechaExpiracionTarjetaCredito;
-
-    /*
-    *nombre del dueño de la tarjeta
-     */
-    private String nombreTarjeta;
-
-    /*
-    * empresa que expide la tarjeta 
-     */
-    private String empresa;
-
-    /*
-    * Relación a un CLIENTE
-    * dado que ésta tiene cardinalidad 1.
-     */
-    private ClienteDTO cliente;
+    private EventoDTO evento;
 
     /**
      * Constructor por defecto
@@ -98,15 +78,12 @@ public class PagoDTO implements Serializable {
     public PagoDTO(PagoEntity pagoEntity) {
         if (pagoEntity != null) {
             this.id = pagoEntity.getId();
-            this.codigoSeguridadTarjeta = pagoEntity.getCodigoSeguridadTarjeta();
-            this.empresa = pagoEntity.getEmpresa();
-            this.fechaExpiracionTarjetaCredito = pagoEntity.getFechaExpiracionTarjetaCredito();
-            this.nombreTarjeta = pagoEntity.getNombreTarjeta();
-            this.numeroTarjetaCredito = pagoEntity.getNumeroTarjetaCredito();
-            if (pagoEntity.getCliente() != null) {
-                this.cliente = new ClienteDTO(pagoEntity.getCliente());
+            this.fecha = pagoEntity.getFecha();
+            this.valor = pagoEntity.getValor();
+            if (pagoEntity.getEvento() != null) {
+                this.evento = new EventoDTO(pagoEntity.getEvento());
             } else {
-                this.cliente = null;
+                this.evento = null;
             }
         }
     }
@@ -119,13 +96,10 @@ public class PagoDTO implements Serializable {
     public PagoEntity toEntity() {
         PagoEntity pagoEntity = new PagoEntity();
         pagoEntity.setId(this.id);
-        pagoEntity.setCodigoSeguridadTarjeta(this.codigoSeguridadTarjeta);
-        pagoEntity.setEmpresa(this.empresa);
-        pagoEntity.setFechaExpiracionTarjetaCredito(this.fechaExpiracionTarjetaCredito);
-        pagoEntity.setNombreTarjeta(this.nombreTarjeta);
-        pagoEntity.setNumeroTarjetaCredito(this.numeroTarjetaCredito);
-        if (this.cliente != null) {
-            pagoEntity.setCliente(this.cliente.toEntity());
+        pagoEntity.setFecha(this.fecha);
+        pagoEntity.setValor(this.valor);
+        if (this.evento != null) {
+            pagoEntity.setEvento(this.evento.toEntity());
         }
 
         return pagoEntity;
@@ -149,132 +123,30 @@ public class PagoDTO implements Serializable {
         this.id = id;
     }
 
-    /**
-     * Devuelve el LOGIN del usuario.
-     *
-     * @return the user
-     */
-    public String getUsuario() {
-        return usuario;
+    public String getFecha() {
+        return fecha;
     }
 
-    /**
-     * Modifica el usuario del pago.
-     *
-     * @param pUsuario the id to set
-     */
-    public void setUsuario(String pUsuario) {
-        this.usuario = pUsuario;
-
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
 
-    /**
-     * Devuelve el numero de tarjeta del usuario.
-     *
-     * @return the card number
-     */
-    public Long getNumeroTarjetaCredito() {
-        return numeroTarjetaCredito;
+    public Integer getValor() {
+        return valor;
     }
 
-    /**
-     * Modifica la tarjeta del pago.
-     *
-     * @param numeroTarjetaCredito the number to set
-     */
-    public void setNumeroTarjetaCredito(Long numeroTarjetaCredito) {
-        this.numeroTarjetaCredito = numeroTarjetaCredito;
+    public void setValor(Integer valor) {
+        this.valor = valor;
     }
 
-    /**
-     * Devuelve el codigo de la tarjeta.
-     *
-     * @return the code
-     */
-    public Integer getCodigoSeguridadTarjeta() {
-        return codigoSeguridadTarjeta;
+    public EventoDTO getEvento() {
+        return evento;
     }
 
-    /**
-     * Modifica el codigo de la tarjeta del pago.
-     *
-     * @param codigoSeguridadTarjeta the code to set
-     */
-    public void setCodigoSeguridadTarjeta(Integer codigoSeguridadTarjeta) {
-        this.codigoSeguridadTarjeta = codigoSeguridadTarjeta;
+    public void setEvento(EventoDTO evento) {
+        this.evento = evento;
     }
 
-    /**
-     * Devuelve la fecha de expiracion de la tarjeta del usuario.
-     *
-     * @return the expiration date
-     */
-    public String getFechaExpiracionTarjetaCredito() {
-        return fechaExpiracionTarjetaCredito;
-    }
-
-    /**
-     * Modifica la fecha de expiracion de la tarjeat del pago.
-     *
-     * @param fechaExpiracionTarjetaCredito the date to set
-     */
-    public void setFechaExpiracionTarjetaCredito(String fechaExpiracionTarjetaCredito) {
-        this.fechaExpiracionTarjetaCredito = fechaExpiracionTarjetaCredito;
-    }
-
-    /**
-     * Devuelve el nombre en la tarjeta.
-     *
-     * @return the user
-     */
-    public String getNombreTarjeta() {
-        return nombreTarjeta;
-    }
-
-    /**
-     * Modifica el nombre de tarjeta del pago.
-     *
-     * @param nombreTarjeta the name to set
-     */
-    public void setNombreTarjeta(String nombreTarjeta) {
-        this.nombreTarjeta = nombreTarjeta;
-    }
-
-    /**
-     * Devuelve la empresa de tarjeta
-     *
-     * @return the enterprise
-     */
-    public String getEmpresa() {
-        return empresa;
-    }
-
-    /**
-     * Modifica la empresa del pago.
-     *
-     * @param empresa the enterprise to set
-     */
-    public void setEmpresa(String empresa) {
-        this.empresa = empresa;
-    }
-
-    /**
-     * Devuelve el CLIENTE.
-     *
-     * @return the client
-     */
-    public ClienteDTO getCliente() {
-        return cliente;
-    }
-
-    /**
-     * Modifica el cliente del pago.
-     *
-     * @param cliente the client to set
-     */
-    public void setCliente(ClienteDTO cliente) {
-        this.cliente = cliente;
-    }
 
     @Override
     public String toString() {
