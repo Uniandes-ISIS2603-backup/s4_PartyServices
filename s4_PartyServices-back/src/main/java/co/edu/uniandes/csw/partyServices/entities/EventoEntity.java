@@ -14,6 +14,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import uk.co.jemos.podam.common.PodamExclude;
 
 
@@ -79,6 +80,13 @@ public class EventoEntity  extends BaseEntity implements Serializable
     mappedBy = "evento",
     fetch = FetchType.LAZY)
     private Collection<NotificacionEntity> notificaciones ;
+    
+    /**
+     * Relacion uno a uno con el pago del evento.
+     */
+    @PodamExclude
+    @OneToOne( )
+    private PagoEntity pago;
 
     /**
      * Metodo que retorna el nombre del evento
@@ -225,6 +233,22 @@ public class EventoEntity  extends BaseEntity implements Serializable
      */
     public void setLongitud(double longitud) {
         this.longitud = longitud;
+    }
+    
+    /**
+     * Devuelve el pago hecho a este evento si lo tiene.
+     * @return pago. El pago del evento.
+     */
+    public PagoEntity getPago() {
+        return pago;
+    }
+
+    /**
+     * Modifica el pago del evento.
+     * @param pago. El nuevo pago que reemplazara al actual.
+     */
+    public void setPago(PagoEntity pago) {
+        this.pago = pago;
     }
     
    

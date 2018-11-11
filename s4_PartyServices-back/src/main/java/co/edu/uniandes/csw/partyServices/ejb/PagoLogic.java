@@ -30,6 +30,9 @@ import co.edu.uniandes.csw.partyServices.persistence.ClientePersistence;
 import co.edu.uniandes.csw.partyServices.persistence.PagoPersistence;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -72,54 +75,27 @@ public class PagoLogic {
 
         ClienteEntity entity = persistenceCliente.find(clienteId);
 
-        //debe tener un numero valido
-        if (!validarNumero(pagoEntity.getNumeroTarjetaCredito())) {
-            throw new BusinessLogicException("El número de la tarjeta no es valido");
-        }
-        //la empresa debe ser coherente con el numero de tarjeta
-        if (!validarEmpresaCorrecta(pagoEntity.getNumeroTarjetaCredito(), pagoEntity.getEmpresa())) {
-            throw new BusinessLogicException("En número no coincide con la empresa");
+       SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+
+        if (pagoEntity.getFecha() == null) {
+            throw new BusinessLogicException("La fecha no puede ser nula");
         }
 
-        //el nombre en la tarjeta debe tener un formato sgt:
-        String formatoNombre = "^[A-Z\\s]+$";
-        Pattern patternNombre = Pattern.compile(formatoNombre);
-
-        Matcher matchNombre = patternNombre.matcher(pagoEntity.getNombreTarjeta());
-        if (!matchNombre.matches()) {
-            throw new BusinessLogicException("El nombre en la tarjeta no sigue un formatoValido");
-        }
-
-        //el codigo de seguridad debe ser de los sgts digitos
-        String formatoCodigoSeguridad = "[0-9]{3,4}";
-        Pattern codigoPattern = Pattern.compile(formatoCodigoSeguridad);
-        String codigoString = pagoEntity.getCodigoSeguridadTarjeta().toString();
-
-        Matcher codigoMatcher = codigoPattern.matcher(codigoString);
-        if (!codigoMatcher.matches()) {
-            throw new BusinessLogicException("El código de seguridad está limitado de 3 a 4 dígitos");
-        }
-
-        SimpleDateFormat formato = new SimpleDateFormat("MM/yy");
-        Calendar calendario = Calendar.getInstance();
-        Date fechaActual = calendario.getTime();
-
-        //la mayoria de las empresas ofrecen una fecha de expiración entre 1 y 5 años. Se asigna 10 para eliminar toda
-        //posibilidad
-        calendario.add(Calendar.YEAR, 10);
-        Date aniosVencimiento = calendario.getTime();
+        Date fechaAhora = Date.from(Instant.now());
         try {
 
-            Date fechaExpiracionTarjeta = formato.parse(pagoEntity.getFechaExpiracionTarjetaCredito());
-            if (fechaExpiracionTarjeta.compareTo(fechaActual) < 0) {
-                throw new BusinessLogicException("La tarjeta de crédito se encuentra vencida");
-            }
-            if (fechaExpiracionTarjeta.compareTo(aniosVencimiento) > 0) {
-                throw new BusinessLogicException("La fecha de expiración futura no es valida");
-            }
+            Date fecha = format.parse(pagoEntity.getFecha());
+
+            if (fecha.compareTo(fechaAhora) > 0) {
+                LOGGER.log(Level.INFO, "Hubo un error con la fecha, no puede ser posterior a la fecha actual.");
+
+                throw new BusinessLogicException("La fecha es superior a la actual");
+            } 
         } catch (ParseException ex) {
-            throw new BusinessLogicException("La fecha de expiracion no cumple el formato: " + ex);
+
+            throw new BusinessLogicException("La fecha no cumple el formato");
         }
+        
         pagoEntity.setCliente(entity);
         LOGGER.log(Level.INFO, "Termina proceso de creación del pago");
 
@@ -189,68 +165,4 @@ public class PagoLogic {
         persistence.delete(old.getId());
         LOGGER.log(Level.INFO, "Termina proceso de borrar el pago con id = {0} del cliente con id = {1}", new Object[]{pagosId, clientesId});
     }
-
-    /**
-     * Valida un numero de tarjeta de crédito usando el algoritmo de Luhn,
-     * acreditado al inicio.
-     *
-     * @param numero1 el número de tarjeta del cliente
-     * @return true o flase si es valido
-     */
-    public boolean validarNumero(Long numero1) {
-        String numero = numero1.toString();
-        int s1 = 0;
-        int s2 = 0;
-        String reversa = new StringBuffer(numero).reverse().toString();
-        for (int i = 0; i < reversa.length(); i++) {
-            int digito = Character.digit(reversa.charAt(i), 10);
-            if (i % 2 == 0) {//this is for odd digits, they are 1-indexed in the algorithm
-                s1 += digito;
-            } else {//add 2 * digit for 0-4, add 2 * digit - 9 for 5-9
-                s2 += 2 * digito;
-                if (digito >= 5) {
-                    s2 -= 9;
-                }
-            }
-        }
-        return (s1 + s2) % 10 == 0;
-    }
-
-    /**
-     * Valida un numero de tarjeta de crédito con su empresa
-     *
-     * @param numero numero de credito
-     * @param empresa empresa bancaria asociada a la tarjeta
-     * @return true o false si coincide la empresa con el numero
-     * @throws
-     * co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException
-     */
-    public boolean validarEmpresaCorrecta(Long numero, String empresa) throws BusinessLogicException {
-        //string del numero
-        String numeroString = numero.toString();
-
-        String formato = "";
-        if (empresa.equalsIgnoreCase("Visa")) {
-            formato = "^4[0-9]{6,}$";
-        } else if (empresa.equalsIgnoreCase("MasterCard")) {
-            formato = "^5[1-5][0-9]{5,}|222[1-9][0-9]{3,}|22[3-9][0-9]{4,}|2[3-6][0-9]{5,}|27[01][0-9]{4,}|2720[0-9]{3,}$";
-        } else if (empresa.equalsIgnoreCase("Diners Club")) {
-            formato = "^3(?:0[0-5]|[68][0-9])[0-9]{4,}$";
-        } else if (empresa.equalsIgnoreCase("American Express")) {
-            formato = "^3[47][0-9]{5,}$";
-
-        } else if (empresa.equalsIgnoreCase("JCB")) {
-            formato = "^(?:2131|1800|35[0-9]{3})[0-9]{3,}$";
-        } else if (empresa.equalsIgnoreCase("Discover")) {
-            formato = "^6(?:011|5[0-9]{2})[0-9]{3,}$";
-        }
-        Pattern codigoPattern = Pattern.compile(formato);
-
-        Matcher codigoMatcher = codigoPattern.matcher(numeroString);
-        if (!codigoMatcher.matches()) {
-            throw new BusinessLogicException("El numero no cuadra con la empresa. Intente nuevamente");
-        }
-        return true;
-    }
-
 }

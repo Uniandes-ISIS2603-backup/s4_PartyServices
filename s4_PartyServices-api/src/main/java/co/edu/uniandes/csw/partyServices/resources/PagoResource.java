@@ -46,7 +46,7 @@ public class PagoResource {
      * petición y se regresa un objeto identico con un id auto-generado por la
      * base de datos.
      *
-     * @param pagosId El ID del cliente del cual se le agrega la pago
+     * @param clientesId El ID del cliente del cual se le agrega la pago
      * @param pago {@link PagoDTO} - La pago que se desea guardar.
      * @return JSON {@link PagoDTO} - La pago guardada con el atributo id
      * autogenerado.
@@ -54,9 +54,9 @@ public class PagoResource {
      * Error de lógica que se genera cuando ya existe la pago.
      */
     @POST
-    public PagoDTO createPago(@PathParam("clientesId") Long pagosId, PagoDTO pago) throws BusinessLogicException {
+    public PagoDTO createPago(@PathParam("clientesId") Long clientesId, PagoDTO pago) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "PagoResource createPago: input: {0}", pago);
-        PagoDTO nuevoDTO = new PagoDTO(pagoLogic.createPago(pagosId, pago.toEntity()));
+        PagoDTO nuevoDTO = new PagoDTO(pagoLogic.createPago(clientesId, pago.toEntity()));
         LOGGER.log(Level.INFO, "PagoResource createPago: output: {0}", nuevoDTO);
         return nuevoDTO;
     }
@@ -118,9 +118,7 @@ public class PagoResource {
     @Path("{pagosId: \\d+}")
     public PagoDTO updatePago(@PathParam("clientesId") Long clientesId, @PathParam("pagosId") Long pagosId, PagoDTO pago) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Resource update: input: clientesId: {0} , pagosId: {1} , pago:{2}", new Object[]{clientesId, pagosId, pago});
-        if (pagosId.equals(pago.getId())) {
-            throw new BusinessLogicException("Los ids del pago no coinciden.");
-        }
+        
         PagoEntity entity = pagoLogic.getPago(clientesId, pagosId);
         if (entity == null) {
             throw new WebApplicationException("El recurso /clientes/" + clientesId + "/pagos/" + pagosId + " no existe.", 404);
