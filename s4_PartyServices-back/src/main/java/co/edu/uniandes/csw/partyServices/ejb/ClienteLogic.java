@@ -50,8 +50,8 @@ public class ClienteLogic {
         LOGGER.log(Level.INFO, "Se inicia la creación del cliente. A espera de problemas");
 
         //no debe haber dos clientes con el mismo login
-        if (persistence.findByLogin(clienteEntity.getLogin()) != null) {
-            throw new BusinessLogicException("Ya existe un cliente con el login \"" + clienteEntity.getLogin() + "\"");
+        if (persistence.findByNombreUsuario(clienteEntity.getNombreUsuario()) != null) {
+            throw new BusinessLogicException("Ya existe un cliente con el login \"" + clienteEntity.getNombreUsuario() + "\"");
         }
 
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -158,21 +158,21 @@ public class ClienteLogic {
     public boolean validaciones(ClienteEntity clienteEntity) throws BusinessLogicException {
 
         //el login no puede ser vacio o nulo
-        if (clienteEntity.getLogin() == null || clienteEntity.getLogin().equals("")) {
+        if (clienteEntity.getNombreUsuario() == null || clienteEntity.getNombreUsuario().equals("")) {
             throw new BusinessLogicException("El login no puede ser vacio o nulo, por favor intente nuevamente.");
         }
 
         //validacion sobre la longitud y los cracateres del nombre
         String validacionLogin = "^(?=.{8,20}$)[a-zA-Z0-9]+$";
         Pattern loginPattern = Pattern.compile(validacionLogin);
-        Matcher loginMatcher = loginPattern.matcher(clienteEntity.getLogin());
+        Matcher loginMatcher = loginPattern.matcher(clienteEntity.getNombreUsuario());
 
         if (!loginMatcher.matches()) {
             throw new BusinessLogicException("El formato del login no es valido: solo puede contener número o letras en rango de 8 a 20 caracteres");
         }
 
         //el login no puede ser igual a la contraseña
-        if (clienteEntity.getLogin().equalsIgnoreCase(clienteEntity.getContrasenia())) {
+        if (clienteEntity.getNombreUsuario().equalsIgnoreCase(clienteEntity.getContrasenia())) {
             throw new BusinessLogicException("La contraseña no puede ser igual al login");
 
         }
