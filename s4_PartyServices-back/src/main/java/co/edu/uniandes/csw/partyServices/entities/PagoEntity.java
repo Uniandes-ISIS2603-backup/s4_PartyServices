@@ -23,8 +23,7 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 public class PagoEntity extends BaseEntity implements Serializable {
     
-  
-    
+   
     private String fecha;
     
     private Integer valor;

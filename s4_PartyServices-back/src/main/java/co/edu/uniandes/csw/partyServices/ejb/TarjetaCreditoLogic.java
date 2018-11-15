@@ -40,92 +40,52 @@ import javax.inject.Inject;
 
 /**
  *
- * @author Jesús Orlando Cárcamo Posada
+ * @author Jesús Orlando Cárcamo Posada, Elías NegreteS
  */
 public class TarjetaCreditoLogic {
-    
+
     private static final Logger LOGGER = Logger.getLogger(TarjetaCreditoLogic.class.getName());
-    
+
     @Inject
     private TarjetaCreditoPersistence persistence;// Variable para acceder a la persistencia de la aplicación. Es una inyección de dependencias.
-    
+
     @Inject
     private ClientePersistence persistenceCliente; // Variable para acceder a la persistencia de la aplicación. Es una inyección de dependencias.
-    
+
     public TarjetaCreditoEntity createTarjetaCredito(long clienteId, TarjetaCreditoEntity tarjetaCreditoEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de crear una tarjeta de credito");
 
-        ClienteEntity entity = persistenceCliente.find(clienteId);
-
-        //debe tener un numero valido
-        if (!validarNumero(tarjetaCreditoEntity.getNumero())) {
-            throw new BusinessLogicException("El número de la tarjeta no es valido");
-        }
-        //la franquicia debe ser coherente con el numero de tarjeta
-        if (!validarEmpresaCorrecta(tarjetaCreditoEntity.getNumero(), tarjetaCreditoEntity.getFranquicia())) {
-            throw new BusinessLogicException("En número no coincide con la franquicia de la tarjeta");
+        if (validaciones(tarjetaCreditoEntity)) {
+            ClienteEntity entity = persistenceCliente.find(clienteId);
+            tarjetaCreditoEntity.setCliente(entity);
+            LOGGER.log(Level.INFO, "Termina proceso de creación de la tarjeta de credito");
+            return persistence.create(tarjetaCreditoEntity);
         }
 
-        //el nombre en la tarjeta debe tener un formato sgt:
-        String formatoNombre = "^[A-Z\\s]+$";
-        Pattern patternNombre = Pattern.compile(formatoNombre);
-
-        Matcher matchNombre = patternNombre.matcher(tarjetaCreditoEntity.getNombreTitular());
-        if (!matchNombre.matches()) {
-            throw new BusinessLogicException("El nombre del titular de la tarjeta no sigue un formatoValido");
-        }
-
-        //el codigo de seguridad debe ser de los sgts digitos
-        String formatoCodigoSeguridad = "[0-9]{3,4}";
-        Pattern codigoPattern = Pattern.compile(formatoCodigoSeguridad);
-        String codigoString = tarjetaCreditoEntity.getCodigoSeguridad().toString();
-
-        Matcher codigoMatcher = codigoPattern.matcher(codigoString);
-        if (!codigoMatcher.matches()) {
-            throw new BusinessLogicException("El código de seguridad está limitado de 3 a 4 dígitos");
-        }
-
-        SimpleDateFormat formato = new SimpleDateFormat("MM/yy");
-        Calendar calendario = Calendar.getInstance();
-        Date fechaActual = calendario.getTime();
-
-        //la mayoria de las empresas ofrecen una fecha de expiración entre 1 y 5 años. Se asigna 10 para eliminar toda
-        //posibilidad
-        calendario.add(Calendar.YEAR, 10);
-        Date aniosVencimiento = calendario.getTime();
-        try {
-
-            Date fechaExpiracionTarjeta = formato.parse(tarjetaCreditoEntity.getFechaExpiracion());
-            if (fechaExpiracionTarjeta.compareTo(fechaActual) < 0) {
-                throw new BusinessLogicException("La tarjeta de crédito se encuentra vencida");
-            }
-            if (fechaExpiracionTarjeta.compareTo(aniosVencimiento) > 0) {
-                throw new BusinessLogicException("La fecha de expiración futura no es valida");
-            }
-        } catch (ParseException ex) {
-            throw new BusinessLogicException("La fecha de expiracion no cumple el formato: " + ex);
-        }
-        tarjetaCreditoEntity.setCliente(entity);
-        LOGGER.log(Level.INFO, "Termina proceso de creación de la tarjeta de credito");
-
-        return persistence.create(tarjetaCreditoEntity);
+        return null;
     }
-    
+
     public TarjetaCreditoEntity getTarjetaCredito(Long clienteid, Long id) {
         LOGGER.log(Level.INFO, "Inicia proceso de consultar la tarjeta de credito con id = {0} del cliente con id = {1}", new Object[]{id, clienteid});
 
         return persistence.find(clienteid, id);
     }
-    
-    public TarjetaCreditoEntity updateTarjetaCredito(Long clientesId, TarjetaCreditoEntity tarjetaCredito) {
+
+    public TarjetaCreditoEntity updateTarjetaCredito(Long clientesId, TarjetaCreditoEntity tarjetaCredito) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar la tarjeta de credito con id = {0} del cliente con id = {1}", new Object[]{tarjetaCredito.getId(), clientesId});
-        ClienteEntity entity = persistenceCliente.find(clientesId);
-        tarjetaCredito.setCliente(entity);
-        persistence.update(tarjetaCredito);
-        LOGGER.log(Level.INFO, "Termina proceso de actualizar la tarjeta de credito con id = {0} del cliente con id = {1}", new Object[]{tarjetaCredito.getId(), clientesId});
-        return tarjetaCredito;
+
+        if (validaciones(tarjetaCredito)) {
+            ClienteEntity entity = persistenceCliente.find(clientesId);
+            tarjetaCredito.setCliente(entity);
+            persistence.update(tarjetaCredito);
+            LOGGER.log(Level.INFO, "Termina proceso de actualizar la tarjeta de credito con id = {0} del cliente con id = {1}", new Object[]{tarjetaCredito.getId(), clientesId});
+            return tarjetaCredito;
+
+        }
+
+        return null;
     }
-    
+
     public void deleteTarjetaCredito(Long clientesId, Long tarjetaCreditoId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de borrar la tarjeta de credito con id = {0} del cliente con id = {1}", new Object[]{tarjetaCreditoId, clientesId});
         TarjetaCreditoEntity old = getTarjetaCredito(clientesId, tarjetaCreditoId);
@@ -135,7 +95,7 @@ public class TarjetaCreditoLogic {
         persistence.delete(old.getId());
         LOGGER.log(Level.INFO, "Termina proceso de borrar la tarjeta de credito con id = {0} del cliente con id = {1}", new Object[]{tarjetaCreditoId, clientesId});
     }
-    
+
     /**
      * Valida un numero de tarjeta de crédito usando el algoritmo de Luhn,
      * acreditado al inicio.
@@ -161,7 +121,7 @@ public class TarjetaCreditoLogic {
         }
         return (s1 + s2) % 10 == 0;
     }
-    
+
     /**
      * Valida un numero de tarjeta de crédito con su empresa
      *
@@ -171,7 +131,7 @@ public class TarjetaCreditoLogic {
      * @throws
      * co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException
      */
-    public boolean validarEmpresaCorrecta(Long numero, String empresa) throws BusinessLogicException {
+    public boolean validarFranquiciaCorrecta(Long numero, String empresa) throws BusinessLogicException {
         //string del numero
         String numeroString = numero.toString();
 
@@ -198,5 +158,59 @@ public class TarjetaCreditoLogic {
         }
         return true;
     }
-    
+
+    public boolean validaciones(TarjetaCreditoEntity tarjetaCreditoEntity) throws BusinessLogicException {
+        //debe tener un numero valido
+        if (!validarNumero(tarjetaCreditoEntity.getNumero())) {
+            throw new BusinessLogicException("El número de la tarjeta no es valido");
+        }
+
+        //la franquicia debe ser coherente con el numero de tarjeta
+        if (!validarFranquiciaCorrecta(tarjetaCreditoEntity.getNumero(), tarjetaCreditoEntity.getFranquicia())) {
+            throw new BusinessLogicException("El número no coincide con la franquicia de la tarjeta");
+        }
+
+        //el nombre del titular de la tarjeta debe tener el formato sigguiente:
+        String formatoNombre = "^[A-Z\\s]+$";
+        Pattern patternNombre = Pattern.compile(formatoNombre);
+
+        Matcher matchNombre = patternNombre.matcher(tarjetaCreditoEntity.getNombreTitular());
+        if (!matchNombre.matches()) {
+            throw new BusinessLogicException("El nombre del titular de la tarjeta no sigue un formatoValido");
+        }
+
+        //El codigo de seguridad debe ser de los siguientes digitos
+        String formatoCodigoSeguridad = "[0-9]{3,4}";
+        Pattern codigoPattern = Pattern.compile(formatoCodigoSeguridad);
+        String codigoString = tarjetaCreditoEntity.getCodigoSeguridad().toString();
+
+        Matcher codigoMatcher = codigoPattern.matcher(codigoString);
+        if (!codigoMatcher.matches()) {
+            throw new BusinessLogicException("El código de seguridad debe estar limitado de 3 a 4 dígitos");
+        }
+
+        SimpleDateFormat formato = new SimpleDateFormat("MM/yy");
+        Calendar calendario = Calendar.getInstance();
+        Date fechaActual = calendario.getTime();
+
+        //la mayoria de las empresas ofrecen una fecha de expiración entre 1 y 5 años. Se asigna 10 para eliminar toda
+        //posibilidad
+        calendario.add(Calendar.YEAR, 10);
+        Date aniosVencimiento = calendario.getTime();
+        try {
+
+            Date fechaExpiracionTarjeta = formato.parse(tarjetaCreditoEntity.getFechaExpiracion());
+            if (fechaExpiracionTarjeta.compareTo(fechaActual) < 0) {
+                throw new BusinessLogicException("La tarjeta de crédito se encuentra vencida");
+            }
+            if (fechaExpiracionTarjeta.compareTo(aniosVencimiento) > 0) {
+                throw new BusinessLogicException("La fecha de expiración futura no es valida");
+            }
+        } catch (ParseException ex) {
+            throw new BusinessLogicException("La fecha de expiracion no cumple el formato: " + ex);
+        }
+
+        return true;
+    }
+
 }
