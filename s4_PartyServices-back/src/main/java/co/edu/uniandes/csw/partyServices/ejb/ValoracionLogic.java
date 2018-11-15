@@ -45,8 +45,11 @@ public class ValoracionLogic {
     public ValoracionEntity createValoracion(Long proveedorId, ValoracionEntity valoracionEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de creación de la valoracion");
 
+        if (valoracionEntity.getTitulo()!= null && valoracionEntity.getTitulo().length() > 50) {
+            throw new BusinessLogicException("El tamaño del titulo no debe ser superior a los 50 caracteres o vacío");
+        }
         if (valoracionEntity.getComentario() != null && valoracionEntity.getComentario().length() > 10000) {
-            throw new BusinessLogicException("El tamaño del texto no debe ser superior a los 10000 caracteres");
+            throw new BusinessLogicException("El tamaño del texto no debe ser superior a los 10000 caracteres o vacío");
         }
         ProveedorEntity proveedor = proveedorPersistence.find(proveedorId);
         valoracionEntity.setProveedor(proveedor);

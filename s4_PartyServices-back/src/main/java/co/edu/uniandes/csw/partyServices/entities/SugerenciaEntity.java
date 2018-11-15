@@ -20,6 +20,14 @@ public class SugerenciaEntity extends BaseEntity implements Serializable {
     private String comentario;
 
     private String nombreUsuario;
+    
+    private String titulo;
+    
+    private String link;
+
+    
+
+
 
     @PodamExclude
     @ManyToOne
@@ -106,6 +114,22 @@ public class SugerenciaEntity extends BaseEntity implements Serializable {
      */
     public void setTematica(TematicaEntity tematica) {
         this.tematica = tematica;
+    }
+    
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+    
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 
 }
