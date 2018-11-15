@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.partyServices.entities;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -41,7 +42,7 @@ public class EventoEntity  extends BaseEntity implements Serializable
      */
     @PodamExclude
     @ManyToMany
-    private Collection<FechaEntity> fechas ;
+    private List<FechaEntity> fechas ;
     
     /**
      * Atributo que representa la relacion muchos a uno con la clase ClienteEntity
@@ -69,7 +70,7 @@ public class EventoEntity  extends BaseEntity implements Serializable
     mappedBy = "eventos" ,
     fetch = FetchType.LAZY
     )
-    private Collection<ProductoEntity> productos ;
+    private List<ProductoEntity> productos ;
     
     
     /**
@@ -79,7 +80,7 @@ public class EventoEntity  extends BaseEntity implements Serializable
     @OneToMany(
     mappedBy = "evento",
     fetch = FetchType.LAZY)
-    private Collection<NotificacionEntity> notificaciones ;
+    private List<NotificacionEntity> notificaciones ;
     
     /**
      * Relacion uno a uno con el pago del evento.
@@ -126,7 +127,7 @@ public class EventoEntity  extends BaseEntity implements Serializable
      * Metodo que retorna la fecha del evento
      * @return fecha
      */
-    public Collection<FechaEntity> getFechas() {
+    public List<FechaEntity> getFechas() {
         return fechas;
     }
 
@@ -134,7 +135,7 @@ public class EventoEntity  extends BaseEntity implements Serializable
      * Metodo que modifica la fecha del evento
      * @param fechas 
      */
-    public void setFechas(Collection<FechaEntity> fechas) {
+    public void setFechas(List<FechaEntity> fechas) {
         this.fechas = fechas;
     }
 
@@ -158,7 +159,7 @@ public class EventoEntity  extends BaseEntity implements Serializable
      * Metodo que retorna las notificaciones del evento
      * @return notificaciones
      */
-    public Collection<NotificacionEntity> getNotificaciones() {
+    public List<NotificacionEntity> getNotificaciones() {
         return notificaciones;
     }
 
@@ -166,7 +167,7 @@ public class EventoEntity  extends BaseEntity implements Serializable
      * Metodo que modifica el listado de notificaciones del evento
      * @param notificaciones 
      */
-    public void setNotificaciones(Collection<NotificacionEntity> notificaciones) {
+    public void setNotificaciones(List<NotificacionEntity> notificaciones) {
         this.notificaciones = notificaciones;
     }
     
@@ -174,7 +175,7 @@ public class EventoEntity  extends BaseEntity implements Serializable
      * Metodo que retorna los productos del evento
      * @return productos
      */
-    public Collection<ProductoEntity> getProductos() {
+    public List<ProductoEntity> getProductos() {
         return productos;
     }
 
@@ -182,7 +183,7 @@ public class EventoEntity  extends BaseEntity implements Serializable
      * Metodo que modifica la lista de productos del evento
      * @param productos 
      */
-    public void setProductos(Collection<ProductoEntity> productos) {
+    public void setProductos(List<ProductoEntity> productos) {
         this.productos = productos;
     }
     
