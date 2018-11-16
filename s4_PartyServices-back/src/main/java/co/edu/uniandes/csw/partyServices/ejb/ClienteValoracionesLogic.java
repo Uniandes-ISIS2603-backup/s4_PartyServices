@@ -48,7 +48,7 @@ public class ClienteValoracionesLogic {
         ClienteEntity clienteEntity = clientePersistence.find(clientesId);
         ValoracionEntity valoracionEntity = valoracionPersistence.find(proveedorId, valoracionId);
         valoracionEntity.setCliente(clienteEntity);
-        valoracionEntity.setNombreUsuario(clienteEntity.getLogin());
+        valoracionEntity.setNombreUsuario(clienteEntity.getNombreUsuario());
         ValoracionEntity actualizado = valoracionPersistence.update(valoracionEntity);
         LOGGER.log(Level.INFO, "Termina proceso de asociar la valoracion con id = {1}, que pertenece al proveedor con id = {2}, al cliente con id = {0}", new Object[]{clientesId, valoracionId, proveedorId});
         return actualizado;
