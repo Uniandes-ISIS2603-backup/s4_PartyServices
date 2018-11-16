@@ -49,7 +49,7 @@ public class ClienteSugerenciasLogic {
         ClienteEntity clienteEntity = clientePersistence.find(clientesId);
         SugerenciaEntity sugerenciaEntity = sugerenciaPersistence.find(tematicasId, sugerenciasId);
         sugerenciaEntity.setCliente(clienteEntity);
-        sugerenciaEntity.setNombreUsuario(clienteEntity.getLogin());
+        sugerenciaEntity.setNombreUsuario(clienteEntity.getNombreUsuario());
         SugerenciaEntity actualizado = sugerenciaPersistence.update(sugerenciaEntity);
         LOGGER.log(Level.INFO, "Termina proceso de asociar la sugerencia con id = {1}, que pertenece a la temática con id = {2}, al cliente con id = {0}", new Object[]{clientesId, sugerenciasId, tematicasId});
         return actualizado;
