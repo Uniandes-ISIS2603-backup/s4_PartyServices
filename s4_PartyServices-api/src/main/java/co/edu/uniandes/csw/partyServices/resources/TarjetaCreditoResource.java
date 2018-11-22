@@ -13,8 +13,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -48,11 +50,37 @@ public class TarjetaCreditoResource {
         LOGGER.log(Level.INFO, "TarjetaCreditoResource getTarjetaCredito: input: id : {0}", tarjetaCreditoId);
         TarjetaCreditoEntity entity = tarjetaCreditoLogic.getTarjetaCredito(clientesId, tarjetaCreditoId);
         if (entity == null) {
-            throw new WebApplicationException("El recurso /clientes/" + clientesId + "/pagos/" + tarjetaCreditoId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /clientes/" + clientesId + "/tarjetaCredito/" + tarjetaCreditoId + " no existe.", 404);
         }
         TarjetaCreditoDTO tarjetaCreditoDTO = new TarjetaCreditoDTO(entity);
         LOGGER.log(Level.INFO, "TarjetaCreditoResource getTarjetaCredito: output: cliente: {0}", tarjetaCreditoDTO);
         return tarjetaCreditoDTO;
+    }
+    
+    @PUT
+    @Path("{tarjetaCreditoId: \\d+}")
+    public TarjetaCreditoDTO updateTarjetaCredito(@PathParam("clientesId") Long clientesId, @PathParam("tarjetaCreditoId") Long tarjetaCreditoId, TarjetaCreditoDTO tarjetaCredito) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "TarjetaCreditoResource update: input: clientesId: {0} , tarjetaCreditoId: {1} , tarjetaCredito:{2}", new Object[]{clientesId, tarjetaCreditoId, tarjetaCredito});
+        
+        TarjetaCreditoEntity entity = tarjetaCreditoLogic.getTarjetaCredito(clientesId, tarjetaCreditoId);
+        if (entity == null) {
+            throw new WebApplicationException("El recurso /clientes/" + clientesId + "/tarjetaCredito/" + tarjetaCreditoId + " no existe.", 404);
+
+        }
+        TarjetaCreditoDTO tarjetaCreditoDTO = new TarjetaCreditoDTO(tarjetaCreditoLogic.updateTarjetaCredito(clientesId, tarjetaCredito.toEntity()));
+        LOGGER.log(Level.INFO, "TarjetaCreditoResource update: output:{0}", tarjetaCreditoDTO);
+        return tarjetaCreditoDTO;
+
+    }
+    
+    @DELETE
+    @Path("{tarjetaCreditoId: \\d+}")
+    public void deleteTarjetaCredito(@PathParam("clientesId") Long clientesId, @PathParam("tarjetaCreditoId") Long tarjetaCreditoId) throws BusinessLogicException {
+        TarjetaCreditoEntity entity = tarjetaCreditoLogic.getTarjetaCredito(clientesId, tarjetaCreditoId);
+        if (entity == null) {
+            throw new WebApplicationException("El recurso /clientes/" + clientesId + "/tarjetaCredito/" + tarjetaCreditoId + " no existe.", 404);
+        }
+        tarjetaCreditoLogic.deleteTarjetaCredito(clientesId, tarjetaCreditoId);
     }
 
 }

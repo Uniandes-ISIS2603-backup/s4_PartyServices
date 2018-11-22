@@ -55,14 +55,13 @@ public class TarjetaCreditoLogic {
     public TarjetaCreditoEntity createTarjetaCredito(long clienteId, TarjetaCreditoEntity tarjetaCreditoEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de crear una tarjeta de credito");
 
-        if (validaciones(tarjetaCreditoEntity)) {
-            ClienteEntity entity = persistenceCliente.find(clienteId);
-            tarjetaCreditoEntity.setCliente(entity);
-            LOGGER.log(Level.INFO, "Termina proceso de creación de la tarjeta de credito");
-            return persistence.create(tarjetaCreditoEntity);
-        }
+        validaciones(tarjetaCreditoEntity);
 
-        return null;
+        ClienteEntity entity = persistenceCliente.find(clienteId);
+        tarjetaCreditoEntity.setCliente(entity);
+        LOGGER.log(Level.INFO, "Termina proceso de creación de la tarjeta de credito");
+        return persistence.create(tarjetaCreditoEntity);
+
     }
 
     public TarjetaCreditoEntity getTarjetaCredito(Long clienteid, Long id) {
@@ -74,16 +73,13 @@ public class TarjetaCreditoLogic {
     public TarjetaCreditoEntity updateTarjetaCredito(Long clientesId, TarjetaCreditoEntity tarjetaCredito) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar la tarjeta de credito con id = {0} del cliente con id = {1}", new Object[]{tarjetaCredito.getId(), clientesId});
 
-        if (validaciones(tarjetaCredito)) {
-            ClienteEntity entity = persistenceCliente.find(clientesId);
-            tarjetaCredito.setCliente(entity);
-            persistence.update(tarjetaCredito);
-            LOGGER.log(Level.INFO, "Termina proceso de actualizar la tarjeta de credito con id = {0} del cliente con id = {1}", new Object[]{tarjetaCredito.getId(), clientesId});
-            return tarjetaCredito;
+        validaciones(tarjetaCredito);
+        ClienteEntity entity = persistenceCliente.find(clientesId);
+        tarjetaCredito.setCliente(entity);
+        persistence.update(tarjetaCredito);
+        LOGGER.log(Level.INFO, "Termina proceso de actualizar la tarjeta de credito con id = {0} del cliente con id = {1}", new Object[]{tarjetaCredito.getId(), clientesId});
+        return tarjetaCredito;
 
-        }
-
-        return null;
     }
 
     public void deleteTarjetaCredito(Long clientesId, Long tarjetaCreditoId) throws BusinessLogicException {
@@ -166,9 +162,8 @@ public class TarjetaCreditoLogic {
         }
 
         //la franquicia debe ser coherente con el numero de tarjeta
-        if (!validarFranquiciaCorrecta(tarjetaCreditoEntity.getNumero(), tarjetaCreditoEntity.getFranquicia())) {
-            throw new BusinessLogicException("El número no coincide con la franquicia de la tarjeta");
-        }
+        validarFranquiciaCorrecta(tarjetaCreditoEntity.getNumero(), tarjetaCreditoEntity.getFranquicia());
+            
 
         //el nombre del titular de la tarjeta debe tener el formato sigguiente:
         String formatoNombre = "^[A-Z\\s]+$";
@@ -176,7 +171,7 @@ public class TarjetaCreditoLogic {
 
         Matcher matchNombre = patternNombre.matcher(tarjetaCreditoEntity.getNombreTitular());
         if (!matchNombre.matches()) {
-            throw new BusinessLogicException("El nombre del titular de la tarjeta no sigue un formatoValido");
+            throw new BusinessLogicException("El nombre del titular de la tarjeta no sigue un formato válido");
         }
 
         //El codigo de seguridad debe ser de los siguientes digitos

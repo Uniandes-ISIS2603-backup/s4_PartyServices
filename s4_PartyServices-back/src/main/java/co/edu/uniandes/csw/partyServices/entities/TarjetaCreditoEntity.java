@@ -54,7 +54,7 @@ public class TarjetaCreditoEntity extends BaseEntity implements Serializable{
      * Relacion uno a uno con el cliente de la tarjeta de credito.
      */
     @PodamExclude
-    @OneToOne( )
+    @OneToOne
     private ClienteEntity cliente;
     
     /**

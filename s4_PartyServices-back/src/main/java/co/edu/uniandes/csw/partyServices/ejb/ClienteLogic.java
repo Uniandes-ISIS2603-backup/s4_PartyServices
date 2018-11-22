@@ -49,11 +49,16 @@ public class ClienteLogic {
     public ClienteEntity createCliente(ClienteEntity clienteEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Se inicia la creación del cliente");
 
-        if (validaciones(clienteEntity)) {
-            LOGGER.log(Level.INFO, "Termina proceso de creación del cliente. No hubo problemas");
-            return persistence.create(clienteEntity);
+        //no debe haber dos clientes con el mismo nombre de usuario
+        if (persistence.findByNombreUsuario(clienteEntity.getNombreUsuario()) != null) {
+            throw new BusinessLogicException("Ya existe un cliente con el nombre de usuario \"" + clienteEntity.getNombreUsuario() + "\"");
         }
-        return null;
+        
+        validaciones(clienteEntity);
+
+        LOGGER.log(Level.INFO, "Termina proceso de creación del cliente. No hubo problemas");
+        return persistence.create(clienteEntity);
+
     }
 
     /**
@@ -102,13 +107,11 @@ public class ClienteLogic {
 
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar el cliente con id = {0}", clienteId);
 
-        if (validaciones(clienteEntity)) {
-            ClienteEntity newEntity = persistence.update(clienteEntity);
+        validaciones(clienteEntity);
+        ClienteEntity newEntity = persistence.update(clienteEntity);
 
-            LOGGER.log(Level.INFO, "Termina proceso de actualizar el cliente con id = {0}", clienteId);
-            return newEntity;
-        }
-        return null;
+        LOGGER.log(Level.INFO, "Termina proceso de actualizar el cliente con id = {0}", clienteId);
+        return newEntity;
 
     }
 
@@ -123,14 +126,9 @@ public class ClienteLogic {
      */
     public boolean validaciones(ClienteEntity clienteEntity) throws BusinessLogicException {
 
-        //no debe haber dos clientes con el mismo nombre de usuario
-        if (persistence.findByNombreUsuario(clienteEntity.getNombreUsuario()) != null) {
-            throw new BusinessLogicException("Ya existe un cliente con el nombre de usuario \"" + clienteEntity.getNombreUsuario() + "\"");
-        }
-
         //el nombre de usuario no puede ser vacio o nulo
         if (clienteEntity.getNombreUsuario() == null || clienteEntity.getNombreUsuario().equals("")) {
-            throw new BusinessLogicException("El niombre de usuario no puede ser vacio o nulo, por favor intente nuevamente.");
+            throw new BusinessLogicException("El nombre de usuario no puede ser vacio o nulo, por favor intente nuevamente.");
         }
 
         //validacion sobre la longitud y los cracateres del nombre
@@ -162,7 +160,7 @@ public class ClienteLogic {
         Pattern emailPattern = Pattern.compile(validacionEmail);
         Matcher emailMatcher = emailPattern.matcher(clienteEntity.getEmail());
         if (!emailMatcher.matches()) {
-            throw new BusinessLogicException("El correo no sigue el formato: debe ser de máximo 8 caracteres y contener solo números o letras");
+            throw new BusinessLogicException("El correo no sigue el formato: debe contener solo números o letras");
         }
 
         //validaciones sobre la fecha de nacimiento del usuario

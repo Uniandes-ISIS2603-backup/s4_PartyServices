@@ -3,23 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  *
-***************************************************************************************
-*    Title: Version of Luhn's algorithm code
-*    Author: Yaritza Miranda
-*    Date: 2015
-*    Code version: 1.0
-*    Availability: https://codepad.co/snippet/4d360a
-*
-***************************************************************************************
-***************************************************************************************
-*    Title: Expresiones regulares
-*    Author: Janmi
-*    Date: 2017
-*    Code version: 0
-*    Availability: http://janmi.com/como-identificar-el-tipo-de-tarjeta-de-credito-segun-su-numero/
-*
-***************************************************************************************
- 
  */
 package co.edu.uniandes.csw.partyServices.ejb;
 
@@ -41,7 +24,7 @@ import javax.inject.Inject;
 /**
  * Clase que implementa la conexion con la persistencia para la entidad de Pago.
  *
- * @author Elias NEGRETE
+ * @author Elias NEGRETE, Jesus Orlando Cárcamo Posada
  */
 @Stateless
 public class PagoLogic {
@@ -67,15 +50,14 @@ public class PagoLogic {
      */
     public PagoEntity createPago(long clienteId, PagoEntity pagoEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de crear pago");
-        if(validaciones(pagoEntity)){
-            
+        validaciones(pagoEntity);
+
         ClienteEntity entity = persistenceCliente.find(clienteId);
         pagoEntity.setCliente(entity);
         LOGGER.log(Level.INFO, "Termina proceso de creación del pago");
 
         return persistence.create(pagoEntity);
-        }
-        return null;
+
     }
 
     /**
@@ -113,23 +95,21 @@ public class PagoLogic {
      * @param clientesId id del cliente el cual sera padre del Cliente
      * actualizado.
      * @return Instancia de PagoEntity con los datos actualizados.
-     * @throws BusinessLogicException Si al actualizar el pago este no cumple con las reglas de negocio.
+     * @throws BusinessLogicException Si al actualizar el pago este no cumple
+     * con las reglas de negocio.
      *
      */
-    public PagoEntity updatePago(Long clientesId, PagoEntity pagoEntity) throws BusinessLogicException{
+    public PagoEntity updatePago(Long clientesId, PagoEntity pagoEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar el pago con id = {0} del cliente con id = {1}", new Object[]{pagoEntity.getId(), clientesId});
-        
-        if(validaciones(pagoEntity)){
-        
+
+        validaciones(pagoEntity);
+
         ClienteEntity entity = persistenceCliente.find(clientesId);
         pagoEntity.setCliente(entity);
         persistence.update(pagoEntity);
         LOGGER.log(Level.INFO, "Termina proceso de actualizar el pago con id = {0} del cliente con id = {1}", new Object[]{pagoEntity.getId(), clientesId});
         return pagoEntity;
-        
-        }
-        
-        return null;
+
     }
 
     /**
@@ -181,11 +161,11 @@ public class PagoLogic {
 
             throw new BusinessLogicException("La fecha no cumple el formato");
         }
-        
-        if(pagoEntity.getValor() <0){
-            throw new BusinessLogicException("El valor del pago deber ser mayor que 0");
+
+        if (pagoEntity.getValor() < 0) {
+            throw new BusinessLogicException("El valor del pago deber ser mayor o igual que 0");
         }
-        
+
         return true;
     }
 }

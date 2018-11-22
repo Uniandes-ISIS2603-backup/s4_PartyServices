@@ -6,7 +6,6 @@
 package co.edu.uniandes.csw.partyServices.entities;
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -29,10 +28,7 @@ public class PagoEntity extends BaseEntity implements Serializable {
     private Integer valor;
     
     @PodamExclude
-    @OneToOne(
-    mappedBy = "pago",
-            fetch = FetchType.LAZY
-    )
+    @OneToOne
     private EventoEntity evento;
 
     /*
