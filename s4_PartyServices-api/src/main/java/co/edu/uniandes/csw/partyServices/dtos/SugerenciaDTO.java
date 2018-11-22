@@ -16,6 +16,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * Al serializarse como JSON esta clase implementa el siguiente modelo: <br>
  * <pre>
  *   {
+ *      "titulo":string,
  *      "id": number,
  *      "comentario": string
  *   }
@@ -25,6 +26,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *
  *   {
  *      "id": 1,
+ *      "titulo":"Esta fiesta estuvo genial"
  *      "comentario": "Imprescindible pastel de arequipe"
  *   }
  *
@@ -35,8 +37,12 @@ public class SugerenciaDTO implements Serializable{
     
     private Long id;
     private String comentario;
+    private String titulo;
     private String nombreUsuario;
+    private String link;
+
     
+
     
     /**
      * Constructor por defecto
@@ -55,6 +61,9 @@ public class SugerenciaDTO implements Serializable{
             this.id = sugerenciaEntity.getId();
             this.comentario = sugerenciaEntity.getComentario();
             this.nombreUsuario = sugerenciaEntity.getNombreUsuario();
+            this.link = sugerenciaEntity.getLink();
+            this.titulo = sugerenciaEntity.getTitulo();
+
         }
     }
     
@@ -113,6 +122,32 @@ public class SugerenciaDTO implements Serializable{
     }
     
     /**
+     * Devuelve el titulo asignado a la sugerencia.
+     *
+     * @return titulo. El titulo del usuario asignado a la sugerencia.
+     */
+    public String getTitulo() {
+        return titulo;
+    }
+
+    /**
+     * Modifica el titulo asignado a la sugerencia.
+     *
+     * @param pTitulo. El nuevo titulo de la sugerencia.
+     */
+    public void setTitulo(String pTitulo) {
+        this.titulo = pTitulo;
+    }
+    
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+    
+    /**
      * Convertir DTO a Entity
      *
      * @return Un Entity con los valores del DTO
@@ -122,6 +157,10 @@ public class SugerenciaDTO implements Serializable{
         sugerenciaEntity.setId(this.id);
         sugerenciaEntity.setComentario(this.comentario);
         sugerenciaEntity.setNombreUsuario(this.nombreUsuario);
+        sugerenciaEntity.setLink(this.link);
+        sugerenciaEntity.setTitulo(this.titulo);
+
+
         return sugerenciaEntity;
     }
     
