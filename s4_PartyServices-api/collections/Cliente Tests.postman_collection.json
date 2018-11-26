@@ -1,0 +1,869 @@
+{
+	"info": {
+		"_postman_id": "af1a457a-4e0b-40e6-a98d-67d3c3388dc8",
+		"name": "Cliente Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear un cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7ea8d4ca-61ec-4d10-bd06-69880923f480",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"clienteId\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombreUsuario\":\"JesusBerserker\",\n\t\"contrasenia\":\"123456789qwerty\",\n\t\"email\":\"jocarcamo@uniandes.co\",\n\t\"fechaNacimiento\":\"15/02/2000\"\n\t\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes"
+					]
+				},
+				"description": "Crea un nuevo cliente. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un cliente 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1c1b9684-bd54-4435-b905-479fe92eb7f2",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"clienteId2\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombreUsuario\":\"JesusBerserker2\",\n\t\"contrasenia\":\"123456789qwerty\",\n\t\"email\":\"jocarcamo2@uniandes.co\",\n\t\"fechaNacimiento\":\"15/02/2000\"\n\t\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes"
+					]
+				},
+				"description": "Crea otro cliente. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nEste segundo cliente se utiliza para probar la petición que consultar todos los clientes.\r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un cliente con un nombre existente.",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eac3c237-69c1-4930-8200-7b5fc71f3222",
+						"exec": [
+							"tests[\"No crea con el mismo nombre\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"Ya existe un cliente con el nombre de usuario \");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombreUsuario\":\"JesusBerserker2\",\n\t\"contrasenia\":\"123456789qwerty\",\n\t\"email\":\"jocarcamo2@uniandes.co\",\n\t\"fechaNacimiento\":\"15/02/2000\"\n\t\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes"
+					]
+				},
+				"description": "Crea un nuevo cliente pero con un nombre que ya existe. Verifica que se genera el error y el mensaje \"Ya existe un cliente con el nombre de usuario \\\"\" + clienteEntity.getNombreUsuario() + \"\\\"\"\r\n\r\n**Código HTTP esperado: 412 Precondition failed\".**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un cliente con el nombre vacío",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eac3c237-69c1-4930-8200-7b5fc71f3222",
+						"exec": [
+							"tests[\"No crea con el mismo nombre\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El nombre de usuario no puede ser vacio o nulo, por favor intente nuevamente.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombreUsuario\":\"\",\n\t\"contrasenia\":\"123456789qwerty\",\n\t\"email\":\"jocarcamo2@uniandes.co\",\n\t\"fechaNacimiento\":\"15/02/2000\"\n\t\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes"
+					]
+				},
+				"description": "Crea un nuevo cliente pero con un nombre vacío Verifica que se genera el error y el mensaje \"El nombre de usuario no puede ser vacio o nulo, por favor intente nuevamente.\"\"\r\n\r\n**Código HTTP esperado: 412 Precondition failed\".**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un cliente con un nombre menor a 8 caracteres",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eac3c237-69c1-4930-8200-7b5fc71f3222",
+						"exec": [
+							"tests[\"No crea con el mismo nombre\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El formato del nombre de usuario no es valido: solo puede contener número o letras en rango de 8 a 20 caracteres\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombreUsuario\":\"Jesus\",\n\t\"contrasenia\":\"123456789qwerty\",\n\t\"email\":\"jocarcamo2@uniandes.co\",\n\t\"fechaNacimiento\":\"15/02/2000\"\n\t\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes"
+					]
+				},
+				"description": "Crea un nuevo cliente pero con un nombre menor a 8 caracteres. Verifica que se genera el error y el mensaje \"El formato del nombre de usuario no es valido: solo puede contener número o letras en rango de 8 a 20 caracteres\"\r\n\r\n**Código HTTP esperado: 412 Precondition failed\".**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un cliente con un nombre con caracteres especiales",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eac3c237-69c1-4930-8200-7b5fc71f3222",
+						"exec": [
+							"tests[\"No crea con el mismo nombre\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El formato del nombre de usuario no es valido: solo puede contener número o letras en rango de 8 a 20 caracteres\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombreUsuario\":\"JesusBerserker@^\",\n\t\"contrasenia\":\"123456789qwerty\",\n\t\"email\":\"jocarcamo2@uniandes.co\",\n\t\"fechaNacimiento\":\"15/02/2000\"\n\t\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes"
+					]
+				},
+				"description": "Crea un nuevo cliente pero con caracteres especiales. Verifica que se genera el error y el mensaje \"El formato del nombre de usuario no es valido: solo puede contener número o letras en rango de 8 a 20 caracteres\"\r\n\r\n**Código HTTP esperado: 412 Precondition failed\".**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un cliente con un nombre igual a su contraseña",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eac3c237-69c1-4930-8200-7b5fc71f3222",
+						"exec": [
+							"tests[\"No crea con el mismo nombre\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"La contraseña no puede ser igual al nombre de usuario\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombreUsuario\":\"123456789qwerty\",\n\t\"contrasenia\":\"123456789qwerty\",\n\t\"email\":\"jocarcamo2@uniandes.co\",\n\t\"fechaNacimiento\":\"15/02/2000\"\n\t\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes"
+					]
+				},
+				"description": "Crea un nuevo cliente pero con un nombre igual a su contraseña. Verifica que se genera el error y el mensaje \"La contraseña no puede ser igual al nombre de usuario\"\r\n\r\n**Código HTTP esperado: 412 Precondition failed\".**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un cliente con una contraseña menor a 8 caracteres",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eac3c237-69c1-4930-8200-7b5fc71f3222",
+						"exec": [
+							"tests[\"No crea con el mismo nombre\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"La contrasenia no sigue el formato: debe contener entre 8 y 23 caracteres y contener solo números o letras\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombreUsuario\":\"123456789qwerty\",\n\t\"contrasenia\":\"123\",\n\t\"email\":\"jocarcamo2@uniandes.co\",\n\t\"fechaNacimiento\":\"15/02/2000\"\n\t\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes"
+					]
+				},
+				"description": "Crea un nuevo cliente pero con una contraseña menor a 8 caracteres. Verifica que se genera el error y el mensaje \"La contrasenia no sigue el formato: debe contener entre 8 y 23 caracteres y contener solo números o letras\"\r\n\r\n**Código HTTP esperado: 412 Precondition failed\".**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un cliente con una contraseña con caracteres especiales.",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eac3c237-69c1-4930-8200-7b5fc71f3222",
+						"exec": [
+							"tests[\"No crea con el mismo nombre\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"La contrasenia no sigue el formato: debe contener entre 8 y 23 caracteres y contener solo números o letras\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombreUsuario\":\"123456789qwerty\",\n\t\"contrasenia\":\"12345678@@^|\",\n\t\"email\":\"jocarcamo2@uniandes.co\",\n\t\"fechaNacimiento\":\"15/02/2000\"\n\t\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes"
+					]
+				},
+				"description": "Crea un nuevo cliente pero con una contraseña con caracteres especiales.. Verifica que se genera el error y el mensaje \"La contrasenia no sigue el formato: debe contener entre 8 y 23 caracteres y contener solo números o letras\"\r\n\r\n**Código HTTP esperado: 412 Precondition failed\".**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un cliente con un email con caracteres especiales.",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eac3c237-69c1-4930-8200-7b5fc71f3222",
+						"exec": [
+							"tests[\"No crea con el mismo nombre\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El correo no sigue el formato: debe contener solo números o letras\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombreUsuario\":\"123456789\",\n\t\"contrasenia\":\"12345678\",\n\t\"email\":\"jo^^|@us.co\",\n\t\"fechaNacimiento\":\"15/02/2000\"\n\t\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes"
+					]
+				},
+				"description": "Crea un nuevo cliente pero con un email con caracteres especiales. Verifica que se genera el error y el mensaje \"El correo no sigue el formato: debe contener solo números o letras\"\r\n\r\n**Código HTTP esperado: 412 Precondition failed\".**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un cliente sin fecha de nacimiento.",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eac3c237-69c1-4930-8200-7b5fc71f3222",
+						"exec": [
+							"tests[\"No crea con el mismo nombre\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"La fecha de nacimiento no puede ser nula\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombreUsuario\":\"123456789\",\n\t\"contrasenia\":\"12345678\",\n\t\"email\":\"jo@us.co\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes"
+					]
+				},
+				"description": "Crea un nuevo cliente sin fecha de nacimiento. Verifica que se genera el error y el mensaje \"La fecha de nacimiento no puede ser nula\"\r\n\r\n**Código HTTP esperado: 412 Precondition failed\".**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un cliente con una fecha de nacimiento posterior a la actual.",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eac3c237-69c1-4930-8200-7b5fc71f3222",
+						"exec": [
+							"tests[\"No crea con el mismo nombre\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"La fecha de nacimiento no puede ser posterior a la fecha actual.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombreUsuario\":\"123456789\",\n\t\"contrasenia\":\"12345678\",\n\t\"email\":\"jo@us.co\",\n\t\"fechaNacimiento\":\"15/02/2023\"\n\t\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes"
+					]
+				},
+				"description": "Crea un nuevo cliente con una fecha de nacimiento posterior a la actual. Verifica que se genera el error y el mensaje \"La fecha de nacimiento no puede ser posterior a la fecha actual.\"\r\n\r\n**Código HTTP esperado: 412 Precondition failed\".**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un cliente menor de edad.",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eac3c237-69c1-4930-8200-7b5fc71f3222",
+						"exec": [
+							"tests[\"No crea con el mismo nombre\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"Se debe ser mayor de edad para poder registrarse en la aplicación.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombreUsuario\":\"123456789\",\n\t\"contrasenia\":\"12345678\",\n\t\"email\":\"jo@us.co\",\n\t\"fechaNacimiento\":\"15/02/2018\"\n\t\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes"
+					]
+				},
+				"description": "Crea un nuevo menor de edad. Verifica que se genera el error y el mensaje \"Se debe ser mayor de edad para poder registrarse en la aplicación.\"\r\n\r\n**Código HTTP esperado: 412 Precondition failed\".**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un cliente con un formato de fecha inválido.",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eac3c237-69c1-4930-8200-7b5fc71f3222",
+						"exec": [
+							"tests[\"No crea con el mismo nombre\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"La fecha de nacimiento no cumple el formato estbalecido: dd/MM/yyyy\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombreUsuario\":\"JesusQWERTY123\",\n\t\"contrasenia\":\"12345678\",\n\t\"email\":\"jo@us.co\",\n\t\"fechaNacimiento\":\"02/15\"\n\t\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes"
+					]
+				},
+				"description": "Crea un nuevo cliente con una fecha con un formato inválido. Verifica que se genera el error y el mensaje \"La fecha de nacimiento no cumple el formato estbalecido: dd/MM/yyyy\"\r\n\r\n**Código HTTP esperado: 412 Precondition failed\".**"
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un Cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7ea8d4ca-61ec-4d10-bd06-69880923f480",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Put\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombreUsuario\":\"JesusBerserker\",\n\t\"contrasenia\":\"abcdefghijklmn\",\n\t\"email\":\"jocarcamo@uniandes.co\",\n\t\"fechaNacimiento\":\"15/02/2000\"\n\t\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{clienteId}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"{{clienteId}}"
+					]
+				},
+				"description": "Actualiza un cliente existente. se envía el Id en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Editar un Cliente que no existe.",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7ea8d4ca-61ec-4d10-bd06-69880923f480",
+						"exec": [
+							"tests[\"No actualiza con id que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /clientes/0 no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombreUsuario\":\"JesusBerserker\",\n\t\"contrasenia\":\"abcdefghijklmn\",\n\t\"email\":\"jocarcamo@uniandes.co\",\n\t\"fechaNacimiento\":\"15/02/2000\"\n\t\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"0"
+					]
+				},
+				"description": "Actualiza un cliente que no existe. \r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /clientes/0 no existe.\".\r\n\r\n**Código HTTP esperado: 404**"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener todos los clientes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "75d835cf-17fb-4929-b876-886f8a88b969",
+						"exec": [
+							"var data= JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get all\"] = responseCode.code === 200;",
+							"tests[\"clientes count\"] = data.length > 1;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes"
+					]
+				},
+				"description": "Consulta todos los clientes de la aplicación. \r\nLa petición no tiene cuerpo.\r\n\r\nPara la prueba, se verifica que el conjunto de clientes en la respuesta tenga mas de uno.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "72eef936-ea33-42c0-b849-f74c32c1e6c6",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{clienteId2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"{{clienteId2}}"
+					]
+				},
+				"description": "Consulta un cliente de la aplicación.  \r\nLa petición no tiene cuerpo.\r\nSe envía el id del cliente deseado por la URL de la petición.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un cliente que no existe.",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "521005a5-fdc4-4a18-9b70-ed56c3a72d2f",
+						"exec": [
+							"tests[\"No consulta con id que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /clientes/0 no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"0"
+					]
+				},
+				"description": "Consulta un cliente que no existe en la aplicación.  \r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /clientes/0 no existe.\".\r\n\r\n**Código http esperado: 404**"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "4a18bf8f-e20f-4e2e-8b5b-0e9f3f30ac94",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "6f4c8713-3e2c-40d9-b34a-508a326692c3",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

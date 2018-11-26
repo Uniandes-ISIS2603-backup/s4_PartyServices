@@ -3,23 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  *
-***************************************************************************************
-*    Title: Version of Luhn's algorithm code
-*    Author: Yaritza Miranda
-*    Date: 2015
-*    Code version: 1.0
-*    Availability: https://codepad.co/snippet/4d360a
-*
-***************************************************************************************
-***************************************************************************************
-*    Title: Expresiones regulares
-*    Author: Janmi
-*    Date: 2017
-*    Code version: 0
-*    Availability: http://janmi.com/como-identificar-el-tipo-de-tarjeta-de-credito-segun-su-numero/
-*
-***************************************************************************************
- 
  */
 package co.edu.uniandes.csw.partyServices.ejb;
 
@@ -31,22 +14,17 @@ import co.edu.uniandes.csw.partyServices.persistence.PagoPersistence;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.time.Period;
-import java.time.ZoneId;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 /**
  * Clase que implementa la conexion con la persistencia para la entidad de Pago.
  *
- * @author Elias NEGRETE
+ * @author Elias NEGRETE, Jesus Orlando Cárcamo Posada
  */
 @Stateless
 public class PagoLogic {
@@ -72,34 +50,14 @@ public class PagoLogic {
      */
     public PagoEntity createPago(long clienteId, PagoEntity pagoEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de crear pago");
+        validaciones(pagoEntity);
 
         ClienteEntity entity = persistenceCliente.find(clienteId);
-
-       SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-
-        if (pagoEntity.getFecha() == null) {
-            throw new BusinessLogicException("La fecha no puede ser nula");
-        }
-
-        Date fechaAhora = Date.from(Instant.now());
-        try {
-
-            Date fecha = format.parse(pagoEntity.getFecha());
-
-            if (fecha.compareTo(fechaAhora) > 0) {
-                LOGGER.log(Level.INFO, "Hubo un error con la fecha, no puede ser posterior a la fecha actual.");
-
-                throw new BusinessLogicException("La fecha es superior a la actual");
-            } 
-        } catch (ParseException ex) {
-
-            throw new BusinessLogicException("La fecha no cumple el formato");
-        }
-        
         pagoEntity.setCliente(entity);
         LOGGER.log(Level.INFO, "Termina proceso de creación del pago");
 
         return persistence.create(pagoEntity);
+
     }
 
     /**
@@ -137,15 +95,21 @@ public class PagoLogic {
      * @param clientesId id del cliente el cual sera padre del Cliente
      * actualizado.
      * @return Instancia de PagoEntity con los datos actualizados.
+     * @throws BusinessLogicException Si al actualizar el pago este no cumple
+     * con las reglas de negocio.
      *
      */
-    public PagoEntity updatePago(Long clientesId, PagoEntity pagoEntity) {
+    public PagoEntity updatePago(Long clientesId, PagoEntity pagoEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar el pago con id = {0} del cliente con id = {1}", new Object[]{pagoEntity.getId(), clientesId});
+
+        validaciones(pagoEntity);
+
         ClienteEntity entity = persistenceCliente.find(clientesId);
         pagoEntity.setCliente(entity);
         persistence.update(pagoEntity);
         LOGGER.log(Level.INFO, "Termina proceso de actualizar el pago con id = {0} del cliente con id = {1}", new Object[]{pagoEntity.getId(), clientesId});
         return pagoEntity;
+
     }
 
     /**
@@ -164,5 +128,44 @@ public class PagoLogic {
         }
         persistence.delete(old.getId());
         LOGGER.log(Level.INFO, "Termina proceso de borrar el pago con id = {0} del cliente con id = {1}", new Object[]{pagosId, clientesId});
+    }
+
+    /**
+     * Valida las reglas de negocio del recurso Pago.
+     *
+     * @param pagoEntity La entidad de pago a la cual se le harán las
+     * validaciones de las reglas de negocio.
+     * @return ture si la entidad cumple correctamente con todas las reglas de
+     * negocio.
+     * @throws BusinessLogicException Si la entidad no cumple alguna regla de
+     * negocio.
+     */
+    public boolean validaciones(PagoEntity pagoEntity) throws BusinessLogicException {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+
+        if (pagoEntity.getFecha() == null) {
+            throw new BusinessLogicException("La fecha no puede ser nula");
+        }
+
+        Date fechaAhora = Date.from(Instant.now());
+        try {
+
+            Date fecha = format.parse(pagoEntity.getFecha());
+
+            if (fecha.compareTo(fechaAhora) > 0) {
+                LOGGER.log(Level.INFO, "Hubo un error con la fecha, no puede ser posterior a la fecha actual.");
+
+                throw new BusinessLogicException("La fecha es superior a la actual");
+            }
+        } catch (ParseException ex) {
+
+            throw new BusinessLogicException("La fecha no cumple el formato");
+        }
+
+        if (pagoEntity.getValor() < 0) {
+            throw new BusinessLogicException("El valor del pago deber ser mayor o igual que 0");
+        }
+
+        return true;
     }
 }

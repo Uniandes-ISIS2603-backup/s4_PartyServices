@@ -1,0 +1,614 @@
+{
+	"info": {
+		"_postman_id": "1a965346-7fba-463e-80e2-294121d90f03",
+		"name": "Pago Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear un cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0cb910fb-1a83-4f5b-8e0d-f058a3a3d26d",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"clientePagoId\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombreUsuario\": \"AlfredoLozano\",\n    \"contrasenia\": \"123456789qwerty\",\n    \"email\": \"alozano@uniandes.co\",\n    \"fechaNacimiento\": \"15/02/2000\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes"
+					]
+				},
+				"description": "Crea un nuevo cliente . El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un evento",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0cb910fb-1a83-4f5b-8e0d-f058a3a3d26d",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"eventoPagoId\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"nombre\":\"FiestaJesus\",\n \"estado\":\"En planeacion\",\n \"fecha\":{\n    \"agenda\": {\n        \"id\": 13,\n        \"jornadaDomingoND\": \"Ninguna\",\n        \"jornadaJuevesND\": \"Ninguna\",\n        \"jornadaLunesND\": \"Ninguna\",\n        \"jornadaMartesND\": \"Tarde\",\n        \"jornadaMiercolesND\": \"Ninguna\",\n        \"jornadaSabadoND\": \"Ninguna\",\n        \"jornadaViernesND\": \"Ninguna\",\n        \"proveedorDTO\": {}\n    },\n    \"dia\": \"2018-10-09T00:00:00-05:00\",\n    \"id\": 4,\n    \"jornada\": \"Tarde\"\n},\n \"latitud\":\"8.570868\",\n \"longitud\":\"-77.853233\",\n \"cliente\":{\"id\":{{clientePagoId}} }\n\t\t\t\t\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/evento",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"evento"
+					]
+				},
+				"description": "Crea un nuevo evento . El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un evento 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0cb910fb-1a83-4f5b-8e0d-f058a3a3d26d",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"eventoPagoId2\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"nombre\":\"Fiesta\",\n \"estado\":\"En planeacion\",\n \"fecha\":{\n    \"agenda\": {\n        \"id\": 13,\n        \"jornadaDomingoND\": \"Ninguna\",\n        \"jornadaJuevesND\": \"Ninguna\",\n        \"jornadaLunesND\": \"Ninguna\",\n        \"jornadaMartesND\": \"Tarde\",\n        \"jornadaMiercolesND\": \"Ninguna\",\n        \"jornadaSabadoND\": \"Ninguna\",\n        \"jornadaViernesND\": \"Ninguna\",\n        \"proveedorDTO\": {}\n    },\n    \"dia\": \"2018-10-09T00:00:00-05:00\",\n    \"id\": 4,\n    \"jornada\": \"Tarde\"\n},\n \"latitud\":\"8.570868\",\n \"longitud\":\"-77.853233\",\n \"cliente\":{\"id\":{{clientePagoId}} }\n\t\t\t\t\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/evento",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"evento"
+					]
+				},
+				"description": "Crea un nuevo evento . El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crearle un pago a un cliente.",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "af0499c1-0588-4490-89b9-262f9e509997",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"pagoId\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"fecha\":\"18/11/2018\",\n    \"valor\":\"2000000\",\n    \"evento\":{\"id\":{{eventoPagoId}} }\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{clientePagoId}}/pagos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"{{clientePagoId}}",
+						"pagos"
+					]
+				},
+				"description": "Crea un nuevo pago. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crearle un pago a un cliente 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "af0499c1-0588-4490-89b9-262f9e509997",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"pagoId2\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"fecha\":\"18/11/2018\",\n    \"valor\":\"2000000\",\n    \"evento\":{\"id\":{{eventoPagoId2}} }\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{clientePagoId}}/pagos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"{{clientePagoId}}",
+						"pagos"
+					]
+				},
+				"description": "Crea un nuevo pago. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un pago sin fecha",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "af0499c1-0588-4490-89b9-262f9e509997",
+						"exec": [
+							"tests[\"No crea con el mismo nombre\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"La fecha no puede ser nula\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"valor\":\"2000000\",\n    \"evento\":{\"id\":{{eventoPagoId}} }\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{clientePagoId}}/pagos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"{{clientePagoId}}",
+						"pagos"
+					]
+				},
+				"description": "Intenta crear un pago sin fecha. Verifica que se genera el error y el mensaje \"La fecha no puede ser nula\"\r\n\r\n**Código HTTP esperado: 412 Precondition failed\".**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un pago con una fecha posterior a la actual",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "af0499c1-0588-4490-89b9-262f9e509997",
+						"exec": [
+							"tests[\"No crea con el mismo nombre\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"La fecha es superior a la actual\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\t\n\t\"fecha\":\"31/12/2115\",\n    \"valor\":\"2000000\",\n    \"evento\":{\"id\":{{eventoPagoId}} }\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{clientePagoId}}/pagos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"{{clientePagoId}}",
+						"pagos"
+					]
+				},
+				"description": "Intenta crear un pago con una fecha posterior a la actual. Verifica que se genera el error y el mensaje \"La fecha es superior a la actual\"\r\n\r\n**Código HTTP esperado: 412 Precondition failed\".**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un pago con una fechaque no cumple el formato.",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "af0499c1-0588-4490-89b9-262f9e509997",
+						"exec": [
+							"tests[\"No crea con el mismo nombre\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"La fecha no cumple el formato\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\t\n\t\"fecha\":\"31/122115\",\n    \"valor\":\"2000000\",\n    \"evento\":{\"id\":{{eventoPagoId}} }\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{clientePagoId}}/pagos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"{{clientePagoId}}",
+						"pagos"
+					]
+				},
+				"description": "Intenta crear un pago con una fecha que no sigue el formato correspondiente. Verifica que se genera el error y el mensaje \"La fecha no cumple el formato\"\r\n\r\n**Código HTTP esperado: 412 Precondition failed\".**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un pago con un valor negativo.",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "af0499c1-0588-4490-89b9-262f9e509997",
+						"exec": [
+							"tests[\"No crea con el mismo nombre\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El valor del pago deber ser mayor o igual que 0\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\t\n\t\"fecha\":\"21/11/2018\",\n    \"valor\":\"-2000000\",\n    \"evento\":{\"id\":{{eventoPagoId}} }\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{clientePagoId}}/pagos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"{{clientePagoId}}",
+						"pagos"
+					]
+				},
+				"description": "Intenta crear un pago con un valor negativo. Verifica que se genera el error y el mensaje \"El valor del pago deber ser mayor o igual que 0\"\r\n\r\n**Código HTTP esperado: 412 Precondition failed\".**"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener todos los pagos de un cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "75d835cf-17fb-4929-b876-886f8a88b969",
+						"exec": [
+							"var data= JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get all\"] = responseCode.code === 200;",
+							"tests[\"eventos count\"] = data.length > 1;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{clientePagoId}}/pagos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"{{clientePagoId}}",
+						"pagos"
+					]
+				},
+				"description": "Consulta todos los pagos de un cliente específico. \r\nLa petición no tiene cuerpo.\r\n\r\nPara la prueba, se verifica que el conjunto de pagos en la respuesta tenga mas de uno.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un pago de un cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "72eef936-ea33-42c0-b849-f74c32c1e6c6",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{clientePagoId}}/pagos/{{pagoId}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"{{clientePagoId}}",
+						"pagos",
+						"{{pagoId}}"
+					]
+				},
+				"description": "Consulta un pago de un cliente de la aplicación.  \r\nLa petición no tiene cuerpo.\r\nSe envía el id del cliente y el pago deseado por la URL de la petición.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un pago de un cliente 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "72eef936-ea33-42c0-b849-f74c32c1e6c6",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{clientePagoId}}/pagos/{{pagoId2}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"{{clientePagoId}}",
+						"pagos",
+						"{{pagoId2}}"
+					]
+				},
+				"description": "Consulta un pago de un cliente de la aplicación.  \r\nLa petición no tiene cuerpo.\r\nSe envía el id del cliente y el pago deseado por la URL de la petición.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un pago que no existe. ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "521005a5-fdc4-4a18-9b70-ed56c3a72d2f",
+						"exec": [
+							"tests[\"No consulta con id que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"/pagos/0 no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{clientePagoId}}/pagos/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"{{clientePagoId}}",
+						"pagos",
+						"0"
+					]
+				},
+				"description": "Consulta un pago que no existe en la aplicación.  \r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /clientes/idClientePago/pagos/0 no existe.\".\r\n\r\n**Código http esperado: 404**"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "4a18bf8f-e20f-4e2e-8b5b-0e9f3f30ac94",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "6f4c8713-3e2c-40d9-b34a-508a326692c3",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

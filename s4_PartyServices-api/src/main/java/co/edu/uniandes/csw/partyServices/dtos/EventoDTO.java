@@ -69,7 +69,9 @@ public class EventoDTO implements Serializable {
             this.nombre = eventoEntity.getNombre();
             this.estado = eventoEntity.getEstado();
 //            this.fecha = new FechaDTO(eventoEntity.getFecha());
+            if (this.cliente != null) {
             this.cliente = new ClienteDTO(eventoEntity.getCliente());
+            }
             this.latitud = eventoEntity.getLatitud();
             this.longitud = eventoEntity.getLongitud();
 
@@ -87,7 +89,9 @@ public class EventoDTO implements Serializable {
         eventoEntity.setNombre(this.getNombre());
         eventoEntity.setEstado(this.estado);
         //eventoEntity.setFecha(this.fecha.toEntity());
+        if (this.cliente != null) {
         eventoEntity.setCliente(this.cliente.toEntity());
+        }
         eventoEntity.setLatitud(this.latitud);
         eventoEntity.setLongitud(this.longitud);
         return eventoEntity;

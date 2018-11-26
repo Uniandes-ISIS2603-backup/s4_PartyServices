@@ -86,7 +86,10 @@ public class EventoEntity  extends BaseEntity implements Serializable
      * Relacion uno a uno con el pago del evento.
      */
     @PodamExclude
-    @OneToOne( )
+    @OneToOne(
+    mappedBy = "evento",
+            fetch = FetchType.LAZY
+    )
     private PagoEntity pago;
 
     /**

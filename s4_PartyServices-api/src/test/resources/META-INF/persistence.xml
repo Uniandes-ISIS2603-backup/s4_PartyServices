@@ -13,6 +13,7 @@
     <class>co.edu.uniandes.csw.partyServices.entities.ProveedorEntity</class>
     <class>co.edu.uniandes.csw.partyServices.entities.ServicioEntity</class>
     <class>co.edu.uniandes.csw.partyServices.entities.SugerenciaEntity</class>
+    <class>co.edu.uniandes.csw.partyServices.entities.TarjetaCreditoEntity</class>
     <class>co.edu.uniandes.csw.partyServices.entities.TematicaEntity</class>
     <class>co.edu.uniandes.csw.partyServices.entities.ValoracionEntity</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
