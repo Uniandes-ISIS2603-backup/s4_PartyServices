@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.partyServices.dtos;
 
 import co.edu.uniandes.csw.partyServices.entities.EventoEntity;
 import java.io.Serializable;
+import java.util.Date;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -30,7 +31,17 @@ public class EventoDTO implements Serializable {
      * Estado del evento
      */
     private String estado;
-
+    
+    /**
+     * Dia del evento
+     */
+    private Date dia ;
+    
+    /**
+     * Jornada del evento
+     */
+    private String jornada ;
+    
     /**
      * Fecha del evento
      */
@@ -68,6 +79,8 @@ public class EventoDTO implements Serializable {
             this.id = eventoEntity.getId();
             this.nombre = eventoEntity.getNombre();
             this.estado = eventoEntity.getEstado();
+            this.dia = eventoEntity.getDia() ;
+            this.jornada = eventoEntity.getJornada() ;
 //            this.fecha = new FechaDTO(eventoEntity.getFecha());
             if (this.cliente != null) {
             this.cliente = new ClienteDTO(eventoEntity.getCliente());
@@ -88,6 +101,8 @@ public class EventoDTO implements Serializable {
         eventoEntity.setId(this.getId());
         eventoEntity.setNombre(this.getNombre());
         eventoEntity.setEstado(this.estado);
+        eventoEntity.setDia(this.dia);
+        eventoEntity.setJornada(this.jornada);
         //eventoEntity.setFecha(this.fecha.toEntity());
         if (this.cliente != null) {
         eventoEntity.setCliente(this.cliente.toEntity());
@@ -115,10 +130,18 @@ public class EventoDTO implements Serializable {
         this.id = id;
     }
 
+    /**
+     * Metodo que retorna el nombre del evento
+     * @return 
+     */
     public String getNombre() {
         return nombre;
     }
 
+    /**
+     * Modofica el nombre del evento
+     * @param nombre 
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -141,6 +164,38 @@ public class EventoDTO implements Serializable {
         this.estado = estado;
     }
 
+    /**
+     * Retorna el dia del evento
+     * @return 
+     */
+    public Date getDia() {
+        return dia;
+    }
+
+    /**
+     * Modifica el dia del evento
+     * @param dia 
+     */
+    public void setDia(Date dia) {
+        this.dia = dia;
+    }
+
+    /**
+     * Retorna la jornada del evento
+     * @return 
+     */
+    public String getJornada() {
+        return jornada;
+    }
+
+    /**
+     * Modifica la jornada del evento
+     * @param jornada 
+     */    
+    public void setJornada(String jornada) {
+        this.jornada = jornada;
+    }
+    
     /**
      * Retorna la fecha de realización del evento
      *
