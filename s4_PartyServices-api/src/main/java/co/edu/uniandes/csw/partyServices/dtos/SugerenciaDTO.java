@@ -12,10 +12,11 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * SugerenciaDTO Objeto de transferencia de datos de Sugerencias.
- * 
+ *
  * Al serializarse como JSON esta clase implementa el siguiente modelo: <br>
  * <pre>
  *   {
+ *      "titulo":string,
  *      "id": number,
  *      "comentario": string
  *   }
@@ -25,25 +26,37 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *
  *   {
  *      "id": 1,
+ *      "titulo":"Esta fiesta estuvo genial"
  *      "comentario": "Imprescindible pastel de arequipe"
  *   }
  *
  * </pre>
+ *
  * @author Jesús Orlando Cárcamo Posada
  */
-public class SugerenciaDTO implements Serializable{
-    
+public class SugerenciaDTO implements Serializable {
+
     private Long id;
     private String comentario;
+    private String titulo;
     private String nombreUsuario;
+    private String link;
+
+    private TematicaDTO tematica;
+
     
+
+    public void setCliente(ClienteDTO cliente) {
+        this.cliente = cliente;
+    }
     
+    private ClienteDTO cliente;
     /**
      * Constructor por defecto
      */
     public SugerenciaDTO() {
     }
-    
+
     /**
      * Conviertir Entity a DTO (Crea un nuevo DTO con los valores que recibe en
      * la entidad que viene de argumento.
@@ -55,9 +68,21 @@ public class SugerenciaDTO implements Serializable{
             this.id = sugerenciaEntity.getId();
             this.comentario = sugerenciaEntity.getComentario();
             this.nombreUsuario = sugerenciaEntity.getNombreUsuario();
+            this.link = sugerenciaEntity.getLink();
+            this.titulo = sugerenciaEntity.getTitulo();
+            if (sugerenciaEntity.getTematica()!= null) {
+                this.tematica = new TematicaDTO(sugerenciaEntity.getTematica());
+            } else {
+                this.tematica = null;
+            }
+            if (sugerenciaEntity.getCliente() != null) {
+                this.cliente = new ClienteDTO(sugerenciaEntity.getCliente());
+            } else {
+                this.cliente = null;
+            }
         }
     }
-    
+
     /**
      * Devuelve el ID de la sugerencia.
      *
@@ -66,7 +91,7 @@ public class SugerenciaDTO implements Serializable{
     public Long getId() {
         return id;
     }
-    
+
     /**
      * Modifica el ID de la sugerencia.
      *
@@ -75,7 +100,7 @@ public class SugerenciaDTO implements Serializable{
     public void setId(Long id) {
         this.id = id;
     }
-    
+
     /**
      * Devuelve el comentario de la sugerencia.
      *
@@ -93,16 +118,16 @@ public class SugerenciaDTO implements Serializable{
     public void setComentario(String comentario) {
         this.comentario = comentario;
     }
-    
+
     /**
      * Devuelve el nombre del usuario asignado a la sugerencia.
      *
      * @return nombreUsuario. El nombre del usuario asignado a la sugerencia.
      */
-    public String getNombreUsuario(){
+    public String getNombreUsuario() {
         return nombreUsuario;
     }
-    
+
     /**
      * Modifica el nombre del usuario asignado a la sugerencia.
      *
@@ -111,7 +136,45 @@ public class SugerenciaDTO implements Serializable{
     public void setNombreUsuario(String nombreUsuario) {
         this.nombreUsuario = nombreUsuario;
     }
+
+    /**
+     * Devuelve el titulo asignado a la sugerencia.
+     *
+     * @return titulo. El titulo del usuario asignado a la sugerencia.
+     */
+    public String getTitulo() {
+        return titulo;
+    }
+
+    /**
+     * Modifica el titulo asignado a la sugerencia.
+     *
+     * @param pTitulo. El nuevo titulo de la sugerencia.
+     */
+    public void setTitulo(String pTitulo) {
+        this.titulo = pTitulo;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
     
+    public TematicaDTO getTematica() {
+        return tematica;
+    }
+
+    public void setTematica(TematicaDTO tematica) {
+        this.tematica = tematica;
+    }
+
+    public ClienteDTO getCliente() {
+        return cliente;
+    }
+
     /**
      * Convertir DTO a Entity
      *
@@ -122,12 +185,21 @@ public class SugerenciaDTO implements Serializable{
         sugerenciaEntity.setId(this.id);
         sugerenciaEntity.setComentario(this.comentario);
         sugerenciaEntity.setNombreUsuario(this.nombreUsuario);
+        sugerenciaEntity.setLink(this.link);
+        sugerenciaEntity.setTitulo(this.titulo);
+
+         if (this.tematica != null) {
+            sugerenciaEntity.setTematica(this.tematica.toEntity());
+        }
+         if (this.cliente != null) {
+            sugerenciaEntity.setCliente(this.cliente.toEntity());
+        }
         return sugerenciaEntity;
     }
-    
+
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
-    
+
 }

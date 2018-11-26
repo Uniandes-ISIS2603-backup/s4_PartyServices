@@ -22,6 +22,11 @@ public class ValoracionEntity extends BaseEntity implements Serializable {
     private Integer puntaje;
 
     private String nombreUsuario;
+    
+    private String titulo;
+
+    
+
 
     @PodamExclude
     @ManyToOne
@@ -87,10 +92,18 @@ public class ValoracionEntity extends BaseEntity implements Serializable {
     /**
      * Modifica el nombre del usuario asociado a la valoración.
      *
-     * @param nombreUsuario. El nuevo nombre del usuario que se reemplazará.
+     * @param pNombreUsuario. El nuevo nombre del usuario que se reemplazará.
      */
     public void setNombreUsuario(String pNombreUsuario) {
         nombreUsuario = pNombreUsuario;
+    }
+    
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
     /**

@@ -5,9 +5,11 @@
  */
 package co.edu.uniandes.csw.partyServices.ejb;
 
+import co.edu.uniandes.csw.partyServices.entities.ClienteEntity;
 import co.edu.uniandes.csw.partyServices.entities.SugerenciaEntity;
 import co.edu.uniandes.csw.partyServices.entities.TematicaEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
+import co.edu.uniandes.csw.partyServices.persistence.ClientePersistence;
 import co.edu.uniandes.csw.partyServices.persistence.SugerenciaPersistence;
 import co.edu.uniandes.csw.partyServices.persistence.TematicaPersistence;
 import java.util.List;
@@ -30,6 +32,9 @@ public class SugerenciaLogic {
 
     @Inject
     private TematicaPersistence tematicaPersistence;
+    
+    @Inject
+    private ClientePersistence clientePersistence;
 
     /**
      * Crea una sugerencia en la base de datos.
@@ -46,14 +51,25 @@ public class SugerenciaLogic {
     public SugerenciaEntity createSugerencia(Long tematicasId, SugerenciaEntity sugerenciaEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de creación de la sugerencia");
 
-        if (sugerenciaEntity.getComentario().length() > 20000) {
-            throw new BusinessLogicException("El tamaño del texto no debe ser superior a los 20000 caracteres");
+        if ((sugerenciaEntity.getTitulo() != null && sugerenciaEntity.getTitulo().length() > 50)||(sugerenciaEntity.getTitulo() == null)||(sugerenciaEntity.getTitulo().equals("")) ) {
+            throw new BusinessLogicException("El tamaño del titulo no debe ser superior a los 50 caracteres o vacío");
         }
+        if ((sugerenciaEntity.getComentario() != null && sugerenciaEntity.getComentario().length() > 1000) ||(sugerenciaEntity.getComentario()== null)||(sugerenciaEntity.getComentario().equals(""))) {
+            throw new BusinessLogicException("El tamaño del texto no debe ser superior a los 1000 caracteres o vacío");
+        }
+        
         TematicaEntity tematica = tematicaPersistence.find(tematicasId);
         sugerenciaEntity.setTematica(tematica);
-        persistence.create(sugerenciaEntity);
+        
+        if (sugerenciaEntity.getCliente() != null) {
+            ClienteEntity cliente = clientePersistence.find(sugerenciaEntity.getCliente().getId());
+            sugerenciaEntity.setCliente(cliente);
+        }
 
         LOGGER.log(Level.INFO, "Termina proceso de creación de la sugerencia");
+
+        persistence.create(sugerenciaEntity);
+        
 
         return sugerenciaEntity;
     }

@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "322586e5-1932-46db-8db7-b57a202ad2f4",
+		"_postman_id": "5cbcff4e-5bb0-4e3a-bc17-6e2d4ed746ba",
 		"name": "ClienteSugerencias Tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -151,12 +151,12 @@
 					"listen": "test",
 					"script": {
 						"id": "c997b559-9104-4709-9709-26653dad4602",
-						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
 							"postman.setGlobalVariable(\"new_id_ClienteSugerencia\",data.id);",
 							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -170,7 +170,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n     \"login\":\"joCarcamo152321\",\n     \"contrasenia\":\"00000001\",\n     \"email\":\"unemailnotanalgoo@cosas.com\",\n     \"fechaNacimiento\":\"15/02/2000\"\n}"
+					"raw": "{\n     \"nombreUsuario\":\"joCarcamo152321\",\n     \"contrasenia\":\"00000001\",\n     \"email\":\"unemailnotanalgoo@cosas.com\",\n     \"fechaNacimiento\":\"15/02/2000\"\n}"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes",
@@ -528,7 +528,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"comentario\":\"Pastel de arequipe el mejor!\",\n    \"nombreUsuario\":\"Cesar\"\n}"
+					"raw": ""
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/tematicas/{{new_id_tematicaSugerencia_Cliente}}/sugerencias/{{new_id_sugerencia_Cliente}}",
