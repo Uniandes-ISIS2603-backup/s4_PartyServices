@@ -51,6 +51,11 @@ public class ValoracionDTO implements Serializable {
      * no la ponía, después se quitará
      */
     private ProveedorDTO proveedor;
+    
+    private ClienteDTO cliente;
+
+    
+
 
     /**
      * Constructor por defecto
@@ -77,6 +82,11 @@ public class ValoracionDTO implements Serializable {
                 this.proveedor = new ProveedorDTO(valoracionEntity.getProveedor());
             } else {
                 this.proveedor = null;
+            }
+            if (valoracionEntity.getCliente() != null) {
+                this.cliente = new ClienteDTO(valoracionEntity.getCliente());
+            } else {
+                this.cliente = null;
             }
         }
     }
@@ -190,6 +200,21 @@ public class ValoracionDTO implements Serializable {
     public void setProveedor(ProveedorDTO proveedor) {
         this.proveedor = proveedor;
     }
+    public String getTitulo2() {
+        return titulo2;
+    }
+
+    public void setTitulo2(String titulo2) {
+        this.titulo2 = titulo2;
+    }
+
+    public ClienteDTO getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(ClienteDTO cliente) {
+        this.cliente = cliente;
+    }
 
     /**
      * Convertir DTO a Entity
@@ -206,6 +231,9 @@ public class ValoracionDTO implements Serializable {
 
         if (this.proveedor != null) {
             valoracionEntity.setProveedor(this.proveedor.toEntity());
+        }
+         if (this.cliente != null) {
+            valoracionEntity.setCliente(this.cliente.toEntity());
         }
         return valoracionEntity;
     }
