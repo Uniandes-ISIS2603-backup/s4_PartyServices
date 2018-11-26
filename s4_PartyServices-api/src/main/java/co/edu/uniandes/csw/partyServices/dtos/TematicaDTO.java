@@ -65,15 +65,15 @@ public class TematicaDTO implements Serializable{
     
     
     /**
-     * Devuelve el id del evento
-     * @return id del evento
+     * Devuelve el id de la tematica
+     * @return id de la tematica
      */
     public Long getId() {
         return id;
     }
     
     /**
-     * Modifica el id del evento 
+     * Modifica el id de la tematica 
      * @param id 
      */
     public void setId(Long id) {
@@ -81,16 +81,16 @@ public class TematicaDTO implements Serializable{
     }
 
     /**
-     * Retorna el nombre actual del evento
-     * @return estado del evento
+     * Retorna el nombre actual de la tematica
+     * @return nombre de la tematica
      */
     public String getName() {
         return name;
     }
     
     /**
-     * Modifica el nombre del evento
-     * @param estado 
+     * Modifica el nombre de la tematica
+     * @param name  
      */
     public void setName(String name) {
         this.name = name;
