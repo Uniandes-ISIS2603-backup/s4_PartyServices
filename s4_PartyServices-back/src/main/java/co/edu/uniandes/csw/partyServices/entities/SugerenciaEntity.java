@@ -25,10 +25,6 @@ public class SugerenciaEntity extends BaseEntity implements Serializable {
     
     private String link;
 
-    
-
-
-
     @PodamExclude
     @ManyToOne
     private ClienteEntity cliente;
@@ -36,6 +32,7 @@ public class SugerenciaEntity extends BaseEntity implements Serializable {
     @PodamExclude
     @ManyToOne
     private TematicaEntity tematica;
+    
 
     /**
      * Constructor por defecto de una SugerenciaEntity.
@@ -131,5 +128,8 @@ public class SugerenciaEntity extends BaseEntity implements Serializable {
     public void setLink(String link) {
         this.link = link;
     }
+    
+    
+    
 
 }
