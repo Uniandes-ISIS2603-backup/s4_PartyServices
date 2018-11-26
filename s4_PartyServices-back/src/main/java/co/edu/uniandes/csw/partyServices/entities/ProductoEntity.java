@@ -45,13 +45,6 @@ public class ProductoEntity extends BaseEntity implements Serializable {
     @ManyToOne(cascade = CascadeType.ALL)
     private ProveedorEntity proveedor;
     
-    /**
-     *Atributo que representa la relacion muchos a uno con la clase SugerenciaEntity
-     */
-    @PodamExclude
-    @ManyToOne(cascade = CascadeType.ALL)
-    private SugerenciaEntity sugerencia;
-
      /**
      *Atributo que representa el costo de un producto
      */
@@ -192,20 +185,5 @@ public class ProductoEntity extends BaseEntity implements Serializable {
         eventos.add(evento);
     }
     
-    /**
-     * Metodo que retorna la sugerencia de un producto
-     * @return sugerencia
-     */
-    public SugerenciaEntity getSugerencia() {
-        return sugerencia;
-    }
-
-    /**
-     * Metodo que modifica la sugerencia de un producto
-     * @param sugerencia 
-     */
-    public void setSugerencia(SugerenciaEntity sugerencia) {
-        this.sugerencia = sugerencia;
-    }
 
 }

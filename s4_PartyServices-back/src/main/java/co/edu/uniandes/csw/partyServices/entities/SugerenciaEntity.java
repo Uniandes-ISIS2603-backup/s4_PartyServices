@@ -6,10 +6,8 @@
 package co.edu.uniandes.csw.partyServices.entities;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
@@ -27,10 +25,6 @@ public class SugerenciaEntity extends BaseEntity implements Serializable {
     
     private String link;
 
-    
-
-
-
     @PodamExclude
     @ManyToOne
     private ClienteEntity cliente;
@@ -39,10 +33,6 @@ public class SugerenciaEntity extends BaseEntity implements Serializable {
     @ManyToOne
     private TematicaEntity tematica;
     
-    @PodamExclude
-    @OneToMany(mappedBy = "sugerencia")
-    private List<ProductoEntity> productos;
-
 
     /**
      * Constructor por defecto de una SugerenciaEntity.
@@ -103,15 +93,6 @@ public class SugerenciaEntity extends BaseEntity implements Serializable {
      */
     public void setCliente(ClienteEntity cliente) {
         this.cliente = cliente;
-    }
-    
-
-    public List<ProductoEntity> getProductos() {
-        return productos;
-    }
-
-    public void setProducto(List<ProductoEntity> productos) {
-        this.productos = productos;
     }
 
     /**
