@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.partyServices.entities;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -36,6 +37,16 @@ public class EventoEntity  extends BaseEntity implements Serializable
      *   "En planeacion" ,  "Planeado" ,  "En proceso",  "Cancelado",  "Terminado"
      */
     private String estado ;
+    
+    /**
+     * Atributo que representa el dia en el que se realizará el evento 
+     */
+    private Date dia ;
+    
+    /**
+     * Atributo que representa la jornada en la que se realizará el evento
+     */
+    private String jornada ;
     
     /**
      * Atributo que representa la relacion muchos a uno con la clase FechaEntity
@@ -86,7 +97,10 @@ public class EventoEntity  extends BaseEntity implements Serializable
      * Relacion uno a uno con el pago del evento.
      */
     @PodamExclude
-    @OneToOne( )
+    @OneToOne(
+    mappedBy = "evento",
+            fetch = FetchType.LAZY
+    )
     private PagoEntity pago;
 
     /**
@@ -122,6 +136,39 @@ public class EventoEntity  extends BaseEntity implements Serializable
         this.estado = estado;
     }
 
+    /**
+     * Metodo que retorna el dia del evento
+     * @return dia
+     */
+    public Date getDia() {
+        return dia;
+    }
+
+    /**
+     * Metodo que modifica el dia del evento
+     * @param dia 
+     */
+    public void setDia(Date dia) {
+        this.dia = dia;
+    }
+
+    /**
+     * Metodo que retorna la jornada del evento
+     * @return jornada
+     */
+    public String getJornada() {
+        return jornada;
+    }
+
+    /**
+     * Metodo que modifica la jornada del evento 
+     * @param jornada 
+     */
+    public void setJornada(String jornada) {
+        this.jornada = jornada;
+    }
+
+    
     
     /**
      * Metodo que retorna la fecha del evento

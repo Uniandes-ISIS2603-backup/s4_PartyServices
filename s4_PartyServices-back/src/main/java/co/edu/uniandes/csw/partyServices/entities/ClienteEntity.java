@@ -91,7 +91,8 @@ public class ClienteEntity extends BaseEntity implements Serializable {
     
     @PodamExclude
     @OneToOne(
-    mappedBy = "cliente",
+            mappedBy = "cliente",
+            
             fetch = FetchType.LAZY
     )
     private TarjetaCreditoEntity tarjetaCredito;
