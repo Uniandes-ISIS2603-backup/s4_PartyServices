@@ -59,7 +59,7 @@ public class EventoEntity  extends BaseEntity implements Serializable
      * Atributo que representa la relacion muchos a uno con la clase ClienteEntity
      */
     @PodamExclude
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     private ClienteEntity cliente ;
  
      /**

@@ -106,6 +106,7 @@ public class EventoLogic {
  
         ClienteEntity cliente = clientePersistence.find(eventoEntity.getCliente().getId());
         
+        System.out.println(cliente.getNombreUsuario());
         
         if(cliente == null)
         {
