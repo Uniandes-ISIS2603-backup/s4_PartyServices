@@ -12,7 +12,6 @@ import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.partyServices.persistence.ClientePersistence;
 import co.edu.uniandes.csw.partyServices.persistence.EventoPersistence;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
