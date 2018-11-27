@@ -35,52 +35,78 @@ public class EventoProductosLogic {
     private EventoPersistence eventoPersistence;
 
     /**
-     * Agregar un producto a la evento
+     * Asocia un Producto existente a un Evento
      *
-     * @param productosId El id producto a guardar
-     * @param eventosId El id de la evento en la cual se va a guardar el
-     * producto.
-     * @return El producto creado.
+     * @param eventosId Identificador de la instancia de Evento
+     * @param productosId Identificador de la instancia de Producto
+     * @return Instancia de ProductoEntity que fue asociada a Evento
      */
-    public ProductoEntity addProducto(Long productosId, Long eventosId) {
-        LOGGER.log(Level.INFO, "Inicia proceso de agregarle un producto a la evento con id = {0}", eventosId);
+    public ProductoEntity addProducto(Long eventosId, Long productosId) {
+        LOGGER.log(Level.INFO, "Inicia proceso de asociarle un producto al autor con id = {0}", eventosId);
         EventoEntity eventoEntity = eventoPersistence.find(eventosId);
         ProductoEntity productoEntity = productoPersistence.find(productosId);
-        productoEntity.setEvento(eventoEntity);
-        LOGGER.log(Level.INFO, "Termina proceso de agregarle un producto a la evento con id = {0}", eventosId);
-        return productoEntity;
+        productoEntity.getEventos().add(eventoEntity);
+        LOGGER.log(Level.INFO, "Termina proceso de asociarle un producto al autor con id = {0}", eventosId);
+        return productoPersistence.find(productosId);
     }
 
     /**
-     * Retorna todos los productos asociados a una evento
+     * Obtiene una colección de instancias de ProductoEntity asociadas a una
+     * instancia de Evento
      *
-     * @param eventosId El ID de la evento buscada
-     * @return La lista de productos de la evento
+     * @param eventosId Identificador de la instancia de Evento
+     * @return Colección de instancias de ProductoEntity asociadas a la instancia de
+     * Evento
      */
     public List<ProductoEntity> getProductos(Long eventosId) {
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar los productos asociados a la evento con id = {0}", eventosId);
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar todos los productos del autor con id = {0}", eventosId);
         return eventoPersistence.find(eventosId).getProductos();
     }
 
     /**
-     * Retorna un producto asociado a una evento
+     * Obtiene una instancia de ProductoEntity asociada a una instancia de Evento
      *
-     * @param eventosId El id de la evento a buscar.
-     * @param productosId El id del producto a buscar
-     * @return El producto encontrado dentro de la evento.
-     * @throws BusinessLogicException Si el producto no se encuentra en la
-     * evento
+     * @param eventosId Identificador de la instancia de Evento
+     * @param productosId Identificador de la instancia de Producto
+     * @return La entidadd de Libro del autor
+     * @throws BusinessLogicException Si el producto no está asociado al autor
      */
     public ProductoEntity getProducto(Long eventosId, Long productosId) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar el producto con id = {0} de la evento con id = " + eventosId, productosId);
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar el producto con id = {0} del autor con id = " + eventosId, productosId);
         List<ProductoEntity> productos = eventoPersistence.find(eventosId).getProductos();
         ProductoEntity productoEntity = productoPersistence.find(productosId);
         int index = productos.indexOf(productoEntity);
-        LOGGER.log(Level.INFO, "Termina proceso de consultar el producto con id = {0} de la evento con id = " + eventosId, productosId);
+        LOGGER.log(Level.INFO, "Termina proceso de consultar el producto con id = {0} del autor con id = " + eventosId, productosId);
         if (index >= 0) {
             return productos.get(index);
         }
-        throw new BusinessLogicException("El producto no está asociado a la evento");
+        throw new BusinessLogicException("El producto no está asociado al autor");
+    }
+
+    /**
+     * Remplaza las instancias de Producto asociadas a una instancia de Evento
+     *
+     * @param eventoId Identificador de la instancia de Evento
+     * @param productos Colección de instancias de ProductoEntity a asociar a instancia
+     * de Evento
+     * @return Nueva colección de ProductoEntity asociada a la instancia de Evento
+     */
+    public List<ProductoEntity> replaceProductos(Long eventoId, List<ProductoEntity> productos) {
+        LOGGER.log(Level.INFO, "Inicia proceso de reemplazar los productos asocidos al evento con id = {0}", eventoId);
+        EventoEntity eventoEntity = eventoPersistence.find(eventoId);
+        List<ProductoEntity> productoList = productoPersistence.findAll();
+        for (ProductoEntity producto : productoList) {
+            if (productos.contains(producto)) {
+                if (!producto.getEventos().contains(eventoEntity)) {
+                    producto.getEventos().add(eventoEntity);
+                }
+            } else {
+                producto.getEventos().remove(eventoEntity);
+            }
+        }
+        eventoEntity.setProductos(productos);
+        LOGGER.log(Level.INFO, "Termina proceso de reemplazar los productos asocidos al evento con id = {0}", eventoId);
+        return eventoEntity.getProductos();
     }
 
     /**

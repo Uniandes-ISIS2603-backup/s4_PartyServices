@@ -209,5 +209,22 @@ public class EventoLogic {
     public EventoEntity findByNombre(String pNombre) {
         return persistence.findByName(pNombre);
     }
+    
+    /**
+     * Obtiene los datos de una instancia de Evento a partir de su ID.
+     *
+     * @param eventosId Identificador de la instancia a consultar
+     * @return Instancia de EventoEntity con los datos del Evento consultado.
+     * @author Tomas Vargas 
+     */
+    public EventoEntity getEvento(Long eventosId) {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar el evento con id = {0}", eventosId);
+        EventoEntity eventoEntity = persistence.find(eventosId);
+        if (eventoEntity == null) {
+            LOGGER.log(Level.SEVERE, "La editorial con el id = {0} no existe", eventosId);
+        }
+        LOGGER.log(Level.INFO, "Termina proceso de consultar el evento con id = {0}", eventosId);
+        return eventoEntity;
+    }
 
 }
