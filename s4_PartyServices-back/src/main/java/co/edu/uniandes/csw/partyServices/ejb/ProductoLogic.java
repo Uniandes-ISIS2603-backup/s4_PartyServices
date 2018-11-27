@@ -178,4 +178,21 @@ public class ProductoLogic {
     {
         return persistence.findAll() ;
     }
+    
+    /**
+     * Busca un libro por ID
+     *
+     * @param productosId El id del producto a buscar
+     * @return El producto encontrado, null si no lo encuentra.
+     * @author Tomas Vargas
+     */
+    public ProductoEntity getProductoId(Long productosId) {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar el producto con id = {0}", productosId);
+        ProductoEntity productoEntity = persistence.find(productosId);
+        if (productoEntity == null) {
+            LOGGER.log(Level.SEVERE, "El producto con el id = {0} no existe", productosId);
+        }
+        LOGGER.log(Level.INFO, "Termina proceso de consultar el libro con id = {0}", productosId);
+        return productoEntity;
+    }
 }
