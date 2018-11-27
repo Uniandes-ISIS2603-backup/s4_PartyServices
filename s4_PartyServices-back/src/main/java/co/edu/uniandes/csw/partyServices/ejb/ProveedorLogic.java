@@ -27,6 +27,9 @@ public class ProveedorLogic {
 
     @Inject
     private ProveedorPersistence persistence;
+    
+    @Inject
+    private AgendaLogic agendaLogic;
 
     public ProveedorEntity createProveedor(ProveedorEntity entity) throws BusinessLogicException {
 
@@ -135,6 +138,7 @@ public class ProveedorLogic {
                 throw new BusinessLogicException("No se puede borrar el proveedor pues tiene un evento pendiente");
             }
         }
+        agendaLogic.deleteAgenda(provEntity.getAgenda().getId());
         persistence.delete(proveedorID);
         LOGGER.log(Level.INFO, "Termina proceso de borrar el proveedor con id = {0}", proveedorID);
     }
