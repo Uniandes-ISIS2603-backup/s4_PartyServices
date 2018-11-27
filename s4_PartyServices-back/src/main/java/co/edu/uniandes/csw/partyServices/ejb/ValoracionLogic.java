@@ -120,9 +120,10 @@ public class ValoracionLogic {
         ProveedorEntity proveedorEntity = proveedorPersistence.find(proveedorId);
         valoracionEntity.setProveedor(proveedorEntity);
 
-        persistence.update(valoracionEntity);
+        ValoracionEntity newEntity = persistence.update(valoracionEntity);
+
         LOGGER.log(Level.INFO, "Termina proceso de actualizar la valoracion con id = {0} del proveedor con id = {1}", new Object[]{valoracionEntity.getId(), proveedorId});
-        return valoracionEntity;
+        return newEntity;
     }
 
     /**
