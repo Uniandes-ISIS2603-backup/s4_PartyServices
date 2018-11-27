@@ -12,6 +12,7 @@
  
     <modules>
         <module>s4_PartyServices-back</module>
+        <module>s4_PartyServices-api</module>
     </modules>
     
     <repositories>
