@@ -1,21 +1,21 @@
 {
 	"info": {
-		"_postman_id": "0c7aaf2e-efa8-43fe-bb7a-05e5cf27ad5d",
-		"name": "ClienteValoraciones Tests",
+		"_postman_id": "5cbcff4e-5bb0-4e3a-bc17-6e2d4ed746ba",
+		"name": "ClienteSugerencias Tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Crear un proveedor ",
+			"name": "Crear una tematica ",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "eee19a9f-baae-4cbb-9748-7f6dbcb2acf7",
+						"id": "9b49e6c9-18dd-4014-a3ee-09bc49e1cf88",
 						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
-							"postman.setGlobalVariable(\"new_id_proveedorValoracion_Cliente\",data.id);",
+							"postman.setGlobalVariable(\"new_id_tematicaSugerencia_Cliente\",data.id);",
 							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
 						]
 					}
@@ -31,10 +31,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"nombre\":\"Jesus15\",\n    \"contrasenia\":\"123456789\",\n    \"calificacion\":10,\n    \"agenda\":{}\n}"
+					"raw": "{\n    \"name\":\"Metalera\",\n    \"servicio\":{}\n}"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/proveedor",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/tematicas",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -43,24 +43,24 @@
 					"path": [
 						"s4_PartyServices-api",
 						"api",
-						"proveedor"
+						"tematicas"
 					]
 				},
-				"description": "Crea una nuevo proveedor con un nombre, una contraseña, una calificacion y una agenda asociada. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+				"description": "Crea una nueva temática con un nombre y una lista de servicios asociada. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
 			},
 			"response": []
 		},
 		{
-			"name": "Crearle una valoración a un proveedor ",
+			"name": "Crearle una sugerencia a una tematica ",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "ba99979b-ea3f-4853-a517-09815b662e58",
+						"id": "a7431cc1-8789-4460-8f97-2769b6d31103",
 						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
-							"postman.setGlobalVariable(\"new_id_valoracion_Cliente\",data.id);",
+							"postman.setGlobalVariable(\"new_id_sugerencia_Cliente\",data.id);",
 							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
 						]
 					}
@@ -76,10 +76,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"puntaje\":10,\n\t\"comentario\":\"Muy buen servicio! Así se hace\",\n\t\"nombreUsuario\":\"Cesar\"\n\t\n}"
+					"raw": "{\n    \"comentario\":\"Pastel de arequipe el mejor!\",\n    \"nombreUsuario\":\"Cesar\"\n}"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/proveedor/{{new_id_proveedorValoracion_Cliente}}/valoraciones",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/tematicas/{{new_id_tematicaSugerencia_Cliente}}/sugerencias",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -88,26 +88,26 @@
 					"path": [
 						"s4_PartyServices-api",
 						"api",
-						"proveedor",
-						"{{new_id_proveedorValoracion_Cliente}}",
-						"valoraciones"
+						"tematicas",
+						"{{new_id_tematicaSugerencia_Cliente}}",
+						"sugerencias"
 					]
 				},
-				"description": "Crea una nueva valoracion. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+				"description": "Crea una nueva sugerencia. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
 			},
 			"response": []
 		},
 		{
-			"name": "Crearle una valoracion a un proveedor2 ",
+			"name": "Crearle una sugerencia a una tematica  2",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "bc1f3e9a-f4f3-4613-8a2a-5d8d7afb622d",
+						"id": "30102d19-2409-4b8e-94b8-8c469c41c7d8",
 						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
-							"postman.setGlobalVariable(\"new_id_valoracion_Cliente2\",data.id);",
+							"postman.setGlobalVariable(\"new_id_sugerencia_Cliente2\",data.id);",
 							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
 						]
 					}
@@ -126,7 +126,7 @@
 					"raw": "{\n    \"comentario\":\"Pastel de arequipe el mejor!\",\n    \"nombreUsuario\":\"JoCarcamo\"\n}"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/proveedor/{{new_id_proveedorValoracion_Cliente}}/valoraciones",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/tematicas/{{new_id_tematicaSugerencia_Cliente}}/sugerencias",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -135,28 +135,28 @@
 					"path": [
 						"s4_PartyServices-api",
 						"api",
-						"proveedor",
-						"{{new_id_proveedorValoracion_Cliente}}",
-						"valoraciones"
+						"tematicas",
+						"{{new_id_tematicaSugerencia_Cliente}}",
+						"sugerencias"
 					]
 				},
-				"description": "Crea una nueva valoracion. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+				"description": "Crea una nueva sugerencia. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
 			},
 			"response": []
 		},
 		{
-			"name": "Crear un cliente ",
+			"name": "Crear un cliente",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "c8e0d4e5-4004-422c-9100-7a51cf3d1b84",
-						"type": "text/javascript",
+						"id": "c997b559-9104-4709-9709-26653dad4602",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
-							"postman.setGlobalVariable(\"new_id_ClienteValoracion\",data.id);",
+							"postman.setGlobalVariable(\"new_id_ClienteSugerencia\",data.id);",
 							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -170,7 +170,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n     \"login\":\"CesarRojo123\",\n     \"contrasenia\":\"00000001\",\n     \"email\":\"unemailnotanalgo@cosas.com\",\n     \"fechaNacimiento\":\"15/02/2000\"\n}"
+					"raw": "{\n     \"nombreUsuario\":\"joCarcamo152321\",\n     \"contrasenia\":\"00000001\",\n     \"email\":\"unemailnotanalgoo@cosas.com\",\n     \"fechaNacimiento\":\"15/02/2000\"\n}"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes",
@@ -190,7 +190,7 @@
 			"response": []
 		},
 		{
-			"name": "Agregarle una valoracion a un cliente ",
+			"name": "Agregarle una sugerencia a un cliente",
 			"event": [
 				{
 					"listen": "test",
@@ -211,7 +211,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{new_id_ClienteValoracion}}/proveedor/{{new_id_proveedorValoracion_Cliente}}/valoraciones/{{new_id_valoracion_Cliente}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{new_id_ClienteSugerencia}}/tematicas/{{new_id_tematicaSugerencia_Cliente}}/sugerencias/{{new_id_sugerencia_Cliente}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -221,28 +221,28 @@
 						"s4_PartyServices-api",
 						"api",
 						"clientes",
-						"{{new_id_ClienteValoracion}}",
-						"proveedor",
-						"{{new_id_proveedorValoracion_Cliente}}",
-						"valoraciones",
-						"{{new_id_valoracion_Cliente}}"
+						"{{new_id_ClienteSugerencia}}",
+						"tematicas",
+						"{{new_id_tematicaSugerencia_Cliente}}",
+						"sugerencias",
+						"{{new_id_sugerencia_Cliente}}"
 					]
 				},
-				"description": "Asocia una valoracion a un cliente en la aplicación. \r\n\r\nSe envía el Id del cliente y el de la valoracion a asociar en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
+				"description": "Asocia una sugerencia a un cliente en la aplicación. \r\n\r\nSe envía el Id del cliente y el de la sugerencia a asociar en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
 			},
 			"response": []
 		},
 		{
-			"name": "Agregar una valoracion que no existe a un cliente ",
+			"name": "Agregar una sugerencia que no existe a un cliente",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "860e1d64-c763-49bb-8752-c6a978511cd0",
+						"id": "df1c6254-cf0e-4639-a726-0406a876fd50",
 						"type": "text/javascript",
 						"exec": [
-							"tests[\"No agrega una valoracion con un id que no existe\"] = responseCode.code === 404;",
-							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /valoraciones/0 no existe.\");"
+							"tests[\"No agrega una sugerencia con un id que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /sugerencias/0 no existe.\");"
 						]
 					}
 				}
@@ -260,7 +260,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{new_id_ClienteValoracion}}/proveedor/{{new_id_proveedorValoracion_Cliente}}/valoraciones/0",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{new_id_ClienteSugerencia}}/tematicas/{{new_id_tematicaSugerencia_Cliente}}/sugerencias/0",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -270,29 +270,29 @@
 						"s4_PartyServices-api",
 						"api",
 						"clientes",
-						"{{new_id_ClienteValoracion}}",
-						"proveedor",
-						"{{new_id_proveedorValoracion_Cliente}}",
-						"valoraciones",
+						"{{new_id_ClienteSugerencia}}",
+						"tematicas",
+						"{{new_id_tematicaSugerencia_Cliente}}",
+						"sugerencias",
 						"0"
 					]
 				},
-				"description": "Asocia una valoracion que no existe a un cliente en la aplicación. \r\n\r\nSe envía el Id del cliente y el de la valoracion a asociar en la URL de la petición.\r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /valoraciones/0 no existe.\".\r\n\r\n**Código HTTP esperado: 404**"
+				"description": "Asocia una sugerencia que no existe a un cliente en la aplicación. \r\n\r\nSe envía el Id del cliente y el de la sugerencia a asociar en la URL de la petición.\r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /sugerencias/0 no existe.\".\r\n\r\n**Código HTTP esperado: 404**"
 			},
 			"response": []
 		},
 		{
-			"name": "Obtener las valoraciones de un cliente ",
+			"name": "Obtener las sugerencias de un cliente",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "aaa5cac6-7cb6-47aa-9cee-d3d2a9d10dc9",
+						"id": "d948df91-d9aa-43f7-a547-ef80315eba63",
 						"type": "text/javascript",
 						"exec": [
 							"var data= JSON.parse(responseBody);",
 							"tests[\"No genera error en el Get all\"] = responseCode.code === 200;",
-							"tests[\"Cantidad de valoraciones del cliente\"] = data.length >= 0;"
+							"tests[\"Cantidad de sugerencias del cliente\"] = data.length >= 0;"
 						]
 					}
 				}
@@ -305,7 +305,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{new_id_ClienteValoracion}}/proveedor/todos/valoraciones",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{new_id_ClienteSugerencia}}/tematicas/todas/sugerencias",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -315,18 +315,18 @@
 						"s4_PartyServices-api",
 						"api",
 						"clientes",
-						"{{new_id_ClienteValoracion}}",
-						"proveedor",
-						"todos",
-						"valoraciones"
+						"{{new_id_ClienteSugerencia}}",
+						"tematicas",
+						"todas",
+						"sugerencias"
 					]
 				},
-				"description": "Consulta las valoraciones de un cliente en la aplicación. \r\nLa petición no tiene cuerpo.\r\n\r\nSe envía el Id del cliente a consultar en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
+				"description": "Consulta las sugerencias de un cliente en la aplicación. \r\nLa petición no tiene cuerpo.\r\n\r\nSe envía el Id del cliente a consultar en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
 			},
 			"response": []
 		},
 		{
-			"name": "Obtener una valoracion de un cliente",
+			"name": "Obtener una sugerencia de un cliente",
 			"event": [
 				{
 					"listen": "test",
@@ -349,7 +349,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{new_id_ClienteValoracion}}/proveedor/{{new_id_proveedorValoracion_Cliente}}/valoraciones/{{new_id_valoracion_Cliente}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{new_id_ClienteSugerencia}}/tematicas/{{new_id_tematicaSugerencia_Cliente}}/sugerencias/{{new_id_sugerencia_Cliente}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -359,28 +359,28 @@
 						"s4_PartyServices-api",
 						"api",
 						"clientes",
-						"{{new_id_ClienteValoracion}}",
-						"proveedor",
-						"{{new_id_proveedorValoracion_Cliente}}",
-						"valoraciones",
-						"{{new_id_valoracion_Cliente}}"
+						"{{new_id_ClienteSugerencia}}",
+						"tematicas",
+						"{{new_id_tematicaSugerencia_Cliente}}",
+						"sugerencias",
+						"{{new_id_sugerencia_Cliente}}"
 					]
 				},
-				"description": "Consulta una valoracion de un cliente en la aplicación. \r\nLa petición no tiene cuerpo.\r\n\r\nSe envía el Id del cliente, del proveedor que peretenece la valoracion y de la valoracion a consultar en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
+				"description": "Consulta una sugerencia de un cliente en la aplicación. \r\nLa petición no tiene cuerpo.\r\n\r\nSe envía el Id del cliente, de la temática que peretenece la sugerencia y de la sugerencia a consultar en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
 			},
 			"response": []
 		},
 		{
-			"name": "Obtener una valoracion no asociada de un cliente ",
+			"name": "Obtener una sugerencia no asociada de un cliente",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "6fbec05d-37d6-4dee-bfd9-f7a13585d661",
+						"id": "54d4117f-126a-482e-bfaf-49e8f3881d66",
 						"type": "text/javascript",
 						"exec": [
 							"tests[\"No se puede obtener una sugerencia que no esta asociada\"] = responseCode.code === 412;",
-							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"La valoracion no está asociada al cliente\");"
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"La sugerencia no está asociada al cliente\");"
 						]
 					}
 				}
@@ -393,7 +393,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{new_id_ClienteValoracion}}/proveedor/{{new_id_proveedorValoracion_Cliente}}/valoraciones/{{new_id_valoracion_Cliente2}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{new_id_ClienteSugerencia}}/tematicas/{{new_id_tematicaSugerencia_Cliente}}/sugerencias/{{new_id_sugerencia_Cliente2}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -403,28 +403,27 @@
 						"s4_PartyServices-api",
 						"api",
 						"clientes",
-						"{{new_id_ClienteValoracion}}",
-						"proveedor",
-						"{{new_id_proveedorValoracion_Cliente}}",
-						"valoraciones",
-						"{{new_id_valoracion_Cliente2}}"
+						"{{new_id_ClienteSugerencia}}",
+						"tematicas",
+						"{{new_id_tematicaSugerencia_Cliente}}",
+						"sugerencias",
+						"{{new_id_sugerencia_Cliente2}}"
 					]
 				},
-				"description": "Consulta una valoracion que no esta asociada a un cliente en la aplicación.  \r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"La valoracion no está asociada al cliente\".\r\n\r\n**Código http esperado: 412**"
+				"description": "Consulta una sugerencia que no esta asociada a un cliente en la aplicación.  \r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"La sugerencia no está asociada al cliente\".\r\n\r\n**Código http esperado: 412**"
 			},
 			"response": []
 		},
 		{
-			"name": "Obtener una valoracion que no existe de un cliente ",
+			"name": "Obtener una sugerencia que no existe de un cliente",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "d75feb7f-ea6d-4c74-af2e-060b428cf23f",
+						"id": "d84b988c-e2ae-4046-951e-9145a07b8a4e",
 						"type": "text/javascript",
 						"exec": [
-							"tests[\"No se puede obtener una valoracion que no existe\"] = responseCode.code === 404;",
-							""
+							"tests[\"No se puede obtener una sugerencia que no existe\"] = responseCode.code === 404;"
 						]
 					}
 				}
@@ -437,7 +436,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{new_id_ClienteValoracion}}/proveedor/{{new_id_proveedorValoracion_Cliente}}/valoraciones/0",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{new_id_ClienteSugerencia}}/tematicas/{{new_id_tematicaSugerencia_Cliente}}/sugerencias/0",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -447,19 +446,19 @@
 						"s4_PartyServices-api",
 						"api",
 						"clientes",
-						"{{new_id_ClienteValoracion}}",
-						"proveedor",
-						"{{new_id_proveedorValoracion_Cliente}}",
-						"valoraciones",
+						"{{new_id_ClienteSugerencia}}",
+						"tematicas",
+						"{{new_id_tematicaSugerencia_Cliente}}",
+						"sugerencias",
 						"0"
 					]
 				},
-				"description": "Consulta una valoracion que no existe de un cliente en la aplicación.  \r\n\r\nPara la prueba se verifica que se genera el error.\r\n\r\n**Código http esperado: 404**"
+				"description": "Consulta una sugerencia que no existe de un cliente en la aplicación.  \r\n\r\nPara la prueba se verifica que se genera el error.\r\n\r\n**Código http esperado: 404**"
 			},
 			"response": []
 		},
 		{
-			"name": "Remover la asociacion de las valoraciones de un cliente ",
+			"name": "Remover la asociacion de las sugerencias de un cliente",
 			"event": [
 				{
 					"listen": "test",
@@ -480,7 +479,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{new_id_ClienteValoracion}}/proveedor/todos/valoraciones",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{new_id_ClienteSugerencia}}/tematicas/todas/sugerencias",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -490,18 +489,18 @@
 						"s4_PartyServices-api",
 						"api",
 						"clientes",
-						"{{new_id_ClienteValoracion}}",
-						"proveedor",
-						"todos",
-						"valoraciones"
+						"{{new_id_ClienteSugerencia}}",
+						"tematicas",
+						"todas",
+						"sugerencias"
 					]
 				},
-				"description": "Remover la asociacion de las valoraciones de un cliente en la aplicación. \r\nLa petición no tiene cuerpo.\r\n\r\nSe envía el Id del cliente a al que se le desasociaran las valoraciones en la URL de la petición.\r\n\r\n**Código http esperado: 204**"
+				"description": "Remover la asociacion de las sugerencias de un cliente en la aplicación. \r\nLa petición no tiene cuerpo.\r\n\r\nSe envía el Id del cliente a al que se le desasociaran las sugerencias en la URL de la petición.\r\n\r\n**Código http esperado: 204**"
 			},
 			"response": []
 		},
 		{
-			"name": "Obtener una valoracion de un proveedor a la que se le eliminó el cliente ",
+			"name": "Obtener una sugerencia de una tematica  a la que se le eliminó el cliente ",
 			"event": [
 				{
 					"listen": "test",
@@ -529,10 +528,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"comentario\":\"Pastel de arequipe el mejor!\",\n    \"nombreUsuario\":\"Cesar\"\n}"
+					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/proveedor/{{new_id_proveedorValoracion_Cliente}}/valoraciones/{{new_id_valoracion_Cliente}}",
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/tematicas/{{new_id_tematicaSugerencia_Cliente}}/sugerencias/{{new_id_sugerencia_Cliente}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -541,13 +540,13 @@
 					"path": [
 						"s4_PartyServices-api",
 						"api",
-						"proveedor",
-						"{{new_id_proveedorValoracion_Cliente}}",
-						"valoraciones",
-						"{{new_id_valoracion_Cliente}}"
+						"tematicas",
+						"{{new_id_tematicaSugerencia_Cliente}}",
+						"sugerencias",
+						"{{new_id_sugerencia_Cliente}}"
 					]
 				},
-				"description": "Consulta una valoracion de un proveedor en la aplicación. \r\nLa petición no tiene cuerpo.\r\n\r\nSe envía el Id del proveedor y de la valoracion a consultar en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
+				"description": "Consulta una sugerencia de una temática en la aplicación. \r\nLa petición no tiene cuerpo.\r\n\r\nSe envía el Id de la temática y de la sugerencia a consultar en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
 			},
 			"response": []
 		}

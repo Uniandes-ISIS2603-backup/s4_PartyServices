@@ -17,6 +17,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * <pre>
  *   {
  *      "id": number,
+ *      "titulo": string,
  *      "puntaje": number,
  *      "comentario": string,
  * |    "nombreUsuario": string
@@ -28,6 +29,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *   {
  *      "id": 1,
  *      "puntaje": 5,
+ *      "titulo": "No me gustó",
  *      "comentario": "Globos de mala calidad",
  *      "nombreUsuario":"Jesus"
  *   }
@@ -40,6 +42,7 @@ public class ValoracionDTO implements Serializable {
 
     private Long id;
     private Integer puntaje;
+    private String titulo2;
     private String comentario;
     private String nombreUsuario;
 
@@ -48,6 +51,11 @@ public class ValoracionDTO implements Serializable {
      * no la ponía, después se quitará
      */
     private ProveedorDTO proveedor;
+    
+    private ClienteDTO cliente;
+
+    
+
 
     /**
      * Constructor por defecto
@@ -68,10 +76,17 @@ public class ValoracionDTO implements Serializable {
             this.puntaje = valoracionEntity.getPuntaje();
             this.comentario = valoracionEntity.getComentario();
             this.nombreUsuario = valoracionEntity.getNombreUsuario();
+            this.titulo2 = valoracionEntity.getTitulo();
+
             if (valoracionEntity.getProveedor() != null) {
                 this.proveedor = new ProveedorDTO(valoracionEntity.getProveedor());
             } else {
                 this.proveedor = null;
+            }
+            if (valoracionEntity.getCliente() != null) {
+                this.cliente = new ClienteDTO(valoracionEntity.getCliente());
+            } else {
+                this.cliente = null;
             }
         }
     }
@@ -111,6 +126,26 @@ public class ValoracionDTO implements Serializable {
     public void setPuntaje(Integer puntaje) {
         this.puntaje = puntaje;
     }
+    
+    
+     /**
+     * Devuelve el titulo de la valoracion.
+     *
+     * @return titulo2. El titulo de la valoracion.
+     */
+     public String getTitulo() {
+        return titulo2;
+    }
+
+     /**
+     * Modifica el titulo de la valoracion.
+     *
+     * @param pTitulo2. El nuevo titulo de la valoracion.
+     */
+    public void setTitulo(String pTitulo2) {
+        this.titulo2 = pTitulo2;
+    }
+    
 
     /**
      * Devuelve el comentario de la valoracion.
@@ -165,6 +200,21 @@ public class ValoracionDTO implements Serializable {
     public void setProveedor(ProveedorDTO proveedor) {
         this.proveedor = proveedor;
     }
+    public String getTitulo2() {
+        return titulo2;
+    }
+
+    public void setTitulo2(String titulo2) {
+        this.titulo2 = titulo2;
+    }
+
+    public ClienteDTO getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(ClienteDTO cliente) {
+        this.cliente = cliente;
+    }
 
     /**
      * Convertir DTO a Entity
@@ -177,8 +227,13 @@ public class ValoracionDTO implements Serializable {
         valoracionEntity.setPuntaje(this.puntaje);
         valoracionEntity.setComentario(this.comentario);
         valoracionEntity.setNombreUsuario(this.nombreUsuario);
+        valoracionEntity.setTitulo(this.titulo2);
+
         if (this.proveedor != null) {
             valoracionEntity.setProveedor(this.proveedor.toEntity());
+        }
+         if (this.cliente != null) {
+            valoracionEntity.setCliente(this.cliente.toEntity());
         }
         return valoracionEntity;
     }

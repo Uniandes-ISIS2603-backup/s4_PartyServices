@@ -7,7 +7,6 @@ package co.edu.uniandes.csw.partyServices.entities;
 
 
 import java.io.Serializable;
-import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import uk.co.jemos.podam.common.PodamExclude;
@@ -55,7 +54,7 @@ public class TarjetaCreditoEntity extends BaseEntity implements Serializable{
      * Relacion uno a uno con el cliente de la tarjeta de credito.
      */
     @PodamExclude
-    @OneToOne( )
+    @OneToOne
     private ClienteEntity cliente;
     
     /**

@@ -7,7 +7,6 @@ package co.edu.uniandes.csw.partyServices.dtos;
 
 import co.edu.uniandes.csw.partyServices.entities.TarjetaCreditoEntity;
 import java.io.Serializable;
-import java.util.Date;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 

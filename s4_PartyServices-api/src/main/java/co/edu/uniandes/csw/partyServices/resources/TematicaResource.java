@@ -92,13 +92,14 @@ public class TematicaResource {
     @GET
     @Path("{tematicasId: \\d+}")
     public TematicaDetailDTO getTematica(@PathParam("tematicasId") Long tematicasId) throws WebApplicationException {
+        
         LOGGER.log(Level.INFO, "TematicaResource getTematica: input: {0}", tematicasId);
         TematicaEntity tematicaEntity = tematicaLogic.getTematica(tematicasId);
         if (tematicaEntity == null) {
             throw new WebApplicationException("El recurso /tematicas/" + tematicasId + " no existe.", 404);
         }
         TematicaDetailDTO detailDTO = new TematicaDetailDTO(tematicaEntity);
-        LOGGER.log(Level.INFO, "TematicaResource getTematica: output: {0}", detailDTO.toString());
+        LOGGER.log(Level.INFO, "TematicaResource getTematica: output: {0}", detailDTO);
         return detailDTO;
     }
 

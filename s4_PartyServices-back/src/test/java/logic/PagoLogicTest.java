@@ -5,18 +5,13 @@
  */
 package logic;
 
-import co.edu.uniandes.csw.partyServices.ejb.ClienteLogic;
 import co.edu.uniandes.csw.partyServices.ejb.PagoLogic;
 import co.edu.uniandes.csw.partyServices.entities.ClienteEntity;
 import co.edu.uniandes.csw.partyServices.entities.PagoEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.partyServices.persistence.PagoPersistence;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -36,7 +31,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 /**
  * Pruebas de logica de Pago
  *
- * @author estudiante
+ * @author Jesús Orlando Cárcamo Posada
  */
 @RunWith(Arquillian.class)
 public class PagoLogicTest {
@@ -50,13 +45,8 @@ public class PagoLogicTest {
      * inserción de una instancia de la logica de Pago
      */
     @Inject
-    private PagoLogic PagoLogic;
+    private PagoLogic pagoLogic;
 
-    /**
-     * inserción de una instancia de la logica de Cliente
-     */
-    @Inject
-    private ClienteLogic clienteLogic;
 
     /**
      * manejador de entidades
@@ -157,13 +147,18 @@ public class PagoLogicTest {
         newEntity.setCliente(dataCliente.get(1));
         newEntity.setFecha("10/11/2018");
 
-        PagoEntity result = PagoLogic.createPago(dataCliente.get(1).getId(), newEntity);
+        if(newEntity.getValor() <0){
+            newEntity.setValor(newEntity.getValor()*-1);
+        }
+        PagoEntity result = pagoLogic.createPago(newEntity.getCliente().getId(), newEntity);
 
         Assert.assertNotNull(result);
         PagoEntity entity = em.find(PagoEntity.class, result.getId());
 
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getCliente(), entity.getCliente());
+        Assert.assertEquals(newEntity.getValor(), entity.getValor());
+        Assert.assertEquals(newEntity.getFecha(), entity.getFecha());
 
     }
 
@@ -175,7 +170,7 @@ public class PagoLogicTest {
      */
     @Test
     public void getPagosTest() throws BusinessLogicException {
-        List<PagoEntity> list = PagoLogic.getPagos(dataCliente.get(1).getId());
+        List<PagoEntity> list = pagoLogic.getPagos(dataCliente.get(1).getId());
         Assert.assertEquals(data.size(), list.size());
         for (PagoEntity entity : list) {
             boolean found = false;
@@ -190,13 +185,14 @@ public class PagoLogicTest {
 
     /**
      * prueba para eliminar un pago
+     * @throws co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException
      */
     @Test
     public void deletePagoTest() throws BusinessLogicException {
         PagoEntity entity = data.get(0);
-        PagoLogic.deletePago(dataCliente.get(1).getId(), entity.getId());
+        pagoLogic.deletePago(dataCliente.get(1).getId(), entity.getId());
         PagoEntity deleted = em.find(PagoEntity.class, entity.getId());
-
+        Assert.assertNull(deleted); 
     }
 
     /**
@@ -205,110 +201,41 @@ public class PagoLogicTest {
     @Test
     public void getPagoTest() {
         PagoEntity entity = data.get(0);
-        PagoEntity resultEntity = PagoLogic.getPago(dataCliente.get(1).getId(), entity.getId());
+        PagoEntity resultEntity = pagoLogic.getPago(dataCliente.get(1).getId(), entity.getId());
         Assert.assertNotNull(resultEntity);
         Assert.assertEquals(entity.getId(), resultEntity.getId());
-        Assert.assertEquals(entity.getId(), resultEntity.getId());
-
         Assert.assertEquals(entity.getCliente(), resultEntity.getCliente());
+        Assert.assertEquals(entity.getFecha(), resultEntity.getFecha());
+        Assert.assertEquals(entity.getValor(), resultEntity.getValor());
+
+    }
+    /**
+     * prueba para actualizar un Pago
+     *
+     * @throws BusinessLogicException
+     */
+    @Test
+    public void updatePagoTest() throws BusinessLogicException {
+        PagoEntity entity = data.get(0);
+        PagoEntity pojoEntity = factory.manufacturePojo(PagoEntity.class);
+        
+        pojoEntity.setId(entity.getId());
+        pojoEntity.setFecha("10/11/2018");
+        pojoEntity.setCliente(entity.getCliente());
+        
+        if(pojoEntity.getValor() <0){
+            pojoEntity.setValor(pojoEntity.getValor()*-1);
+        }
+             
+        pagoLogic.updatePago(pojoEntity.getCliente().getId(), pojoEntity);
+        
+        PagoEntity resp = em.find(PagoEntity.class, entity.getId());
+        
+        Assert.assertEquals(pojoEntity.getId(), resp.getId());
+        Assert.assertEquals(pojoEntity.getCliente(), resp.getCliente());
+        Assert.assertEquals(pojoEntity.getFecha(), resp.getFecha());
+        Assert.assertEquals(pojoEntity.getValor(), resp.getValor());
 
     }
 
-    /**
-     * Prueba para crear un pago con uno numero de credito no valido
-     *
-     * @throws BusinessLogicException
-     */
-    /*@Test(expected = BusinessLogicException.class)
-    public void pagoNumeroInvalidoTest() throws BusinessLogicException, ParseException {
-        PagoEntity newEntity = factory.manufacturePojo(PagoEntity.class);
-
-        newEntity.setNumeroTarjetaCredito(5555555555554044L);
-        PagoLogic.createPago(dataCliente.get(1).getId(), newEntity);
-
-    }*/
-    /**
-     * Prueba para crear una tarjeta de credito con un numero que no coincida
-     * con la franquicia
-     *
-     * @throws BusinessLogicException
-     */
-    /*@Test(expected = BusinessLogicException.class)
-    public void pagoNumeroInvalidoEmpresaTest() throws BusinessLogicException, ParseException {
-        PagoEntity newEntity = factory.manufacturePojo(PagoEntity.class);
-
-        newEntity.setNumeroTarjetaCredito(5555555555554444L);
-        newEntity.setEmpresa("Visa");
-        newEntity.setCodigoSeguridadTarjeta(123);
-        PagoLogic.createPago(dataCliente.get(1).getId(), newEntity);
-
-    }*/
-    /**
-     * Prueba para crear un pago con una tarjeta de credito con una fecha de
-     * expiarcion que ya paso
-     *
-     * @throws BusinessLogicException
-     */
-    /*@Test(expected = BusinessLogicException.class)
-    public void pagoFechaExpiracionVencidaTest() throws BusinessLogicException, ParseException {
-        PagoEntity newEntity = factory.manufacturePojo(PagoEntity.class);
-
-        newEntity.setFechaExpiracionTarjetaCredito("12/05");
-        PagoLogic.createPago(dataCliente.get(1).getId(), newEntity);
-
-    }*/
-    /**
-     * Prueba para crear un pago con una fecha de expiración elevada.
-     *
-     * @throws BusinessLogicException
-     */
-    /*@Test(expected = BusinessLogicException.class)
-    public void crearPagoTestConFechaExpiracionFutura() throws BusinessLogicException, ParseException {
-        PagoEntity newEntity = factory.manufacturePojo(PagoEntity.class);
-
-        newEntity.setFechaExpiracionTarjetaCredito("11/50");
-        PagoLogic.createPago(dataCliente.get(1).getId(), newEntity);
-
-    }*/
-    /**
-     * Prueba para crear un pago con una fecha de eparciorcion que no cumpla el
-     * formato
-     *
-     * @throws BusinessLogicException
-     */
-    /*@Test(expected = BusinessLogicException.class)
-    public void fechaFormatoInvalidoTest() throws BusinessLogicException, ParseException {
-        PagoEntity newEntity = factory.manufacturePojo(PagoEntity.class);
-
-        newEntity.setFechaExpiracionTarjetaCredito("1150");
-
-        PagoLogic.createPago(dataCliente.get(1).getId(), newEntity);
-
-    }*/
-    /**
-     * Prueba para pago con un codigo de seguridad invalido
-     *
-     * @throws BusinessLogicException
-     */
-    /*@Test(expected = BusinessLogicException.class)
-    public void pagoCodigoInvalidoTest() throws BusinessLogicException, ParseException {
-        PagoEntity newEntity = factory.manufacturePojo(PagoEntity.class);
-
-        newEntity.setCodigoSeguridadTarjeta(12);
-        PagoLogic.createPago(dataCliente.get(1).getId(), newEntity);
-
-    }*/
-    /**
-     * Prueba para crear un pago con nombre de tarjeta invalido
-     *
-     * @throws BusinessLogicException
-     */
-    /*@Test(expected = BusinessLogicException.class)
-    public void pagoNombreInvalido() throws BusinessLogicException, ParseException {
-        PagoEntity newEntity = factory.manufacturePojo(PagoEntity.class);
-
-        newEntity.setNombreTarjeta("llll<<");
-        PagoLogic.createPago(dataCliente.get(1).getId(), newEntity);
-
-    }*/
 }

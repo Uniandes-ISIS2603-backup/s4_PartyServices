@@ -98,7 +98,7 @@ public class EventoLogic {
         if (!validateLongitud(eventoEntity.getLongitud())) {
             throw new BusinessLogicException("La longitud del evento no se encuentra en colombia");
         }
-
+ 
         persistence.create(eventoEntity);
 
         LOGGER.log(Level.INFO, "Termino proceso de creación del evento");
