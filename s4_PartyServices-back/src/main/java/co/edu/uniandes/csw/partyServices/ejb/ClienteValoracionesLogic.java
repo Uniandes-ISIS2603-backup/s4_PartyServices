@@ -46,10 +46,12 @@ public class ClienteValoracionesLogic {
     public ValoracionEntity addValoracion(Long proveedorId, Long valoracionId, Long clientesId) {
         LOGGER.log(Level.INFO, "Inicia proceso de asociar la valoracion con id = {1}, que pertenece al proveedor con id = {2}, al cliente con id = {0}", new Object[]{clientesId, valoracionId, proveedorId});
         ClienteEntity clienteEntity = clientePersistence.find(clientesId);
+        
         ValoracionEntity valoracionEntity = valoracionPersistence.find(proveedorId, valoracionId);
         valoracionEntity.setCliente(clienteEntity);
         valoracionEntity.setNombreUsuario(clienteEntity.getNombreUsuario());
         ValoracionEntity actualizado = valoracionPersistence.update(valoracionEntity);
+        //creo que falta merge aquí
         LOGGER.log(Level.INFO, "Termina proceso de asociar la valoracion con id = {1}, que pertenece al proveedor con id = {2}, al cliente con id = {0}", new Object[]{clientesId, valoracionId, proveedorId});
         return actualizado;
     }

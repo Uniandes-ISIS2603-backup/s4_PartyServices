@@ -117,12 +117,18 @@ public class ValoracionLogic {
         if (valoracionEntity.getComentario().length() > 20000) {
             throw new BusinessLogicException("El tamaño del texto no debe ser superior a los 20000 caracteres");
         }
+        
+        //if (!validaciones(clienteEntity)) {
+        //   throw new BusinessLogicException("No se pudo validar una regla de negocio");
+        // }
+        //ClienteEntity newEntity = persistence.update(clienteEntity);
+        
         ProveedorEntity proveedorEntity = proveedorPersistence.find(proveedorId);
         valoracionEntity.setProveedor(proveedorEntity);
+        ValoracionEntity newEntity = persistence.update(valoracionEntity);
 
-        persistence.update(valoracionEntity);
         LOGGER.log(Level.INFO, "Termina proceso de actualizar la valoracion con id = {0} del proveedor con id = {1}", new Object[]{valoracionEntity.getId(), proveedorId});
-        return valoracionEntity;
+        return newEntity;
     }
 
     /**

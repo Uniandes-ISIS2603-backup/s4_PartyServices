@@ -131,7 +131,8 @@ public class ValoracionResource {
     @Path("{valoracionesId: \\d+}")
     public ValoracionDTO updateValoracion(@PathParam("proveedorId") Long proveedorId, @PathParam("valoracionesId") Long valoracionId, ValoracionDTO valoracion) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "ValoracionResource updateValoracion: input: proveedorId: {0} , valoracionId: {1} , valoracion:{2}", new Object[]{proveedorId, valoracionId, valoracion});
-
+ 
+        valoracion.setId(valoracionId);
         ValoracionEntity entity = valoracionLogic.getValoracion(proveedorId, valoracionId);
         if (entity == null) {
             throw new WebApplicationException(RECURSO_PROVEEDORES + proveedorId + RECURSO_VALORACIONES + valoracionId + NO_EXISTE, 404);

@@ -42,7 +42,7 @@ public class ValoracionDTO implements Serializable {
 
     private Long id;
     private Integer puntaje;
-    private String titulo2;
+    private String titulo;
     private String comentario;
     private String nombreUsuario;
 
@@ -76,7 +76,7 @@ public class ValoracionDTO implements Serializable {
             this.puntaje = valoracionEntity.getPuntaje();
             this.comentario = valoracionEntity.getComentario();
             this.nombreUsuario = valoracionEntity.getNombreUsuario();
-            this.titulo2 = valoracionEntity.getTitulo();
+            this.titulo = valoracionEntity.getTitulo();
 
             if (valoracionEntity.getProveedor() != null) {
                 this.proveedor = new ProveedorDTO(valoracionEntity.getProveedor());
@@ -134,7 +134,7 @@ public class ValoracionDTO implements Serializable {
      * @return titulo2. El titulo de la valoracion.
      */
      public String getTitulo() {
-        return titulo2;
+        return titulo;
     }
 
      /**
@@ -143,7 +143,7 @@ public class ValoracionDTO implements Serializable {
      * @param pTitulo2. El nuevo titulo de la valoracion.
      */
     public void setTitulo(String pTitulo2) {
-        this.titulo2 = pTitulo2;
+        this.titulo = pTitulo2;
     }
     
 
@@ -200,13 +200,7 @@ public class ValoracionDTO implements Serializable {
     public void setProveedor(ProveedorDTO proveedor) {
         this.proveedor = proveedor;
     }
-    public String getTitulo2() {
-        return titulo2;
-    }
-
-    public void setTitulo2(String titulo2) {
-        this.titulo2 = titulo2;
-    }
+   
 
     public ClienteDTO getCliente() {
         return cliente;
@@ -227,7 +221,7 @@ public class ValoracionDTO implements Serializable {
         valoracionEntity.setPuntaje(this.puntaje);
         valoracionEntity.setComentario(this.comentario);
         valoracionEntity.setNombreUsuario(this.nombreUsuario);
-        valoracionEntity.setTitulo(this.titulo2);
+        valoracionEntity.setTitulo(this.titulo);
 
         if (this.proveedor != null) {
             valoracionEntity.setProveedor(this.proveedor.toEntity());
