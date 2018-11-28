@@ -104,14 +104,19 @@ public class EventoLogic {
             throw new BusinessLogicException("La longitud del evento no se encuentra en colombia");
         }
  
-        ClienteEntity cliente = clientePersistence.find(eventoEntity.getCliente().getId());
         
-        System.out.println(cliente.getNombreUsuario());
+       
+        ClienteEntity cliente = clientePersistence.findByNombreUsuario(eventoEntity.getCliente().getNombreUsuario()) ;
+        
         
         if(cliente == null)
         {
             throw new BusinessLogicException("El evento debe tener un cliente asociado");
         }
+        
+        eventoEntity.getCliente().setId(cliente.getId());
+       
+        
         List<EventoEntity> lista = cliente.getEventos() ;
        
         if(lista == null)

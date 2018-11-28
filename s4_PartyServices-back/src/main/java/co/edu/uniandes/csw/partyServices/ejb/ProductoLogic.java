@@ -97,13 +97,19 @@ public class ProductoLogic {
             throw new BusinessLogicException("La cantidad de eventos en un producto no puede ser mayor a la cantidad de productos");
         }
         
-        ProveedorEntity proveedor = proveedorPersistence.find(productoEntity.getProveedor().getId());
+        
+        
+        
+        ProveedorEntity proveedor = proveedorPersistence.findByName(productoEntity.getProveedor().getNombre());
         
         
         if(proveedor == null)
         {
             throw new BusinessLogicException("El producto debe tener un proveedor existente");
         }
+        
+        productoEntity.getProveedor().setId(proveedor.getId());
+        
         Collection<ProductoEntity> lista = proveedor.getCatalogoProductos() ;
        
         if(lista == null)
