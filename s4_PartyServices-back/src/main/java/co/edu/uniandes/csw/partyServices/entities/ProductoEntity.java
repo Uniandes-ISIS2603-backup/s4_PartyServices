@@ -232,27 +232,11 @@ public class ProductoEntity extends BaseEntity implements Serializable {
             return false;
         }
         final ProductoEntity other = (ProductoEntity) obj;
-        if (this.costo != other.costo) {
-            return false;
-        }
-        if (this.cantidad != other.cantidad) {
-            return false;
-        }
+       
         if (!Objects.equals(this.nombre, other.nombre)) {
             return false;
         }
-        if (!Objects.equals(this.tipoServicio, other.tipoServicio)) {
-            return false;
-        }
-        if (!Objects.equals(this.duenio, other.duenio)) {
-            return false;
-        }
-        if (!Objects.equals(this.proveedor, other.proveedor)) {
-            return false;
-        }
-        if (!Objects.equals(this.eventos, other.eventos)) {
-            return false;
-        }
+        
         return true;
     }
 

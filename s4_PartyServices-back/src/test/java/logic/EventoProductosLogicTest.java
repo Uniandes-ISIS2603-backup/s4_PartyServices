@@ -124,7 +124,7 @@ public class EventoProductosLogicTest {
     public void addProductosTest() {
         EventoEntity entity = data.get(0);
         ProductoEntity productoEntity = productosData.get(1);
-        ProductoEntity response = eventoProductosLogic.addProducto(entity.getId(),productoEntity.getNombre());
+        ProductoEntity response = eventoProductosLogic.addProducto(entity.getNombre(),productoEntity.getNombre());
 
         Assert.assertNotNull(response);
         Assert.assertEquals(productoEntity.getId(), response.getId());
@@ -136,22 +136,21 @@ public class EventoProductosLogicTest {
      */
     @Test
     public void getProductosTest() {
-        List<ProductoEntity> list = eventoProductosLogic.getProductos(data.get(0).getId());
+        List<ProductoEntity> list = eventoProductosLogic.getProductos(data.get(0).getNombre());
 
         Assert.assertEquals(1, list.size());
     }
 
     /**
      * Prueba para obtener una instancia de Productos asociada a una instancia
-     * Evento.
-     *
+     * Evento.     *
      * @throws co.edu.uniandes.csw.productostore.exceptions.BusinessLogicException
      */
     @Test
     public void getProductoTest() throws BusinessLogicException {
         EventoEntity entity = data.get(0);
         ProductoEntity productoEntity = productosData.get(0);
-        ProductoEntity response = eventoProductosLogic.getProducto(entity.getId(), productoEntity.getNombre());
+        ProductoEntity response = eventoProductosLogic.getProducto(entity.getNombre(), productoEntity.getNombre());
 
         Assert.assertEquals(productoEntity.getId(), response.getId());
         Assert.assertEquals(productoEntity.getNombre(), response.getNombre());
@@ -168,7 +167,7 @@ public class EventoProductosLogicTest {
     public void getProductoNoAsociadoTest() throws BusinessLogicException {
         EventoEntity entity = data.get(0);
         ProductoEntity productoEntity = productosData.get(1);
-        eventoProductosLogic.getProducto(entity.getId(), productoEntity.getNombre());
+        eventoProductosLogic.getProducto(entity.getEstado(), productoEntity.getNombre());
     }
 
     /**
@@ -179,7 +178,7 @@ public class EventoProductosLogicTest {
     public void replaceProductosTest() {
         EventoEntity entity = data.get(0);
         List<ProductoEntity> list = productosData.subList(1, 3);
-        eventoProductosLogic.replaceProductos(entity.getId(), list);
+        eventoProductosLogic.replaceProductos(entity.getNombre(), list);
 
         entity = eventoLogic.getEvento(entity.getId());
         Assert.assertFalse(entity.getProductos().contains(productosData.get(0)));

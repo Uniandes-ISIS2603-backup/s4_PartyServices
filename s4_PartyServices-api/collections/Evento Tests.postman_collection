@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "bdd24f3f-4a4a-4deb-8c55-84e502294051",
+		"_postman_id": "a9f9a989-1c0a-4afe-a4d4-15867458b142",
 		"name": "Pruebas de Evento",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -33,7 +33,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"nombreUsuario\":\"JesusBerserker\",\n\t\"contrasenia\":\"123456789qwerty\",\n\t\"email\":\"jocarcamo@uniandes.co\",\n\t\"fechaNacimiento\":\"15/02/2000\"\n\t\n}"
+					"raw": "{\n\t\"nombreUsuario\":\"Yisusnuestrosenor\",\n\t\"contrasenia\":\"123456789qwerty\",\n\t\"email\":\"jocarcamo@uniandes.co\",\n\t\"fechaNacimiento\":\"15/02/2000\"\n\t\n}"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes",
@@ -78,7 +78,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"nombre\":\"FiestaNic\",\n \"estado\":\"En planeacion\",\n \"dia\": \"2018-11-11T00:00:00-00:00\" ,\n \"jornada\": \"Tarde\" ,\n \"latitud\":\"4.570868\",\n \"longitud\":\"-70.853233\",\n \"cliente\":    {\n        \"contrasenia\": \"123456789qwerty\",\n        \"email\": \"jocarcamo@uniandes.co\",\n        \"fechaNacimiento\": \"15/02/2000\",\n        \"nombreUsuario\": \"JesusBerserker\",\n        \"eventos\": [],\n        \"notificaciones\": [],\n        \"pagos\": [],\n        \"sugerencias\": [],\n        \"valoraciones\": []\n    }\n}"
+					"raw": "{\"nombre\":\"FiestaNic\",\n \"estado\":\"En planeacion\",\n \"dia\": \"2018-11-11T00:00:00-00:00\" ,\n \"jornada\": \"Tarde\" ,\n \"latitud\":\"4.570868\",\n \"longitud\":\"-70.853233\",\n \"cliente\":    {\n        \"contrasenia\": \"123456789qwerty\",\n        \"email\": \"jocarcamo@uniandes.co\",\n        \"fechaNacimiento\": \"15/02/2000\",\n        \"nombreUsuario\": \"Yisusnuestrosenor\",\n        \"eventos\": [],\n        \"notificaciones\": [],\n        \"pagos\": [],\n        \"sugerencias\": [],\n        \"valoraciones\": []\n    }\n}"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/evento",

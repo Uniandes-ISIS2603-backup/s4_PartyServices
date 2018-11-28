@@ -317,39 +317,15 @@ public class EventoEntity  extends BaseEntity implements Serializable
             return false;
         }
         final EventoEntity other = (EventoEntity) obj;
-        if (Double.doubleToLongBits(this.latitud) != Double.doubleToLongBits(other.latitud)) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.longitud) != Double.doubleToLongBits(other.longitud)) {
-            return false;
-        }
+ 
         if (!Objects.equals(this.nombre, other.nombre)) {
             return false;
         }
         if (!Objects.equals(this.estado, other.estado)) {
             return false;
         }
-        if (!Objects.equals(this.jornada, other.jornada)) {
-            return false;
-        }
-        if (!Objects.equals(this.dia, other.dia)) {
-            return false;
-        }
-        if (!Objects.equals(this.fechas, other.fechas)) {
-            return false;
-        }
-        if (!Objects.equals(this.cliente, other.cliente)) {
-            return false;
-        }
-        if (!Objects.equals(this.productos, other.productos)) {
-            return false;
-        }
-        if (!Objects.equals(this.notificaciones, other.notificaciones)) {
-            return false;
-        }
-        if (!Objects.equals(this.pago, other.pago)) {
-            return false;
-        }
+       
+        
         return true;
     }
     
