@@ -251,7 +251,83 @@ public class ValoracionLogicTest {
         Assert.assertEquals(entity.getPuntaje(), resultEntity.getPuntaje());
         Assert.assertEquals(entity.getNombreUsuario(), resultEntity.getNombreUsuario());
     }
+    
+    /**
+     * Prueba para consultar una valoracion.
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createValoracionTest2() throws BusinessLogicException {
+        ValoracionEntity entity = data.get(0);
+        ValoracionEntity resultEntity = valoracionLogic.getValoracion(dataProveedor.get(0).getId(), entity.getId());
 
+        resultEntity.setTitulo("");
+        ValoracionEntity result = valoracionLogic.createValoracion(resultEntity.getProveedor().getId(), resultEntity);
+
+    }
+    
+     /**
+     * Prueba para consultar una valoracion.
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createValoracionTest3() throws BusinessLogicException {
+        ValoracionEntity entity = data.get(0);
+        ValoracionEntity resultEntity = valoracionLogic.getValoracion(dataProveedor.get(0).getId(), entity.getId());
+
+        resultEntity.setTitulo("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        ValoracionEntity result = valoracionLogic.createValoracion(resultEntity.getProveedor().getId(), resultEntity);
+
+    }
+    
+    /**
+     * Prueba para consultar una valoracion.
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createValoracionTest4() throws BusinessLogicException {
+        ValoracionEntity entity = data.get(0);
+        ValoracionEntity resultEntity = valoracionLogic.getValoracion(dataProveedor.get(0).getId(), entity.getId());
+
+        resultEntity.setTitulo(null);
+        ValoracionEntity result = valoracionLogic.createValoracion(resultEntity.getProveedor().getId(), resultEntity);
+
+    }
+    /**
+     * Prueba para consultar una valoracion.
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createValoracionTest5() throws BusinessLogicException {
+        ValoracionEntity entity = data.get(0);
+        ValoracionEntity resultEntity = valoracionLogic.getValoracion(dataProveedor.get(0).getId(), entity.getId());
+
+        resultEntity.setComentario("");
+        ValoracionEntity result = valoracionLogic.createValoracion(resultEntity.getProveedor().getId(), resultEntity);
+
+    }
+    
+     /**
+     * Prueba para consultar una valoracion.
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createValoracionTest8() throws BusinessLogicException {
+        ValoracionEntity entity = data.get(0);
+        ValoracionEntity resultEntity = valoracionLogic.getValoracion(dataProveedor.get(0).getId(), entity.getId());
+
+        resultEntity.setComentario("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+        ValoracionEntity result = valoracionLogic.createValoracion(resultEntity.getProveedor().getId(), resultEntity);
+
+    }
+    
+    /**
+     * Prueba para consultar una valoracion.
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void createValoracionTest9() throws BusinessLogicException {
+        ValoracionEntity entity = data.get(0);
+        ValoracionEntity resultEntity = valoracionLogic.getValoracion(dataProveedor.get(0).getId(), entity.getId());
+
+        resultEntity.setComentario(null);
+        ValoracionEntity result = valoracionLogic.createValoracion(resultEntity.getProveedor().getId(), resultEntity);
+
+    }
     /**
      * Prueba para actualizar una Valoracion.
      *
@@ -272,6 +348,30 @@ public class ValoracionLogicTest {
         Assert.assertEquals(pojoEntity.getComentario(), resp.getComentario());
         Assert.assertEquals(pojoEntity.getPuntaje(), resp.getPuntaje());
         Assert.assertEquals(pojoEntity.getNombreUsuario(), resp.getNombreUsuario());
+    }
+    
+    
+    
+   
+
+    /**
+     * Prueba para actualizar una Valoracion.
+     *
+     * @throws BusinessLogicException
+     */
+    @Test
+    public void relacionesValoracionTest() throws BusinessLogicException {
+        ValoracionEntity entity = data.get(1);
+        ValoracionEntity pojoEntity = factory.manufacturePojo(ValoracionEntity.class);
+
+        pojoEntity.setId(entity.getId());
+
+        valoracionLogic.updateValoracion(dataProveedor.get(1).getId(), pojoEntity);
+
+        ValoracionEntity resp = em.find(ValoracionEntity.class, entity.getId());
+
+        resp.setCliente(null);
+        
     }
 
     /**
