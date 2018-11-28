@@ -55,12 +55,12 @@ public class EventoDTO implements Serializable {
     /**
      * Latitud en la que se realizará el evento
      */
-    private double latitud;
+    private Double latitud;
 
     /**
      * Longitud en la que se realizará el evento
      */
-    private double longitud;
+    private Double longitud;
 
     /**
      * Constructor por defecto.
@@ -238,7 +238,7 @@ public class EventoDTO implements Serializable {
      *
      * @return latitud
      */
-    public double getLatitud() {
+    public Double getLatitud() {
         return latitud;
     }
 
@@ -247,7 +247,7 @@ public class EventoDTO implements Serializable {
      *
      * @param latitud
      */
-    public void setLatitud(double latitud) {
+    public void setLatitud(Double latitud) {
         this.latitud = latitud;
     }
 
@@ -256,7 +256,7 @@ public class EventoDTO implements Serializable {
      *
      * @return longitud
      */
-    public double getLongitud() {
+    public Double getLongitud() {
         return longitud;
     }
 
@@ -265,7 +265,7 @@ public class EventoDTO implements Serializable {
      *
      * @param longitud
      */
-    public void setLongitud(double longitud) {
+    public void setLongitud(Double longitud) {
         this.longitud = longitud;
     }
 
