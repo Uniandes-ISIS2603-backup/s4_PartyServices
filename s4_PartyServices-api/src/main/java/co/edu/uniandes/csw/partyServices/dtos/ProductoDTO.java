@@ -40,12 +40,12 @@ public class ProductoDTO implements Serializable {
     /**
      * Costo del producto
      */
-    private int costo;
+    private Integer costo;
 
     /**
      * Cantidad disponible del producto
      */
-    private int cantidad;
+    private Integer cantidad;
 
     /**
      * Proveedor dueño del producto
@@ -173,7 +173,7 @@ public class ProductoDTO implements Serializable {
      *
      * @return costo
      */
-    public int getCosto() {
+    public Integer getCosto() {
         return costo;
     }
 
@@ -182,7 +182,7 @@ public class ProductoDTO implements Serializable {
      *
      * @param pCosto
      */
-    public void setCosto(int pCosto) {
+    public void setCosto(Integer pCosto) {
         this.costo = pCosto;
     }
 
@@ -191,7 +191,7 @@ public class ProductoDTO implements Serializable {
      *
      * @return cantidad
      */
-    public int getCantidad() {
+    public Integer getCantidad() {
         return cantidad;
     }
 
@@ -200,7 +200,7 @@ public class ProductoDTO implements Serializable {
      *
      * @param pCantidad
      */
-    public void setCantidad(int pCantidad) {
+    public void setCantidad(Integer pCantidad) {
         this.cantidad = pCantidad;
     }
 
