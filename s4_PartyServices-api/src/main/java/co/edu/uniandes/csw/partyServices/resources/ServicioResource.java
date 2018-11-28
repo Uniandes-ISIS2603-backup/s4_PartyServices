@@ -155,6 +155,7 @@ public class ServicioResource
      
      * ----------------------------------------------------------------------------------------------------------------------------------------------------
      * ----------------------------------------------------------------------------------------------------------------------------------------------------
+    */
     @Path("{serviciosId: \\d+}/proveedores")
     public Class<ServicioProveedoresResource> getServicioProveedoresResource(@PathParam("serviciosId") Long serviciosId) {
         if (servicioLogic.getServicio(serviciosId) == null) {
@@ -162,7 +163,7 @@ public class ServicioResource
         }
         return ServicioProveedoresResource.class;
     }
-    */
+    
 
     /**
      * Convierte una lista de ServicioEntity a una lista de ServicioDetailDTO.
