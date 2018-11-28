@@ -97,11 +97,18 @@ public class ValoracionEntity extends BaseEntity implements Serializable {
     public void setNombreUsuario(String pNombreUsuario) {
         nombreUsuario = pNombreUsuario;
     }
-    
+    /**
+     * Obtiene el titulo de la sugerencia
+     * @return titulo de la sugerencia.
+     */
     public String getTitulo() {
         return titulo;
     }
 
+    /**
+     * Cambia el titulo de la sugerencia
+     * @param titulo. Titulo de la sugerencia
+     */
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
