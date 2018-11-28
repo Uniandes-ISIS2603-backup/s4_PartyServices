@@ -4,15 +4,10 @@
  * and open the template in the editor.
  */
 package co.edu.uniandes.csw.partyServices.resources;
-
-import co.edu.uniandes.csw.partyServices.dtos.ProductoDTO;
 import co.edu.uniandes.csw.partyServices.dtos.ProductoDetailDTO;
 import co.edu.uniandes.csw.partyServices.ejb.EventoProductosLogic;
 import co.edu.uniandes.csw.partyServices.ejb.ProductoLogic;
-import co.edu.uniandes.csw.partyServices.ejb.ProveedorLogic;
-import co.edu.uniandes.csw.partyServices.ejb.ServicioProveedoresLogic;
 import co.edu.uniandes.csw.partyServices.entities.ProductoEntity;
-import co.edu.uniandes.csw.partyServices.entities.ProveedorEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.List;
@@ -90,8 +85,7 @@ public class EventoProductosResource {
      * @param eventosId El ID del autor del cual se busca el producto
      * @param productosId El ID del producto que se busca
      * @return {@link ProductoDetailDTO} - El producto encontrado en el autor.
-     * @throws co.edu.uniandes.csw.productostore.exceptions.BusinessLogicException
-     * si el producto no está asociado al autor
+     * @throws co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra el producto.
      */
@@ -121,7 +115,7 @@ public class EventoProductosResource {
     @PUT
     public List<ProductoDetailDTO> replaceProductos(@PathParam("eventosId") Long eventosId, List<ProductoDetailDTO> productos) {
         LOGGER.log(Level.INFO, "EventoProductosResource replaceProductos: input: eventosId {0} , productos {1}", new Object[]{eventosId, productos});
-        for (ProductoDetailDTO producto : productos) {
+        for(ProductoDetailDTO producto : productos) {
             if (productoLogic.getProductoId(producto.getId()) == null) {
                 throw new WebApplicationException("El recurso /productos/" + producto.getId() + " no existe.", 404);
             }

@@ -1,10 +1,54 @@
 {
 	"info": {
-		"_postman_id": "b75d6f25-fa9d-4988-a435-3a34c6cd1730",
+		"_postman_id": "a5c44eb8-f84e-4252-b024-8528b19611a1",
 		"name": "Pruebas de Producto",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
+		{
+			"name": "Crear un proveedor",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "861fae5d-0b1f-4735-bb1e-55fe92118cb6",
+						"exec": [
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\":\"Andres\",\n    \"contrasenia\":\"123456789\",\n    \"calificacion\":10,\n    \"agenda\":{}\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/proveedor",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"proveedor"
+					]
+				}
+			},
+			"response": []
+		},
 		{
 			"name": "Post Producto",
 			"event": [
@@ -12,12 +56,12 @@
 					"listen": "test",
 					"script": {
 						"id": "be6634d8-cb53-48e5-93c1-0deec4805841",
-						"type": "text/javascript",
 						"exec": [
 							"var data =JSON.parse(responseBody) ;",
 							"postman.setGlobalVariable(\"new_nombre_producto\",data.nombre);",
 							"tests[\"No genera error en el post\"] = responseCode.code == 200 ;"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -31,7 +75,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\n\t\"nombre\":\"bombasRojas\",\n\t\"tipoServicio\":\"decoracion\",\n\t\"duenio\":\"bombas fantasia\",\n\t \"costo\":\"10000\" ,\n\t \"cantidad\":\"200\",\n\t \"proveedor\":{\"nombre\":\"pepe\", \"contrasenia\": \"pepeelmasgrande\", \"calificacion\":0 ,\"agenda\":{}}\n \n}"
+					"raw": "{\n\t\n\t\"nombre\":\"Audifonos\",\n\t\"tipoServicio\":\"Musica\",\n\t\"duenio\":\"Los maricheros\",\n\t \"costo\":\"20000\" ,\n\t \"cantidad\":\"3\",\n\t \"proveedor\":\n\t {   \"calificacion\": 10,\n        \"contrasenia\": \"123456789\",\n        \"nombre\": \"Andres\"\n\t \t\n\t }\n}"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/producto",
@@ -51,6 +95,18 @@
 		},
 		{
 			"name": "Get Producto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8cf06f80-3329-485b-b72e-c990b675aaf7",
+						"exec": [
+							"tests[\"no genera error en el Get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -77,6 +133,18 @@
 		},
 		{
 			"name": "Put Producto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f54a1abc-6420-4ace-8091-99aa3fc00700",
+						"exec": [
+							"tests[\"no genera error en el Put\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [
@@ -87,7 +155,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"nombre\":\"bombas\",\n \"tipoServicio\":\"decoracion\",\n \"dueño\":\"bombas fantasia\",\n \"costo\":\"10000\" ,\n \"cantidad\":\"2\",\n \"proveedor\":{\"nombre\":\"pepe\", \"contrasenia\": \"pepeelmasgrande\", \"calificacion\":0 ,\"agenda\":{}}\n}"
+					"raw": "{\n\t\n\t\"nombre\":\"Audifonos\",\n\t\"tipoServicio\":\"Decoracion\",\n\t\"duenio\":\"Los maricheros\",\n\t \"costo\":\"20200\" ,\n\t \"cantidad\":\"4\",\n\t \"proveedor\":\n\t {   \"calificacion\": 10,\n        \"contrasenia\": \"123456789\",\n        \"nombre\": \"Andres\"\n\t \t\n\t }\n}"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/producto/{{new_nombre_producto}}",
@@ -147,6 +215,18 @@
 		},
 		{
 			"name": "Delete Producto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d72176c0-f891-4aac-85af-bcdc04ab0722",
+						"exec": [
+							"tests[\"no genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "DELETE",
 				"header": [],

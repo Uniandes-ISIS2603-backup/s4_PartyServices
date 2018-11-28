@@ -148,6 +148,8 @@ public class EventoResource {
             throw new WebApplicationException("El recurso /eventos/" + evento + " no existe.", 404);
         }
 
+        pEvento.setId(entity.getId());
+        
         EventoEntity updateado = eventoLogic.updateEvento(evento, pEvento.toEntity());
 
         EventoDTO detailDTO = new EventoDTO(updateado);

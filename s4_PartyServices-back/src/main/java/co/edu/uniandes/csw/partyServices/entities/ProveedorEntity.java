@@ -43,8 +43,10 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
     @PodamExclude
     @OneToMany(mappedBy = "proveedor",
             fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
-    Collection<ProductoEntity> catalogoProductos = new ArrayList <ProductoEntity>();
+            cascade = CascadeType.ALL, 
+            orphanRemoval =true 
+    )
+    private Collection<ProductoEntity> catalogoProductos;
    
     @PodamExclude
     @OneToMany(
@@ -89,11 +91,7 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
     public void setContrasenia(String contrasenia) {
         this.contrasenia = contrasenia;
     }
-    public void setProductos(Collection<ProductoEntity> catalogoProductos)
-    {
-        this.catalogoProductos=catalogoProductos;
-    }
-
+   
     public AgendaEntity getAgenda() {
         return agenda;
     }
