@@ -11,40 +11,34 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
- * PagoDTO Objeto de transferencia de datos de clientes. los DTO contienen las
- * representaciones de los JSON que se transfieren entre el cliente y el
+ * ClienteDTO Objeto de transferencia de datos de clientes. los DTO contienen
+ * las representaciones de los JSON que se transfieren entre el cliente y el
  * servidor.
  *
  * Al serializarse como JSON esta clase implementa el siguiente modelo: <br>
  * <pre>
- *   {
- *   "login":STRING,
- *
- * "contrasenia":STRING,
- *
- * "email":STRING,
- *
- * "fechaNacimiento":STRING
- *   }
- * </pre> Por ejemplo un pago se representa asi:<br>
+ * {
+ * "id":number,
+ * "nombreUsuario":string,
+ * "contrasenia":string,
+ * "email":string,
+ * "fechaNacimiento":string
+ * }
+ * </pre> Por ejemplo un cliente se representa asi:<br>
  *
  * <pre>
  *
- *   {
- *   "login":"Aquiseinsertaunlogin",
- *
+ * {
+ * "id":1
+ * "nombreUsuario":"Aquiseinsertaunlogin",
  * "contrasenia":"00000000",
- *
  * "email":"unemailnotanlargo@cosas.com",
- *
- *
- *
  * "fechaNacimiento":"08/12/1999"
- *   }
+ * }
  *
  * </pre>
  *
- * @author Elias Negrete
+ * @author Elias Negrete, Jesús Orlando Cárcamo Posada
  */
 public class ClienteDTO implements Serializable {
 
@@ -54,9 +48,9 @@ public class ClienteDTO implements Serializable {
     private Long id;
 
     /**
-     * Login del usuario
+     * Nombre del usuario.
      */
-    private String login;
+    private String nombreUsuario;
 
     /**
      * Contrasenia para ingresar
@@ -64,14 +58,20 @@ public class ClienteDTO implements Serializable {
     private String contrasenia;
 
     /**
-     * Email de registrp
+     * Email del usuario.
      */
     private String email;
 
     /**
-     * Fecha de nacimiento
+     * Fecha de nacimiento del usuario.
      */
     private String fechaNacimiento;
+
+    /*
+    * Relación a una tarjeta de credito
+    dado que esta tiene cardinalidad 1.
+     */
+    private TarjetaCreditoDTO tarjetaCredito;
 
     /**
      * Constructor por defecto
@@ -80,41 +80,49 @@ public class ClienteDTO implements Serializable {
     }
 
     /**
-     * Constructor a partir de la entidad
+     * Crea un objeto ClienteDTO a partir de un objeto ClienteEntity.
      *
-     * @param clienteEntity La entidad del cliente
+     * @param clienteEntity La entidad del cliente desde la cual se va a crear
+     * el nuevo objeto.
      */
     public ClienteDTO(ClienteEntity clienteEntity) {
         if (clienteEntity != null) {
             this.id = clienteEntity.getId();
-            this.login = clienteEntity.getLogin();
-            this.email = clienteEntity.getEmail();
+            this.nombreUsuario = clienteEntity.getNombreUsuario();
             this.contrasenia = clienteEntity.getContrasenia();
+            this.email = clienteEntity.getEmail();
             this.fechaNacimiento = clienteEntity.getFechaNacimiento();
+            if (clienteEntity.getTarjetaCredito() != null) {
+                this.tarjetaCredito = new TarjetaCreditoDTO(clienteEntity.getTarjetaCredito());
+            } else {
+                clienteEntity.setTarjetaCredito(null);
+            }
 
         }
     }
 
     /**
-     * Método para transformar el DTO a una entidad.
+     * Convierte un objeto ClienteDTO a ClienteEntity.
      *
-     * @return La entidad del cliente asociado.
+     * @return Un nuevo objeto ClienteEntity.
      */
     public ClienteEntity toEntity() {
         ClienteEntity clienteEntity = new ClienteEntity();
         clienteEntity.setId(this.id);
-        clienteEntity.setLogin(this.login);
-        clienteEntity.setEmail(this.email);
+        clienteEntity.setNombreUsuario(this.nombreUsuario);
         clienteEntity.setContrasenia(this.contrasenia);
+        clienteEntity.setEmail(this.email);
         clienteEntity.setFechaNacimiento(this.fechaNacimiento);
-
+        if (this.tarjetaCredito != null) {
+            clienteEntity.setTarjetaCredito(tarjetaCredito.toEntity());
+        }
         return clienteEntity;
     }
 
     /**
-     * Devuelve el ID.
+     * Devuelve el ID del cliente.
      *
-     * @return the id
+     * @return id. El atributo id del cliente.
      */
     public Long getId() {
         return id;
@@ -123,16 +131,35 @@ public class ClienteDTO implements Serializable {
     /**
      * Modifica el ID del cliente.
      *
-     * @param id the id to set
+     * @param id. El nuevo id que reemplazará al actual.
      */
     public void setId(Long id) {
         this.id = id;
     }
 
     /**
-     * Devuelve la contrasenia.
+     * Devuelve el nombre de usuario del cliente.
      *
-     * @return la contrasenia del usuario.
+     * @return nombreUsuario. El nombre de usuario del cliente.
+     */
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+
+    /**
+     * Modifica el nombre de usuario del cliente.
+     *
+     * @param nombreUsuario. El nuevo nombre de usuario que reemplazará al
+     * actual.
+     */
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
+
+    /**
+     * Devuelve la contrasenia del cliente.
+     *
+     * @return contrasenia. La contrasenia del cliente.
      */
     public String getContrasenia() {
         return contrasenia;
@@ -141,61 +168,44 @@ public class ClienteDTO implements Serializable {
     /**
      * Modifica la conntrasenia del cliente.
      *
-     * @param pContra the password to set
+     * @param contrasenia. La nueva contrasenia que reemplazará a la actual.
      */
-    public void setContrasenia(String pContra) {
-        this.contrasenia = pContra;
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
     }
 
     /**
-     * Devuelve el LOGIN del usuario.
+     * Devuelve el email del cliente.
      *
-     * @return el LOGIN del usuario.
-     */
-    public String getLogin() {
-        return login;
-    }
-
-    /**
-     * Modifica el LOGIN.
-     *
-     * @param user nombre de usuario registrado
-     */
-    public void setLogin(String user) {
-        this.login = user;
-    }
-
-    /**
-     * Devuelve el EMAIL del usuario.
-     *
-     * @return el email del usuario.
+     * @return email. El email del cliente.
      */
     public String getEmail() {
         return email;
     }
 
     /**
-     * Modifica el Email.
+     * Modifica el email del cliente.
      *
-     * @param email correo electronico de usuario registrado
+     * @param email. El nuevo email que reemplazará al actual.
      */
     public void setEmail(String email) {
         this.email = email;
     }
 
     /**
-     * Devuelve la fecha de nacimiento del usuario.
+     * Devuelve la fecha de nacimiento del cliente.
      *
-     * @return el email del usuario.
+     * @return fechaNacimiento. La fecha de nacimiento del cliente.
      */
     public String getFechaNacimiento() {
         return fechaNacimiento;
     }
 
     /**
-     * Modifica la fecha de nacimiento.
+     * Modifica la fecha de nacimiento del cliente.
      *
-     * @param fechaNacimiento fecha de nacimiento de usuario registrado
+     * @param fechaNacimiento. La nueva fecha de nacimiento que reemplazará la
+     * actual.
      */
     public void setFechaNacimiento(String fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;

@@ -1,0 +1,283 @@
+{
+	"info": {
+		"_postman_id": "bdd24f3f-4a4a-4deb-8c55-84e502294051",
+		"name": "Pruebas de Evento",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crea un cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f46a6568-f2d3-4683-a15b-a9e80cbebed2",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"clienteId\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombreUsuario\":\"JesusBerserker\",\n\t\"contrasenia\":\"123456789qwerty\",\n\t\"email\":\"jocarcamo@uniandes.co\",\n\t\"fechaNacimiento\":\"15/02/2000\"\n\t\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Evento",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5bd5f474-96e7-4d9b-b5a6-3117eea3c431",
+						"exec": [
+							"var data =JSON.parse(responseBody) ;",
+							"postman.setGlobalVariable(\"new_nombre_evento\",data.nombre);",
+							"postman.setGlobalVariable(\"new_id_evento\",data.id);",
+							"tests[\"No genera error en el post\"] = responseCode.code == 200 ;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"nombre\":\"FiestaNic\",\n \"estado\":\"En planeacion\",\n \"dia\": \"2018-11-11T00:00:00-00:00\" ,\n \"jornada\": \"Tarde\" ,\n \"latitud\":\"4.570868\",\n \"longitud\":\"-70.853233\",\n \"cliente\":    {\n        \"contrasenia\": \"123456789qwerty\",\n        \"email\": \"jocarcamo@uniandes.co\",\n        \"fechaNacimiento\": \"15/02/2000\",\n        \"nombreUsuario\": \"JesusBerserker\",\n        \"eventos\": [],\n        \"notificaciones\": [],\n        \"pagos\": [],\n        \"sugerencias\": [],\n        \"valoraciones\": []\n    }\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/evento",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"evento"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Evento",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c45b4031-7261-43f5-b490-de633763187c",
+						"exec": [
+							"tests[\"no genera error en el Get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/evento/{{new_nombre_evento}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"evento",
+						"{{new_nombre_evento}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put Evento",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3fa5a33f-3a4e-4533-b614-a02cfb494a4d",
+						"exec": [
+							"tests[\"no genera error en el Put\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"dia\": \"2018-11-10T19:00:00-05:00\",\n    \"estado\": \"Cancelado\",\n    \"jornada\": \"Noche\",\n    \"latitud\": 4.570868,\n    \"longitud\": -70.853233,\n    \"nombre\": \"FiestaNic\",\n    \"notificaciones\": [],\n    \"productos\": []\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/evento/{{new_nombre_evento}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"evento",
+						"{{new_nombre_evento}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get eventos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4d20924b-7dc9-4e90-b6be-1dd572a6e273",
+						"exec": [
+							"tests[\"no genera error en el Get eventos\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/evento",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"evento"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Evento",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6aa15e31-2028-4057-a9d1-801ed2d73088",
+						"exec": [
+							"tests[\"no genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/evento/{{new_nombre_evento}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"evento",
+						"{{new_nombre_evento}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "739da0f6-3fd2-4a74-8078-eb6591c78a94",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "6b7ae74f-d37d-4b30-b52f-04875b9f4228",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

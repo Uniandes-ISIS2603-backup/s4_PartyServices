@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "0c7aaf2e-efa8-43fe-bb7a-05e5cf27ad5d",
+		"_postman_id": "31e34e58-7227-4d36-a6ab-016962d97279",
 		"name": "ClienteValoraciones Tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -31,7 +31,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"nombre\":\"Jesus\",\n    \"contrasenia\":\"123456789\",\n    \"calificacion\":10,\n    \"agenda\":{}\n}"
+					"raw": "{\n    \"nombre\":\"Jesus15\",\n    \"contrasenia\":\"123456789\",\n    \"calificacion\":10,\n    \"agenda\":{}\n}"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/proveedor",
@@ -151,12 +151,12 @@
 					"listen": "test",
 					"script": {
 						"id": "c8e0d4e5-4004-422c-9100-7a51cf3d1b84",
-						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
 							"postman.setGlobalVariable(\"new_id_ClienteValoracion\",data.id);",
 							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -170,7 +170,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n     \"login\":\"CesarRojo123\",\n     \"contrasenia\":\"00000001\",\n     \"email\":\"unemailnotanalgo@cosas.com\",\n     \"fechaNacimiento\":\"15/02/2000\"\n}"
+					"raw": "{\n     \"nombreUsuario\":\"CesarRojo123\",\n     \"contrasenia\":\"00000001\",\n     \"email\":\"unemailnotanalgo@cosas.com\",\n     \"fechaNacimiento\":\"15/02/2000\"\n}"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes",
@@ -529,7 +529,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"comentario\":\"Pastel de arequipe el mejor!\",\n    \"nombreUsuario\":\"Cesar\"\n}"
+					"raw": ""
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/proveedor/{{new_id_proveedorValoracion_Cliente}}/valoraciones/{{new_id_valoracion_Cliente}}",
@@ -550,6 +550,28 @@
 				"description": "Consulta una valoracion de un proveedor en la aplicación. \r\nLa petición no tiene cuerpo.\r\n\r\nSe envía el Id del proveedor y de la valoracion a consultar en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "4a18bf8f-e20f-4e2e-8b5b-0e9f3f30ac94",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "6f4c8713-3e2c-40d9-b34a-508a326692c3",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }

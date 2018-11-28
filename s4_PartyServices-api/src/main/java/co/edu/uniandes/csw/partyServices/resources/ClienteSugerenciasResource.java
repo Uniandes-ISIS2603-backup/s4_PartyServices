@@ -63,7 +63,7 @@ public class ClienteSugerenciasResource {
             throw new WebApplicationException("El recurso /sugerencias/" + sugerenciasId + " no existe.", 404);
         }
         SugerenciaDTO sugerenciaDTO = new SugerenciaDTO(clienteSugerenciasLogic.addSugerencia(tematicasId, sugerenciasId, clientesId));
-        LOGGER.log(Level.INFO, "ClienteSugerenciaResource addSugerencia: output: {0}", sugerenciaDTO.toString());
+        LOGGER.log(Level.INFO, "ClienteSugerenciaResource addSugerencia: output: {0}", sugerenciaDTO);
         return sugerenciaDTO;
     }
     
@@ -80,7 +80,7 @@ public class ClienteSugerenciasResource {
     public List<SugerenciaDTO> getSugerencias(@PathParam("clientesId") Long clientesId) {
         LOGGER.log(Level.INFO, "ClienteSugerenciaResource getSugerencias: input: {0}", clientesId);
         List<SugerenciaDTO> listaDTOs = sugerenciaListEntity2DTO(clienteSugerenciasLogic.getSugerencias(clientesId));
-        LOGGER.log(Level.INFO, "ClienteSugerenciaResource getSugerencias: output: {0}", listaDTOs.toString());
+        LOGGER.log(Level.INFO, "ClienteSugerenciaResource getSugerencias: output: {0}", listaDTOs);
         return listaDTOs;
     }
     
@@ -108,7 +108,7 @@ public class ClienteSugerenciasResource {
             throw new WebApplicationException("El recurso /clientes/" + clientesId + "/tematicas/" + tematicasId + "/sugerencias/"+ sugerenciasId + " no existe.", 404);
         }
         SugerenciaDTO sugerenciaDTO = new SugerenciaDTO(clienteSugerenciasLogic.getSugerencia(tematicasId, sugerenciasId, clientesId));
-        LOGGER.log(Level.INFO, "ClienteSugerenciaResource getSugerencia: output: {0}", sugerenciaDTO.toString());
+        LOGGER.log(Level.INFO, "ClienteSugerenciaResource getSugerencia: output: {0}", sugerenciaDTO);
         return sugerenciaDTO;
     }
     

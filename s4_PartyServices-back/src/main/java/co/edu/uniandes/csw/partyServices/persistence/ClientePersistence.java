@@ -118,17 +118,17 @@ public class ClientePersistence {
     }
 
     /**
-     * Busca si hay algun libro con el login que se envía de argumento
+     * Busca si hay algun libro con el nombreUsuario que se envía de argumento
      *
-     * @param login: login del cliente que se está buscando
-     * @return null si no existe ningun libro con el login del argumento. Si
-     * existe alguno devuelve el primero.
+     * @param nombreUsuario: nombreUsuario del cliente que se está buscando
+     * @return null si no existe ningun libro con el nombreUsuario del argumento. Si
+ existe alguno devuelve el primero.
      */
-    public ClienteEntity findByLogin(String login) {
-        LOGGER.log(Level.INFO, "Se consulta por el nombre ", login);
-        TypedQuery query = em.createQuery("Select e From ClienteEntity e where e.login = :login", ClienteEntity.class);
+    public ClienteEntity findByNombreUsuario(String nombreUsuario) {
+        LOGGER.log(Level.INFO, "Se consulta el cliente con usuario = {0}  ", nombreUsuario);
+        TypedQuery query = em.createQuery("Select e From ClienteEntity e where e.nombreUsuario = :nombreUsuario", ClienteEntity.class);
 
-        query = query.setParameter("login", login);
+        query = query.setParameter("nombreUsuario", nombreUsuario);
 
         List<ClienteEntity> sameName = query.getResultList();
         ClienteEntity result;
@@ -139,7 +139,7 @@ public class ClientePersistence {
         } else {
             result = sameName.get(0);
         }
-        LOGGER.log(Level.INFO, "Se han consultado todos los clientes por el nombre ", login);
+        LOGGER.log(Level.INFO, "Se han consultado el cliente con usuario = {0}  ", nombreUsuario);
         return result;
 
     }

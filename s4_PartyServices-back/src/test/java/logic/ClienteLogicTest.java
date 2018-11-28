@@ -11,13 +11,14 @@ import co.edu.uniandes.csw.partyServices.entities.EventoEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.partyServices.persistence.ClientePersistence;
 import co.edu.uniandes.csw.partyServices.util.ConstantesEvento;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
-import javax.validation.constraints.AssertFalse;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -46,7 +47,7 @@ public class ClienteLogicTest {
      * inserción de una instancia de la logica de Clientes
      */
     @Inject
-    private ClienteLogic ClienteLogic;
+    private ClienteLogic clienteLogic;
 
     /**
      * manejador de entidades
@@ -104,6 +105,7 @@ public class ClienteLogicTest {
      * Limpia las tablas que están implicadas en la prueba.
      */
     private void clearData() {
+        
         em.createQuery("delete from ClienteEntity").executeUpdate();
 
     }
@@ -129,16 +131,16 @@ public class ClienteLogicTest {
     @Test
     public void createClienteTest() throws BusinessLogicException {
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
-        newEntity.setLogin("ultraspidermandark");
+        newEntity.setNombreUsuario("ultraspidermandark");
         newEntity.setEmail("minecraftero@dosmasdos.com");
         newEntity.setContrasenia("eeeeeeee");
         newEntity.setFechaNacimiento("05/12/1999");
 
-        ClienteEntity result = ClienteLogic.createCliente(newEntity);
+        ClienteEntity result = clienteLogic.createCliente(newEntity);
         Assert.assertNotNull(result);
         ClienteEntity entity = em.find(ClienteEntity.class, result.getId());
         Assert.assertEquals(newEntity.getId(), entity.getId());
-        Assert.assertEquals(newEntity.getLogin(), entity.getLogin());
+        Assert.assertEquals(newEntity.getNombreUsuario(), entity.getNombreUsuario());
         Assert.assertEquals(newEntity.getContrasenia(), entity.getContrasenia());
         Assert.assertEquals(newEntity.getFechaNacimiento(), entity.getFechaNacimiento());
         Assert.assertEquals(newEntity.getEmail(), entity.getEmail());
@@ -154,7 +156,7 @@ public class ClienteLogicTest {
     @Test
     public void deleteClienteTest() throws BusinessLogicException {
         ClienteEntity entity = data.get(0);
-        ClienteLogic.deleteCliente(entity.getId());
+        clienteLogic.deleteCliente(entity.getId());
         ClienteEntity deleteado = em.find(ClienteEntity.class, entity.getId());
         Assert.assertNull(deleteado);
     }
@@ -168,7 +170,7 @@ public class ClienteLogicTest {
     @Test(expected = BusinessLogicException.class)
     public void deleteClienteTest2() throws BusinessLogicException {
         ClienteEntity entity = data.get(0);
-        ClienteEntity newEntity = ClienteLogic.getCliente(entity.getId());
+        ClienteEntity newEntity = clienteLogic.getCliente(entity.getId());
 
         EventoEntity entityEvento = factory.manufacturePojo(EventoEntity.class);
         entityEvento.setEstado(ConstantesEvento.EN_PROCESO);
@@ -177,14 +179,14 @@ public class ClienteLogicTest {
         lista.add(entityEvento);
         newEntity.setEventos(lista);
 
-        newEntity.setLogin("ultraspidermandark");
+        newEntity.setNombreUsuario("ultraspidermandark");
         newEntity.setEmail("minecraftero@dosmasdos.com");
         newEntity.setContrasenia("eeeeeeee");
         newEntity.setFechaNacimiento("05/12/1999");
 
-        ClienteLogic.updateCliente(entity.getId(), newEntity);
+        clienteLogic.updateCliente(entity.getId(), newEntity);
 
-        ClienteLogic.deleteCliente(entity.getId());
+        clienteLogic.deleteCliente(entity.getId());
         ClienteEntity deleteado = em.find(ClienteEntity.class, entity.getId());
 
         Assert.assertNull(deleteado);
@@ -199,9 +201,9 @@ public class ClienteLogicTest {
     @Test(expected = BusinessLogicException.class)
     public void loginRepetidoTest() throws BusinessLogicException {
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
-        newEntity.setLogin(data.get(0).getLogin());
+        newEntity.setNombreUsuario(data.get(0).getNombreUsuario());
 
-        ClienteLogic.createCliente(newEntity);
+        clienteLogic.createCliente(newEntity);
     }
 
     /**
@@ -212,10 +214,10 @@ public class ClienteLogicTest {
      */
     @Test(expected = BusinessLogicException.class)
     public void fechaSuperiorTest() throws BusinessLogicException {
-        ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
-        newEntity.setFechaNacimiento("10/10/2112");
+         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
+        newEntity.setFechaNacimiento("10/10/2115");
 
-        ClienteLogic.createCliente(newEntity);
+        clienteLogic.createCliente(newEntity);
     }
 
     /**
@@ -225,10 +227,10 @@ public class ClienteLogicTest {
      */
     @Test(expected = BusinessLogicException.class)
     public void edadRequeridaTest() throws BusinessLogicException {
-        ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
+       ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
         newEntity.setFechaNacimiento("07/07/2017");
 
-        ClienteLogic.createCliente(newEntity);
+        clienteLogic.createCliente(newEntity);
     }
 
     /**
@@ -240,13 +242,13 @@ public class ClienteLogicTest {
         ClienteEntity entity = data.get(0);
         ClienteEntity pojoEntity = factory.manufacturePojo(ClienteEntity.class);
         pojoEntity.setId(entity.getId());
-        ClienteLogic.updateCliente(pojoEntity.getId(), pojoEntity);
+        clienteLogic.updateCliente(pojoEntity.getId(), pojoEntity);
         ClienteEntity resp = em.find(ClienteEntity.class, entity.getId());
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
         Assert.assertEquals(pojoEntity.getContrasenia(), resp.getContrasenia());
         Assert.assertEquals(pojoEntity.getEmail(), resp.getEmail());
         Assert.assertEquals(pojoEntity.getFechaNacimiento(), resp.getFechaNacimiento());
-        Assert.assertEquals(pojoEntity.getLogin(), resp.getLogin());
+        Assert.assertEquals(pojoEntity.getNombreUsuario(), resp.getNombreUsuario());
 
     }
 
@@ -257,14 +259,14 @@ public class ClienteLogicTest {
      */
     @Test(expected = BusinessLogicException.class)
     public void fechaFormatoIncorrectoTest() throws BusinessLogicException {
-        ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
+         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
         newEntity.setFechaNacimiento("0130/2008");
 
-        ClienteLogic.createCliente(newEntity);
+        clienteLogic.createCliente(newEntity);
     }
 
     /**
-     * Prueba de crear una fecha invalida
+     * Prueba de crear un cliente con una fecha nula.
      *
      * @throws BusinessLogicException
      */
@@ -273,31 +275,31 @@ public class ClienteLogicTest {
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
         newEntity.setFechaNacimiento(null);
 
-        ClienteLogic.createCliente(newEntity);
+        clienteLogic.createCliente(newEntity);
     }
 
     /**
-     * Prueba de crear un login con formato incorrecto
+     * Prueba de crear un usuario con un nombre de usuario vacío.
      *
      * @throws BusinessLogicException
      */
     @Test(expected = BusinessLogicException.class)
     public void loginFormatoIncorrectoTest() throws BusinessLogicException {
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
-        newEntity.setLogin("");
-        ClienteLogic.createCliente(newEntity);
+        newEntity.setNombreUsuario("");
+        clienteLogic.createCliente(newEntity);
     }
 
     /**
-     * Prueba de crear un login invalido
+     * Prueba de crear un usuario con un nombre de usuario nulo.
      *
      * @throws BusinessLogicException
      */
     @Test(expected = BusinessLogicException.class)
     public void loginInvalidoTest() throws BusinessLogicException {
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
-        newEntity.setLogin(null);
-        ClienteLogic.createCliente(newEntity);
+        newEntity.setNombreUsuario(null);
+        clienteLogic.createCliente(newEntity);
     }
 
     /**
@@ -310,7 +312,7 @@ public class ClienteLogicTest {
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
         newEntity.setContrasenia("++++");
 
-        ClienteLogic.createCliente(newEntity);
+        clienteLogic.createCliente(newEntity);
     }
 
     /**
@@ -323,12 +325,12 @@ public class ClienteLogicTest {
     public void validacionesFalseTest() throws BusinessLogicException {
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
 
-        ClienteLogic.createCliente(newEntity);
-        Assert.assertFalse(ClienteLogic.validaciones(newEntity));
+        clienteLogic.createCliente(newEntity);
+        Assert.assertFalse(clienteLogic.validaciones(newEntity));
     }
 
     /**
-     * Prueba para crear un Cliente con un mail que no cumple el formato
+     * Prueba para crear un Cliente con un email que no cumple el formato
      *
      * @throws BusinessLogicException
      */
@@ -337,7 +339,7 @@ public class ClienteLogicTest {
         ClienteEntity newEntity = factory.manufacturePojo(ClienteEntity.class);
 
         newEntity.setEmail("lolololo@com");
-        ClienteLogic.createCliente(newEntity);
+        clienteLogic.createCliente(newEntity);
     }
 
     /**
@@ -345,7 +347,7 @@ public class ClienteLogicTest {
      */
     @Test
     public void getClientesTest() {
-        List<ClienteEntity> list = ClienteLogic.getClientes();
+        List<ClienteEntity> list = clienteLogic.getClientes();
         Assert.assertEquals(data.size(), list.size());
         for (ClienteEntity entity : list) {
             boolean found = false;
@@ -362,15 +364,15 @@ public class ClienteLogicTest {
      * Prueba para consultar un cliente.
      */
     @Test
-    public void getBookTest() {
+    public void getClienteTest() {
         ClienteEntity entity = data.get(0);
-        ClienteEntity resultEntity = ClienteLogic.getCliente(entity.getId());
+        ClienteEntity resultEntity = clienteLogic.getCliente(entity.getId());
         Assert.assertNotNull(resultEntity);
         Assert.assertEquals(entity.getId(), resultEntity.getId());
         Assert.assertEquals(entity.getContrasenia(), resultEntity.getContrasenia());
         Assert.assertEquals(entity.getEmail(), resultEntity.getEmail());
         Assert.assertEquals(entity.getFechaNacimiento(), resultEntity.getFechaNacimiento());
-        Assert.assertEquals(entity.getLogin(), resultEntity.getLogin());
+        Assert.assertEquals(entity.getNombreUsuario(), resultEntity.getNombreUsuario());
     }
 
 }

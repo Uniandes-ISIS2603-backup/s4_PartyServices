@@ -615,19 +615,5 @@
 				]
 			}
 		}
-	],
-	"variable": [
-		{
-			"id": "0485c7eb-a824-48fa-ab42-4d7a971bda2d",
-			"key": "puerto",
-			"value": "8080",
-			"type": "string"
-		},
-		{
-			"id": "dfa46ba3-d57e-44c6-ae3d-2fae64f80564",
-			"key": "ip",
-			"value": "localhost",
-			"type": "string"
-		}
 	]
 }

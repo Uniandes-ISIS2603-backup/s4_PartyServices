@@ -23,28 +23,46 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
- * @author estudiante
+ * @author Andres
  */
 @RunWith(Arquillian.class)
-public class EventoPersistenceTest 
-{
+public class EventoPersistenceTest {
+
+    /**
+     * Inyección de la dependencia a la clase EventoPersistence cuyos métodos se
+     * van a probar.
+     */
     @Inject
-    private EventoPersistence eventoPersistence ;
-    
-    
+    private EventoPersistence eventoPersistence;
+
+    /**
+     * Contexto de Persistencia que se va a utilizar para acceder a la Base de
+     * datos por fuera de los métodos que se están probando.
+     */
     @PersistenceContext
-    private EntityManager em ;
-    
+    private EntityManager em;
+
+    /**
+     * Variable para martcar las transacciones del em anterior cuando se
+     * crean/borran datos para las pruebas.
+     */
     @Inject
-    UserTransaction utx ;
-    
-    
-    
-    private List<EventoEntity> data = new ArrayList<EventoEntity>() ;
-    
+    UserTransaction utx;
+
+    /**
+     * Lista que tiene los datos de prueba para los eventos.
+     */
+    private List<EventoEntity> data = new ArrayList<EventoEntity>();
+
+    /**
+     *
+     * @return Devuelve el jar que Arquillian va a desplegar en el Glassfish
+     * embebido. El jar contiene las clases de evento, el descriptor de la base
+     * de datos y el archivo beans.xml para resolver la inyección de
+     * dependencias.
+     */
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
@@ -53,8 +71,11 @@ public class EventoPersistenceTest
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
-    
-       @Before
+
+    /**
+     * Configuración inicial de la prueba.
+     */
+    @Before
     public void configTest() {
         try {
             utx.begin();
@@ -72,12 +93,17 @@ public class EventoPersistenceTest
         }
     }
 
-   
+    /**
+     * Limpia las tablas que están implicadas en la prueba.
+     */
     private void clearData() {
         em.createQuery("delete from EventoEntity").executeUpdate();
     }
 
-    
+    /**
+     * Inserta los datos iniciales para el correcto funcionamiento de las
+     * pruebas.
+     */
     private void insertData() {
         PodamFactory factory = new PodamFactoryImpl();
         for (int i = 0; i < 3; i++) {
@@ -89,12 +115,13 @@ public class EventoPersistenceTest
             data.add(entity);
         }
     }
-    
-    
-    @Test 
-    public void createEventoTest()
-    {
-         PodamFactory factory = new PodamFactoryImpl();
+
+    /**
+     * Prueba para crear un evento
+     */
+    @Test
+    public void createEventoTest() {
+        PodamFactory factory = new PodamFactoryImpl();
         EventoEntity newEntity = factory.manufacturePojo(EventoEntity.class);
         EventoEntity result = eventoPersistence.create(newEntity);
 
@@ -104,26 +131,28 @@ public class EventoPersistenceTest
 
         Assert.assertEquals(newEntity.getNombre(), entity.getNombre());
     }
-    
-    
+
+    /**
+     * Prueba para eliminar un evento
+     */
     @Test
-    public void deleteEventoTest()
-    {
+    public void deleteEventoTest() {
         EventoEntity entity = data.get(0);
         eventoPersistence.delete(entity.getId());
         EventoEntity deleted = em.find(EventoEntity.class, entity.getId());
         Assert.assertNull(deleted);
-     
-        
+
     }
-    
-     @Test
+
+    /**
+     * Prueba para encontrar un evento por el nombre
+     */
+    @Test
     public void FindEventoByNameTest() {
         EventoEntity entity = data.get(0);
         EventoEntity newEntity = eventoPersistence.findByName(entity.getNombre());
         Assert.assertNotNull(newEntity);
         Assert.assertEquals(entity.getNombre(), newEntity.getNombre());
     }
-    
-    
+
 }

@@ -15,8 +15,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 /**
- *
- * @author estudiante
+ *Persistencia de agenda
+ * @author Nicolas Hernandez
  */
 @Stateless
 public class AgendaPersistence {

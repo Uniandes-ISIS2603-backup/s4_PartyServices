@@ -72,28 +72,24 @@ public class PagoPersistence {
      *
      * Busca si hay algun pago asociado a un cliente y con un ID específico
      *
-     * @param clientesID El ID del cliente con respecto al cual se busca
+     * @param clientesId El ID del cliente con respecto al cual se busca
      * @param pagosId El ID del pago buscado
      * @return El pago encontrado o null. Nota: Si existe uno o más pagos
      * devuelve siempre el primera que encuentra
      */
-    public PagoEntity find(Long clientesID, Long pagosId) {
+    public PagoEntity find(Long clientesId, Long pagosId) {
 
         LOGGER.log(Level.INFO, "Consultando el pago con id = {0} del cliente con id = ");
-        TypedQuery<PagoEntity> q = em.createQuery("select p from PagoEntity p where (p.cliente.id = :clienteid) and (p.id = :pagosId)", PagoEntity.class);
-        q.setParameter("clienteid", clientesID);
+        TypedQuery<PagoEntity> q = em.createQuery("select p from PagoEntity p where (p.cliente.id = :clientesid) and (p.id = :pagosId)", PagoEntity.class);
+        q.setParameter("clientesid", clientesId);
         q.setParameter("pagosId", pagosId);
         List<PagoEntity> results = q.getResultList();
-        PagoEntity review = null;
-        if (results == null) {
-            review = null;
-        } else if (results.isEmpty()) {
-            review = null;
-        } else if (results.size() >= 1) {
-            review = results.get(0);
+        PagoEntity pago = null;
+        if (!results.isEmpty()) {
+            pago = results.get(0);
         }
         LOGGER.log(Level.INFO, "Saliendo de consultar el review con id = {0} del libro con id =");
-        return review;
+        return pago;
 
     }
 
@@ -129,32 +125,6 @@ public class PagoPersistence {
 
         LOGGER.log(Level.INFO, "Se ha actualizado el pago solicitado");
         return em.merge(pagoEntity);
-
-    }
-
-    /**
-     * Se busca un pago a través del login de su cliente.
-     *
-     * @param pUsuario el login del usuario buscado
-     * @return result La entidad resultante de la busqueda
-     */
-    public PagoEntity findByUsuario(String pUsuario) {
-        LOGGER.log(Level.INFO, "Se consulta por el nombre ", pUsuario);
-        TypedQuery query = em.createQuery("Select e From PagoEntity e where e.usuario = :usuario", PagoEntity.class);
-
-        query = query.setParameter("usuario", pUsuario);
-
-        List<PagoEntity> sameName = query.getResultList();
-        PagoEntity result;
-        if (sameName == null) {
-            result = null;
-        } else if (sameName.isEmpty()) {
-            result = null;
-        } else {
-            result = sameName.get(0);
-        }
-        LOGGER.log(Level.INFO, "Se han consultado todos los pagos por el nombre ", pUsuario);
-        return result;
 
     }
 

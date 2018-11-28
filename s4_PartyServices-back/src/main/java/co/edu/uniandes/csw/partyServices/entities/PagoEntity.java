@@ -8,8 +8,11 @@ package co.edu.uniandes.csw.partyServices.entities;
 import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import uk.co.jemos.podam.common.PodamExclude;
+
 
 /**
  * Clase que representa un pago en la persistencia y permite su serializacion
@@ -18,36 +21,15 @@ import uk.co.jemos.podam.common.PodamExclude;
  */
 @Entity
 public class PagoEntity extends BaseEntity implements Serializable {
-
-    /*
-    *login del cliente
-     */
-    private String usuario;
-
-    /*
-    *tarjeta de credito del cliente
-     */
-    private Long numeroTarjetaCredito;
-
-    /*
-    *codigo de seguridad de la tarjeta
-     */
-    private Integer codigoSeguridadTarjeta;
-
-    /*
-    *fecha de expiracion d ela tarjeta
-     */
-    private String fechaExpiracionTarjetaCredito;
-
-    /*
-    *nombre en la tarjeta
-     */
-    private String nombreTarjeta;
-
-    /*
-    *empresa de la tarjeta 
-     */
-    private String empresa;
+    
+   
+    private String fecha;
+    
+    private Integer valor;
+    
+    @PodamExclude
+    @OneToOne
+    private EventoEntity evento;
 
     /*
     *cliente que guarda al pago
@@ -56,134 +38,54 @@ public class PagoEntity extends BaseEntity implements Serializable {
     @ManyToOne(cascade = CascadeType.PERSIST)
     private ClienteEntity cliente;
 
+    /**
+     * Constructor por defecto
+     */
     public PagoEntity() {
 
+        //constructor por defecto
     }
 
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public Integer getValor() {
+        return valor;
+    }
+
+    public void setValor(Integer valor) {
+        this.valor = valor;
+    }
+
+    public EventoEntity getEvento() {
+        return evento;
+    }
+
+    public void setEvento(EventoEntity evento) {
+        this.evento = evento;
+    }
+    
     /**
-     * Devuelve el cliente de la reseña.
-     *
-     * @return the name
+     * Método que retorno el cliente
+     * @return cliente que contiene este pago
      */
     public ClienteEntity getCliente() {
         return cliente;
     }
 
     /**
-     * Modifica el cliente asociado a este libro
-     *
-     * @param pCliente El nuevo cliente
+     * Método que edita el cliente al que le pertenece este pago
+     * @param cliente 
      */
-    public void setCliente(ClienteEntity pCliente) {
-        this.cliente = pCliente;
+    public void setCliente(ClienteEntity cliente) {
+        this.cliente = cliente;
     }
 
-    /**
-     * Devuelve el login del cliente.
-     *
-     * @return the user
-     */
-    public String getUsuario() {
-        return usuario;
-    }
-
-    /**
-     * Modifica el usuario
-     *
-     * @param pUsuario El nuevo user
-     */
-    public void setUsuario(String pUsuario) {
-        this.usuario = pUsuario;
-    }
-
-    /**
-     * Devuelve la tarjeta del cliente.
-     *
-     * @return the number
-     */
-    public Long getNumeroTarjetaCredito() {
-        return numeroTarjetaCredito;
-    }
-
-    /**
-     * Modifica el numero de tarjeta
-     *
-     * @param numeroTarjetaCredito El nuevo numero
-     */
-    public void setNumeroTarjetaCredito(Long numeroTarjetaCredito) {
-        this.numeroTarjetaCredito = numeroTarjetaCredito;
-    }
-
-    /**
-     * Devuelve el codigo de seguridad de a tarjeta.
-     *
-     * @return the code
-     */
-    public Integer getCodigoSeguridadTarjeta() {
-        return codigoSeguridadTarjeta;
-    }
-
-    /**
-     * Modifica el codigo de tarjeta
-     *
-     * @param codigoSeguridadTarjeta El nuevo codigo
-     */
-    public void setCodigoSeguridadTarjeta(Integer codigoSeguridadTarjeta) {
-        this.codigoSeguridadTarjeta = codigoSeguridadTarjeta;
-    }
-
-    /**
-     * Devuelve la fecah de expiracion de la tarjeta
-     *
-     * @return the date
-     */
-    public String getFechaExpiracionTarjetaCredito() {
-        return fechaExpiracionTarjetaCredito;
-    }
-
-    /**
-     * Modifica la fecha de expiración
-     *
-     * @param fechaExpiracionTarjetaCredito El nuevo date
-     */
-    public void setFechaExpiracionTarjetaCredito(String fechaExpiracionTarjetaCredito) {
-        this.fechaExpiracionTarjetaCredito = fechaExpiracionTarjetaCredito;
-    }
-
-    /**
-     * Devuelve el nombre en la tarjeta
-     *
-     * @return the name
-     */
-    public String getNombreTarjeta() {
-        return nombreTarjeta;
-    }
-
-    /**
-     * Modifica el nombre de tarjeta
-     *
-     * @param nombreTarjeta El nuevo nombre
-     */
-    public void setNombreTarjeta(String nombreTarjeta) {
-        this.nombreTarjeta = nombreTarjeta;
-    }
-
-    /**
-     * Devuelve la empresa de la tarjeta
-     *
-     * @return the bank
-     */
-    public String getEmpresa() {
-        return empresa;
-    }
-
-    /**
-     * Modifica la empresa d ela tarjeta
-     *
-     * @param empresa El nuevo bank
-     */
-    public void setEmpresa(String empresa) {
-        this.empresa = empresa;
-    }
+   
 
 }

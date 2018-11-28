@@ -24,6 +24,8 @@ public class ProveedorDetailDTO extends ProveedorDTO implements Serializable {
     private List<NotificacionDTO> notificaciones;
     private List<ValoracionDTO> valoraciones;
     private List<ProductoDTO> productos;
+    private AgendaDTO agenda;
+ 
 
     public ProveedorDetailDTO() {
         super();
@@ -39,6 +41,8 @@ public class ProveedorDetailDTO extends ProveedorDTO implements Serializable {
      */
     public ProveedorDetailDTO(ProveedorEntity proveedorEntity) {
         super(proveedorEntity);
+        if(proveedorEntity.getAgenda()!=null)
+              this.agenda = new AgendaDTO (proveedorEntity.getAgenda());
         if (proveedorEntity != null) {
             productos = new ArrayList<>();
             for (ProductoEntity entityProducto : proveedorEntity.getCatalogoProductos()) {
@@ -65,6 +69,9 @@ public class ProveedorDetailDTO extends ProveedorDTO implements Serializable {
     @Override
     public ProveedorEntity toEntity() {
         ProveedorEntity proveedorEntity = super.toEntity();
+        if(this.agenda!=null){
+        proveedorEntity.setAgenda(this.agenda.toEntity());
+        }
         if (productos != null) {
             List<ProductoEntity> productoEntity = new ArrayList<>();
             for (ProductoDTO dtoProducto : productos) {
@@ -121,6 +128,16 @@ public class ProveedorDetailDTO extends ProveedorDTO implements Serializable {
     public void setValoracion(List<ValoracionDTO> valoraciones){
        this.valoraciones = valoraciones;
     }
+    
+    
+    public AgendaDTO getAgenda() {
+        return agenda;
+    }
+
+    public void setAgenda(AgendaDTO agenda) {
+        this.agenda = agenda;
+    }
+    
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);

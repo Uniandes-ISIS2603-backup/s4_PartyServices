@@ -1,0 +1,277 @@
+{
+	"info": {
+		"_postman_id": "a5c44eb8-f84e-4252-b024-8528b19611a1",
+		"name": "Pruebas de Producto",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear un proveedor",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "861fae5d-0b1f-4735-bb1e-55fe92118cb6",
+						"exec": [
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\":\"Andres\",\n    \"contrasenia\":\"123456789\",\n    \"calificacion\":10,\n    \"agenda\":{}\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/proveedor",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"proveedor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Producto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "be6634d8-cb53-48e5-93c1-0deec4805841",
+						"exec": [
+							"var data =JSON.parse(responseBody) ;",
+							"postman.setGlobalVariable(\"new_nombre_producto\",data.nombre);",
+							"tests[\"No genera error en el post\"] = responseCode.code == 200 ;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n\t\"nombre\":\"Audifonos\",\n\t\"tipoServicio\":\"Musica\",\n\t\"duenio\":\"Los maricheros\",\n\t \"costo\":\"20000\" ,\n\t \"cantidad\":\"3\",\n\t \"proveedor\":\n\t {   \"calificacion\": 10,\n        \"contrasenia\": \"123456789\",\n        \"nombre\": \"Andres\"\n\t \t\n\t }\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/producto",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"producto"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Producto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8cf06f80-3329-485b-b72e-c990b675aaf7",
+						"exec": [
+							"tests[\"no genera error en el Get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/producto/{{new_nombre_producto}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"producto",
+						"{{new_nombre_producto}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Put Producto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f54a1abc-6420-4ace-8091-99aa3fc00700",
+						"exec": [
+							"tests[\"no genera error en el Put\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n\t\"nombre\":\"Audifonos\",\n\t\"tipoServicio\":\"Decoracion\",\n\t\"duenio\":\"Los maricheros\",\n\t \"costo\":\"20200\" ,\n\t \"cantidad\":\"4\",\n\t \"proveedor\":\n\t {   \"calificacion\": 10,\n        \"contrasenia\": \"123456789\",\n        \"nombre\": \"Andres\"\n\t \t\n\t }\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/producto/{{new_nombre_producto}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"producto",
+						"{{new_nombre_producto}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Productos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "509d1816-9376-412a-bac2-5c290ea7d401",
+						"type": "text/javascript",
+						"exec": [
+							"var data =JSON.parse(responseBody) ;",
+							"tests[\"No genera error en el get\"] = responseCode.code == 200 ;",
+							"tests[\"Producto count\"] = data.length > 0 ;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/producto",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"producto"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Producto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d72176c0-f891-4aac-85af-bcdc04ab0722",
+						"exec": [
+							"tests[\"no genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/producto/{{new_nombre_producto}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"producto",
+						"{{new_nombre_producto}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "2372f3d7-1a3f-43b3-b90d-2699e44b6654",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "20dccfa4-d16f-43b0-bb1c-affa25010bd7",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

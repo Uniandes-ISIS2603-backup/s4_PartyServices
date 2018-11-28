@@ -128,10 +128,13 @@ public class ClientePersistenceTest {
 
         ClienteEntity entity = em.find(ClienteEntity.class, result.getId());
 
-        Assert.assertEquals(newEntity.getLogin(), entity.getLogin());
+        Assert.assertEquals(newEntity.getNombreUsuario(), entity.getNombreUsuario());
         Assert.assertEquals(newEntity.getContrasenia(), entity.getContrasenia());
         Assert.assertEquals(newEntity.getEmail(), entity.getEmail());
         Assert.assertEquals(newEntity.getFechaNacimiento(), entity.getFechaNacimiento());
+       
+       
+
     }
 
     /**
@@ -160,7 +163,7 @@ public class ClientePersistenceTest {
     public void getClienteTest() {
         ClienteEntity entidadCliente = data.get(0);
         ClienteEntity entidadNuevaCliente = clientePersistence.find(entidadCliente.getId());
-        Assert.assertEquals(entidadNuevaCliente.getLogin(), entidadCliente.getLogin());
+        Assert.assertEquals(entidadNuevaCliente.getNombreUsuario(), entidadCliente.getNombreUsuario());
         Assert.assertEquals(entidadNuevaCliente.getContrasenia(), entidadCliente.getContrasenia());
         Assert.assertEquals(entidadNuevaCliente.getEmail(), entidadCliente.getEmail());
         Assert.assertEquals(entidadNuevaCliente.getFechaNacimiento(), entidadCliente.getFechaNacimiento());
@@ -185,11 +188,11 @@ public class ClientePersistenceTest {
     @Test
     public void FindClienteByLoginTest() {
         ClienteEntity entidad = data.get(0);
-        ClienteEntity nuevaEntidad = clientePersistence.findByLogin(entidad.getLogin());
+        ClienteEntity nuevaEntidad = clientePersistence.findByNombreUsuario(entidad.getNombreUsuario());
         Assert.assertNotNull(nuevaEntidad);
-        Assert.assertEquals(entidad.getLogin(), nuevaEntidad.getLogin());
+        Assert.assertEquals(entidad.getNombreUsuario(), nuevaEntidad.getNombreUsuario());
 
-        nuevaEntidad = clientePersistence.findByLogin(null);
+        nuevaEntidad = clientePersistence.findByNombreUsuario(null);
         Assert.assertNull(nuevaEntidad);
     }
 
