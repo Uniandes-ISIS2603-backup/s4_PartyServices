@@ -61,6 +61,19 @@ public class ProveedorResource {
         return detailDTO;
     }
     
+    @GET
+    @Path("{nombre: ([0-9]|[a-zA-Z])([0-9]*|[a-zA-Z]*)}/{contrasenia: ([0-9]|[a-zA-Z])([0-9]*|[a-zA-Z]*)}")
+    public ProveedorDetailDTO validate(@PathParam("nombre") String nombre, @PathParam("contrasenia") String contrasenia) {
+        LOGGER.log(Level.INFO, "ProveedorResource getAuthor: input: {0}", nombre);
+        ProveedorEntity proveedorEntity = proveedorLogic.validate(nombre, contrasenia);
+        if (proveedorEntity == null) {
+            throw new WebApplicationException("El recurso /proveedores/" + nombre + " no existe.", 404);
+        }
+        ProveedorDetailDTO detailDTO = new ProveedorDetailDTO(proveedorEntity);
+        LOGGER.log(Level.INFO, "ProveedorResource getProveedor: output: {0}", detailDTO.toString());
+        return detailDTO;
+    }
+    
                 
     @POST
     public ProveedorDTO crearProveedor(ProveedorDTO pProveedor) throws BusinessLogicException {

@@ -92,6 +92,16 @@ public class ProveedorLogic {
         return proveedorEntity;
     }
 
+        public ProveedorEntity validate(String nombre, String contrasenia) {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar el proveedor con nombre = {0}", nombre);
+        // Note que, por medio de la inyección de dependencias se llama al método "find(id)" que se encuentra en la persistencia.
+        ProveedorEntity proveedorEntity = persistence.validate(nombre, contrasenia);
+        if (proveedorEntity == null) {
+            LOGGER.log(Level.SEVERE, "el proveedor con el nombre = {0} no existe", nombre);
+        }
+        LOGGER.log(Level.INFO, "Termina proceso de consultar el proveedor con nombre = {0}", nombre);
+        return proveedorEntity;
+    }
     /**
      *
      * Actualizar un proveedor.

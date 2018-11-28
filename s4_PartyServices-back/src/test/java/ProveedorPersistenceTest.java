@@ -160,4 +160,13 @@ public class ProveedorPersistenceTest {
         Assert.assertNotNull(newEntity);
         Assert.assertEquals(entity.getNombre(), newEntity.getNombre());
     }
+    
+     @Test
+    public void validateTest() {
+        ProveedorEntity entity = data.get(0);
+        ProveedorEntity newEntity = proveedorPersistence.validate(entity.getNombre(), entity.getContrasenia());
+        Assert.assertNotNull(newEntity);
+        Assert.assertEquals(entity.getNombre(), newEntity.getNombre());
+    }
+    
 }
