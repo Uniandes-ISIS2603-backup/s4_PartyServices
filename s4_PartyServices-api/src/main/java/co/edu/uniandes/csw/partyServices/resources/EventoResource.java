@@ -159,4 +159,27 @@ public class EventoResource {
         return detailDTO;
     }
 
+    /**
+     * Conexión con el servicio de productos para un evento.
+     * {@link EventoProductosResource}
+     *
+     * Este método conecta la ruta de /evento con las rutas de /producto que
+     * dependen del evento, es una redirección al servicio que maneja el
+     * segmento de la URL que se encarga de los productos de un evento.
+     *
+     * @param nombreEvento El ID del cliente con respecto al cual se
+     * accede al servicio.
+     * @return El servicio de productos para este evento en paricular.
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra el evento.
+     */
+    @Path("{nombreEvento: [a-zA-Z][a-zA-Z]*}/producto")
+    public Class<EventoProductosResource> getEventoProductosResource(@PathParam("nombreEvento") String nombreEvento) {
+        if (eventoLogic.findByNombre(nombreEvento) == null) {
+            throw new WebApplicationException("El recurso /clientes/" + nombreEvento + " no existe.", 404);
+        }
+        return EventoProductosResource.class;
+    }
+    
+    
 }

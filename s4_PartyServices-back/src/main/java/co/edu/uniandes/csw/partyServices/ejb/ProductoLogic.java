@@ -50,7 +50,7 @@ public class ProductoLogic {
         LOGGER.log(Level.INFO, "Inicia proceso de consultar el producto por nombre");
         ProductoEntity productoEntity = persistence.findByName(pNombre);
         if (productoEntity == null) {
-            LOGGER.log(Level.SEVERE, "El libro con el nombre dado no existe ");
+            LOGGER.log(Level.SEVERE, "El producto con el nombre dado no existe ");
         }
         LOGGER.log(Level.INFO, "Termina proceso de consultar producto por nombre");
         return productoEntity;
