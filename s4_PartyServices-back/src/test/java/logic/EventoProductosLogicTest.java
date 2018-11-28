@@ -124,7 +124,7 @@ public class EventoProductosLogicTest {
     public void addProductosTest() {
         EventoEntity entity = data.get(0);
         ProductoEntity productoEntity = productosData.get(1);
-        ProductoEntity response = eventoProductosLogic.addProducto(entity.getId(),productoEntity.getId());
+        ProductoEntity response = eventoProductosLogic.addProducto(entity.getId(),productoEntity.getNombre());
 
         Assert.assertNotNull(response);
         Assert.assertEquals(productoEntity.getId(), response.getId());
@@ -151,7 +151,7 @@ public class EventoProductosLogicTest {
     public void getProductoTest() throws BusinessLogicException {
         EventoEntity entity = data.get(0);
         ProductoEntity productoEntity = productosData.get(0);
-        ProductoEntity response = eventoProductosLogic.getProducto(entity.getId(), productoEntity.getId());
+        ProductoEntity response = eventoProductosLogic.getProducto(entity.getId(), productoEntity.getNombre());
 
         Assert.assertEquals(productoEntity.getId(), response.getId());
         Assert.assertEquals(productoEntity.getNombre(), response.getNombre());
@@ -168,7 +168,7 @@ public class EventoProductosLogicTest {
     public void getProductoNoAsociadoTest() throws BusinessLogicException {
         EventoEntity entity = data.get(0);
         ProductoEntity productoEntity = productosData.get(1);
-        eventoProductosLogic.getProducto(entity.getId(), productoEntity.getId());
+        eventoProductosLogic.getProducto(entity.getId(), productoEntity.getNombre());
     }
 
     /**

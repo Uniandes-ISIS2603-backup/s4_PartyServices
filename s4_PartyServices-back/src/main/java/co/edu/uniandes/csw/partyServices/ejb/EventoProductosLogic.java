@@ -38,16 +38,16 @@ public class EventoProductosLogic {
      * Asocia un Producto existente a un Evento
      *
      * @param eventosId Identificador de la instancia de Evento
-     * @param productosId Identificador de la instancia de Producto
+     * @param productos Identificador de la instancia de Producto
      * @return Instancia de ProductoEntity que fue asociada a Evento
      */
-    public ProductoEntity addProducto(Long eventosId, Long productosId) {
+    public ProductoEntity addProducto(Long eventosId, String productos) {
         LOGGER.log(Level.INFO, "Inicia proceso de asociarle un producto al autor con id = {0}", eventosId);
         EventoEntity eventoEntity = eventoPersistence.find(eventosId);
-        ProductoEntity productoEntity = productoPersistence.find(productosId);
+        ProductoEntity productoEntity = productoPersistence.findByName(productos);
         productoEntity.getEventos().add(eventoEntity);
         LOGGER.log(Level.INFO, "Termina proceso de asociarle un producto al autor con id = {0}", eventosId);
-        return productoPersistence.find(productosId);
+        return productoPersistence.findByName(productos);
     }
 
     /**
@@ -71,10 +71,10 @@ public class EventoProductosLogic {
      * @return La entidadd de Libro del autor
      * @throws BusinessLogicException Si el producto no está asociado al autor
      */
-    public ProductoEntity getProducto(Long eventosId, Long productosId) throws BusinessLogicException {
+    public ProductoEntity getProducto(Long eventosId, String productosId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de consultar el producto con id = {0} del autor con id = " + eventosId, productosId);
         List<ProductoEntity> productos = eventoPersistence.find(eventosId).getProductos();
-        ProductoEntity productoEntity = productoPersistence.find(productosId);
+        ProductoEntity productoEntity = productoPersistence.findByName(productosId);
         int index = productos.indexOf(productoEntity);
         LOGGER.log(Level.INFO, "Termina proceso de consultar el producto con id = {0} del autor con id = " + eventosId, productosId);
         if (index >= 0) {
@@ -115,10 +115,10 @@ public class EventoProductosLogic {
      * @param eventosId Identificador de la instancia de Evento
      * @param productosId Identificador de la instancia de Producto
      */
-    public void removeProducto(Long eventosId, Long productosId) {
+    public void removeProducto(Long eventosId, String productosId) {
         LOGGER.log(Level.INFO, "Inicia proceso de borrar un producto del evento con id = {0}", eventosId);
         EventoEntity eventoEntity = eventoPersistence.find(eventosId);
-        ProductoEntity productoEntity = productoPersistence.find(productosId);
+        ProductoEntity productoEntity = productoPersistence.findByName(productosId);
         productoEntity.getEventos().remove(eventoEntity);
         LOGGER.log(Level.INFO, "Termina proceso de borrar un producto del evento con id = {0}", eventosId);
     }
