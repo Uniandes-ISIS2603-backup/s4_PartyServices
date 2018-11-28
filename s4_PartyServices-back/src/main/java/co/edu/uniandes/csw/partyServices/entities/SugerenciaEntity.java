@@ -24,7 +24,12 @@ public class SugerenciaEntity extends BaseEntity implements Serializable {
     private String titulo;
     
     private String link;
+    
+    private String video;
 
+    
+
+    
     @PodamExclude
     @ManyToOne
     private ClienteEntity cliente;
@@ -113,22 +118,55 @@ public class SugerenciaEntity extends BaseEntity implements Serializable {
         this.tematica = tematica;
     }
     
+    /**
+     * Agarra el titulo de sugerencia
+     * @return el titulo de la sugerencia 
+     */
     public String getTitulo() {
         return titulo;
     }
 
+    /**
+     * Cambia el titulo de la sugerencia
+     * @param titulo. El titulo a ser cambiado
+     */
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
     
+    /**
+     * Agarra el link de sugerencia
+     * @return el link de la sugerencia
+     */
     public String getLink() {
         return link;
     }
 
+    /**
+     * Cambia el link de la sugerencia.
+     * @param link 
+     */
     public void setLink(String link) {
         this.link = link;
     }
     
+   
+    /**
+     * Obtiene el video de la sugerencia
+     * @return el video de la sugerencia
+     */
+    public String getVideo() {
+        return video;
+    }
+
+    /**
+     * Modifica el video de la sugerencia
+     * @param video. Video de la sugerencia. 
+     */
+    public void setVideo(String video) {
+        this.video = video;
+    }
+
     
     
 
