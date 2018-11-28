@@ -75,7 +75,7 @@ public class ProveedorResource {
     public void borrarProveedor(@PathParam("proveedoresId") Long proveedoresID) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "ProveedorResource deleteProveedor: input: {0}", proveedoresID);
         if (proveedorLogic.getProveedor(proveedoresID) == null) {
-            throw new WebApplicationException("El recurso /authors/" + proveedoresID + " no existe.", 404);
+            throw new WebApplicationException("El recurso /proveedores/" + proveedoresID + " no existe.", 404);
         }
         proveedorLogic.deleteProveedor(proveedoresID);
         LOGGER.info("AuthorResource deleteAuthor: output: void");

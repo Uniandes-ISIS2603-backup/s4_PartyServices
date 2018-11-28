@@ -73,7 +73,15 @@ public class ProductoResource {
     public ProductoDTO consultarProducto(@PathParam("producto") String producto) {
 
         LOGGER.info("Obteniendo producto por nombre");
-        ProductoDTO ret = new ProductoDTO(productoLogic.findByNombre(producto));
+        
+        ProductoEntity entity = productoLogic.findByNombre(producto) ;
+        
+        if (entity == null) {
+            throw new WebApplicationException("El recurso /producto/" + producto + " no existe.", 404);
+        }
+        
+        ProductoDTO ret = new ProductoDTO(entity);   
+        
         LOGGER.log(Level.INFO, "Saliendo de obtener el producto por nombre");
         return ret;
 
