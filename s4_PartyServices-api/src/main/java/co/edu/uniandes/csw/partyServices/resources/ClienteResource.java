@@ -169,6 +169,14 @@ public class ClienteResource {
         return PagoResource.class;
     }
     
+    @Path("{clientesId: \\d+}/tarjetaCredito")
+    public Class<TarjetaCreditoResource> getTrajetaCredito(@PathParam("clientesId") Long clientesId) {
+        if (clienteLogic.getCliente(clientesId) == null) {
+            throw new WebApplicationException("El recurso /clientes/" + clientesId + "/tarjetaCredito no existe.", 404);
+        }
+        return TarjetaCreditoResource.class;
+    }
+    
     /**
      * Conexión con el servicio de sugerencias para un cliente.
      * {@link ClienteSugerenciasResource}

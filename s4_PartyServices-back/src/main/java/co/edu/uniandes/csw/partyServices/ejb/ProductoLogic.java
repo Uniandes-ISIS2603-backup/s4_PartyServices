@@ -6,9 +6,12 @@
 package co.edu.uniandes.csw.partyServices.ejb;
 
 import co.edu.uniandes.csw.partyServices.entities.ProductoEntity;
+import co.edu.uniandes.csw.partyServices.entities.ProveedorEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.partyServices.persistence.ProductoPersistence;
+import co.edu.uniandes.csw.partyServices.persistence.ProveedorPersistence;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,6 +34,12 @@ public class ProductoLogic {
      */
     @Inject
     private ProductoPersistence persistence;
+    
+    /**
+     * Persistencia de proveedor
+     */
+    @Inject
+    private ProveedorPersistence proveedorPersistence;
 
     /**
      * obtener un producto por nombre
@@ -87,12 +96,38 @@ public class ProductoLogic {
         if (productoEntity.getEventos().size() > productoEntity.getCantidad()) {
             throw new BusinessLogicException("La cantidad de eventos en un producto no puede ser mayor a la cantidad de productos");
         }
-
-        persistence.create(productoEntity);
-
+        
+        
+        
+        
+        ProveedorEntity proveedor = proveedorPersistence.findByName(productoEntity.getProveedor().getNombre());
+        
+        
+        if(proveedor == null)
+        {
+            throw new BusinessLogicException("El producto debe tener un proveedor existente");
+        }
+        
+        productoEntity.getProveedor().setId(proveedor.getId());
+        
+        Collection<ProductoEntity> lista = proveedor.getCatalogoProductos() ;
+       
+        if(lista == null)
+        {
+            lista = new ArrayList<>() ;
+        }
+ 
+        lista.add(productoEntity) ;
+        
+        proveedor.setCatalogoProductos(lista);
+       
+        proveedor = proveedorPersistence.update(proveedor) ;
+        
+        productoEntity.setProveedor(proveedor);
+        
         LOGGER.log(Level.INFO, "Termino proceso de creación del producto");
 
-        return productoEntity;
+        return persistence.create(productoEntity);
 
     }
 
@@ -177,5 +212,22 @@ public class ProductoLogic {
     public List<ProductoEntity> findAll()
     {
         return persistence.findAll() ;
+    }
+    
+    /**
+     * Busca un libro por ID
+     *
+     * @param productosId El id del producto a buscar
+     * @return El producto encontrado, null si no lo encuentra.
+     * @author Tomas Vargas
+     */
+    public ProductoEntity getProductoId(Long productosId) {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar el producto con id = {0}", productosId);
+        ProductoEntity productoEntity = persistence.find(productosId);
+        if (productoEntity == null) {
+            LOGGER.log(Level.SEVERE, "El producto con el id = {0} no existe", productosId);
+        }
+        LOGGER.log(Level.INFO, "Termina proceso de consultar el libro con id = {0}", productosId);
+        return productoEntity;
     }
 }

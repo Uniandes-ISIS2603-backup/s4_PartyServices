@@ -1,0 +1,780 @@
+{
+	"info": {
+		"_postman_id": "7f90db09-e588-4399-bcf9-9a784ef1d81c",
+		"name": "TarjetaCredito Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear un cliente ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0cb910fb-1a83-4f5b-8e0d-f058a3a3d26d",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"clienteTarjetaCreditoId\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombreUsuario\": \"Susej2414\",\n    \"contrasenia\": \"123456789qwerty\",\n    \"email\": \"s@uniandes.co\",\n    \"fechaNacimiento\": \"15/02/2000\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes"
+					]
+				},
+				"description": "Crea un nuevo cliente . El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crearle una tarjeta de credito a un cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "af0499c1-0588-4490-89b9-262f9e509997",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"tarjetaCreditoId\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n\t\"nombreTitular\":\"JESUS CARCAMO\",\n\t\"numero\":5555555555554444,\n\t\"codigoSeguridad\":123,\n\t\"fechaExpiracion\":\"11/21\",\n\t\"banco\":\"Bancolombia\",\n\t\"franquicia\":\"MasterCard\"\n\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{clienteTarjetaCreditoId}}/tarjetaCredito",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"{{clienteTarjetaCreditoId}}",
+						"tarjetaCredito"
+					]
+				},
+				"description": "Crea una tarjeta de credtio a un cliente. El Id es inicializado por la BD y se debe ver en la respuesta. \r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear una tarjeta de credito con un numero inválido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "af0499c1-0588-4490-89b9-262f9e509997",
+						"exec": [
+							"tests[\"No crea con el mismo nombre\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El número de la tarjeta no es valido\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n\t\"nombreTitular\":\"JESUS CARCAMO\",\n\t\"numero\":123456789,\n\t\"codigoSeguridad\":123,\n\t\"fechaExpiracion\":\"11/21\",\n\t\"banco\":\"Bancolombia\",\n\t\"franquicia\":\"MasterCard\"\n\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{clienteTarjetaCreditoId}}/tarjetaCredito",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"{{clienteTarjetaCreditoId}}",
+						"tarjetaCredito"
+					]
+				},
+				"description": "Intenta crear una tarjeta de credito con un número inválido. Verifica que se genera el error y el mensaje \"El número de la tarjeta no es valido\"\r\n\r\n**Código HTTP esperado: 412 Precondition failed\".**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear una tarjeta de credito con un numero que no pertenece a su franquicia",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "af0499c1-0588-4490-89b9-262f9e509997",
+						"exec": [
+							"tests[\"No crea con el mismo nombre\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El numero no cuadra con la empresa. Intente nuevamente\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n\t\"nombreTitular\":\"JESUS CARCAMO\",\n\t\"numero\":5555555555554444,\n\t\"codigoSeguridad\":123,\n\t\"fechaExpiracion\":\"11/21\",\n\t\"banco\":\"Bancolombia\",\n\t\"franquicia\":\"Visa\"\n\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{clienteTarjetaCreditoId}}/tarjetaCredito",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"{{clienteTarjetaCreditoId}}",
+						"tarjetaCredito"
+					]
+				},
+				"description": "Intenta crear una tarjeta de creditocon un numero que no pertenece a su franquicia. Verifica que se genera el error y el mensaje \"El numero no cuadra con la empresa. Intente nuevamente\"\r\n\r\n**Código HTTP esperado: 412 Precondition failed\".**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear una tarjeta de credito con un nombre de titular inválido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "af0499c1-0588-4490-89b9-262f9e509997",
+						"exec": [
+							"tests[\"No crea con el mismo nombre\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El nombre del titular de la tarjeta no sigue un formato válido\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n\t\"nombreTitular\":\"Jesus carcamo\",\n\t\"numero\":5555555555554444,\n\t\"codigoSeguridad\":123,\n\t\"fechaExpiracion\":\"11/21\",\n\t\"banco\":\"Bancolombia\",\n\t\"franquicia\":\"MasterCard\"\n\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{clienteTarjetaCreditoId}}/tarjetaCredito",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"{{clienteTarjetaCreditoId}}",
+						"tarjetaCredito"
+					]
+				},
+				"description": "Intenta crear una tarjeta de credito con un nombre de titular con formato inválido. Verifica que se genera el error y el mensaje \"El nombre del titular de la tarjeta no sigue un formato válido\"\r\n\r\n**Código HTTP esperado: 412 Precondition failed\".**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear una tarjeta de credito con un código de seguridad  inválido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "af0499c1-0588-4490-89b9-262f9e509997",
+						"exec": [
+							"tests[\"No crea con el mismo nombre\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El código de seguridad debe estar limitado de 3 a 4 dígitos\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n\t\"nombreTitular\":\"JESUS CARCAMO\",\n\t\"numero\":5555555555554444,\n\t\"codigoSeguridad\":123456789,\n\t\"fechaExpiracion\":\"11/21\",\n\t\"banco\":\"Bancolombia\",\n\t\"franquicia\":\"MasterCard\"\n\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{clienteTarjetaCreditoId}}/tarjetaCredito",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"{{clienteTarjetaCreditoId}}",
+						"tarjetaCredito"
+					]
+				},
+				"description": "Intenta crear una tarjeta de credito con un código de seguridad con un formato inválido. Verifica que se genera el error y el mensaje \"El código de seguridad debe estar limitado de 3 a 4 dígitos\"\r\n\r\n**Código HTTP esperado: 412 Precondition failed\".**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear una tarjeta de credito vencida",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "af0499c1-0588-4490-89b9-262f9e509997",
+						"exec": [
+							"tests[\"No crea con el mismo nombre\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"La tarjeta de crédito se encuentra vencida\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n\t\"nombreTitular\":\"JESUS CARCAMO\",\n\t\"numero\":5555555555554444,\n\t\"codigoSeguridad\":123,\n\t\"fechaExpiracion\":\"11/18\",\n\t\"banco\":\"Bancolombia\",\n\t\"franquicia\":\"MasterCard\"\n\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{clienteTarjetaCreditoId}}/tarjetaCredito",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"{{clienteTarjetaCreditoId}}",
+						"tarjetaCredito"
+					]
+				},
+				"description": "Intenta crear una tarjeta de credito vencida. Verifica que se genera el error y el mensaje \"La tarjeta de crédito se encuentra vencida\"\r\n\r\n**Código HTTP esperado: 412 Precondition failed\".**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear una tarjeta de credito con una fecha de expiración superior a 10 años",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "af0499c1-0588-4490-89b9-262f9e509997",
+						"exec": [
+							"tests[\"No crea con el mismo nombre\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"La fecha de expiración futura no es valida\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n\t\"nombreTitular\":\"JESUS CARCAMO\",\n\t\"numero\":5555555555554444,\n\t\"codigoSeguridad\":123,\n\t\"fechaExpiracion\":\"11/30\",\n\t\"banco\":\"Bancolombia\",\n\t\"franquicia\":\"MasterCard\"\n\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{clienteTarjetaCreditoId}}/tarjetaCredito",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"{{clienteTarjetaCreditoId}}",
+						"tarjetaCredito"
+					]
+				},
+				"description": "Intenta crear una tarjeta de credito con una fecha de expiración superior a 10 años. Verifica que se genera el error y el mensaje \"La fecha de expiración futura no es valida\"\r\n\r\n**Código HTTP esperado: 412 Precondition failed\".**"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear una tarjeta de credito con una fecha de expiración con un formato inválido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "af0499c1-0588-4490-89b9-262f9e509997",
+						"exec": [
+							"tests[\"No crea con el mismo nombre\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"La fecha de expiracion no cumple el formato:\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n\t\"nombreTitular\":\"JESUS CARCAMO\",\n\t\"numero\":5555555555554444,\n\t\"codigoSeguridad\":123,\n\t\"fechaExpiracion\":\"5\",\n\t\"banco\":\"Bancolombia\",\n\t\"franquicia\":\"MasterCard\"\n\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{clienteTarjetaCreditoId}}/tarjetaCredito",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"{{clienteTarjetaCreditoId}}",
+						"tarjetaCredito"
+					]
+				},
+				"description": "Intenta crear una tarjeta de credito con un formato inválido. Verifica que se genera el error y el mensaje \"La fecha de expiracion no cumple el formato\"\r\n\r\n**Código HTTP esperado: 412 Precondition failed\".**"
+			},
+			"response": []
+		},
+		{
+			"name": "Editar una tarjeta de credito",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7ea8d4ca-61ec-4d10-bd06-69880923f480",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Put\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombreTitular\":\"JESUS CARCAMO\",\n\t\"numero\":5555555555554444,\n\t\"codigoSeguridad\":123,\n\t\"fechaExpiracion\":\"11/21\",\n\t\"banco\":\"Banco de Bogotá\",\n\t\"franquicia\":\"MasterCard\"\n\t\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{clienteTarjetaCreditoId}}/tarjetaCredito/{{tarjetaCreditoId}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"{{clienteTarjetaCreditoId}}",
+						"tarjetaCredito",
+						"{{tarjetaCreditoId}}"
+					]
+				},
+				"description": "Actualiza una tarjeta de credito existente. Se envía el Id en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Editar una tarjeta de credito que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7ea8d4ca-61ec-4d10-bd06-69880923f480",
+						"exec": [
+							"tests[\"No actualiza con id que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"/tarjetaCredito/0 no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombreTitular\":\"JESUS CARCAMO\",\n\t\"numero\":5555555555554444,\n\t\"codigoSeguridad\":123,\n\t\"fechaExpiracion\":\"11/21\",\n\t\"banco\":\"Banco de Bogotá\",\n\t\"franquicia\":\"MasterCard\"\n\t\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{clienteTarjetaCreditoId}}/tarjetaCredito/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"{{clienteTarjetaCreditoId}}",
+						"tarjetaCredito",
+						"0"
+					]
+				},
+				"description": "Actualiza una tarjeta de credito que no existe. \r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /tarjetaCredito/0 no existe.\".\r\n\r\n**Código HTTP esperado: 404**"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener la tarjeta de credito de un cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "033932f5-48c0-4077-8f3b-71efaf8e431a",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"no genera error en el Get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{clienteTarjetaCreditoId}}/tarjetaCredito/{{tarjetaCreditoId}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"{{clienteTarjetaCreditoId}}",
+						"tarjetaCredito",
+						"{{tarjetaCreditoId}}"
+					]
+				},
+				"description": "Consulta la tarjeta de credito de un cliente en la aplicación. \r\nLa petición no tiene cuerpo.\r\n\r\nSe envía el Id del cliente y de la tarjeta de credito a consultar en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener una tarjeta de credito que no existe.",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "033932f5-48c0-4077-8f3b-71efaf8e431a",
+						"exec": [
+							"tests[\"No consulta con id que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"/tarjetaCredito/0 no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{clienteTarjetaCreditoId}}/tarjetaCredito/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"{{clienteTarjetaCreditoId}}",
+						"tarjetaCredito",
+						"0"
+					]
+				},
+				"description": "Consulta una tarjeta de credito que no existe.\r\nLa petición no tiene cuerpo.\r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /clientes/idClienteTarjetaCredito/tarjetaCredito/0 no existe.\".\r\n\r\n**Código http esperado: 404**"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrarle una tarjeta de credito a un cliente.",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "53b4b5b3-1187-4c0d-8a7b-e2be6b4dd2bc",
+						"exec": [
+							"tests[\"no genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{clienteTarjetaCreditoId}}/tarjetaCredito/{{tarjetaCreditoId}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"{{clienteTarjetaCreditoId}}",
+						"tarjetaCredito",
+						"{{tarjetaCreditoId}}"
+					]
+				},
+				"description": "Borra una tarjeta de credito asociada a un cliente. Se envían los ids de la tarjeta de credito y el cliente creados anteriormente.\n\n**Código HTTP esperado: 204**"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrarle una tarjeta de credito que no existe a un cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b73f8672-2d8b-4bdc-99f8-c71744a4094d",
+						"exec": [
+							"tests[\"No se puede borrar una sugerencia que no existe.\"] = responseCode.code === 404;",
+							"let id = pm.variables.get(\"clienteTarjetaCreditoId\");",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /clientes/\"+id+\"/tarjetaCredito/0 no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{clienteTarjetaCreditoId}}/tarjetaCredito/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"{{clienteTarjetaCreditoId}}",
+						"tarjetaCredito",
+						"0"
+					]
+				},
+				"description": "Borra una tarjeta de credito que no existe a un cliente.  \r\n\r\nPara la prueba se verifica que se genera el error.\r\n\r\n**Código http esperado: 404**"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrarle una tarjeta de credito a un cliente que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3dabc657-31af-4125-97eb-5ef8d6ec49f3",
+						"exec": [
+							"tests[\"No se puede borrar una tarjeta de credito sobre un cliente que no existe.\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /clientes/0/tarjetaCredito no existe.\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/0/tarjetaCredito/{{tarjetaCreditoId}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"0",
+						"tarjetaCredito",
+						"{{tarjetaCreditoId}}"
+					]
+				},
+				"description": "Borra una tarjeta de credito a un cliente que no existe en la aplicación.  \r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /clientes/0/tarjetaCredito no existe.\".\r\n\r\n**Código http esperado: 404**"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "4a18bf8f-e20f-4e2e-8b5b-0e9f3f30ac94",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "6f4c8713-3e2c-40d9-b34a-508a326692c3",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

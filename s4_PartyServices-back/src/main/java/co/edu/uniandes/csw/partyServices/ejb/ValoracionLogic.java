@@ -5,9 +5,11 @@
  */
 package co.edu.uniandes.csw.partyServices.ejb;
 
+import co.edu.uniandes.csw.partyServices.entities.ClienteEntity;
 import co.edu.uniandes.csw.partyServices.entities.ProveedorEntity;
 import co.edu.uniandes.csw.partyServices.entities.ValoracionEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
+import co.edu.uniandes.csw.partyServices.persistence.ClientePersistence;
 import co.edu.uniandes.csw.partyServices.persistence.ProveedorPersistence;
 import co.edu.uniandes.csw.partyServices.persistence.ValoracionPersistence;
 import java.util.List;
@@ -31,6 +33,9 @@ public class ValoracionLogic {
     @Inject
     private ProveedorPersistence proveedorPersistence;
 
+    @Inject
+    private ClientePersistence clientePersistence;
+
     /**
      * Crea una valoración en la base de datos.
      *
@@ -45,11 +50,23 @@ public class ValoracionLogic {
     public ValoracionEntity createValoracion(Long proveedorId, ValoracionEntity valoracionEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de creación de la valoracion");
 
-        if (valoracionEntity.getComentario() != null && valoracionEntity.getComentario().length() > 10000) {
-            throw new BusinessLogicException("El tamaño del texto no debe ser superior a los 10000 caracteres");
+        
+        if ((valoracionEntity.getTitulo() != null && valoracionEntity.getTitulo().length() > 50)||(valoracionEntity.getTitulo() == null)||(valoracionEntity.getTitulo().equals("")) ) {
+            throw new BusinessLogicException("El tamaño del titulo no debe ser superior a los 50 caracteres o vacío");
+        }
+        if ((valoracionEntity.getComentario() != null && valoracionEntity.getComentario().length() > 1000) ||(valoracionEntity.getComentario()== null)||(valoracionEntity.getComentario().equals(""))) {
+            throw new BusinessLogicException("El tamaño del texto no debe ser superior a los 1000 caracteres o vacío");
+        }
+        if (valoracionEntity.getPuntaje() != null && (valoracionEntity.getPuntaje() > 10 ||valoracionEntity.getPuntaje() < 0)) {
+            throw new BusinessLogicException("El puntaje no puede ser mayor que 10 o menor que 0");
         }
         ProveedorEntity proveedor = proveedorPersistence.find(proveedorId);
         valoracionEntity.setProveedor(proveedor);
+
+        if (valoracionEntity.getCliente() != null) {
+            ClienteEntity cliente = clientePersistence.find(valoracionEntity.getCliente().getId());
+            valoracionEntity.setCliente(cliente);
+        }
         LOGGER.log(Level.INFO, "Termina proceso de creación de la valoracion");
         return persistence.create(valoracionEntity);
     }
@@ -102,9 +119,11 @@ public class ValoracionLogic {
         }
         ProveedorEntity proveedorEntity = proveedorPersistence.find(proveedorId);
         valoracionEntity.setProveedor(proveedorEntity);
-        persistence.update(valoracionEntity);
+
+        ValoracionEntity newEntity = persistence.update(valoracionEntity);
+
         LOGGER.log(Level.INFO, "Termina proceso de actualizar la valoracion con id = {0} del proveedor con id = {1}", new Object[]{valoracionEntity.getId(), proveedorId});
-        return valoracionEntity;
+        return newEntity;
     }
 
     /**

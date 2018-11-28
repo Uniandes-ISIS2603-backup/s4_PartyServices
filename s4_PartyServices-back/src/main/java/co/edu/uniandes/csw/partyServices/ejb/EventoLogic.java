@@ -5,9 +5,11 @@
  */
 package co.edu.uniandes.csw.partyServices.ejb;
 
+import co.edu.uniandes.csw.partyServices.entities.ClienteEntity;
 import co.edu.uniandes.csw.partyServices.util.ConstantesEvento;
 import co.edu.uniandes.csw.partyServices.entities.EventoEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
+import co.edu.uniandes.csw.partyServices.persistence.ClientePersistence;
 import co.edu.uniandes.csw.partyServices.persistence.EventoPersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +34,9 @@ public class EventoLogic {
      */
     @Inject
     private EventoPersistence persistence;
+    
+    @Inject
+    private ClientePersistence clientePersistence ;
 
     /**
      * Metodo que busca un evento por su nombre en la base de datos
@@ -98,12 +103,41 @@ public class EventoLogic {
         if (!validateLongitud(eventoEntity.getLongitud())) {
             throw new BusinessLogicException("La longitud del evento no se encuentra en colombia");
         }
-
-        persistence.create(eventoEntity);
+ 
+        
+       
+        ClienteEntity cliente = clientePersistence.findByNombreUsuario(eventoEntity.getCliente().getNombreUsuario()) ;
+        
+        
+        if(cliente == null)
+        {
+            throw new BusinessLogicException("El evento debe tener un cliente asociado");
+        }
+        
+        eventoEntity.getCliente().setId(cliente.getId());
+       
+        
+        List<EventoEntity> lista = cliente.getEventos() ;
+       
+        if(lista == null)
+        {
+            lista = new ArrayList<>() ;
+        }
+ 
+        lista.add(eventoEntity) ;
+        
+        cliente.setEventos(lista);
+        
+       
+        cliente = clientePersistence.update(cliente) ;
+        
+        
+        eventoEntity.setCliente(cliente);     
+        
 
         LOGGER.log(Level.INFO, "Termino proceso de creación del evento");
 
-        return eventoEntity;
+        return persistence.create(eventoEntity);
 
     }
 
@@ -146,6 +180,7 @@ public class EventoLogic {
      * @throws BusinessLogicException si no se cumplan las reglas de negocio
      */
     public EventoEntity updateEvento(String pNombre, EventoEntity pEventoEntity) throws BusinessLogicException {
+        
         LOGGER.log(Level.INFO, "Comienza proceso de actualizacion del evento");
 
         if (!(validateNombre(pNombre))) {
@@ -208,6 +243,23 @@ public class EventoLogic {
      */
     public EventoEntity findByNombre(String pNombre) {
         return persistence.findByName(pNombre);
+    }
+    
+    /**
+     * Obtiene los datos de una instancia de Evento a partir de su ID.
+     *
+     * @param eventosId Identificador de la instancia a consultar
+     * @return Instancia de EventoEntity con los datos del Evento consultado.
+     * @author Tomas Vargas 
+     */
+    public EventoEntity getEvento(Long eventosId) {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar el evento con id = {0}", eventosId);
+        EventoEntity eventoEntity = persistence.find(eventosId);
+        if (eventoEntity == null) {
+            LOGGER.log(Level.SEVERE, "La editorial con el id = {0} no existe", eventosId);
+        }
+        LOGGER.log(Level.INFO, "Termina proceso de consultar el evento con id = {0}", eventosId);
+        return eventoEntity;
     }
 
 }

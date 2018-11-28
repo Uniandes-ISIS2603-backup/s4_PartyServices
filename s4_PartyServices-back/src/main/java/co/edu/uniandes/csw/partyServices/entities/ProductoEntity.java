@@ -42,9 +42,9 @@ public class ProductoEntity extends BaseEntity implements Serializable {
      *Atributo que representa la relacion muchos a uno con la clase ProveedorEntity
      */
     @PodamExclude
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     private ProveedorEntity proveedor;
-
+    
      /**
      *Atributo que representa el costo de un producto
      */
@@ -184,5 +184,6 @@ public class ProductoEntity extends BaseEntity implements Serializable {
         }
         eventos.add(evento);
     }
+    
 
 }

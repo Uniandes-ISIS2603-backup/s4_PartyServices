@@ -320,7 +320,7 @@ public class EventoLogicTest {
         newEntity.setLongitud(67.853233);
         EventoEntity result = eventoLogic.createEvento(newEntity);
     }
-
+   
     /**
      * Prueba para la actualizacion de un evento 
      * @throws BusinessLogicException 

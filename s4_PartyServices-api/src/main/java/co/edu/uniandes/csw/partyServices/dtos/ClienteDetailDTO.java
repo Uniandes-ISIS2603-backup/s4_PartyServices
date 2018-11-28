@@ -40,44 +40,51 @@ public class ClienteDetailDTO extends ClienteDTO implements Serializable {
     }
 
     /**
-     * Constructor para transformar un Entity a un DTO
+     * Crea un objeto ClienteDetailDTO a partir de un objeto ClienteEntity
+     * incluyendo los atributos de ClienteDTO.
      *
-     * @param cliente La entidad de la cual se construye el DTO
+     * @param clienteEntity Entidad ClienteEntity desde la cual se va a crear el
+     * nuevo objeto.
      */
-    public ClienteDetailDTO(ClienteEntity cliente) {
-        super(cliente);
+    public ClienteDetailDTO(ClienteEntity clienteEntity) {
+        super(clienteEntity);
 
-        if (cliente.getPagos() != null) {
-            pagos = new ArrayList<>();
-            for (PagoEntity entity : cliente.getPagos()) {
-                pagos.add(new PagoDTO(entity));
-            }
-        }
-        if (cliente.getEventos() != null) {
-            eventos = new ArrayList<>();
-            for (EventoEntity entity : cliente.getEventos()) {
-                eventos.add(new EventoDTO(entity));
-            }
-        }
+        if (clienteEntity != null) {
 
-        if (cliente.getNotificaciones() != null) {
-            notificaciones = new ArrayList<>();
-            for (NotificacionEntity entity : cliente.getNotificaciones()) {
-                notificaciones.add(new NotificacionDTO(entity));
+            if (clienteEntity.getPagos() != null) {
+                pagos = new ArrayList<>();  
+                for (PagoEntity entity : clienteEntity.getPagos()) {
+                    pagos.add(new PagoDTO(entity));
+                }
             }
-        }
 
-        if (cliente.getSugerencias() != null) {
-            sugerencias = new ArrayList<>();
-            for (SugerenciaEntity entity : cliente.getSugerencias()) {
-                sugerencias.add(new SugerenciaDTO(entity));
+            if (clienteEntity.getEventos() != null) {
+                eventos = new ArrayList<>();
+                for (EventoEntity entity : clienteEntity.getEventos()) {
+                    eventos.add(new EventoDTO(entity));
+                }
             }
-        }
-        if (cliente.getValoraciones() != null) {
-            valoraciones = new ArrayList<>();
-            for (ValoracionEntity entity : cliente.getValoraciones()) {
-                valoraciones.add(new ValoracionDTO(entity));
+
+            if (clienteEntity.getNotificaciones() != null) {
+                notificaciones = new ArrayList<>();
+                for (NotificacionEntity entity : clienteEntity.getNotificaciones()) {
+                    notificaciones.add(new NotificacionDTO(entity));
+                }
             }
+
+            if (clienteEntity.getSugerencias() != null) {
+                sugerencias = new ArrayList<>();
+                for (SugerenciaEntity entity : clienteEntity.getSugerencias()) {
+                    sugerencias.add(new SugerenciaDTO(entity));
+                }
+            }
+            if (clienteEntity.getValoraciones() != null) {
+                valoraciones = new ArrayList<>();
+                for (ValoracionEntity entity : clienteEntity.getValoraciones()) {
+                    valoraciones.add(new ValoracionDTO(entity));
+                }
+            }
+
         }
 
     }

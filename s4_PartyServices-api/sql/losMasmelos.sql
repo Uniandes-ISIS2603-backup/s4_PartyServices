@@ -1,3 +1,6 @@
+DELETE
+FROM TarjetaCreditoEntity;
+
 DELETE 
 FROM ValoracionEntity;
 
