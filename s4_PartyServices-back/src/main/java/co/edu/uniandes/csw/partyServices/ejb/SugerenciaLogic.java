@@ -57,6 +57,9 @@ public class SugerenciaLogic {
         if ((sugerenciaEntity.getComentario() != null && sugerenciaEntity.getComentario().length() > 1000) ||(sugerenciaEntity.getComentario()== null)||(sugerenciaEntity.getComentario().equals(""))) {
             throw new BusinessLogicException("El tamaño del texto no debe ser superior a los 1000 caracteres o vacío");
         }
+        if((!sugerenciaEntity.getLink().startsWith("https://"))||(!sugerenciaEntity.getVideo().startsWith("https://"))){
+          throw new BusinessLogicException("El link de la imagen o video debe empezar en por https://");
+        }
         
         TematicaEntity tematica = tematicaPersistence.find(tematicasId);
         sugerenciaEntity.setTematica(tematica);
