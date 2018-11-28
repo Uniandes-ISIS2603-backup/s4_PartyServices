@@ -137,8 +137,9 @@ public class ProveedorLogic {
             if (!provEntity.getAgenda().getFechasOcupadas().isEmpty()) {
                 throw new BusinessLogicException("No se puede borrar el proveedor pues tiene un evento pendiente");
             }
+                    agendaLogic.deleteAgenda(provEntity.getAgenda().getId());
+
         }
-        agendaLogic.deleteAgenda(provEntity.getAgenda().getId());
         persistence.delete(proveedorID);
         LOGGER.log(Level.INFO, "Termina proceso de borrar el proveedor con id = {0}", proveedorID);
     }
