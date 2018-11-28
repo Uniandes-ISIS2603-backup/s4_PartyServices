@@ -34,19 +34,19 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  */
 @RunWith(Arquillian.class)
 public class TarjetaCreditoLogicTest {
-    
+
     /**
      * Maquina de creación random
      */
     private PodamFactory factory = new PodamFactoryImpl();
-    
-   /**
-     * Inyección de la dependencia a la clase TarjetaCreditoLogic cuyos métodos se
-     * van a probar.
+
+    /**
+     * Inyección de la dependencia a la clase TarjetaCreditoLogic cuyos métodos
+     * se van a probar.
      */
     @Inject
     private TarjetaCreditoLogic tarjetaCreditoLogic;
-    
+
     /**
      * manejador de entidades
      */
@@ -58,17 +58,17 @@ public class TarjetaCreditoLogicTest {
      */
     @Inject
     private UserTransaction utx;
-    
+
     /**
      * Lista que tiene los datos de prueba para las Tarjetas de Credito.
      */
     private List<TarjetaCreditoEntity> data = new ArrayList<TarjetaCreditoEntity>();
-    
+
     /**
      * Lista que tiene los datos de prueba para los clientes.
      */
     private List<ClienteEntity> dataCliente = new ArrayList<ClienteEntity>();
-    
+
     /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
      * El jar contiene las clases, el descriptor de la base de datos y el
@@ -83,7 +83,7 @@ public class TarjetaCreditoLogicTest {
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
-    
+
     /**
      * Limpia las tablas que están implicadas en la prueba.
      */
@@ -91,7 +91,7 @@ public class TarjetaCreditoLogicTest {
         em.createQuery("delete from TarjetaCreditoEntity").executeUpdate();
         em.createQuery("delete from ClienteEntity").executeUpdate();
     }
-    
+
     /**
      * Inserta los datos iniciales para el correcto funcionamiento de las
      * pruebas.
@@ -110,7 +110,7 @@ public class TarjetaCreditoLogicTest {
         }
 
     }
-    
+
     /**
      * Configuración inicial de la prueba.
      */
@@ -130,7 +130,7 @@ public class TarjetaCreditoLogicTest {
             }
         }
     }
-    
+
     /**
      * Prueba para crear una tarjeta de credito.
      *
@@ -153,8 +153,7 @@ public class TarjetaCreditoLogicTest {
         Assert.assertNotNull(result);
         TarjetaCreditoEntity entity = em.find(TarjetaCreditoEntity.class, result.getId());
 
-       Assert.assertEquals(newEntity.getBanco(), entity.getBanco());
-        Assert.assertEquals(newEntity.getCliente(), entity.getCliente());
+        Assert.assertEquals(newEntity.getBanco(), entity.getBanco());
         Assert.assertEquals(newEntity.getCodigoSeguridad(), entity.getCodigoSeguridad());
         Assert.assertEquals(newEntity.getCodigoSeguridad(), entity.getCodigoSeguridad());
         Assert.assertEquals(newEntity.getFechaExpiracion(), entity.getFechaExpiracion());
@@ -164,19 +163,35 @@ public class TarjetaCreditoLogicTest {
         Assert.assertEquals(newEntity.getNumero(), entity.getNumero());
 
     }
-    
+
     /**
      * prueba para eliminar una tarjeta de credito
-     * @throws BusinessLogicException Si alguna tarjeta de credito no está asociada con el cliente pasado por parámetro en el método deleteCliente.
+     *
+     * @throws BusinessLogicException Si alguna tarjeta de credito no está
+     * asociada con el cliente pasado por parámetro en el método deleteCliente.
      */
     @Test
-    public void deleteTarjetaCreditoTest() throws BusinessLogicException{
+    public void deleteTarjetaCreditoTest() throws BusinessLogicException {
         TarjetaCreditoEntity entity = data.get(0);
         tarjetaCreditoLogic.deleteTarjetaCredito(entity.getCliente().getId(), entity.getId());
         TarjetaCreditoEntity deleted = em.find(TarjetaCreditoEntity.class, entity.getId());
-        Assert.assertNull(deleted); 
+        Assert.assertNull(deleted);
     }
-    
+
+    /**
+     * prueba para eliminar una tarjeta de credito asociada a un cliente
+     *
+     * @throws BusinessLogicException Si alguna tarjeta de credito no está
+     * asociada con el cliente pasado por parámetro en el método deleteCliente.
+     */
+    @Test
+    public void deleteTarjetaCreditoXClienteTest() throws BusinessLogicException {
+        TarjetaCreditoEntity entity = data.get(0);
+        tarjetaCreditoLogic.deleteTarjetaCreditoXCliente(entity.getCliente().getId());
+        TarjetaCreditoEntity deleted = em.find(TarjetaCreditoEntity.class, entity.getId());
+        Assert.assertNull(deleted);
+    }
+
     /**
      * test para obtener una tarjeta de credito.
      */
@@ -184,7 +199,7 @@ public class TarjetaCreditoLogicTest {
     public void getTarjetaCreditoTest() {
         TarjetaCreditoEntity entity = data.get(0);
         TarjetaCreditoEntity resultEntity = tarjetaCreditoLogic.getTarjetaCredito(entity.getCliente().getId(), entity.getId());
-        
+
         Assert.assertNotNull(resultEntity);
         Assert.assertEquals(entity.getBanco(), entity.getBanco());
         Assert.assertEquals(entity.getCliente(), entity.getCliente());
@@ -197,7 +212,28 @@ public class TarjetaCreditoLogicTest {
         Assert.assertEquals(entity.getNumero(), entity.getNumero());
 
     }
-    
+
+    /**
+     * test para obtener una tarjeta de credito por su cliente.
+     */
+    @Test
+    public void getTarjetaCreditoXClienteTest() {
+        TarjetaCreditoEntity entity = data.get(0);
+        TarjetaCreditoEntity resultEntity = tarjetaCreditoLogic.getTarjetaCreditoByCliente(entity.getCliente().getId());
+
+        Assert.assertNotNull(resultEntity);
+        Assert.assertEquals(entity.getBanco(), entity.getBanco());
+        Assert.assertEquals(entity.getCliente(), entity.getCliente());
+        Assert.assertEquals(entity.getCodigoSeguridad(), entity.getCodigoSeguridad());
+        Assert.assertEquals(entity.getCodigoSeguridad(), entity.getCodigoSeguridad());
+        Assert.assertEquals(entity.getFechaExpiracion(), entity.getFechaExpiracion());
+        Assert.assertEquals(entity.getFranquicia(), entity.getFranquicia());
+        Assert.assertEquals(entity.getId(), entity.getId());
+        Assert.assertEquals(entity.getNombreTitular(), entity.getNombreTitular());
+        Assert.assertEquals(entity.getNumero(), entity.getNumero());
+
+    }
+
     /**
      * prueba para actualizar una tarjeta de credito.
      *
@@ -207,7 +243,7 @@ public class TarjetaCreditoLogicTest {
     public void updateTarjetaCreditoTest() throws BusinessLogicException {
         TarjetaCreditoEntity entity = data.get(0);
         TarjetaCreditoEntity pojoEntity = factory.manufacturePojo(TarjetaCreditoEntity.class);
-        
+
         pojoEntity.setId(entity.getId());
         pojoEntity.setCliente(entity.getCliente());
         pojoEntity.setNumero(5555555555554444L);
@@ -215,14 +251,14 @@ public class TarjetaCreditoLogicTest {
         pojoEntity.setFechaExpiracion("02/20");
         pojoEntity.setCodigoSeguridad(1523);
         pojoEntity.setNombreTitular("JESUS O");
-        
+
         tarjetaCreditoLogic.updateTarjetaCredito(pojoEntity.getId(), pojoEntity);
-        
+
         TarjetaCreditoEntity resp = em.find(TarjetaCreditoEntity.class, entity.getId());
-        
+
         Assert.assertNotNull(resp);
         Assert.assertEquals(pojoEntity.getBanco(), resp.getBanco());
-        Assert.assertEquals(pojoEntity.getCliente(), resp.getCliente());
+
         Assert.assertEquals(pojoEntity.getCodigoSeguridad(), resp.getCodigoSeguridad());
         Assert.assertEquals(pojoEntity.getCodigoSeguridad(), resp.getCodigoSeguridad());
         Assert.assertEquals(pojoEntity.getFechaExpiracion(), resp.getFechaExpiracion());
@@ -232,7 +268,7 @@ public class TarjetaCreditoLogicTest {
         Assert.assertEquals(pojoEntity.getNumero(), resp.getNumero());
 
     }
-    
+
     /**
      * Prueba para crear una tarjeta de credito con uno numero no valido
      *
@@ -247,7 +283,7 @@ public class TarjetaCreditoLogicTest {
         tarjetaCreditoLogic.createTarjetaCredito(dataCliente.get(2).getId(), newEntity);
 
     }
-    
+
     /**
      * Prueba para crear una tarjeta de credito con un numero que no coincida
      * con la franquicia
@@ -265,7 +301,7 @@ public class TarjetaCreditoLogicTest {
         tarjetaCreditoLogic.createTarjetaCredito(dataCliente.get(2).getId(), newEntity);
 
     }
-    
+
     /**
      * Prueba para crear un pago con una tarjeta de credito con una fecha de
      * expiracion que ya paso
@@ -281,9 +317,10 @@ public class TarjetaCreditoLogicTest {
         tarjetaCreditoLogic.createTarjetaCredito(dataCliente.get(2).getId(), newEntity);
 
     }
-    
+
     /**
-     * Prueba para crear una tarjeta de credito con una fecha de expiración elevada.
+     * Prueba para crear una tarjeta de credito con una fecha de expiración
+     * elevada.
      *
      * @throws BusinessLogicException
      * @throws java.text.ParseException
@@ -296,7 +333,7 @@ public class TarjetaCreditoLogicTest {
         tarjetaCreditoLogic.createTarjetaCredito(dataCliente.get(2).getId(), newEntity);
 
     }
-    
+
     /**
      * Prueba crear una tarjeta de credito con un codigo de seguridad invalido
      *
@@ -311,7 +348,7 @@ public class TarjetaCreditoLogicTest {
         tarjetaCreditoLogic.createTarjetaCredito(dataCliente.get(2).getId(), newEntity);
 
     }
-    
+
     /**
      * Prueba para crear una tarjeta de credito con nombre de tarjeta invalido.
      *
@@ -327,5 +364,4 @@ public class TarjetaCreditoLogicTest {
 
     }
 
-    
 }

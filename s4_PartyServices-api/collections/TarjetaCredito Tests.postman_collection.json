@@ -470,6 +470,55 @@
 			"response": []
 		},
 		{
+			"name": "Editar una tarjeta de credito sin el ID de la tarjeta",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7ea8d4ca-61ec-4d10-bd06-69880923f480",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Put\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombreTitular\":\"JESUS CARCAMO\",\n\t\"numero\":5555555555554444,\n\t\"codigoSeguridad\":123,\n\t\"fechaExpiracion\":\"11/21\",\n\t\"banco\":\"Banco de Bogotá\",\n\t\"franquicia\":\"MasterCard\"\n\t\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{clienteTarjetaCreditoId}}/tarjetaCredito",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"{{clienteTarjetaCreditoId}}",
+						"tarjetaCredito"
+					]
+				},
+				"description": "Actualiza una tarjeta de credito existente. Se envía el Id en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
 			"name": "Editar una tarjeta de credito que no existe",
 			"event": [
 				{
@@ -567,6 +616,53 @@
 			"response": []
 		},
 		{
+			"name": "Obtener la tarjeta de credito de un cliente sin el ID de la tarjeta",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "033932f5-48c0-4077-8f3b-71efaf8e431a",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"no genera error en el Get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{clienteTarjetaCreditoId}}/tarjetaCredito",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"{{clienteTarjetaCreditoId}}",
+						"tarjetaCredito"
+					]
+				},
+				"description": "Consulta la tarjeta de credito de un cliente en la aplicación. \r\nLa petición no tiene cuerpo.\r\n\r\nSe envía el Id del cliente y de la tarjeta de credito a consultar en la URL de la petición.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
 			"name": "Obtener una tarjeta de credito que no existe.",
 			"event": [
 				{
@@ -653,6 +749,51 @@
 						"{{clienteTarjetaCreditoId}}",
 						"tarjetaCredito",
 						"{{tarjetaCreditoId}}"
+					]
+				},
+				"description": "Borra una tarjeta de credito asociada a un cliente. Se envían los ids de la tarjeta de credito y el cliente creados anteriormente.\n\n**Código HTTP esperado: 204**"
+			},
+			"response": []
+		},
+		{
+			"name": "Borrarle una tarjeta de credito a un cliente sin el ID de la tarjeta",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "53b4b5b3-1187-4c0d-8a7b-e2be6b4dd2bc",
+						"exec": [
+							"tests[\"no genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes/{{clienteTarjetaCreditoId}}/tarjetaCredito",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes",
+						"{{clienteTarjetaCreditoId}}",
+						"tarjetaCredito"
 					]
 				},
 				"description": "Borra una tarjeta de credito asociada a un cliente. Se envían los ids de la tarjeta de credito y el cliente creados anteriormente.\n\n**Código HTTP esperado: 204**"

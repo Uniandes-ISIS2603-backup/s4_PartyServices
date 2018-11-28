@@ -170,7 +170,6 @@ public class TarjetaCreditoPersistenceTest {
         TarjetaCreditoEntity newEntity = tarjetaCreditoPersistence.find(entity.getCliente().getId(), entity.getId());
         Assert.assertNotNull(newEntity);
         Assert.assertEquals(newEntity.getBanco(), entity.getBanco());
-        Assert.assertEquals(newEntity.getCliente(), entity.getCliente());
         Assert.assertEquals(newEntity.getCodigoSeguridad(), entity.getCodigoSeguridad());
         Assert.assertEquals(newEntity.getCodigoSeguridad(), entity.getCodigoSeguridad());
         Assert.assertEquals(newEntity.getFechaExpiracion(), entity.getFechaExpiracion());
@@ -179,6 +178,27 @@ public class TarjetaCreditoPersistenceTest {
         Assert.assertEquals(newEntity.getNombreTitular(), entity.getNombreTitular());
         Assert.assertEquals(newEntity.getNumero(), entity.getNumero());
     }
+    
+    /**
+     * Prueba para consultar una tarjeta de Credito por su cliente
+     */
+    @Test
+    public void getTarjetaCreditoXClienteTest() {
+        TarjetaCreditoEntity entity = data.get(0);
+
+        TarjetaCreditoEntity newEntity = tarjetaCreditoPersistence.findByCliente(entity.getCliente().getId());
+        Assert.assertNotNull(newEntity);
+        Assert.assertEquals(newEntity.getBanco(), entity.getBanco());
+        Assert.assertEquals(newEntity.getCodigoSeguridad(), entity.getCodigoSeguridad());
+        Assert.assertEquals(newEntity.getCodigoSeguridad(), entity.getCodigoSeguridad());
+        Assert.assertEquals(newEntity.getFechaExpiracion(), entity.getFechaExpiracion());
+        Assert.assertEquals(newEntity.getFranquicia(), entity.getFranquicia());
+        Assert.assertEquals(newEntity.getId(), entity.getId());
+        Assert.assertEquals(newEntity.getNombreTitular(), entity.getNombreTitular());
+        Assert.assertEquals(newEntity.getNumero(), entity.getNumero());
+    }
+    
+    
 
     /**
      * Prueba para actualizar una Tarjeta de Credito

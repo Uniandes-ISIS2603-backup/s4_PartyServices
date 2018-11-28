@@ -69,6 +69,19 @@ public class TarjetaCreditoPersistence {
         return tarjetaCredito;
     }
     
+    public TarjetaCreditoEntity findByCliente(Long clientesId){
+         LOGGER.log(Level.INFO, "Consultando la tarjeta de credito  del cliente con id = {0}", clientesId);
+        TypedQuery<TarjetaCreditoEntity> q = em.createQuery("select p from TarjetaCreditoEntity p where (p.cliente.id = :clientesId)", TarjetaCreditoEntity.class);
+        q.setParameter("clientesId", clientesId);
+        List<TarjetaCreditoEntity> results = q.getResultList();
+        TarjetaCreditoEntity tarjetaCredito = null;
+        if (!results.isEmpty()) {
+            tarjetaCredito = results.get(0);
+        }
+        LOGGER.log(Level.INFO, "Saliendo de consultar la tarjeta de credito  del cliente con id = {0}", clientesId);
+        return tarjetaCredito;
+    }
+    
     public List<TarjetaCreditoEntity> findAll() {
         LOGGER.log(Level.INFO, "Consultando todas las tarjetas de credito");
         TypedQuery query = em.createQuery("select u from TarjetaCreditoEntity u", TarjetaCreditoEntity.class);
