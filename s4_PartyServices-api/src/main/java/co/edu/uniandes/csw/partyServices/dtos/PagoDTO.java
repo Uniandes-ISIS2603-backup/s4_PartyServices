@@ -114,6 +114,10 @@ public class PagoDTO implements Serializable {
         return id;
     }
 
+    
+    
+    
+    
     /**
      * Modifica el ID del pago.
      *
@@ -122,23 +126,38 @@ public class PagoDTO implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+    
+    
+    
+    
 
     public String getFecha() {
         return fecha;
     }
 
+    
+    
+    
     public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
+    
+    
     public Integer getValor() {
         return valor;
     }
 
+    
+    
+    
     public void setValor(Integer valor) {
         this.valor = valor;
     }
 
+    
+    
+    
     public EventoDTO getEvento() {
         return evento;
     }
@@ -147,10 +166,135 @@ public class PagoDTO implements Serializable {
         this.evento = evento;
     }
 
+    
+    
 
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+   
+    
+    
+    
+    
+    
 
 }

@@ -52,10 +52,10 @@ public class EventoProductosResource {
      * Error de lógica que se genera cuando no se encuentra el producto.
      */
     @POST
-    @Path("{productosId: \\d+}")
-    public ProductoDetailDTO addProducto(@PathParam("eventosId") Long eventosId, @PathParam("productosId") Long productosId) {
+    @Path("{producto: [a-zA-Z][a-zA-Z]*}")
+    public ProductoDetailDTO addProducto(@PathParam("eventosId") Long eventosId, @PathParam("productosId") String productosId) {
         LOGGER.log(Level.INFO, "EventoProductosResource addProducto: input: eventosId {0} , productosId {1}", new Object[]{eventosId, productosId});
-        if (productoLogic.getProductoId(productosId) == null) {
+        if (productoLogic.getProducto(productosId) == null) {
             throw new WebApplicationException("El recurso /productos/" + productosId + " no existe.", 404);
         }
         ProductoDetailDTO detailDTO = new ProductoDetailDTO(eventoProductoLogic.addProducto(eventosId, productosId));
@@ -90,10 +90,10 @@ public class EventoProductosResource {
      * Error de lógica que se genera cuando no se encuentra el producto.
      */
     @GET
-    @Path("{productosId: \\d+}")
-    public ProductoDetailDTO getProducto(@PathParam("eventosId") Long eventosId, @PathParam("productosId") Long productosId) throws BusinessLogicException {
+    @Path("{producto: [a-zA-Z][a-zA-Z]*}")
+    public ProductoDetailDTO getProducto(@PathParam("eventosId") Long eventosId, @PathParam("productosId") String productosId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "EventoProductosResource getProducto: input: eventosId {0} , productosId {1}", new Object[]{eventosId, productosId});
-        if (productoLogic.getProductoId(productosId) == null) {
+        if (productoLogic.getProducto(productosId) == null) {
             throw new WebApplicationException("El recurso /productos/" + productosId + " no existe.", 404);
         }
         ProductoDetailDTO detailDTO = new ProductoDetailDTO(eventoProductoLogic.getProducto(eventosId, productosId));
@@ -134,10 +134,10 @@ public class EventoProductosResource {
      * Error de lógica que se genera cuando no se encuentra el producto.
      */
     @DELETE
-    @Path("{productosId: \\d+}")
-    public void removeProducto(@PathParam("eventosId") Long eventosId, @PathParam("productosId") Long productosId) {
+    @Path("{producto: [a-zA-Z][a-zA-Z]*}")
+    public void removeProducto(@PathParam("eventosId") Long eventosId, @PathParam("productosId") String productosId) {
         LOGGER.log(Level.INFO, "EventoProductosResource deleteProducto: input: eventosId {0} , productosId {1}", new Object[]{eventosId, productosId});
-        if (productoLogic.getProductoId(productosId) == null) {
+        if (productoLogic.getProducto(productosId) == null) {
             throw new WebApplicationException("El recurso /productos/" + productosId + " no existe.", 404);
         }
         eventoProductoLogic.removeProducto(eventosId, productosId);
