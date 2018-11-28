@@ -53,7 +53,7 @@ public class AgendaLogic {
         
         //Verificacion que no existan agendas con proveedores iguales
         for (ProveedorEntity proveedorEntity : proveedorPersistence.findAll()) {
-            if(proveedorEntity!=null && proveedorEntity.getId()==proveedor.getId() && proveedorEntity.getAgenda()!=null && proveedorEntity.getAgenda().getId()!=0)
+            if(proveedorEntity!=null && proveedorEntity.getId()== proveedor.getId() && proveedorEntity.getAgenda()!=null && proveedorEntity.getAgenda().getId()!=0)
                 throw new BusinessLogicException("Ya existe una agenda para el proveedor asociado");
         }
         agendaEntity.setProveedor(proveedor);

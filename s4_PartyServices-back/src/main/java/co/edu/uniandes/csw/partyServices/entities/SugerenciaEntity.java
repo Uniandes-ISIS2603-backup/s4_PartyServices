@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.partyServices.entities;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import uk.co.jemos.podam.common.PodamExclude;
@@ -20,9 +21,9 @@ public class SugerenciaEntity extends BaseEntity implements Serializable {
     private String comentario;
 
     private String nombreUsuario;
-    
+
     private String titulo;
-    
+
     private String link;
 
     @PodamExclude
@@ -32,7 +33,6 @@ public class SugerenciaEntity extends BaseEntity implements Serializable {
     @PodamExclude
     @ManyToOne
     private TematicaEntity tematica;
-    
 
     /**
      * Constructor por defecto de una SugerenciaEntity.
@@ -112,7 +112,7 @@ public class SugerenciaEntity extends BaseEntity implements Serializable {
     public void setTematica(TematicaEntity tematica) {
         this.tematica = tematica;
     }
-    
+
     public String getTitulo() {
         return titulo;
     }
@@ -120,7 +120,7 @@ public class SugerenciaEntity extends BaseEntity implements Serializable {
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
-    
+
     public String getLink() {
         return link;
     }
@@ -128,8 +128,57 @@ public class SugerenciaEntity extends BaseEntity implements Serializable {
     public void setLink(String link) {
         this.link = link;
     }
-    
-    
-    
+
+    /**
+     * Hash
+     *
+     * @return
+     */
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 23 * hash + Objects.hashCode(this.comentario);
+        hash = 23 * hash + Objects.hashCode(this.nombreUsuario);
+        return hash;
+    }
+
+    /**
+     * Equals
+     *
+     * @param obj
+     * @return
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final SugerenciaEntity other = (SugerenciaEntity) obj;
+        if (!Objects.equals(this.comentario, other.comentario)) {
+            return false;
+        }
+        if (!Objects.equals(this.nombreUsuario, other.nombreUsuario)) {
+            return false;
+        }
+        if (!Objects.equals(this.titulo, other.titulo)) {
+            return false;
+        }
+        if (!Objects.equals(this.link, other.link)) {
+            return false;
+        }
+        if (!Objects.equals(this.cliente, other.cliente)) {
+            return false;
+        }
+        if (!Objects.equals(this.tematica, other.tematica)) {
+            return false;
+        }
+        return true;
+    }
 
 }

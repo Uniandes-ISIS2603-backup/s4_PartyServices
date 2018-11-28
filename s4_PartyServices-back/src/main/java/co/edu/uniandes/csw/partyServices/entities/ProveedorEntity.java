@@ -6,8 +6,8 @@
 package co.edu.uniandes.csw.partyServices.entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,7 +21,8 @@ import uk.co.jemos.podam.common.PodamExclude;
  */
 @Entity
 public class ProveedorEntity extends BaseEntity implements Serializable{
-    private final static long serialVersionUID = 1L ;
+    
+    private static final long serialVersionUID = 1L ;
     
     @PodamExclude
     @OneToOne(
@@ -55,7 +56,7 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
             orphanRemoval =true,
             fetch = FetchType.LAZY
     )
-    Collection<NotificacionEntity> notificaciones;
+    private Collection<NotificacionEntity> notificaciones;
   
     @PodamExclude
     @OneToMany(
@@ -64,7 +65,7 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
             orphanRemoval = true,
             fetch = FetchType.LAZY
     )
-    Collection<ValoracionEntity> valoraciones ;
+    private Collection<ValoracionEntity> valoraciones ;
     
     public String getNombre() {
         return nombre;
@@ -131,6 +132,56 @@ public class ProveedorEntity extends BaseEntity implements Serializable{
     public void setValoraciones(Collection<ValoracionEntity> valoraciones) {
         this.valoraciones = valoraciones;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + Objects.hashCode(this.nombre);
+        return hash;
+    }
+
+   
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ProveedorEntity other = (ProveedorEntity) obj;
+        
+        if (!Objects.equals(this.nombre, other.nombre)) {
+            return false;
+        }
+        if (!Objects.equals(this.contrasenia, other.contrasenia)) {
+            return false;
+        }
+        if (!Objects.equals(this.agenda, other.agenda)) {
+            return false;
+        }
+        if (!Objects.equals(this.calificacion, other.calificacion)) {
+            return false;
+        }
+        if (!Objects.equals(this.servicio, other.servicio)) {
+            return false;
+        }
+        if (!Objects.equals(this.catalogoProductos, other.catalogoProductos)) {
+            return false;
+        }
+        if (!Objects.equals(this.notificaciones, other.notificaciones)) {
+            return false;
+        }
+        if (!Objects.equals(this.valoraciones, other.valoraciones)) {
+            return false;
+        }
+        return true;
+    }
+    
     
     
     

@@ -44,7 +44,7 @@ public class ProveedorResource {
     public List<ProveedorDetailDTO> getProveedores() throws BusinessLogicException {
           LOGGER.info("ProveedorResource getProveedores: input: void");
         List<ProveedorDetailDTO> listaProveedores = listEntity2DTO(proveedorLogic.getProveedores());
-        LOGGER.log(Level.INFO, "AuthorResource getAuthors: output: {0}", listaProveedores.toString());
+        LOGGER.log(Level.INFO, "ProveedorResource getProveedores: output: {0}", listaProveedores);
         return listaProveedores;
     }
 
@@ -64,9 +64,9 @@ public class ProveedorResource {
                 
     @POST
     public ProveedorDTO crearProveedor(ProveedorDTO pProveedor) throws BusinessLogicException {
-       LOGGER.log(Level.INFO, "ProveedorResource createProveedor: input: {0}", pProveedor.toString());
+       LOGGER.log(Level.INFO, "ProveedorResource createProveedor: input: {0}", pProveedor);
         ProveedorDTO proveedorDTO = new ProveedorDTO(proveedorLogic.createProveedor(pProveedor.toEntity()));
-        LOGGER.log(Level.INFO, "ProveedorResource createProveedor: output: {0}", proveedorDTO.toString());
+        LOGGER.log(Level.INFO, "ProveedorResource createProveedor: output: {0}", proveedorDTO);
         return proveedorDTO;
     }
 
@@ -75,7 +75,7 @@ public class ProveedorResource {
     public void borrarProveedor(@PathParam("proveedoresId") Long proveedoresID) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "ProveedorResource deleteProveedor: input: {0}", proveedoresID);
         if (proveedorLogic.getProveedor(proveedoresID) == null) {
-            throw new WebApplicationException("El recurso /proveedores/" + proveedoresID + " no existe.", 404);
+            throw new WebApplicationException("El recurso  /proveedores/" + proveedoresID + " no existe.", 404);
         }
         proveedorLogic.deleteProveedor(proveedoresID);
         LOGGER.info("AuthorResource deleteAuthor: output: void");
@@ -87,10 +87,10 @@ public class ProveedorResource {
          LOGGER.log(Level.INFO, "ProveedorResource updateProveedor: input: proveedoresId: {0} , proveedor: {1}", new Object[]{proveedoresId, proveedor.toString()});
         proveedor.setId(proveedoresId);
         if (proveedorLogic.getProveedor(proveedoresId) == null) {
-            throw new WebApplicationException("El recurso /proveedores/" + proveedoresId + " no existe.", 404);
+            throw new WebApplicationException("El recurso   /proveedores/" + proveedoresId + " no existe.", 404);
         }
         ProveedorDetailDTO detailDTO = new ProveedorDetailDTO(proveedorLogic.updateProveedor(proveedoresId, proveedor.toEntity()));
-        LOGGER.log(Level.INFO, "AuthorResource updateAuthor: output: {0}", detailDTO.toString());
+        LOGGER.log(Level.INFO, "AuthorResource updateAuthor: output: {0}", detailDTO);
         return detailDTO;
     }
     
@@ -118,7 +118,7 @@ public class ProveedorResource {
     @Path("{proveedorId: \\d+}/valoraciones")
     public Class<ValoracionResource> getValoracionResource(@PathParam("proveedorId") Long proveedorId) {
         if (proveedorLogic.getProveedor(proveedorId) == null) {
-            throw new WebApplicationException("El recurso /proveedores/" + proveedorId + "/valoraciones no existe.", 404);
+            throw new WebApplicationException("El recurso w /proveedores/" + proveedorId + "/valoraciones no existe.", 404);
         }
         return ValoracionResource.class;
     }

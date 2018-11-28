@@ -5,10 +5,10 @@
  */
 package co.edu.uniandes.csw.partyServices.entities;
 
-
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,13 +19,13 @@ import javax.persistence.TemporalType;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
- *Entidad de agenda
+ * Entidad de agenda
+ *
  * @author Nicolas Hernandez
  */
 @Entity
-public class AgendaEntity extends BaseEntity implements Serializable{
-   
-    
+public class AgendaEntity extends BaseEntity implements Serializable {
+
     /**
      * Fecha de penitencia de la agenda
      */
@@ -36,59 +36,60 @@ public class AgendaEntity extends BaseEntity implements Serializable{
      * Jornada que no labora el proveedor los lunes
      */
     private String jornadaLunesND;
-    
+
     /**
      * Jornada que no labora el proveedor los martes
      */
     private String jornadaMartesND;
-    
+
     /**
      * Jornada que no labora el proveedor los miercoles
      */
     private String jornadaMiercolesND;
-    
+
     /**
      * Jornada que no labora el proveedor los jueves
      */
     private String jornadaJuevesND;
-    
+
     /**
      * Jornada que no labora el proveedor los viernes
      */
     private String jornadaViernesND;
-    
+
     /**
      * Jornada que no labora el proveedor los sabado
      */
     private String jornadaSabadoND;
-    
+
     /**
      * Jornada que no labora el proveedor los domingo
      */
     private String jornadaDomingoND;
-    
+
     /**
      * Relacion uno a muchos con las fechas ocupadas de la agenda
      */
     @PodamExclude
     @OneToMany(
-            mappedBy="agenda",
-            cascade = CascadeType.ALL, 
-            orphanRemoval =true ,
+            mappedBy = "agenda",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
             //Terminan en many son lazy. Eger terminan en One
-            fetch= FetchType.LAZY
+            fetch = FetchType.LAZY
     )
     private Collection<FechaEntity> fechasOcupadas;
-    
+
     /**
      * Relacion uno a uno con el proveedor de la agenda
      */
     @PodamExclude
-    @OneToOne( )
+    @OneToOne()
     private ProveedorEntity proveedor;
 
     /**
      * Obtiene las jornadas que no labora los lunes
+     *
      * @return jornada que no labora los lunes
      */
     public String getJornadaLunesND() {
@@ -97,6 +98,7 @@ public class AgendaEntity extends BaseEntity implements Serializable{
 
     /**
      * Cambia la jornada que no labora los lunes
+     *
      * @param jornadaLunesND nueva jornada
      */
     public void setJornadaLunesND(String jornadaLunesND) {
@@ -105,6 +107,7 @@ public class AgendaEntity extends BaseEntity implements Serializable{
 
     /**
      * Obtiene las jornadas que no labora los martes
+     *
      * @return jornada que no labora los martes
      */
     public String getJornadaMartesND() {
@@ -113,6 +116,7 @@ public class AgendaEntity extends BaseEntity implements Serializable{
 
     /**
      * Cambia la jornada que no labora los martes
+     *
      * @param jornadaMartesND nueva jornada
      */
     public void setJornadaMartesND(String jornadaMartesND) {
@@ -121,6 +125,7 @@ public class AgendaEntity extends BaseEntity implements Serializable{
 
     /**
      * Obtiene las jornadas que no labora los miercoles
+     *
      * @return jornada que no labora los miercoles
      */
     public String getJornadaMiercolesND() {
@@ -129,6 +134,7 @@ public class AgendaEntity extends BaseEntity implements Serializable{
 
     /**
      * Cambia la jornada que no labora los miercoles
+     *
      * @param jornadaMiercolesND nueva jornada
      */
     public void setJornadaMiercolesND(String jornadaMiercolesND) {
@@ -137,6 +143,7 @@ public class AgendaEntity extends BaseEntity implements Serializable{
 
     /**
      * Obtiene las jornadas que no labora los jueves
+     *
      * @return jornada que no labora los jueves
      */
     public String getJornadaJuevesND() {
@@ -145,6 +152,7 @@ public class AgendaEntity extends BaseEntity implements Serializable{
 
     /**
      * Cambia la jornada que no labora los jueves
+     *
      * @param jornadaJuevesND nueva jornada
      */
     public void setJornadaJuevesND(String jornadaJuevesND) {
@@ -153,6 +161,7 @@ public class AgendaEntity extends BaseEntity implements Serializable{
 
     /**
      * Obtiene las jornadas que no labora los viernes
+     *
      * @return jornada que no labora los viernes
      */
     public String getJornadaViernesND() {
@@ -161,6 +170,7 @@ public class AgendaEntity extends BaseEntity implements Serializable{
 
     /**
      * Cambia la jornada que no labora los viernes
+     *
      * @param jornadaViernesND nueva jornada
      */
     public void setJornadaViernesND(String jornadaViernesND) {
@@ -169,6 +179,7 @@ public class AgendaEntity extends BaseEntity implements Serializable{
 
     /**
      * Obtiene las jornadas que no labora los sabados
+     *
      * @return jornada que no labora los sabados
      */
     public String getJornadaSabadoND() {
@@ -177,6 +188,7 @@ public class AgendaEntity extends BaseEntity implements Serializable{
 
     /**
      * Cambia la jornada que no labora los sabados
+     *
      * @param jornadaSabadoND nueva jornada
      */
     public void setJornadaSabadoND(String jornadaSabadoND) {
@@ -185,6 +197,7 @@ public class AgendaEntity extends BaseEntity implements Serializable{
 
     /**
      * Obtiene las jornadas que no labora los domingos
+     *
      * @return jornada que no labora los domingos
      */
     public String getJornadaDomingoND() {
@@ -193,6 +206,7 @@ public class AgendaEntity extends BaseEntity implements Serializable{
 
     /**
      * Cambia la jornada que no labora los domingos
+     *
      * @param jornadaDomingoND nueva jornada
      */
     public void setJornadaDomingoND(String jornadaDomingoND) {
@@ -201,47 +215,104 @@ public class AgendaEntity extends BaseEntity implements Serializable{
 
     /**
      * Cambia el proveedor de la agenda
+     *
      * @param proveedor proveedor de la agenda
      */
     public void setProveedor(ProveedorEntity proveedor) {
         this.proveedor = proveedor;
-    }       
-    
+    }
+
     /**
      * Obtiene la fecha de penitencia
+     *
      * @return la fecha de penitencia
      */
-    public Date getFechaPenitencia()
-    {
+    public Date getFechaPenitencia() {
         return fechaPenitencia;
     }
-    
+
     /**
      * Cambia la fecha de penitencia
+     *
      * @param fechaPenitencia la nueva fecha de penitencia
      */
-    public void setFechaPenitencia(Date fechaPenitencia)
-    {
-        this.fechaPenitencia=fechaPenitencia;
+    public void setFechaPenitencia(Date fechaPenitencia) {
+        this.fechaPenitencia = fechaPenitencia;
     }
-    
-  
-    
-    public Collection<FechaEntity> getFechasOcupadas()
-    {
+
+    public Collection<FechaEntity> getFechasOcupadas() {
         return fechasOcupadas;
     }
-    
-    public void setFechasOcupadas(Collection<FechaEntity> fechasOcupadas)
-    {
-        this.fechasOcupadas=fechasOcupadas;
+
+    public void setFechasOcupadas(Collection<FechaEntity> fechasOcupadas) {
+        this.fechasOcupadas = fechasOcupadas;
     }
-    
-    public ProveedorEntity getProveedor()
-    {
+
+    public ProveedorEntity getProveedor() {
         return proveedor;
     }
-    
-   
-    
+
+    /**
+     * Hash
+     *
+     * @return
+     */
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 17 * hash + Objects.hashCode(this.proveedor);
+        return hash;
+    }
+
+    /**
+     * Equals
+     *
+     * @param obj
+     * @return
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final AgendaEntity other = (AgendaEntity) obj;
+        if (!Objects.equals(this.jornadaLunesND, other.jornadaLunesND)) {
+            return false;
+        }
+        if (!Objects.equals(this.jornadaMartesND, other.jornadaMartesND)) {
+            return false;
+        }
+        if (!Objects.equals(this.jornadaMiercolesND, other.jornadaMiercolesND)) {
+            return false;
+        }
+        if (!Objects.equals(this.jornadaJuevesND, other.jornadaJuevesND)) {
+            return false;
+        }
+        if (!Objects.equals(this.jornadaViernesND, other.jornadaViernesND)) {
+            return false;
+        }
+        if (!Objects.equals(this.jornadaSabadoND, other.jornadaSabadoND)) {
+            return false;
+        }
+        if (!Objects.equals(this.jornadaDomingoND, other.jornadaDomingoND)) {
+            return false;
+        }
+        if (!Objects.equals(this.fechaPenitencia, other.fechaPenitencia)) {
+            return false;
+        }
+        if (!Objects.equals(this.fechasOcupadas, other.fechasOcupadas)) {
+            return false;
+        }
+        if (!Objects.equals(this.proveedor, other.proveedor)) {
+            return false;
+        }
+        return true;
+    }
+
 }
