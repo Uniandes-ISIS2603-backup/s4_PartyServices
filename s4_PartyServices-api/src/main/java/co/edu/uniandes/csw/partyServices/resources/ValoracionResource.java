@@ -77,13 +77,14 @@ public class ValoracionResource {
      * valoraciones.
      * @param valoracionId El ID de la valoracion que se busca.
      * @return {@link ValoracionDTO} - La valoracion encontrada en el proveedor.
+     * @throws co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra el proveedor. Error
      * de lógica que se genera cuando no se encuentra la valoracion.
      */
     @GET
     @Path("{valoracionesId: \\d+}")
-    public ValoracionDTO getValoracion(@PathParam("proveedorId") Long proveedorId, @PathParam("valoracionesId") Long valoracionId) throws WebApplicationException {
+    public ValoracionDTO getValoracion(@PathParam("proveedorId") Long proveedorId, @PathParam("valoracionesId") Long valoracionId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "ValoracionResource getValoracion: input: {0}", valoracionId);
         ValoracionEntity entity = valoracionLogic.getValoracion(proveedorId, valoracionId);
         if (entity == null) {
