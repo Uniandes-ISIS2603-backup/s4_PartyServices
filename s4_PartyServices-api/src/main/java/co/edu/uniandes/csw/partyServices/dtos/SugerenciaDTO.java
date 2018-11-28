@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.partyServices.dtos;
 
 import co.edu.uniandes.csw.partyServices.entities.SugerenciaEntity;
 import java.io.Serializable;
+import java.util.List;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -41,16 +42,15 @@ public class SugerenciaDTO implements Serializable {
     private String titulo;
     private String nombreUsuario;
     private String link;
+    private String video;
+
 
     private TematicaDTO tematica;
-
-    
-
-    public void setCliente(ClienteDTO cliente) {
-        this.cliente = cliente;
-    }
+   
     
     private ClienteDTO cliente;
+    
+    
     /**
      * Constructor por defecto
      */
@@ -70,6 +70,7 @@ public class SugerenciaDTO implements Serializable {
             this.nombreUsuario = sugerenciaEntity.getNombreUsuario();
             this.link = sugerenciaEntity.getLink();
             this.titulo = sugerenciaEntity.getTitulo();
+            this.video = sugerenciaEntity.getVideo(); 
             if (sugerenciaEntity.getTematica()!= null) {
                 this.tematica = new TematicaDTO(sugerenciaEntity.getTematica());
             } else {
@@ -154,27 +155,70 @@ public class SugerenciaDTO implements Serializable {
     public void setTitulo(String pTitulo) {
         this.titulo = pTitulo;
     }
+    
+    /**
+     * Devuelve el video de la sugerencia 
+     * @return La lista de links
+     */
+    public String getVideo() {
+        return video;
+    }
 
+    /**
+     * Cambia el video de la sugerencia.
+     * @param video. Video de la sugerencia.
+     */
+    public void setVideo(String video) {
+        this.video = video;
+    }
+
+    /**
+     * Devuelve un link unitario.
+     * @return 
+     */
     public String getLink() {
         return link;
     }
 
+    /**
+     * Cambia el link unitario.
+     * @param link a ser cambiado
+     */
     public void setLink(String link) {
         this.link = link;
     }
     
+    /**
+     * Tematica que contiene la sugerencia.
+     * @return 
+     */
     public TematicaDTO getTematica() {
         return tematica;
     }
 
+    /**
+     * Cambiar la tematica
+     * @param tematica a ser cambiada
+     */
     public void setTematica(TematicaDTO tematica) {
         this.tematica = tematica;
     }
 
+    /**
+     * Cliente que contiene la sugerencia
+     * @return cliente de la sugerencia
+     */
     public ClienteDTO getCliente() {
         return cliente;
     }
 
+    /**
+     * Cambia al cliente de la sugerencia
+     * @param cliente El nuevo cliente
+     */
+     public void setCliente(ClienteDTO cliente) {
+        this.cliente = cliente;
+    }
     /**
      * Convertir DTO a Entity
      *
@@ -187,6 +231,7 @@ public class SugerenciaDTO implements Serializable {
         sugerenciaEntity.setNombreUsuario(this.nombreUsuario);
         sugerenciaEntity.setLink(this.link);
         sugerenciaEntity.setTitulo(this.titulo);
+        sugerenciaEntity.setVideo(this.video);
 
          if (this.tematica != null) {
             sugerenciaEntity.setTematica(this.tematica.toEntity());

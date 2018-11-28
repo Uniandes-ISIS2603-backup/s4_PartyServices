@@ -7,7 +7,6 @@ package co.edu.uniandes.csw.partyServices.resources;
 
 import co.edu.uniandes.csw.partyServices.dtos.ServicioDTO;
 import co.edu.uniandes.csw.partyServices.dtos.ServicioDetailDTO;
-import co.edu.uniandes.csw.partyServices.dtos.TematicaDTO;
 import co.edu.uniandes.csw.partyServices.ejb.ServicioLogic;
 import co.edu.uniandes.csw.partyServices.entities.ServicioEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
@@ -54,9 +53,9 @@ public class ServicioResource
      */
     @POST
     public ServicioDTO createServicio(ServicioDTO servicio) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "ServicioResource createServicio: input: {0}", servicio.toString());
+        LOGGER.log(Level.INFO, "ServicioResource createServicio: input: {0}", servicio);
         ServicioDTO servicioDTO = new ServicioDTO(servicioLogic.createServicio(servicio.toEntity()));
-        LOGGER.log(Level.INFO, "ServicioResource createServicio: output: {0}", servicioDTO.toString());
+        LOGGER.log(Level.INFO, "ServicioResource createServicio: output: {0}", servicioDTO);
         return servicioDTO;
     }
 
@@ -70,7 +69,7 @@ public class ServicioResource
     public List<ServicioDetailDTO> getServicios() {
         LOGGER.info("ServicioResource getServicios: input: void");
         List<ServicioDetailDTO> listaServicios = listEntity2DTO(servicioLogic.getServicios());
-        LOGGER.log(Level.INFO, "ServicioResource getServicios: output: {0}", listaServicios.toString());
+        LOGGER.log(Level.INFO, "ServicioResource getServicios: output: {0}", listaServicios);
         return listaServicios;
     }
 
@@ -92,7 +91,7 @@ public class ServicioResource
             throw new WebApplicationException("El recurso /servicios/" + serviciosId + " no existe.", 404);
         }
         ServicioDetailDTO detailDTO = new ServicioDetailDTO(servicioEntity);
-        LOGGER.log(Level.INFO, "ServicioResource getServicio: output: {0}", detailDTO.toString());
+        LOGGER.log(Level.INFO, "ServicioResource getServicio: output: {0}", detailDTO);
         return detailDTO;
     }
 
@@ -117,7 +116,7 @@ public class ServicioResource
             throw new WebApplicationException("El recurso /servicios/" + serviciosId + " no existe.", 404);
         }
         ServicioDetailDTO detailDTO = new ServicioDetailDTO(servicioLogic.updateServicio(serviciosId, servicio.toEntity()));
-        LOGGER.log(Level.INFO, "ServicioResource updateServicio: output: {0}", detailDTO.toString());
+        LOGGER.log(Level.INFO, "ServicioResource updateServicio: output: {0}", detailDTO);
         return detailDTO;
     }
 

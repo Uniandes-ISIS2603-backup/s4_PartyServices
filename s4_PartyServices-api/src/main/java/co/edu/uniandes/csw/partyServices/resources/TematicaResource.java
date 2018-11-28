@@ -55,14 +55,14 @@ public class TematicaResource {
      */
     @POST
     public TematicaDTO createTematica(TematicaDTO tematica) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "TematicaResource createTematica: input: {0}", tematica.toString());
+        LOGGER.log(Level.INFO, "TematicaResource createTematica: input: {0}", tematica);
         // Convierte el DTO (json) en un objeto Entity para ser manejado por la lógica.
         TematicaEntity tematicaEntity = tematica.toEntity();
         // Invoca la lógica para crear la tematica nueva
         TematicaEntity nuevoTematicaEntity = tematicaLogic.createTematica(tematicaEntity);
         // Como debe retornar un DTO (json) se invoca el constructor del DTO con argumento el entity nuevo
         TematicaDTO nuevoTematicaDTO = new TematicaDTO(nuevoTematicaEntity);
-        LOGGER.log(Level.INFO, "TematicaResource createTematica: output: {0}", nuevoTematicaDTO.toString());
+        LOGGER.log(Level.INFO, "TematicaResource createTematica: output: {0}", nuevoTematicaDTO);
         return nuevoTematicaDTO;
     }
 
@@ -76,7 +76,7 @@ public class TematicaResource {
     public List<TematicaDetailDTO> getTematicas() {
         LOGGER.info("TematicaResource getTematicas: input: void");
         List<TematicaDetailDTO> listaTematicaes = listEntity2DetailDTO(tematicaLogic.getTematicas());
-        LOGGER.log(Level.INFO, "TematicaResource getTematicas: output: {0}", listaTematicaes.toString());
+        LOGGER.log(Level.INFO, "TematicaResource getTematicas: output: {0}", listaTematicaes);
         return listaTematicaes;
     }
 
@@ -125,7 +125,7 @@ public class TematicaResource {
             throw new WebApplicationException("El recurso /tematicas/" + tematicasId + " no existe.", 404);
         }
         TematicaDetailDTO detailDTO = new TematicaDetailDTO(tematicaLogic.updateTematica(tematicasId, tematica.toEntity()));
-        LOGGER.log(Level.INFO, "TematicaResource updateTematica: output: {0}", detailDTO.toString());
+        LOGGER.log(Level.INFO, "TematicaResource updateTematica: output: {0}", detailDTO);
         return detailDTO;
 
     }

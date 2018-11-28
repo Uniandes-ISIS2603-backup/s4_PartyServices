@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.partyServices.entities;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import uk.co.jemos.podam.common.PodamExclude;
@@ -97,11 +98,18 @@ public class ValoracionEntity extends BaseEntity implements Serializable {
     public void setNombreUsuario(String pNombreUsuario) {
         nombreUsuario = pNombreUsuario;
     }
-    
+    /**
+     * Obtiene el titulo de la valoracion
+     * @return titulo de la sugerencia.
+     */
     public String getTitulo() {
         return titulo;
     }
 
+    /**
+     * Cambia el titulo de la valoracion
+     * @param titulo. Titulo de la sugerencia
+     */
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
@@ -142,4 +150,56 @@ public class ValoracionEntity extends BaseEntity implements Serializable {
     public void setProveedor(ProveedorEntity pProveedor) {
         proveedor = pProveedor;
     }
+
+    /**
+     * Hash
+     * @return 
+     */
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 29 * hash + Objects.hashCode(this.comentario);
+        hash = 29 * hash + Objects.hashCode(this.puntaje);
+        return hash;
+    }
+
+    /**
+     * Equals
+     * @param obj
+     * @return 
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ValoracionEntity other = (ValoracionEntity) obj;
+        if (!Objects.equals(this.comentario, other.comentario)) {
+            return false;
+        }
+        if (!Objects.equals(this.nombreUsuario, other.nombreUsuario)) {
+            return false;
+        }
+        if (!Objects.equals(this.titulo, other.titulo)) {
+            return false;
+        }
+        if (!Objects.equals(this.puntaje, other.puntaje)) {
+            return false;
+        }
+        if (!Objects.equals(this.cliente, other.cliente)) {
+            return false;
+        }
+        if (!Objects.equals(this.proveedor, other.proveedor)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

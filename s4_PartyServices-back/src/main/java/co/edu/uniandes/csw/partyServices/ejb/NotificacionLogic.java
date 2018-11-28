@@ -8,7 +8,6 @@ package co.edu.uniandes.csw.partyServices.ejb;
 import co.edu.uniandes.csw.partyServices.entities.NotificacionEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.partyServices.persistence.NotificacionPersistence;
-import co.edu.uniandes.csw.partyServices.persistence.ProveedorPersistence;
 import java.util.logging.Logger;
 import java.util.List;
 import java.util.logging.Level;
@@ -93,7 +92,7 @@ public class NotificacionLogic {
      * Actualizar una notificacion.
      *
      * @param notifID: id de la notificacion para buscarlo en la base de datos.
-     * @param notificacionEntity: notificacion con los cambios para ser
+     * @param entity: notificacion con los cambios para ser
      * actualizada, por ejemplo el mensaje.
      * @return la notificacion con los cambios actualizados en la base de datos.
      */
@@ -129,9 +128,9 @@ public class NotificacionLogic {
      * Borrar una notificacion
      *
      * @param notifID: id de la notificacion a borrar
-     * @throws BusinessLogicException .
      */
-    public void deleteNotificacion(Long notifID) throws BusinessLogicException {
+    public void deleteNotificacion(Long notifID) 
+    {
         LOGGER.log(Level.INFO, "Inicia proceso de borrar la notificacion con id = {0}", notifID);
 
         persistence.delete(notifID);

@@ -8,12 +8,10 @@ package co.edu.uniandes.csw.partyServices.entities;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
-import javax.persistence.CascadeType;
+import java.util.Objects;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import uk.co.jemos.podam.common.PodamExclude;
@@ -121,5 +119,51 @@ public class FechaEntity extends BaseEntity implements Serializable {
     {
         this.eventos=eventos;
     }
+
+    /**
+     * Hash
+     * @return 
+     */
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 17 * hash + Objects.hashCode(this.agenda);
+        hash = 17 * hash + Objects.hashCode(this.dia);
+        return hash;
+    }
+
+    /**
+     * Equals
+     * @param obj
+     * @return 
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final FechaEntity other = (FechaEntity) obj;
+        if (!Objects.equals(this.jornada, other.jornada)) {
+            return false;
+        }
+        if (!Objects.equals(this.agenda, other.agenda)) {
+            return false;
+        }
+        if (!Objects.equals(this.dia, other.dia)) {
+            return false;
+        }
+        if (!Objects.equals(this.eventos, other.eventos)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
     
 }

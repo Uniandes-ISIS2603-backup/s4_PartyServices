@@ -7,8 +7,6 @@ package co.edu.uniandes.csw.partyServices.dtos;
 
 import co.edu.uniandes.csw.partyServices.entities.ProveedorEntity;
 import co.edu.uniandes.csw.partyServices.entities.ServicioEntity;
-import co.edu.uniandes.csw.partyServices.entities.SugerenciaEntity;
-import co.edu.uniandes.csw.partyServices.entities.TematicaEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

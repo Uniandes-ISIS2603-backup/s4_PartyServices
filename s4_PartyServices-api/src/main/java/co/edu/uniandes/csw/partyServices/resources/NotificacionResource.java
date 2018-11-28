@@ -50,7 +50,7 @@ public class NotificacionResource {
             throw new WebApplicationException("El recurso /notificacion/" + notificacionesId + " no existe.", 404);
         }
         NotificacionDTO nDTO = new NotificacionDTO(notifEntity);
-        LOGGER.log(Level.INFO, "NotificacionResource getNotificacion: output: {0}", nDTO.toString());
+        LOGGER.log(Level.INFO, "NotificacionResource getNotificacion: output: {0}", nDTO);
         return nDTO;
     }
     
@@ -59,7 +59,7 @@ public class NotificacionResource {
     public List<NotificacionDTO> getNotificaciones() {
         LOGGER.info("NotificacionResource getNotificacion: input: void");
         List<NotificacionDTO> listaNotifs = listEntity2DTO(notificacionLogic.getNotificacion());
-        LOGGER.log(Level.INFO, "NotificacionResource getNotificacion: output: {0}", listaNotifs.toString());
+        LOGGER.log(Level.INFO, "NotificacionResource getNotificacion: output: {0}", listaNotifs);
         return listaNotifs;
     }
     
@@ -67,7 +67,7 @@ public class NotificacionResource {
     public NotificacionDTO crearNotificacion(NotificacionDTO pNotif) throws BusinessLogicException
     { LOGGER.log(Level.INFO, "NotificacionResource createNotificacion: input: {0}", pNotif.toString());
         NotificacionDTO notificacionDTO = new NotificacionDTO(notificacionLogic.createNotificacion(pNotif.toEntity()));
-        LOGGER.log(Level.INFO, "NotificacionResource createNotificacion: output: {0}", notificacionDTO.toString());
+        LOGGER.log(Level.INFO, "NotificacionResource createNotificacion: output: {0}", notificacionDTO);
         return notificacionDTO;
     }
     
@@ -94,7 +94,7 @@ public class NotificacionResource {
             throw new WebApplicationException("El recurso /notificacion/" + notifID + " no existe.", 404);
         }
         NotificacionDTO notDTO = new NotificacionDTO(notificacionLogic.updateNotificacion(notifID, pNotif.toEntity()));
-        LOGGER.log(Level.INFO, "NotificacionResource updateNotificacion: output: {0}", notDTO.toString());
+        LOGGER.log(Level.INFO, "NotificacionResource updateNotificacion: output: {0}", notDTO);
         return notDTO;
     }
     

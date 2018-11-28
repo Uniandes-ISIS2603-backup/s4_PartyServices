@@ -8,7 +8,7 @@ package co.edu.uniandes.csw.partyServices.entities;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
-import javax.persistence.CascadeType;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -29,34 +29,36 @@ public class ProductoEntity extends BaseEntity implements Serializable {
     private String nombre;
 
     /**
-     *Atributo que representa el tipo de servicio de un producto
+     * Atributo que representa el tipo de servicio de un producto
      */
     private String tipoServicio;
 
-     /**
-     *Atributo que representa el nombre del dueño de un producto
+    /**
+     * Atributo que representa el nombre del dueño de un producto
      */
     private String duenio;
 
-     /**
-     *Atributo que representa la relacion muchos a uno con la clase ProveedorEntity
+    /**
+     * Atributo que representa la relacion muchos a uno con la clase
+     * ProveedorEntity
      */
     @PodamExclude
     @ManyToOne()
     private ProveedorEntity proveedor;
-    
-     /**
-     *Atributo que representa el costo de un producto
+
+    /**
+     * Atributo que representa el costo de un producto
      */
     private int costo;
 
     /**
-     *Atributo que representa la cantidad de un producto
+     * Atributo que representa la cantidad de un producto
      */
     private int cantidad;
 
-     /**
-     *Atributo que representa la relacion muchos a muchos con la clase EventoEntity
+    /**
+     * Atributo que representa la relacion muchos a muchos con la clase
+     * EventoEntity
      */
     @PodamExclude
     @ManyToMany()
@@ -64,6 +66,7 @@ public class ProductoEntity extends BaseEntity implements Serializable {
 
     /**
      * Metodo que retorna el nombre de un producto
+     *
      * @return nombre
      */
     public String getNombre() {
@@ -72,7 +75,8 @@ public class ProductoEntity extends BaseEntity implements Serializable {
 
     /**
      * Metodo que modifica el nombre de un producto
-     * @param nombre 
+     *
+     * @param nombre
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -80,6 +84,7 @@ public class ProductoEntity extends BaseEntity implements Serializable {
 
     /**
      * Metodo que retorna el tipo de servicio de un producto
+     *
      * @return tipoServicio
      */
     public String getTipoServicio() {
@@ -88,7 +93,8 @@ public class ProductoEntity extends BaseEntity implements Serializable {
 
     /**
      * Metodo que modifica el tipo de servicio de un producto
-     * @param tipoServicio 
+     *
+     * @param tipoServicio
      */
     public void setTipoServicio(String tipoServicio) {
         this.tipoServicio = tipoServicio;
@@ -96,6 +102,7 @@ public class ProductoEntity extends BaseEntity implements Serializable {
 
     /**
      * Metodo que retorna el nombre del dueño de un producto
+     *
      * @return duenio
      */
     public String getDuenio() {
@@ -104,7 +111,8 @@ public class ProductoEntity extends BaseEntity implements Serializable {
 
     /**
      * Metodo que modifica el dueño de un producto
-     * @param duenio 
+     *
+     * @param duenio
      */
     public void setDuenio(String duenio) {
         this.duenio = duenio;
@@ -112,6 +120,7 @@ public class ProductoEntity extends BaseEntity implements Serializable {
 
     /**
      * Metodo que retorna el proveedor de un producto
+     *
      * @return proveedor
      */
     public ProveedorEntity getProveedor() {
@@ -120,7 +129,8 @@ public class ProductoEntity extends BaseEntity implements Serializable {
 
     /**
      * Metodo que modifica el proveedor de un producto
-     * @param proveedor 
+     *
+     * @param proveedor
      */
     public void setProveedor(ProveedorEntity proveedor) {
         this.proveedor = proveedor;
@@ -128,6 +138,7 @@ public class ProductoEntity extends BaseEntity implements Serializable {
 
     /**
      * Metodo que retorna el costo de un producto
+     *
      * @return costo
      */
     public int getCosto() {
@@ -136,7 +147,8 @@ public class ProductoEntity extends BaseEntity implements Serializable {
 
     /**
      * Metodo que modifica el costo de un producto
-     * @param costo 
+     *
+     * @param costo
      */
     public void setCosto(int costo) {
         this.costo = costo;
@@ -144,6 +156,7 @@ public class ProductoEntity extends BaseEntity implements Serializable {
 
     /**
      * Metodo que retorna la cantidad de un producto
+     *
      * @return cantidad
      */
     public int getCantidad() {
@@ -152,7 +165,8 @@ public class ProductoEntity extends BaseEntity implements Serializable {
 
     /**
      * Metodo que modifica la cantidad de un producto
-     * @param cantidad 
+     *
+     * @param cantidad
      */
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
@@ -160,6 +174,7 @@ public class ProductoEntity extends BaseEntity implements Serializable {
 
     /**
      * Metodo que retorna los eventos de un producto
+     *
      * @return eventos
      */
     public Collection<EventoEntity> getEventos() {
@@ -168,7 +183,8 @@ public class ProductoEntity extends BaseEntity implements Serializable {
 
     /**
      * Metodo que modifica los eventos de un producto
-     * @param eventos 
+     *
+     * @param eventos
      */
     public void setEventos(Collection<EventoEntity> eventos) {
         this.eventos = eventos;
@@ -176,7 +192,8 @@ public class ProductoEntity extends BaseEntity implements Serializable {
 
     /**
      * Metodo que agrega un evento a la lista de eventos
-     * @param evento 
+     *
+     * @param evento
      */
     public void setEvento(EventoEntity evento) {
         if (eventos == null) {
@@ -184,6 +201,43 @@ public class ProductoEntity extends BaseEntity implements Serializable {
         }
         eventos.add(evento);
     }
-    
+
+    /**
+     * Hash
+     *
+     * @return
+     */
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 71 * hash + Objects.hashCode(this.nombre);
+        return hash;
+    }
+
+    /**
+     * Equals
+     *
+     * @param obj
+     * @return
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ProductoEntity other = (ProductoEntity) obj;
+       
+        if (!Objects.equals(this.nombre, other.nombre)) {
+            return false;
+        }
+        
+        return true;
+    }
 
 }

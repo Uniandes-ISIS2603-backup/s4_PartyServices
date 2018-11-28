@@ -6,9 +6,9 @@
 package co.edu.uniandes.csw.partyServices.entities;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import uk.co.jemos.podam.common.PodamExclude;
@@ -84,6 +84,50 @@ public class PagoEntity extends BaseEntity implements Serializable {
      */
     public void setCliente(ClienteEntity cliente) {
         this.cliente = cliente;
+    }
+
+    /**
+     * Hash
+     * @return 
+     */
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 89 * hash + Objects.hashCode(this.fecha);
+        hash = 89 * hash + Objects.hashCode(this.valor);
+        return hash;
+    }
+
+    /**
+     * Equals
+     * @param obj
+     * @return 
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final PagoEntity other = (PagoEntity) obj;
+        if (!Objects.equals(this.fecha, other.fecha)) {
+            return false;
+        }
+        if (!Objects.equals(this.valor, other.valor)) {
+            return false;
+        }
+        if (!Objects.equals(this.evento, other.evento)) {
+            return false;
+        }
+        if (!Objects.equals(this.cliente, other.cliente)) {
+            return false;
+        }
+        return true;
     }
 
    

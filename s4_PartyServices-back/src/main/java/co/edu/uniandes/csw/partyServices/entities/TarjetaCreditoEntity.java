@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.partyServices.entities;
 
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 import uk.co.jemos.podam.common.PodamExclude;
@@ -119,6 +120,59 @@ public class TarjetaCreditoEntity extends BaseEntity implements Serializable{
 
     public void setCliente(ClienteEntity cliente) {
         this.cliente = cliente;
+    }
+
+    /**
+     * Hash
+     * @return 
+     */
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 23 * hash + Objects.hashCode(this.nombreTitular);
+        hash = 23 * hash + Objects.hashCode(this.numero);
+        return hash;
+    }
+
+    /**
+     * Equals
+     * @param obj
+     * @return 
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final TarjetaCreditoEntity other = (TarjetaCreditoEntity) obj;
+        if (!Objects.equals(this.nombreTitular, other.nombreTitular)) {
+            return false;
+        }
+        if (!Objects.equals(this.fechaExpiracion, other.fechaExpiracion)) {
+            return false;
+        }
+        if (!Objects.equals(this.banco, other.banco)) {
+            return false;
+        }
+        if (!Objects.equals(this.franquicia, other.franquicia)) {
+            return false;
+        }
+        if (!Objects.equals(this.numero, other.numero)) {
+            return false;
+        }
+        if (!Objects.equals(this.codigoSeguridad, other.codigoSeguridad)) {
+            return false;
+        }
+        if (!Objects.equals(this.cliente, other.cliente)) {
+            return false;
+        }
+        return true;
     }
     
     

@@ -1,0 +1,312 @@
+{
+	"info": {
+		"_postman_id": "02849ec9-e5c4-4687-b7a8-72a6c71b54ff",
+		"name": "EventoProductos Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crea un cliente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "04bad220-d0e7-4bb3-93e9-ab2e48fae6ac",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"clienteId\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombreUsuario\":\"Yisussalvador\",\n\t\"contrasenia\":\"123456789qwerty\",\n\t\"email\":\"jocarcamo@uniandes.co\",\n\t\"fechaNacimiento\":\"15/02/2000\"\n\t\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/clientes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"clientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crea un evento",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "368720b1-fc2f-4526-bfe6-3d4de6f3b936",
+						"exec": [
+							"var data =JSON.parse(responseBody) ;",
+							"postman.setGlobalVariable(\"new_nombre_evento\",data.nombre);",
+							"postman.setGlobalVariable(\"new_id_evento\",data.id);",
+							"tests[\"No genera error en el post\"] = responseCode.code == 200 ;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"nombre\":\"FiestaNic\",\n \"estado\":\"En planeacion\",\n \"dia\": \"2018-11-11T00:00:00-00:00\" ,\n \"jornada\": \"Tarde\" ,\n \"latitud\":\"4.570868\",\n \"longitud\":\"-70.853233\",\n \"cliente\":    {\n        \"contrasenia\": \"123456789qwerty\",\n        \"email\": \"jocarcamo@uniandes.co\",\n        \"fechaNacimiento\": \"15/02/2000\",\n        \"nombreUsuario\": \"Yisussalvador\",\n        \"eventos\": [],\n        \"notificaciones\": [],\n        \"pagos\": [],\n        \"sugerencias\": [],\n        \"valoraciones\": []\n    }\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/evento",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"evento"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crea un proveedor",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "46e53cc1-6499-43ed-82fb-fcd256dcf1cc",
+						"exec": [
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\":\"Andreselcrack\",\n    \"contrasenia\":\"123456789\",\n    \"calificacion\":10,\n    \"agenda\":{}\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/proveedor",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"proveedor"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crea un producto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e9e47c81-0e7e-418a-b8fe-29f2c4448f9d",
+						"exec": [
+							"var data =JSON.parse(responseBody) ;",
+							"postman.setGlobalVariable(\"new_nombre_producto\",data.nombre);",
+							"tests[\"No genera error en el post\"] = responseCode.code == 200 ;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n\t\"nombre\":\"Audifonos\",\n\t\"tipoServicio\":\"Musica\",\n\t\"duenio\":\"Los maricheros\",\n\t \"costo\":\"20000\" ,\n\t \"cantidad\":\"3\",\n\t \"proveedor\":\n\t {   \"calificacion\": 10,\n        \"contrasenia\": \"123456789\",\n        \"nombre\": \"Andreselcrack\"\n\t \t\n\t }\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/producto",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"producto"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post de un producto a un evento",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c4b6637e-0217-4846-9b6f-ed757b6865f7",
+						"exec": [
+							"tests[\"No genera error en el post\"] = responseCode.code == 200 ;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/evento/{{new_nombre_evento}}/producto/{{new_nombre_producto}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"evento",
+						"{{new_nombre_evento}}",
+						"producto",
+						"{{new_nombre_producto}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get producto de un evento",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4c2e6929-c3b6-4b41-b3d3-4c0886173dcf",
+						"exec": [
+							"tests[\"no genera error en el Get\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/evento/{{new_nombre_evento}}/producto/",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"evento",
+						"{{new_nombre_evento}}",
+						"producto",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete de un producto en un evento",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b3bc3376-2064-482a-93c1-9cf4c0836a58",
+						"exec": [
+							"tests[\"no genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/evento/{{new_nombre_evento}}/producto/{{new_nombre_producto}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s4_PartyServices-api",
+						"api",
+						"evento",
+						"{{new_nombre_evento}}",
+						"producto",
+						"{{new_nombre_producto}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

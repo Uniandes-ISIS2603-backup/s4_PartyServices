@@ -59,7 +59,7 @@ public class ProductoResource {
         for (ProductoEntity produc : productoLogic.findAll()) {
             listaProductos.add(new ProductoDTO(produc));
         }
-        LOGGER.log(Level.INFO, "ProductoResource getBooks: output: {0}", listaProductos.toString());
+        LOGGER.log(Level.INFO, "ProductoResource getBooks: output: {0}", listaProductos);
         return listaProductos;
     }
 
@@ -97,9 +97,9 @@ public class ProductoResource {
      */
     @POST
     public ProductoDTO crearProducto(ProductoDTO pProducto) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "ProductoResource createProducto: input: {0}", pProducto.toString());
+        LOGGER.log(Level.INFO, "ProductoResource createProducto: input: {0}", pProducto);
         ProductoDTO productoDTO = new ProductoDTO(productoLogic.createProducto(pProducto.toEntity()));
-        LOGGER.log(Level.INFO, "ProductoResource createProducto: output: {0}", productoDTO.toString());
+        LOGGER.log(Level.INFO, "ProductoResource createProducto: output: {0}", productoDTO);
         return productoDTO;
 
     }
@@ -152,7 +152,7 @@ public class ProductoResource {
 
         ProductoDTO detailDTO = new ProductoDTO(updateado);
 
-        LOGGER.log(Level.INFO, "ProductoResource updateProducto: output: {0}", detailDTO.toString());
+        LOGGER.log(Level.INFO, "ProductoResource updateProducto: output: {0}", detailDTO);
         
         return detailDTO;
 
