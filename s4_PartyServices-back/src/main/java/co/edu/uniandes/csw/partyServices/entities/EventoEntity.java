@@ -7,10 +7,9 @@ package co.edu.uniandes.csw.partyServices.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.CascadeType;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
@@ -298,7 +297,63 @@ public class EventoEntity  extends BaseEntity implements Serializable
     public void setPago(PagoEntity pago) {
         this.pago = pago;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 83 * hash + Objects.hashCode(this.nombre);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final EventoEntity other = (EventoEntity) obj;
+        if (Double.doubleToLongBits(this.latitud) != Double.doubleToLongBits(other.latitud)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.longitud) != Double.doubleToLongBits(other.longitud)) {
+            return false;
+        }
+        if (!Objects.equals(this.nombre, other.nombre)) {
+            return false;
+        }
+        if (!Objects.equals(this.estado, other.estado)) {
+            return false;
+        }
+        if (!Objects.equals(this.jornada, other.jornada)) {
+            return false;
+        }
+        if (!Objects.equals(this.dia, other.dia)) {
+            return false;
+        }
+        if (!Objects.equals(this.fechas, other.fechas)) {
+            return false;
+        }
+        if (!Objects.equals(this.cliente, other.cliente)) {
+            return false;
+        }
+        if (!Objects.equals(this.productos, other.productos)) {
+            return false;
+        }
+        if (!Objects.equals(this.notificaciones, other.notificaciones)) {
+            return false;
+        }
+        if (!Objects.equals(this.pago, other.pago)) {
+            return false;
+        }
+        return true;
+    }
     
    
+    
     
 }

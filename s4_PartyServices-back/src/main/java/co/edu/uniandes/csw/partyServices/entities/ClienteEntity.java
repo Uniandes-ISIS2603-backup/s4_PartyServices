@@ -5,9 +5,9 @@
  */
 package co.edu.uniandes.csw.partyServices.entities;
 
-
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -88,11 +88,10 @@ public class ClienteEntity extends BaseEntity implements Serializable {
             orphanRemoval = true,
             fetch = FetchType.LAZY)
     private List<PagoEntity> pagos;
-    
+
     @PodamExclude
     @OneToOne(
             mappedBy = "cliente",
-            
             fetch = FetchType.LAZY
     )
     private TarjetaCreditoEntity tarjetaCredito;
@@ -274,6 +273,69 @@ public class ClienteEntity extends BaseEntity implements Serializable {
     public void setTarjetaCredito(TarjetaCreditoEntity tarjetaCredito) {
         this.tarjetaCredito = tarjetaCredito;
     }
-    
-    
+
+    /**
+     * Hash
+     *
+     * @return
+     */
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 97 * hash + Objects.hashCode(this.nombreUsuario);
+        hash = 97 * hash + Objects.hashCode(this.contrasenia);
+        return hash;
+    }
+
+    /**
+     * Equals
+     *
+     * @param obj
+     * @return
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ClienteEntity other = (ClienteEntity) obj;
+        if (!Objects.equals(this.nombreUsuario, other.nombreUsuario)) {
+            return false;
+        }
+        if (!Objects.equals(this.contrasenia, other.contrasenia)) {
+            return false;
+        }
+        if (!Objects.equals(this.email, other.email)) {
+            return false;
+        }
+        if (!Objects.equals(this.fechaNacimiento, other.fechaNacimiento)) {
+            return false;
+        }
+        if (!Objects.equals(this.eventos, other.eventos)) {
+            return false;
+        }
+        if (!Objects.equals(this.notificaciones, other.notificaciones)) {
+            return false;
+        }
+        if (!Objects.equals(this.sugerencias, other.sugerencias)) {
+            return false;
+        }
+        if (!Objects.equals(this.valoraciones, other.valoraciones)) {
+            return false;
+        }
+        if (!Objects.equals(this.pagos, other.pagos)) {
+            return false;
+        }
+        if (!Objects.equals(this.tarjetaCredito, other.tarjetaCredito)) {
+            return false;
+        }
+        return true;
+    }
+
 }

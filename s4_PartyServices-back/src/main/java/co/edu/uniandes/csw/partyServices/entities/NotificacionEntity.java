@@ -6,9 +6,8 @@
 package co.edu.uniandes.csw.partyServices.entities;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.Objects;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import uk.co.jemos.podam.common.PodamExclude;
 
@@ -80,4 +79,52 @@ public class NotificacionEntity extends BaseEntity implements Serializable {
         this.mensaje = mensaje;
     }
 
+    /**
+     * Hash
+     * @return 
+     */
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 67 * hash + Objects.hashCode(this.mensaje);
+        return hash;
+    }
+
+    /**
+     * Equals
+     * @param obj
+     * @return 
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final NotificacionEntity other = (NotificacionEntity) obj;
+        if (!Objects.equals(this.tipoDeAviso, other.tipoDeAviso)) {
+            return false;
+        }
+        if (!Objects.equals(this.mensaje, other.mensaje)) {
+            return false;
+        }
+        if (!Objects.equals(this.cliente, other.cliente)) {
+            return false;
+        }
+        if (!Objects.equals(this.evento, other.evento)) {
+            return false;
+        }
+        if (!Objects.equals(this.proveedor, other.proveedor)) {
+            return false;
+        }
+        return true;
+    }
+
+    
+    
 }

@@ -35,7 +35,7 @@ public class ProveedorDetailDTO extends ProveedorDTO implements Serializable {
      * Crea un objeto AuthorDetailDTO a partir de un objeto AuthorEntity
      * incluyendo los atributos de AuthorDTO.
      *
-     * @param authorEntity Entidad AuthorEntity desde la cual se va a crear el
+     * @param proveedorEntity Entidad AuthorEntity desde la cual se va a crear el
      * nuevo objeto.
      *
      */
@@ -60,10 +60,10 @@ public class ProveedorDetailDTO extends ProveedorDTO implements Serializable {
     }
 
     /**
-     * Convierte un objeto AuthorDetailDTO a AuthorEntity incluyendo los
-     * atributos de AuthorDTO.
+     * Convierte un objeto ProveedorDEtailDTO a ProveedorEntity incluyendo los
+     * atributos de ProveedorDTO.
      *
-     * @return Nueva objeto AuthorEntity.
+     * @return Nueva objeto ProveedorEntity.
      *
      */
     @Override
