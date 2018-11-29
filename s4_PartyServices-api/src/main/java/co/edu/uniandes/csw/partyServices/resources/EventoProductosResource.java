@@ -146,9 +146,7 @@ public class EventoProductosResource {
         if (productoLogic.getProducto(nombreProducto) == null) {
             throw new WebApplicationException("El recurso /productos/" + nombreProducto + " no existe.", 404);
         }
-        if (productoLogic == null) {
-            throw new WebApplicationException("El recurso /productos/" + nombreProducto + " no existe.", 404);
-        }
+        
         eventoProductoLogic.removeProducto(nombreEvento, nombreProducto);
         
         LOGGER.info("EventoProductosResource deleteProducto: output: void");

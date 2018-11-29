@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.partyServices.dtos;
 
+import co.edu.uniandes.csw.partyServices.entities.PagoEntity;
 import co.edu.uniandes.csw.partyServices.entities.ProveedorEntity;
 import co.edu.uniandes.csw.partyServices.entities.ServicioEntity;
 import java.io.Serializable;
@@ -20,7 +21,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class ServicioDetailDTO extends ServicioDTO implements Serializable {
 
     // relación  cero o muchos proveedores
-    private List<ProveedorDTO> Proveedores;
+    private List<ProveedorDTO> proveedores;
 
     public ServicioDetailDTO() {
         super();
@@ -37,14 +38,14 @@ public class ServicioDetailDTO extends ServicioDTO implements Serializable {
     public ServicioDetailDTO(ServicioEntity servicioEntity) {
         super(servicioEntity);
         if (servicioEntity != null) {
-            Proveedores = new ArrayList<>();
-            for (ProveedorEntity entityProveedores : servicioEntity.getProveedores()) {
-               // -------------------------------------------- Proveedores.add(new ProveedorDTO(entityProveedores));
-            }
-            
+            if (servicioEntity.getProveedores() != null) {
+                proveedores = new ArrayList<>();  
+                for (ProveedorEntity entity : servicioEntity.getProveedores()) {
+                    proveedores.add(new ProveedorDTO(entity));
+                }
             }
         }
-    
+    }
 
     /**
      * Convierte un objeto ServicioDetailDTO a ServicioEntity incluyendo los
@@ -56,10 +57,10 @@ public class ServicioDetailDTO extends ServicioDTO implements Serializable {
     @Override
     public ServicioEntity toEntity() {
         ServicioEntity servicioEntity = super.toEntity();
-        if (Proveedores != null) {
+        if (proveedores != null) {
             List<ProveedorEntity> ProveedoresEntity = new ArrayList<>();
-            for (ProveedorDTO dtoProveedor : Proveedores) {
-          // ----------------------------------------------------      ProveedoresEntity.add(dtoProveedor.toEntity());
+            for (ProveedorDTO dtoProveedor : proveedores) {
+                ProveedoresEntity.add(dtoProveedor.toEntity());
             }
             servicioEntity.setProveedores(ProveedoresEntity);
         }
@@ -69,19 +70,19 @@ public class ServicioDetailDTO extends ServicioDTO implements Serializable {
     /**
      * Obtiene la lista de proveedores del autor
      *
-     * @return the Proveedores
+     * @return the proveedores
      */
     public List<ProveedorDTO> getProveedores() {
-        return Proveedores;
+        return proveedores;
     }
 
     /**
      * Modifica la lista de proveedores para el autor
      *
-     * @param Proveedores the Proveedores to set
+     * @param Proveedores the proveedores to set
      */
     public void setProveedores(List<ProveedorDTO> Proveedores) {
-        this.Proveedores = Proveedores;
+        this.proveedores = Proveedores;
     }
 
     @Override

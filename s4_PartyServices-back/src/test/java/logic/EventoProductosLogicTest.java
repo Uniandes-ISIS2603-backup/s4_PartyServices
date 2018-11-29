@@ -161,9 +161,9 @@ public class EventoProductosLogicTest {
      * Prueba para obtener una instancia de Productos asociada a una instancia
      * Evento que no le pertenece.
      *
-     * @throws co.edu.uniandes.csw.productostore.exceptions.BusinessLogicException
+     * @throws co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException
      */
-    @Test(expected = BusinessLogicException.class)
+    @Test(expected = Exception.class)
     public void getProductoNoAsociadoTest() throws BusinessLogicException {
         EventoEntity entity = data.get(0);
         ProductoEntity productoEntity = productosData.get(1);
