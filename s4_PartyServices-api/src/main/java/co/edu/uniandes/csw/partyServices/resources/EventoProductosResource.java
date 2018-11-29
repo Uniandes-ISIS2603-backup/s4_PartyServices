@@ -45,35 +45,39 @@ public class EventoProductosResource {
     /**
      * Asocia un producto existente con un autor existente
      *
-     * @param eventosId El ID del autor al cual se le va a asociar el producto
-     * @param productosId El ID del producto que se asocia
+     * @param nombreEvento El nombre del evento al cual se le va a asociar el producto
+     * @param nombreProducto El ID del producto que se asocia
      * @return JSON {@link ProductoDetailDTO} - El producto asociado.
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra el producto.
      */
     @POST
-    @Path("{productosId: \\d+}")
-    public ProductoDetailDTO addProducto(@PathParam("eventosId") Long eventosId, @PathParam("productosId") Long productosId) {
-        LOGGER.log(Level.INFO, "EventoProductosResource addProducto: input: eventosId {0} , productosId {1}", new Object[]{eventosId, productosId});
-        if (productoLogic.getProductoId(productosId) == null) {
-            throw new WebApplicationException("El recurso /productos/" + productosId + " no existe.", 404);
+    @Path("{nombreProducto: [a-zA-Z][a-zA-Z]*}")
+    public ProductoDetailDTO addProducto(@PathParam("nombreEvento") String nombreEvento, @PathParam("nombreProducto") String nombreProducto) {
+        
+        
+        LOGGER.log(Level.INFO, "EventoProductosResource addProducto: input: eventosId {0} , productosId {1}", new Object[]{nombreEvento, nombreProducto});
+        if (productoLogic.getProducto(nombreProducto) == null) {
+            throw new WebApplicationException("El recurso /productos/" + nombreProducto + " no existe.", 404);
         }
-        ProductoDetailDTO detailDTO = new ProductoDetailDTO(eventoProductoLogic.addProducto(eventosId, productosId));
+        
+        ProductoDetailDTO detailDTO = new ProductoDetailDTO(eventoProductoLogic.addProducto(nombreEvento, nombreProducto));
         LOGGER.log(Level.INFO, "EventoProductosResource addProducto: output: {0}", detailDTO);
         return detailDTO;
     }
 
     /**
-     * Busca y devuelve todos los productos que existen en un autor.
+     * Busca y devuelve todos los productos que existen en un evento.
      *
-     * @param eventosId El ID del autor del cual se buscan los productos
+     * @param nombreEvento El nombre del evento del cual se buscan los productos
      * @return JSONArray {@link ProductoDetailDTO} - Los productos encontrados en el
-     * autor. Si no hay ninguno retorna una lista vacía.
+     * evento. Si no hay ninguno retorna una lista vacía.
      */
     @GET
-    public List<ProductoDetailDTO> getProductos(@PathParam("eventosId") Long eventosId) {
-        LOGGER.log(Level.INFO, "EventoProductosResource getProductos: input: {0}", eventosId);
-        List<ProductoDetailDTO> lista = productosListEntity2DTO(eventoProductoLogic.getProductos(eventosId));
+    public List<ProductoDetailDTO> getProductos(@PathParam("nombreEvento") String nombreEvento) 
+    {
+        LOGGER.log(Level.INFO, "EventoProductosResource getProductos: input: {0}", nombreEvento);
+        List<ProductoDetailDTO> lista = productosListEntity2DTO(eventoProductoLogic.getProductos(nombreEvento));
         LOGGER.log(Level.INFO, "EventoProductosResource getProductos: output: {0}", lista);
         return lista;
     }
@@ -82,21 +86,22 @@ public class EventoProductosResource {
      * Busca y devuelve el producto con el ID recibido en la URL, relativo a un
      * autor.
      *
-     * @param eventosId El ID del autor del cual se busca el producto
-     * @param productosId El ID del producto que se busca
+     * @param nombreEvento El ID del autor del cual se busca el producto
+     * @param nombreProducto El ID del producto que se busca
      * @return {@link ProductoDetailDTO} - El producto encontrado en el autor.
      * @throws co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra el producto.
      */
     @GET
-    @Path("{productosId: \\d+}")
-    public ProductoDetailDTO getProducto(@PathParam("eventosId") Long eventosId, @PathParam("productosId") Long productosId) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "EventoProductosResource getProducto: input: eventosId {0} , productosId {1}", new Object[]{eventosId, productosId});
-        if (productoLogic.getProductoId(productosId) == null) {
-            throw new WebApplicationException("El recurso /productos/" + productosId + " no existe.", 404);
+    @Path("{nombreProducto: [a-zA-Z][a-zA-Z]*}")
+    public ProductoDetailDTO getProducto(@PathParam("nombreEvento") String nombreEvento, @PathParam("nombreProducto") String nombreProducto) throws BusinessLogicException 
+    {
+        LOGGER.log(Level.INFO, "EventoProductosResource getProducto: input: eventosId {0} , productosId {1}", new Object[]{nombreEvento, nombreProducto});
+        if (productoLogic.getProducto(nombreProducto) == null) {
+            throw new WebApplicationException("El recurso /productos/" + nombreProducto + " no existe.", 404);
         }
-        ProductoDetailDTO detailDTO = new ProductoDetailDTO(eventoProductoLogic.getProducto(eventosId, productosId));
+        ProductoDetailDTO detailDTO = new ProductoDetailDTO(eventoProductoLogic.getProducto(nombreEvento, nombreProducto));
         LOGGER.log(Level.INFO, "EventoProductosResource getProducto: output: {0}", detailDTO);
         return detailDTO;
     }
@@ -105,7 +110,7 @@ public class EventoProductosResource {
      * Actualiza la lista de productos de un autor con la lista que se recibe en el
      * cuerpo
      *
-     * @param eventosId El ID del autor al cual se le va a asociar el producto
+     * @param nombreEvento El ID del autor al cual se le va a asociar el producto
      * @param productos JSONArray {@link ProductoDetailDTO} - La lista de productos que se
      * desea guardar.
      * @return JSONArray {@link ProductoDetailDTO} - La lista actualizada.
@@ -113,14 +118,15 @@ public class EventoProductosResource {
      * Error de lógica que se genera cuando no se encuentra el producto.
      */
     @PUT
-    public List<ProductoDetailDTO> replaceProductos(@PathParam("eventosId") Long eventosId, List<ProductoDetailDTO> productos) {
-        LOGGER.log(Level.INFO, "EventoProductosResource replaceProductos: input: eventosId {0} , productos {1}", new Object[]{eventosId, productos});
+    public List<ProductoDetailDTO> replaceProductos(@PathParam("nombreEvento") String nombreEvento, List<ProductoDetailDTO> productos) {
+        LOGGER.log(Level.INFO, "EventoProductosResource replaceProductos: input: eventosId {0} , productos {1}", new Object[]{nombreEvento, productos});
+       
         for(ProductoDetailDTO producto : productos) {
             if (productoLogic.getProductoId(producto.getId()) == null) {
                 throw new WebApplicationException("El recurso /productos/" + producto.getId() + " no existe.", 404);
             }
         }
-        List<ProductoDetailDTO> lista = productosListEntity2DTO(eventoProductoLogic.replaceProductos(eventosId, productosListDTO2Entity(productos)));
+        List<ProductoDetailDTO> lista = productosListEntity2DTO(eventoProductoLogic.replaceProductos(nombreEvento, productosListDTO2Entity(productos)));
         LOGGER.log(Level.INFO, "EventoProductosResource replaceProductos: output: {0}", lista);
         return lista;
     }
@@ -128,19 +134,23 @@ public class EventoProductosResource {
     /**
      * Elimina la conexión entre el producto y e autor recibidos en la URL.
      *
-     * @param eventosId El ID del autor al cual se le va a desasociar el producto
-     * @param productosId El ID del producto que se desasocia
+     * @param nombreEvento El ID del autor al cual se le va a desasociar el producto
+     * @param nombreProducto El ID del producto que se desasocia
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra el producto.
      */
     @DELETE
-    @Path("{productosId: \\d+}")
-    public void removeProducto(@PathParam("eventosId") Long eventosId, @PathParam("productosId") Long productosId) {
-        LOGGER.log(Level.INFO, "EventoProductosResource deleteProducto: input: eventosId {0} , productosId {1}", new Object[]{eventosId, productosId});
-        if (productoLogic.getProductoId(productosId) == null) {
-            throw new WebApplicationException("El recurso /productos/" + productosId + " no existe.", 404);
+    @Path("{nombreProducto: [a-zA-Z][a-zA-Z]*}")
+    public void removeProducto(@PathParam("nombreEvento") String nombreEvento, @PathParam("nombreProducto") String nombreProducto) {
+        LOGGER.log(Level.INFO, "EventoProductosResource deleteProducto: input: nombreEvento {0} , productosId {1}", new Object[]{nombreEvento, nombreProducto});
+        if (productoLogic.getProducto(nombreProducto) == null) {
+            throw new WebApplicationException("El recurso /productos/" + nombreProducto + " no existe.", 404);
         }
-        eventoProductoLogic.removeProducto(eventosId, productosId);
+        if (productoLogic == null) {
+            throw new WebApplicationException("El recurso /productos/" + nombreProducto + " no existe.", 404);
+        }
+        eventoProductoLogic.removeProducto(nombreEvento, nombreProducto);
+        
         LOGGER.info("EventoProductosResource deleteProducto: output: void");
     }
 
