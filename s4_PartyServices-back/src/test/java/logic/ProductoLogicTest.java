@@ -6,6 +6,7 @@
 package logic;
 
 import co.edu.uniandes.csw.partyServices.ejb.ProductoLogic;
+import co.edu.uniandes.csw.partyServices.entities.ClienteEntity;
 import co.edu.uniandes.csw.partyServices.entities.EventoEntity;
 import co.edu.uniandes.csw.partyServices.entities.ProductoEntity;
 import co.edu.uniandes.csw.partyServices.entities.ProveedorEntity;
@@ -352,5 +353,51 @@ public class ProductoLogicTest {
         ProductoEntity entity = data.get(0);
 
         ProductoEntity result = productoLogic.updateProducto("", entity);
+    }
+    
+    /**
+     * Prueba para consultar un producto.
+     */
+    @Test
+    public void getProductoTest() {
+        ProductoEntity entity = data.get(0);
+        ProductoEntity resultEntity = productoLogic.getProductoId(entity.getId());
+        resultEntity = productoLogic.getProducto(entity.getNombre());
+        Assert.assertNotNull(resultEntity);
+        Assert.assertEquals(entity.getId(), resultEntity.getId());
+        Assert.assertEquals(entity.getCosto(), resultEntity.getCosto());
+        Assert.assertEquals(entity.getCantidad(), resultEntity.getCantidad());
+        Assert.assertEquals(entity.getDuenio(), resultEntity.getDuenio());
+        Assert.assertEquals(entity.getEventos(), resultEntity.getEventos());
+    }
+    
+    @Test(expected = BusinessLogicException.class)
+    public void getProductoTest4() throws BusinessLogicException {
+        ProductoEntity entity = data.get(0);
+
+        ProductoEntity result = productoLogic.createProducto(entity);
+    }
+    
+    @Test(expected = BusinessLogicException.class)
+    public void getProductoTest5() throws BusinessLogicException {
+        ProductoEntity entity = data.get(0);
+        entity.setCantidad(-1);
+
+        ProductoEntity result = productoLogic.createProducto(entity);
+    }
+    
+    @Test(expected = BusinessLogicException.class)
+    public void getProductoTest6() throws BusinessLogicException {
+        ProductoEntity entity = data.get(0);
+        entity.setProveedor(null);
+
+        ProductoEntity result = productoLogic.createProducto(entity);
+    }
+    
+    public void getProductoTest7() throws BusinessLogicException {
+        ProductoEntity entity = data.get(0);
+
+        ProductoEntity result = productoLogic.createProducto(entity);
+        Assert.assertTrue(productoLogic.findAll().size() >= 0);
     }
 }

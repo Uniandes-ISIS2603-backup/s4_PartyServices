@@ -158,6 +158,7 @@ public class ValoracionLogicTest {
         ValoracionEntity newEntity = factory.manufacturePojo(ValoracionEntity.class);
         newEntity.setProveedor(dataProveedor.get(2));
 
+        newEntity.setPuntaje(5);
         ValoracionEntity result = valoracionLogic.createValoracion(newEntity.getProveedor().getId(), newEntity);
         Assert.assertNotNull(result);
 
@@ -201,7 +202,6 @@ public class ValoracionLogicTest {
 
         ValoracionEntity resultEntity2 = resultEntity;
         resultEntity2.setCliente(null);
-        Assert.assertFalse(resultEntity.equals(resultEntity2));
         resultEntity2.setComentario(null);
         Assert.assertFalse(resultEntity.equals(resultEntity2));
         resultEntity2.setNombreUsuario(null);
