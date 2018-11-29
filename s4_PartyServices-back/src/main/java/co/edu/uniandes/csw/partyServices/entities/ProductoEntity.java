@@ -240,4 +240,22 @@ public class ProductoEntity extends BaseEntity implements Serializable {
         return true;
     }
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
