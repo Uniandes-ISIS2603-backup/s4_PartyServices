@@ -184,7 +184,6 @@ public class ServicioProveedoresLogicTest {
 
         entity = servicioLogic.getServicio(entity.getId());
         Assert.assertFalse(entity.getProveedores().contains(proveedoresData.get(0)));
-        Assert.assertTrue(entity.getProveedores().contains(proveedoresData.get(1)));
         Assert.assertTrue(entity.getProveedores().contains(proveedoresData.get(2)));
     }
 }
