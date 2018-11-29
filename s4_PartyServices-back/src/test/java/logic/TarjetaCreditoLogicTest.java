@@ -258,6 +258,7 @@ public class TarjetaCreditoLogicTest {
 
         Assert.assertNotNull(resp);
         Assert.assertEquals(pojoEntity.getBanco(), resp.getBanco());
+
         Assert.assertEquals(pojoEntity.getCodigoSeguridad(), resp.getCodigoSeguridad());
         Assert.assertEquals(pojoEntity.getCodigoSeguridad(), resp.getCodigoSeguridad());
         Assert.assertEquals(pojoEntity.getFechaExpiracion(), resp.getFechaExpiracion());
