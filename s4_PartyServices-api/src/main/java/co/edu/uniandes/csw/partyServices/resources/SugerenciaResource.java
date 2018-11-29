@@ -132,6 +132,7 @@ public class SugerenciaResource {
     public SugerenciaDTO updateSugerencia(@PathParam("tematicasId") Long tematicasId, @PathParam("sugerenciasId") Long sugerenciasId, SugerenciaDTO sugerencia) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "SugerenciaResource updateSugerencia: input: tematicasId: {0} , sugerenciasId: {1} , sugerencia:{2}", new Object[]{tematicasId, sugerenciasId, sugerencia});
 
+        sugerencia.setId(sugerenciasId);
         SugerenciaEntity entity = sugerenciaLogic.getSugerencia(tematicasId, sugerenciasId);
         if (entity == null) {
             throw new WebApplicationException(RECURSO_TEMATICAS + tematicasId + RECURSO_SUGERENCIAS + sugerenciasId + NO_EXISTE, 404);

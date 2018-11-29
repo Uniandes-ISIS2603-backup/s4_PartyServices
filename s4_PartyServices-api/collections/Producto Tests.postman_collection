@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "a5c44eb8-f84e-4252-b024-8528b19611a1",
+		"_postman_id": "da6f11a1-22c5-4735-9581-ffa6e3c6ad98",
 		"name": "Pruebas de Producto",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -31,7 +31,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"nombre\":\"Andres\",\n    \"contrasenia\":\"123456789\",\n    \"calificacion\":10,\n    \"agenda\":{}\n}"
+					"raw": "{\n    \"nombre\":\"Andreslomascrack\",\n    \"contrasenia\":\"123456789\",\n    \"calificacion\":10,\n    \"agenda\":{}\n}"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/proveedor",
@@ -75,7 +75,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\n\t\"nombre\":\"Audifonos\",\n\t\"tipoServicio\":\"Musica\",\n\t\"duenio\":\"Los maricheros\",\n\t \"costo\":\"20000\" ,\n\t \"cantidad\":\"3\",\n\t \"proveedor\":\n\t {   \"calificacion\": 10,\n        \"contrasenia\": \"123456789\",\n        \"nombre\": \"Andres\"\n\t \t\n\t }\n}"
+					"raw": "{\n\t\n\t\"nombre\":\"Audifonos\",\n\t\"tipoServicio\":\"Musica\",\n\t\"duenio\":\"Los maricheros\",\n\t \"costo\":\"20000\" ,\n\t \"cantidad\":\"3\",\n\t \"proveedor\":\n\t {   \"calificacion\": 10,\n        \"contrasenia\": \"123456789\",\n        \"nombre\": \"Andreslomascrack\"\n\t \t\n\t }\n}"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s4_PartyServices-api/api/producto",
