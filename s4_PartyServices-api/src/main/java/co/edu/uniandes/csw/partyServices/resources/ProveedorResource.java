@@ -62,7 +62,7 @@ public class ProveedorResource {
     }
     
     @GET
-    @Path("{nombre: ([0-9]|[a-zA-Z])([0-9]*|[a-zA-Z]*)}/{contrasenia: ([0-9]|[a-zA-Z])([0-9]*|[a-zA-Z]*)}")
+    @Path("{nombre: ([0-9]|[a-zA-Z])([0-9]|[a-zA-Z])*}/{contrasenia: ([0-9]|[a-zA-Z])([0-9]|[a-zA-Z])*}")
     public ProveedorDetailDTO validate(@PathParam("nombre") String nombre, @PathParam("contrasenia") String contrasenia) {
         LOGGER.log(Level.INFO, "ProveedorResource getAuthor: input: {0}", nombre);
         ProveedorEntity proveedorEntity = proveedorLogic.validate(nombre, contrasenia);

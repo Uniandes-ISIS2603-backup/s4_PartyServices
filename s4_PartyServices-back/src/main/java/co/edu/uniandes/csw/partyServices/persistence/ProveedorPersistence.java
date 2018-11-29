@@ -136,10 +136,10 @@ public class ProveedorPersistence {
         public ProveedorEntity validate(String nombre, String contrasenia) {
         LOGGER.log(Level.INFO, "Consultando proveedor por nombre ", nombre);
         // Se crea un query para buscar editoriales con el nombre que recibe el método como argumento. ":name" es un placeholder que debe ser remplazado
-        TypedQuery query = em.createQuery("Select e From ProveedorEntity e where e.nombre = :nombre", ProveedorEntity.class);
+        TypedQuery query = em.createQuery("Select e From ProveedorEntity e where (e.nombre = :nombre) and (e.contrasenia = :contrasenia)", ProveedorEntity.class);
         // Se remplaza el placeholder ":name" con el valor del argumento 
-        query = query.setParameter("contrasenia", contrasenia);
-        query = query.setParameter("nombre", nombre);
+        query.setParameter("contrasenia", contrasenia);
+        query.setParameter("nombre", nombre);
         // Se invoca el query se obtiene la lista resultado
         List<ProveedorEntity> sameName = query.getResultList();
         ProveedorEntity result;
