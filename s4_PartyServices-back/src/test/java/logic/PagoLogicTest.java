@@ -202,6 +202,7 @@ public class PagoLogicTest {
     public void getPagoTest() {
         PagoEntity entity = data.get(0);
         PagoEntity resultEntity = pagoLogic.getPago(dataCliente.get(1).getId(), entity.getId());
+        resultEntity.setCliente(entity.getCliente());
         Assert.assertNotNull(resultEntity);
         Assert.assertEquals(entity.getId(), resultEntity.getId());
         Assert.assertEquals(entity.getCliente(), resultEntity.getCliente());

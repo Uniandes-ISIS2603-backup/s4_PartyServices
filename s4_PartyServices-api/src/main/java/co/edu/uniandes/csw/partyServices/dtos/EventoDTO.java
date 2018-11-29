@@ -81,7 +81,6 @@ public class EventoDTO implements Serializable {
             this.estado = eventoEntity.getEstado();
             this.dia = eventoEntity.getDia() ;
             this.jornada = eventoEntity.getJornada() ;
-//            this.fecha = new FechaDTO(eventoEntity.getFecha());
             if (this.cliente != null) {
             this.cliente = new ClienteDTO(eventoEntity.getCliente());
             }
@@ -103,7 +102,6 @@ public class EventoDTO implements Serializable {
         eventoEntity.setEstado(this.estado);
         eventoEntity.setDia(this.dia);
         eventoEntity.setJornada(this.jornada);
-        //eventoEntity.setFecha(this.fecha.toEntity());
         if (this.cliente != null) {
         eventoEntity.setCliente(this.cliente.toEntity());
         }
