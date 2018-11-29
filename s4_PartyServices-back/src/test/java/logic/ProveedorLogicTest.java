@@ -5,21 +5,15 @@
  */
 package logic;
 
-import co.edu.uniandes.csw.partyServices.ejb.NotificacionLogic;
+import co.edu.uniandes.csw.partyServices.ejb.AgendaLogic;
 import co.edu.uniandes.csw.partyServices.ejb.ProveedorLogic;
 import co.edu.uniandes.csw.partyServices.entities.AgendaEntity;
-import co.edu.uniandes.csw.partyServices.entities.FechaEntity;
-import co.edu.uniandes.csw.partyServices.entities.NotificacionEntity;
 import co.edu.uniandes.csw.partyServices.entities.ProveedorEntity;
-import co.edu.uniandes.csw.partyServices.entities.SugerenciaEntity;
 import co.edu.uniandes.csw.partyServices.exceptions.BusinessLogicException;
-import co.edu.uniandes.csw.partyServices.persistence.NotificacionPersistence;
 import co.edu.uniandes.csw.partyServices.persistence.ProveedorPersistence;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import javax.inject.Inject;
-import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
@@ -45,6 +39,9 @@ public class ProveedorLogicTest {
 
     @Inject
     private ProveedorLogic proveedorLogic;
+    
+    @Inject
+    private AgendaLogic agendaLogic;
 
     @PersistenceContext
     private EntityManager em;
@@ -54,7 +51,6 @@ public class ProveedorLogicTest {
 
     private List<ProveedorEntity> data = new ArrayList<ProveedorEntity>();
 
-    private String mensajeLargo;
     
     @Deployment
     public static JavaArchive createDeployment() {
