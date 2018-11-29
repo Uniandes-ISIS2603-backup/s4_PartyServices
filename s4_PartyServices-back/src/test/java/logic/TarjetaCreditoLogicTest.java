@@ -104,7 +104,7 @@ public class TarjetaCreditoLogicTest {
         }
         for (int i = 0; i < 3; i++) {
             TarjetaCreditoEntity entity = factory.manufacturePojo(TarjetaCreditoEntity.class);
-            entity.setCliente(dataCliente.get(1));
+            entity.setCliente(dataCliente.get(i));
             em.persist(entity);
             data.add(entity);
         }

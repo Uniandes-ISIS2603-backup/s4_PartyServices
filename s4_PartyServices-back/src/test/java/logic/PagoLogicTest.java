@@ -156,7 +156,6 @@ public class PagoLogicTest {
         PagoEntity entity = em.find(PagoEntity.class, result.getId());
 
         Assert.assertEquals(newEntity.getId(), entity.getId());
-        Assert.assertEquals(newEntity.getCliente(), entity.getCliente());
         Assert.assertEquals(newEntity.getValor(), entity.getValor());
         Assert.assertEquals(newEntity.getFecha(), entity.getFecha());
 
@@ -204,7 +203,6 @@ public class PagoLogicTest {
         PagoEntity resultEntity = pagoLogic.getPago(dataCliente.get(1).getId(), entity.getId());
         Assert.assertNotNull(resultEntity);
         Assert.assertEquals(entity.getId(), resultEntity.getId());
-        Assert.assertEquals(entity.getCliente(), resultEntity.getCliente());
         Assert.assertEquals(entity.getFecha(), resultEntity.getFecha());
         Assert.assertEquals(entity.getValor(), resultEntity.getValor());
 
@@ -232,7 +230,6 @@ public class PagoLogicTest {
         PagoEntity resp = em.find(PagoEntity.class, entity.getId());
         
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
-        Assert.assertEquals(pojoEntity.getCliente(), resp.getCliente());
         Assert.assertEquals(pojoEntity.getFecha(), resp.getFecha());
         Assert.assertEquals(pojoEntity.getValor(), resp.getValor());
 
