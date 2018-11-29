@@ -87,7 +87,7 @@ public class TarjetaCreditoResource {
     
     @PUT
     public TarjetaCreditoDTO updateTarjetaCreditoXCliente(@PathParam("clientesId") Long clientesId, TarjetaCreditoDTO tarjetaCredito) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "TarjetaCreditoResource update: input: clientesId: {0} , tarjetaCredito:{2}", new Object[]{clientesId, tarjetaCredito});
+        LOGGER.log(Level.INFO, "TarjetaCreditoResource update: input: clientesId: {0} , tarjetaCredito:{1}", new Object[]{clientesId, tarjetaCredito});
         
         TarjetaCreditoEntity entity = tarjetaCreditoLogic.getTarjetaCreditoByCliente(clientesId);
         if (entity == null) {
