@@ -69,6 +69,12 @@ public class TarjetaCreditoLogic {
 
         return persistence.find(clienteid, id);
     }
+    
+    public TarjetaCreditoEntity getTarjetaCreditoByCliente(Long clienteid){
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar la tarjeta de credito con id  del cliente con id = {0}", clienteid);
+
+        return persistence.findByCliente(clienteid);
+    }
 
     public TarjetaCreditoEntity updateTarjetaCredito(Long clientesId, TarjetaCreditoEntity tarjetaCredito) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar la tarjeta de credito con id = {0} del cliente con id = {1}", new Object[]{tarjetaCredito.getId(), clientesId});
@@ -90,6 +96,16 @@ public class TarjetaCreditoLogic {
         }
         persistence.delete(old.getId());
         LOGGER.log(Level.INFO, "Termina proceso de borrar la tarjeta de credito con id = {0} del cliente con id = {1}", new Object[]{tarjetaCreditoId, clientesId});
+    }
+    
+    public void deleteTarjetaCreditoXCliente(Long clientesId) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "Inicia proceso de borrar la tarjeta de credito con del cliente con id = {0}", clientesId);
+        TarjetaCreditoEntity old = getTarjetaCreditoByCliente(clientesId);
+        if (old == null) {
+            throw new BusinessLogicException("No existe una tarjeta de credito asociada al cliente con id = " + clientesId);
+        }
+        persistence.delete(old.getId());
+        LOGGER.log(Level.INFO, "Termina proceso de borrar la tarjeta de credito  del cliente con id = {0}", clientesId);
     }
 
     /**

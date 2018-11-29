@@ -154,8 +154,7 @@ public class PagoPersistenceTest {
     public void getPagoTest() {
         PagoEntity entidad = data.get(0);
         PagoEntity nuevaEntidad = pagoPersistence.find(dataCliente.get(0).getId(), entidad.getId());
-        Assert.assertNotNull(nuevaEntidad);
-        Assert.assertEquals(entidad.getCliente(), nuevaEntidad.getCliente());
+        Assert.assertNotNull(nuevaEntidad);        
         
     }
 
