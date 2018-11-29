@@ -226,7 +226,8 @@ public class ProveedorLogicTest {
      }   
     @Test
     public void deleteProveedorTest() throws BusinessLogicException {
-        ProveedorEntity entity = data.get(2);
+        ProveedorEntity entity = data.get(4);
+        
         proveedorLogic.deleteProveedor(entity.getId());
         ProveedorEntity deleted = em.find(ProveedorEntity.class, entity.getId());
         Assert.assertNull(deleted); 

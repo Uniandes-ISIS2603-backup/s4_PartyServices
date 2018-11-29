@@ -160,7 +160,7 @@ public class SugerenciaLogicTest {
     public void createSugerenciaTest() throws BusinessLogicException {
         SugerenciaEntity newEntity = factory.manufacturePojo(SugerenciaEntity.class);
         newEntity.setTematica(dataTematica.get(2));
-        
+        newEntity.setLink("https://algooooooooo");
         SugerenciaEntity result = sugerenciaLogic.createSugerencia(newEntity.getTematica().getId(), newEntity);
         Assert.assertNotNull(result);
         
